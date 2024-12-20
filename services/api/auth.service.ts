@@ -1,6 +1,6 @@
 import { TokenResponseModel } from "@/models/auth/token-response.model";
 import { ResponseModel } from "@/models/result";
-import AxiosInstance, { ApiRoutes } from "../api.service";
+import AxiosInstance, { ApiRoutes } from "../utility/api.service";
 
 export const signIn = async (email: string, password: string): Promise<ResponseModel<TokenResponseModel>> => {
   try {
