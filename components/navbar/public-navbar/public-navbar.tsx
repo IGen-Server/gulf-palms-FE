@@ -4,14 +4,22 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
-import { Menu } from "lucide-react";
+import {
+  HeartIcon,
+  Menu,
+  SearchIcon,
+  ShoppingCart,
+  ChevronDown,
+} from "lucide-react";
 import BrandFullLogo from "../../logo/brand-full-logo";
 import { ThemeToggler } from "../../ThemeProvider/theme-toggler";
 import { LocaleToggler } from "../../LocaleProvider/locale-togger";
 import { NavLinksWithName } from "@/constants/global-constants";
+import { useTranslation } from "react-i18next";
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,9 +30,51 @@ export default function PublicNavbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const renderNavLinks = () =>
+    NavLinksWithName.map((item, index) => {
+      if (item.children) {
+        return (
+          <div key={index} className="group text-[15.6px]">
+            <Link
+              href={item.href}
+              className="text-white hover:text-gray-200 transition-colors flex items-center gap-1"
+            >
+              {t(`navigation.${item.name}`)}
+              <ChevronDown className="h-3 w-3 text-secondary" />
+            </Link>
+            <div
+              className={`absolute hidden group-hover:block bg-transparent pt-6 ${
+                item.href.includes("shop") ? "w-full left-0" : "w-[220px]"
+              }`}
+            >
+              {item.children.map((child, idx) => (
+                <Link
+                  key={idx}
+                  href={child.href}
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-200 bg-white"
+                >
+                  {t(`navigation.${child.name}`)}
+                </Link>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <Link
+          href={item.href}
+          key={index}
+          className="text-white hover:text-gray-200 transition-colors text-[15.6px]"
+        >
+          {t(`navigation.${item.name}`)}
+        </Link>
+      );
+    });
+
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-500 ${
+      className={`fixed duration-1000 top-0 left-0 w-full z-50 transition-colors ${
         isScrolled ? "bg-[#f89e6b] shadow-lg" : "bg-transparent"
       }`}
     >
@@ -32,31 +82,46 @@ export default function PublicNavbar() {
         {/* Left Navigation */}
         <nav className="hidden md:flex md:items-center md:gap-6 w-full ">
           <div
-            className={`transition-all duration-500 ${
+            className={`transition-all duration-1000 ${
               isScrolled ? "w-[125px] h-[60px]" : "w-[170px] h-[77px]"
             }`}
           >
-            <BrandFullLogo height={isScrolled ? 60 : 77} />
+            <BrandFullLogo height={77} />
           </div>
-          {NavLinksWithName.map((item, index) => (
-            <Link
-              key={index}
-              href={item.href}
-              className="text-white hover:text-gray-200 transition-colors"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {renderNavLinks()}
         </nav>
 
         {/* Mobile Menu */}
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="md:hidden">
+            <Button
+              variant="ghost"
+              className="md:hidden hover:bg-transparent w-fit p-0"
+            >
               <Menu className="h-5 w-5 text-white" />
-              <span className="sr-only">Toggle navigation menu</span>
+              <span className="text-[13px] gont-bold text-secondary">MENU</span>
             </Button>
           </SheetTrigger>
+          <div className="absolute right-[calc(50%_-_79px)] flex gap-4 md:hidden">
+            <div className="w-[126px] ">
+              <BrandFullLogo height={60} />
+            </div>
+            <div className="flex items-center gap-4 text-secondary">
+              <div className="relative">
+                <ShoppingCart />
+                <p className="absolute -top-1 -right-2 text-xs bg-[#f89e6b] rounded-full h-4 grid place-content-center w-4 p-1">
+                  0
+                </p>
+              </div>
+              <div className="hidden md:block">
+                <HeartIcon />
+              </div>
+              <div className="hidden md:block">
+                <SearchIcon />
+              </div>
+            </div>
+            <LocaleToggler />
+          </div>
           <SheetContent side="left">
             <nav className="grid gap-6 text-lg font-medium">
               {NavLinksWithName.map((item) => (
@@ -65,23 +130,43 @@ export default function PublicNavbar() {
                   href={item.href}
                   className="text-gray-700 hover:text-gray-900 transition-colors"
                 >
-                  {item.name}
+                  {t(`navigation.${item.name}`)}
                 </Link>
               ))}
             </nav>
           </SheetContent>
         </Sheet>
 
+        <div className="hidden md:flex items-center gap-4 text-secondary">
+          <div className="relative">
+            <ShoppingCart />
+            <p className="absolute -top-1 -right-2 text-xs bg-[#f89e6b] rounded-full h-4 grid place-content-center w-4 p-1">
+              0
+            </p>
+          </div>
+          <div className="hidden md:block">
+            <HeartIcon />
+          </div>
+          <div className="hidden md:block">
+            <SearchIcon />
+          </div>
+        </div>
+
         {/* Right Actions */}
-        <div className="ml-auto flex items-center gap-4">
+        <div className="ml-auto hidden md:flex items-center gap-4">
+          <Button
+            asChild
+            variant={"ghost"}
+            className="hover:bg-transparent w-fit p-0"
+          >
+            <Link
+              href="/signup"
+              className="text-[13px] font-bold text-secondary hover:text-secondary-foreground"
+            >
+              Login / Register
+            </Link>
+          </Button>
           <LocaleToggler />
-          <ThemeToggler />
-          <Button asChild>
-            <Link href="/signin">Sign In</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/signup">Sign Up</Link>
-          </Button>
         </div>
       </div>
     </div>

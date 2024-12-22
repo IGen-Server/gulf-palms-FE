@@ -4,7 +4,23 @@
     "About": "About",
     "Courses": "Courses",
     "Resources": "Resources",
-    "Pricing": "Pricing"
+    "Pricing": "Pricing",
+    "Shop": "Shop",
+    "Showrooms": "Showrooms",
+    "About Us": "About Us",
+    "Services": "Services",
+    "Projects": "Projects",
+    "Our Farms": "Our Farms",
+    "Gallery": "Gallery",
+    "Contact Us": "Contact Us",
+    "Dashboard": "Dashboard",
+    "Profile": "Profile",
+    "Service 1": "Service 1",
+    "Service 2": "Service 2",
+    "Farm 1": "Farm 1",
+    "Farm 2": "Farm 2",
+    "Showroom 1": "Showroom 1",
+    "Showroom 2": "Showroom 2"
   },
   "home": {
     "Slogan1": "A platform for skill-based Learning & Teaching",
@@ -37,34 +53,24 @@
   "faq": {
     "Title": "FAQ",
     "Description": "Frequently Asked Questions",
-
     "whatIsSkimaa": "What is skimaa?",
     "skimaaDescription": "Skimaa is an innovative education technology platform designed to provide skill-based learning and future-ready education. We offer a wide range of subjects, including English, programming, math, and Early Childhood Development (ECD), catering to Bangla-speaking individuals.",
-    
     "services": "What are our services?",
     "servicesDescription": "We offer online courses, recorded courses, and education materials.",
-    
     "whoCanJoin": "Who can join Skimaa courses?",
     "whoCanJoinDescription": "Skimaa is open to learners of all ages who are looking to improve their skills, from children to adults. Our courses are designed to accommodate learners at various levels, from beginners to more advanced students.",
-    
     "coursesOffered": "What courses does Skimaa offer?",
     "coursesOfferedDescription": "Skimaa provides courses in English language, programming, ICT, math, and Early Childhood Development (ECD). We also offer skill-based courses aimed at enhancing learners’ future job prospects and personal development.",
-    
     "courseDelivery": "How are the courses delivered?",
     "courseDeliveryDescription": "All courses on Skimaa are offered online. We use engaging content like interactive videos, animations, and personalized learning paths to enhance the learning experience.",
-    
     "recordedOrLive": "Are Skimaa courses recorded or live?",
     "recordedOrLiveDescription": "Skimaa offers a mix of both. Some courses are pre-recorded, allowing learners to progress at their own pace, while others may include live sessions for more interactive learning.",
-    
     "courseLanguages": "What languages are the courses available in?",
     "courseLanguagesDescription": "Skimaa’s courses are offered in English and Bangla, making them accessible to a wide audience in Bangladesh and beyond.",
-    
     "technicalSupport": "How can I get help if I face technical issues?",
     "technicalSupportDescription": "If you encounter any technical problems, you can reach out to our support team via email or through the help section on our website. We are dedicated to providing quick and efficient support to all our learners.",
-    
     "courseCost": "How much do Skimaa’s courses cost?",
     "courseCostDescription": "The cost of courses varies depending on the subject and the level of instruction. We also offer free resources and materials as part of our commitment to making education accessible.",
-    
     "enrollCourse": "How do I enroll in a course on Skimaa?",
     "enrollCourseDescription": ""
   }
