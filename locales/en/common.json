@@ -23,17 +23,13 @@
     "Showroom 2": "Showroom 2"
   },
   "home": {
-    "Slogan1": "A platform for skill-based Learning & Teaching",
-    "Slogan2": "Empowering learners and educators with hands-on skill training",
-    "Slogan3": "Unlocking potential through interactive skill-based learning experiences",
-    "Our Courses": "Our Courses",
-    "Our Courses Description": "Learn for free with Live Classes and Pre Recorded Videos",
-    "Guardian Reviews": "Guardian Reviews",
-    "Guardian Reviews Description": "Feedback from guardians on their child's online learning experience.",
-    "Our Blog & News": "Our Blog & News",
-    "Our Blog & News Description": "Stay updated with the latest articles, tips, and news in online education.",
-    "Roadmap": "Road Map",
-    "Roadmap Description": "Milestones for students"
+    "heroSection": {
+      "Slogan1": "YOUR ONE-STOP SOLUTION FOR",
+      "Slogan2": "ALL YOUR LANDSCAPING NEEDS",
+      "Slogan3": "A concept focused on customer delight, Gulf Palms has been striving to bring you closer to nature.",
+      "Button1": "SHOP NOW",
+      "Button2": "READ MORE"
+    }
   },
   "about": {
     "Title": "About",

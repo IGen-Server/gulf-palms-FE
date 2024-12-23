@@ -1,8 +1,15 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
-    "types": ["@types/react", "@types/node"],
+    "types": [
+      "@types/react",
+      "@types/node"
+    ],
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -12,7 +19,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "incremental": true,
     "plugins": [
       {
@@ -20,8 +27,12 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "images/*": ["./public/images/*"]
+      "@/*": [
+        "./*"
+      ],
+      "images/*": [
+        "./public/images/*"
+      ]
     }
   },
   "include": [
@@ -31,5 +42,7 @@
     ".next/types/**/*.ts",
     "i18nConfig.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
