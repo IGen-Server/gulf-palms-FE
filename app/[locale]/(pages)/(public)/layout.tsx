@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 import Footer from "@/components/footer/footer";
 import Image from "next/image";
 import homePageImage from "../../../../assets/images/homePageImage.jpg";
+import HeroSection from "@/components/home/HeroSection";
+import HeroSectionForiframe from "@/components/home/HeroSectionForiframe";
 
 async function PublicPageLayout({
   children,
@@ -13,8 +15,8 @@ async function PublicPageLayout({
 }) {
   return (
     <div className="relative min-h-screen w-screen">
-      <div className="absolute inset-0 w-full h-full ">
-        <div className="block md:hidden">
+      {/* <div className="absolute inset-0 w-full h-full">
+        <div className="block md:hidden max-w-[100vw] overflow-x-hidden">
           <Image
             src={homePageImage}
             alt="Background"
@@ -23,34 +25,33 @@ async function PublicPageLayout({
             priority
           />
         </div>
+      </div> */}
 
-        <div
-          className="hidden md:block overflow-hidden"
+      <div
+        className="overflow-hidden inset-0 h-[534px] lg:h-[868px]"
+        style={{
+          padding: "56.25% 0 0 0",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-50 z-10 "></div>
+        <iframe
+          src="https://player.vimeo.com/video/835241101?muted=1&autoplay=1&loop=1&background=1&app_id=122963"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
           style={{
-            padding: "56.25% 0 0 0",
-            position: "relative",
-            height: "868px",
-            overflow: "hidden",
-            border: "5px solid red",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
           }}
-        >
-          <div className="absolute inset-0 bg-black bg-opacity-50 z-10 "></div>
-          <iframe
-            src="https://player.vimeo.com/video/835241101?muted=1&autoplay=1&loop=1&background=1&app_id=122963"
-            allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-            }}
-            title="مشروع الزهرة -"
-          ></iframe>
-        </div>
+          title="مشروع الزهرة -"
+        ></iframe>
+        {/* <HeroSectionForiframe /> */}
       </div>
 
-      <div className="relative z-10 w-[1370px] mx-auto">
+      <div className="z-10 max-w-[100vw] md:w-[1370px] mx-auto overflow-x-hidden">
         <PublicNavbar />
         <div>{children}</div>
         <Footer />

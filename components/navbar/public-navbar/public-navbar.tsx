@@ -19,7 +19,8 @@ import { useTranslation } from "react-i18next";
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,11 +75,11 @@ export default function PublicNavbar() {
 
   return (
     <div
-      className={`w-full fixed duration-1000 top-0 z-50 left-0 transition-colors ${
-        isScrolled ? "bg-primary shadow-lg" : "bg-transparent"
+      className={`w-full fixed duration-500 top-0 z-50 left-0 transition-colors ${
+        isScrolled ? "bg-primary shadow-lg" : "bg-transparent h-[105px]"
       }`}
     >
-      <div className="max-w-[1370px] mx-auto">
+      <div className="max-w-[100vw] overflow-x-hidden md:max-w-[1370px] mx-auto ">
         <div className=" flex pt-3 px-4 items-center gap-4 min-h-[4rem] pb-2 md:pb-0">
           {/* Left Navigation */}
           <nav className="hidden md:flex md:items-center md:gap-6 w-full ">
@@ -105,7 +106,16 @@ export default function PublicNavbar() {
                 </span>
               </Button>
             </SheetTrigger>
-            <div className="absolute right-[calc(50%_-_79px)] flex gap-4 md:hidden">
+            <div
+              className={`
+                absolute flex gap-4 md:hidden 
+                ${
+                  currentLanguage === "ar"
+                    ? "right-[calc(50%_-_65px)]"
+                    : "right-[calc(50%_-_126px)]"
+                }
+              `}
+            >
               <div className="w-[126px] ">
                 <BrandFullLogo height={60} />
               </div>
