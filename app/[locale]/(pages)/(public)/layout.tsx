@@ -50,11 +50,11 @@ async function PublicPageLayout({
         ></iframe>
       </div>
 
-      <div className="z-10 max-w-[100vw] md:w-[1370px] mx-auto overflow-x-hidden px-1 sm:px-4 xl:px-0">
+      <div className="flex-grow z-10 overflow-x-hidden px-1 sm:px-4 xl:px-0 bg-white">
         <PublicNavbar />
-        <div>{children}</div>
-        <Footer />
+        <div className="min-h-[1000px]">{children}</div>
       </div>
+      <Footer />
     </div>
   );
 }

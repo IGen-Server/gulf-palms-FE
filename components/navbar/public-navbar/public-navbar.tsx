@@ -19,23 +19,38 @@ import { useTranslation } from "react-i18next";
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 500) {
+        if (currentScrollY > lastScrollY) {
+          setShowNavbar(false); // Hide navbar on scroll down
+        } else {
+          setShowNavbar(true); // Show navbar on scroll up
+        }
+      } else {
+        setShowNavbar(true); // Always show navbar above 500px
+      }
+
+      setLastScrollY(currentScrollY);
+      setIsScrolled(currentScrollY > 10);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   const renderNavLinks = () =>
     NavLinksWithName.map((item, index) => {
       if (item.children) {
         return (
-          <div key={index} className="group text-[13px] font-semibold">
+          <div key={index} className="group !text-[13px] font-semibold">
             <Link
               href={item.href}
               className="text-white hover:text-gray-200 transition-colors flex items-center gap-1"
@@ -44,15 +59,17 @@ export default function PublicNavbar() {
               <ChevronDown className="h-3 w-3 text-secondary" />
             </Link>
             <div
-              className={`absolute hidden group-hover:block bg-transparent pt-6 ${
-                item.href.includes("shop") ? "w-full left-0" : "w-[220px]"
+              className={`absolute hidden group-hover:block bg-transparent mt-6  bg-white  ${
+                item.href.includes("shop")
+                  ? "w-full left-0 p-12"
+                  : "w-[220px] p-4"
               }`}
             >
               {item.children.map((child, idx) => (
                 <Link
                   key={idx}
                   href={child.href}
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-200 bg-white"
+                  className="block duration-1000 px-4 py-2 text-gray-700 hover:bg-gray-200 "
                 >
                   {t(`navigation.${child.name}`)}
                 </Link>
@@ -75,12 +92,12 @@ export default function PublicNavbar() {
 
   return (
     <div
-      className={`w-full fixed duration-500 top-0 z-50 left-0 transition-colors ${
+      className={`w-full fixed duration-500 top-0 z-50 left-0 transition-transform ${
         isScrolled ? "bg-primary shadow-lg" : "bg-transparent "
-      }`}
+      } ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}
     >
       <div className="max-w-[100vw] overflow-x-hidden lg:max-w-[1370px] mx-auto ">
-        <div className=" flex pt-[18px]  items-center gap-4 min-h-[4rem] pb-2 lg:pb-0">
+        <div className=" flex pt-[18px]  items-center gap-4 min-h-[4rem] pb-2 lg:pb-1">
           {/* Left Navigation */}
           <nav className="hidden lg:flex lg:items-center lg:gap-6 w-full ">
             <div className="w-[170px]">
@@ -92,7 +109,9 @@ export default function PublicNavbar() {
                 <BrandFullLogo height={77} />
               </div>
             </div>
-            {renderNavLinks()}
+            <div className="flex items-center gap-4 w-[80%] flex-wrap justify-center">
+              {renderNavLinks()}
+            </div>
           </nav>
           {/* Mobile Menu */}
           <Sheet>
@@ -107,35 +126,6 @@ export default function PublicNavbar() {
                 </span>
               </Button>
             </SheetTrigger>
-            <div
-              className={`
-                absolute flex gap-4 lg:hidden 
-                ${
-                  currentLanguage === "ar"
-                    ? "right-[calc(50%_-_65px)]"
-                    : "right-[calc(50%_-_126px)]"
-                }
-              `}
-            >
-              <div className="w-[126px] ">
-                <BrandFullLogo height={60} />
-              </div>
-              <div className="flex items-center gap-4 text-secondary">
-                <div className="relative">
-                  <ShoppingCart />
-                  <p className="absolute -top-1 -right-2 text-xs bg-[#f89e6b] rounded-full h-4 grid place-content-center w-4 p-1">
-                    0
-                  </p>
-                </div>
-                <div className="hidden lg:block">
-                  <HeartIcon />
-                </div>
-                <div className="hidden lg:block">
-                  <SearchIcon />
-                </div>
-              </div>
-              <LocaleToggler />
-            </div>
             <SheetContent side="left">
               <nav className="grid gap-6 text-lg font-medium">
                 {NavLinksWithName.map((item) => (
@@ -150,11 +140,10 @@ export default function PublicNavbar() {
               </nav>
             </SheetContent>
           </Sheet>
-
           <Button
             asChild
             variant={"ghost"}
-            className="hover:bg-transparent w-fit p-0"
+            className="hover:bg-transparent w-fit p-0 hidden lg:flex"
           >
             <Link
               href="/signup"
@@ -164,21 +153,24 @@ export default function PublicNavbar() {
             </Link>
           </Button>
           <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary">
-            <div className="relative w-5 h-5">
-              <ShoppingCart />
+            <div className="relative">
+              <ShoppingCart className="w-5 h-5" />
               <p className="absolute -top-1 -right-2 text-xs bg-[#f89e6b] rounded-full h-4 grid place-content-center w-4 p-1">
                 0
               </p>
             </div>
-            <div className="hidden lg:block w-5 h-5">
-              <HeartIcon />
+            <div className="hidden lg:block">
+              <HeartIcon className="w-5 h-5" />
             </div>
-            <div className="hidden lg:block w-5 h-5">
-              <SearchIcon />
+            <div className="hidden lg:block">
+              <SearchIcon className="w-5 h-5" />
             </div>
           </div>
           {/* Right Actions */}
-          <div className="ml-auto hidden lg:flex items-center gap-4">
+          <div className="ml-auto hidden lg:flex items-center gap-4 min-w-fit">
+            <p className="!text-[13px] font-semibold text-secondary">
+              0.000 KD
+            </p>
             <LocaleToggler />
           </div>
         </div>

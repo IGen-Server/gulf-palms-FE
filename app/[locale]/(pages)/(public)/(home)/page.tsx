@@ -9,6 +9,7 @@ import HomeSecondProductGrid from "@/components/home/HomeSecondProductGrid";
 import WhoWeAre from "@/components/home/WhoWeAre";
 import LocationMap from "@/components/home/LocationMap";
 import VideoShowCase from "@/components/home/VideoShowCase";
+import Footer from "@/components/footer/footer";
 
 async function HomePage({
   params: { locale },
@@ -16,17 +17,19 @@ async function HomePage({
   params: { locale: string };
 }) {
   return (
-    <div className="max-w-[1370px] mx-auto">
-      <HeroSection />
-      <HomeFirstProductGrid />
-      <RecentProducts />
-      <ShowRoom />
-      <Services />
-      <ProductsShowCase />
-      <HomeSecondProductGrid />
-      <WhoWeAre />
-      <LocationMap />
-      <VideoShowCase />
+    <div>
+      <div className="max-w-[100vw] md:w-[1370px] mx-auto bg-white h-[500px]">
+        <HeroSection />
+        <HomeFirstProductGrid />
+        <RecentProducts />
+        <ShowRoom />
+        <Services />
+        <ProductsShowCase />
+        <HomeSecondProductGrid />
+        <WhoWeAre />
+        <LocationMap />
+        <VideoShowCase />
+      </div>
     </div>
   );
 }
