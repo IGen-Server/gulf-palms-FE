@@ -8,9 +8,13 @@ export default function HeroSection() {
 
   const content = (
     <>
-      <p className="text-[42px] font-thin">YOUR ONE-STOP SOLUTION FOR</p>
-      <p className="text-[46px] font-bold">ALL YOUR LANDSCAPING NEEDS</p>
-      <p className="text-[16px] pt-3">
+      <p className="text-[] lg:text-[42px] md:text-[30px] font-thin">
+        YOUR ONE-STOP SOLUTION FOR
+      </p>
+      <p className="text-[] lg:text-[46px] md:text-[35px] font-bold">
+        ALL YOUR LANDSCAPING NEEDS
+      </p>
+      <p className="text-[12px] lg:text-[16px] md:text-[14px] pt-3">
         A concept focused on customer delight, Gulf Palms has been striving to
         bring you closer to nature.
       </p>
@@ -23,24 +27,9 @@ export default function HeroSection() {
     </>
   );
 
-  const forSmallScreen = (
-    <div className="relative w-full h-[868px] md:hidden">
-      <div className="absolute left-0 top-[300px] bottom-[300px] text-secondary">
-        {content}
-      </div>
-    </div>
-  );
-
-  const forLargeScreen = (
-    <div className="absolute top-[350px] bottom-[300px]  w-full hidden md:block items-center justify-center z-10">
+  return (
+    <div className="absolute top-[80px] sm:top-[20%] lg:top-[25%] xl:top-[300px] bottom-[300px] w-full items-center justify-center z-10">
       <div className="text-secondary">{content}</div>
     </div>
-  );
-
-  return (
-    <>
-      {forSmallScreen}
-      {forLargeScreen}
-    </>
   );
 }

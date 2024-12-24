@@ -5,10 +5,10 @@ export type NavLink = {
 };
 
 export const NavLinksWithName: NavLink[] = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "/about-us" },
+  { name: "HOME", href: "/" },
+  { name: "ABOUT US", href: "/about-us" },
   {
-    name: "Shop",
+    name: "SHOP",
     href: "/shop",
     children: [
       { name: "Shop 1", href: "/showrooms/shop-1" },
@@ -17,7 +17,7 @@ export const NavLinksWithName: NavLink[] = [
     ],
   },
   {
-    name: "Showrooms",
+    name: "SHOWROOMS",
     href: "/showrooms",
     children: [
       { name: "Showroom 1", href: "/showrooms/showroom-1" },
@@ -26,7 +26,7 @@ export const NavLinksWithName: NavLink[] = [
     ],
   },
   {
-    name: "Services",
+    name: "SERVICES",
     href: "/services",
     children: [
       { name: "Service 1", href: "/services/service-1" },
@@ -34,9 +34,9 @@ export const NavLinksWithName: NavLink[] = [
       // Add more services here as needed
     ],
   },
-  { name: "Projects", href: "/projects" },
+  { name: "PROJECTS", href: "/projects" },
   {
-    name: "Our Farms",
+    name: "OUR FARM",
     href: "/our-farms",
     children: [
       { name: "Farm 1", href: "/our-farms/farm-1" },
@@ -44,8 +44,8 @@ export const NavLinksWithName: NavLink[] = [
       // Add more farms here as needed
     ],
   },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Contact Us", href: "/contact-us" },
+  { name: "GALLERY", href: "/gallery" },
+  { name: "CONTACT US", href: "/contact-us" },
 ];
 
 export const UserNavLinks = {

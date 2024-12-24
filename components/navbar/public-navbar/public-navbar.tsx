@@ -35,7 +35,7 @@ export default function PublicNavbar() {
     NavLinksWithName.map((item, index) => {
       if (item.children) {
         return (
-          <div key={index} className="group text-[15.6px]">
+          <div key={index} className="group text-[13px] font-semibold">
             <Link
               href={item.href}
               className="text-white hover:text-gray-200 transition-colors flex items-center gap-1"
@@ -66,7 +66,7 @@ export default function PublicNavbar() {
         <Link
           href={item.href}
           key={index}
-          className="text-white hover:text-gray-200 transition-colors text-[15.6px]"
+          className="text-white hover:text-gray-200 transition-colors text-[13px] font-semibold"
         >
           {t(`navigation.${item.name}`)}
         </Link>
@@ -76,29 +76,30 @@ export default function PublicNavbar() {
   return (
     <div
       className={`w-full fixed duration-500 top-0 z-50 left-0 transition-colors ${
-        isScrolled ? "bg-primary shadow-lg" : "bg-transparent h-[105px]"
+        isScrolled ? "bg-primary shadow-lg" : "bg-transparent "
       }`}
     >
-      <div className="max-w-[100vw] overflow-x-hidden md:max-w-[1370px] mx-auto ">
-        <div className=" flex pt-3 px-4 items-center gap-4 min-h-[4rem] pb-2 md:pb-0">
+      <div className="max-w-[100vw] overflow-x-hidden lg:max-w-[1370px] mx-auto ">
+        <div className=" flex pt-[18px]  items-center gap-4 min-h-[4rem] pb-2 lg:pb-0">
           {/* Left Navigation */}
-          <nav className="hidden md:flex md:items-center md:gap-6 w-full ">
-            <div
-              className={`transition-all duration-1000 ${
-                isScrolled ? "w-[125px] h-[60px]" : "w-[170px] h-[77px]"
-              }`}
-            >
-              <BrandFullLogo height={77} />
+          <nav className="hidden lg:flex lg:items-center lg:gap-6 w-full ">
+            <div className="w-[170px]">
+              <div
+                className={`transition-all duration-500 ${
+                  isScrolled ? "w-[125px] h-[60px]" : "w-[170px] h-[77px]"
+                }`}
+              >
+                <BrandFullLogo height={77} />
+              </div>
             </div>
             {renderNavLinks()}
           </nav>
-
           {/* Mobile Menu */}
           <Sheet>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
-                className="md:hidden hover:bg-transparent w-fit p-0"
+                className="lg:hidden hover:bg-transparent w-fit p-0"
               >
                 <Menu className="h-5 w-5 text-white" />
                 <span className="text-[13px] gont-bold text-secondary">
@@ -108,7 +109,7 @@ export default function PublicNavbar() {
             </SheetTrigger>
             <div
               className={`
-                absolute flex gap-4 md:hidden 
+                absolute flex gap-4 lg:hidden 
                 ${
                   currentLanguage === "ar"
                     ? "right-[calc(50%_-_65px)]"
@@ -126,10 +127,10 @@ export default function PublicNavbar() {
                     0
                   </p>
                 </div>
-                <div className="hidden md:block">
+                <div className="hidden lg:block">
                   <HeartIcon />
                 </div>
-                <div className="hidden md:block">
+                <div className="hidden lg:block">
                   <SearchIcon />
                 </div>
               </div>
@@ -150,35 +151,34 @@ export default function PublicNavbar() {
             </SheetContent>
           </Sheet>
 
-          <div className="hidden md:flex items-center gap-4 text-secondary">
-            <div className="relative">
+          <Button
+            asChild
+            variant={"ghost"}
+            className="hover:bg-transparent w-fit p-0"
+          >
+            <Link
+              href="/signup"
+              className="!text-[13px] font-semibold text-secondary hover:text-secondary-foreground uppercase"
+            >
+              Login / Register
+            </Link>
+          </Button>
+          <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary">
+            <div className="relative w-5 h-5">
               <ShoppingCart />
               <p className="absolute -top-1 -right-2 text-xs bg-[#f89e6b] rounded-full h-4 grid place-content-center w-4 p-1">
                 0
               </p>
             </div>
-            <div className="hidden md:block">
+            <div className="hidden lg:block w-5 h-5">
               <HeartIcon />
             </div>
-            <div className="hidden md:block">
+            <div className="hidden lg:block w-5 h-5">
               <SearchIcon />
             </div>
           </div>
-
           {/* Right Actions */}
-          <div className="ml-auto hidden md:flex items-center gap-4">
-            <Button
-              asChild
-              variant={"ghost"}
-              className="hover:bg-transparent w-fit p-0"
-            >
-              <Link
-                href="/signup"
-                className="text-[13px] font-bold text-secondary hover:text-secondary-foreground"
-              >
-                Login / Register
-              </Link>
-            </Button>
+          <div className="ml-auto hidden lg:flex items-center gap-4">
             <LocaleToggler />
           </div>
         </div>

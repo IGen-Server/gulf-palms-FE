@@ -1,6 +1,14 @@
 {
   "navigation": {
-    "Home": "Home",
+    "HOME": "HOME",
+    "SHOP": "SHOP",
+    "SHOWROOMS": "SHOWROOMS",
+    "PROJECTS": "PROJECTS",
+    "OUR FARM": "OUR FARM",
+    "GALLERY": "GALLERY",
+    "CONTACT US": "CONTACT US",
+    "ABOUT US": "ABOUT US",
+    "SERVICES": "SERVICES",
     "About": "About",
     "Courses": "Courses",
     "Resources": "Resources",

@@ -9,19 +9,12 @@
 }
 
 iframe {
-  margin: 0px;
-  padding: 0px;
-  height: 100%;
-  border: none;
-}
-
-iframe {
-  display: block;
-  width: 100%;
   border: none;
   overflow: hidden;
   width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  margin: 0px;
+  padding: 0px;
 }
 
 @layer base {

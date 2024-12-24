@@ -3,8 +3,6 @@ import { ReactNode } from "react";
 import Footer from "@/components/footer/footer";
 import Image from "next/image";
 import homePageImage from "../../../../assets/images/homePageImage.jpg";
-import HeroSection from "@/components/home/HeroSection";
-import HeroSectionForiframe from "@/components/home/HeroSectionForiframe";
 
 async function PublicPageLayout({
   children,
@@ -28,11 +26,13 @@ async function PublicPageLayout({
       </div> */}
 
       <div
-        className="overflow-hidden inset-0 h-[534px] lg:h-[868px]"
+        className="overflow-hidden inset-0"
         style={{
           padding: "56.25% 0 0 0",
           position: "relative",
           overflow: "hidden",
+          height: "100%",
+          width: "100vw",
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50 z-10 "></div>
@@ -43,15 +43,14 @@ async function PublicPageLayout({
             position: "absolute",
             top: 0,
             left: 0,
-            width: "100%",
             height: "100%",
+            minWidth: "100vw",
           }}
           title="مشروع الزهرة -"
         ></iframe>
-        {/* <HeroSectionForiframe /> */}
       </div>
 
-      <div className="z-10 max-w-[100vw] md:w-[1370px] mx-auto overflow-x-hidden">
+      <div className="z-10 max-w-[100vw] md:w-[1370px] mx-auto overflow-x-hidden px-1 sm:px-4 xl:px-0">
         <PublicNavbar />
         <div>{children}</div>
         <Footer />
