@@ -13,18 +13,6 @@ async function PublicPageLayout({
 }) {
   return (
     <div className="relative min-h-screen w-screen">
-      {/* <div className="absolute inset-0 w-full h-full">
-        <div className="block md:hidden max-w-[100vw] overflow-x-hidden">
-          <Image
-            src={homePageImage}
-            alt="Background"
-            layout="fill"
-            objectFit="cover"
-            priority
-          />
-        </div>
-      </div> */}
-
       <div
         className="overflow-hidden inset-0"
         style={{
@@ -35,7 +23,7 @@ async function PublicPageLayout({
           width: "100vw",
         }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-10 "></div>
+        <div className="absolute inset-0 bg-black bg-opacity-50 z-[1] "></div>
         <iframe
           src="https://player.vimeo.com/video/835241101?muted=1&autoplay=1&loop=1&background=1&app_id=122963"
           allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
@@ -50,7 +38,7 @@ async function PublicPageLayout({
         ></iframe>
       </div>
 
-      <div className="flex-grow z-10 overflow-x-hidden px-1 sm:px-4 xl:px-0 bg-white">
+      <div className="flex-grow z-20 overflow-x-hidden px-1 sm:px-4 xl:px-0 bg-white">
         <PublicNavbar />
         <div className="min-h-[1000px]">{children}</div>
       </div>

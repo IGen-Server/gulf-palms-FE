@@ -39,43 +39,92 @@
       "Button2": "READ MORE"
     }
   },
-  "about": {
-    "Title": "About",
-    "Introduction": "Welcome to Skimaa, where we believe in the power of education to shape your future. We believe learning should be practical, skill-based, and ready for tomorrow’s challenges. That’s why our experts have come together to give you the tools you need to succeed—because we believe your future should be easier, smarter, and brighter. Ready to learn? We believe the future starts here.",
-    "Mission": "Our mission is to empower individuals with the knowledge and skills necessary to thrive in an ever-changing world. We aim to create a learning experience that is accessible, innovative, and effective.",
-    "Vision": "We envision a world where education is the cornerstone of personal and professional growth, providing opportunities for lifelong success and development.",
-    "Values": "We believe in integrity, innovation, inclusivity, and a commitment to excellence in everything we do.",
-    "Team": "Our team is made up of dedicated professionals and educators with a passion for delivering high-quality education and training.",
-    "History": "Founded in [Year], Skimaa has grown from a small initiative to a leading platform that provides skill-based learning solutions to thousands of learners worldwide.",
-    "WhyChooseUs": "We offer a unique combination of practical learning, expert guidance, and a focus on future-ready skills, making us the preferred choice for learners of all ages.",
-    "Offerings": "Our offerings include a wide range of courses, workshops, and resources that cater to both beginners and advanced learners across various disciplines.",
-    "ContactInfo": "You can reach us at skima.academy@gmail.com or call us at +123456789 for any inquiries."
-  },
-  "other": {
-    "Feature Coming Soon": "This feature will be available soon"
-  },
-  "faq": {
-    "Title": "FAQ",
-    "Description": "Frequently Asked Questions",
-    "whatIsSkimaa": "What is skimaa?",
-    "skimaaDescription": "Skimaa is an innovative education technology platform designed to provide skill-based learning and future-ready education. We offer a wide range of subjects, including English, programming, math, and Early Childhood Development (ECD), catering to Bangla-speaking individuals.",
-    "services": "What are our services?",
-    "servicesDescription": "We offer online courses, recorded courses, and education materials.",
-    "whoCanJoin": "Who can join Skimaa courses?",
-    "whoCanJoinDescription": "Skimaa is open to learners of all ages who are looking to improve their skills, from children to adults. Our courses are designed to accommodate learners at various levels, from beginners to more advanced students.",
-    "coursesOffered": "What courses does Skimaa offer?",
-    "coursesOfferedDescription": "Skimaa provides courses in English language, programming, ICT, math, and Early Childhood Development (ECD). We also offer skill-based courses aimed at enhancing learners’ future job prospects and personal development.",
-    "courseDelivery": "How are the courses delivered?",
-    "courseDeliveryDescription": "All courses on Skimaa are offered online. We use engaging content like interactive videos, animations, and personalized learning paths to enhance the learning experience.",
-    "recordedOrLive": "Are Skimaa courses recorded or live?",
-    "recordedOrLiveDescription": "Skimaa offers a mix of both. Some courses are pre-recorded, allowing learners to progress at their own pace, while others may include live sessions for more interactive learning.",
-    "courseLanguages": "What languages are the courses available in?",
-    "courseLanguagesDescription": "Skimaa’s courses are offered in English and Bangla, making them accessible to a wide audience in Bangladesh and beyond.",
-    "technicalSupport": "How can I get help if I face technical issues?",
-    "technicalSupportDescription": "If you encounter any technical problems, you can reach out to our support team via email or through the help section on our website. We are dedicated to providing quick and efficient support to all our learners.",
-    "courseCost": "How much do Skimaa’s courses cost?",
-    "courseCostDescription": "The cost of courses varies depending on the subject and the level of instruction. We also offer free resources and materials as part of our commitment to making education accessible.",
-    "enrollCourse": "How do I enroll in a course on Skimaa?",
-    "enrollCourseDescription": ""
+  "footer": {
+    "logoAlt": "Gulf Palms Logo",
+    "description": "A concept focused on customer delight, Gulf Palms has been striving to bring you closer to nature.",
+    "address": "Nurseries 48 & 49, 4th Ring Road, Ar Rai, Kuwait",
+    "phone": "Phone: +965 6066 0378",
+    "email": "Email:",
+    "showrooms": {
+      "title": "Our Showrooms",
+      "items": [
+        {
+          "link": "https://gulfpalms.com/en/showrooms/rai-nursery/",
+          "label": "Rai Nursery"
+        },
+        {
+          "link": "https://gulfpalms.com/en/showrooms/wafrah-corporate-showroom/",
+          "label": "Wafrah Corporate Showroom"
+        },
+        {
+          "link": "https://gulfpalms.com/en/showrooms/wafrah-farm-showroom/",
+          "label": "Wafrah Farm Showroom"
+        },
+        {
+          "link": "https://gulfpalms.com/en/showrooms/abdali-ittihad-showroom/",
+          "label": "Abdali Ittihad Showroom"
+        },
+        {
+          "link": "https://gulfpalms.com/en/showrooms/abdali-farm-showroom/",
+          "label": "Abdali Farm Showroom"
+        }
+      ]
+    },
+    "usefulLinks": {
+      "title": "Useful Links",
+      "items": [
+        {
+          "link": "https://gulfpalms.com/en/privacy-policy/",
+          "label": "Privacy Policy"
+        },
+        {
+          "link": "https://gulfpalms.com/en/refund_returns/",
+          "label": "Refund and Returns Policy"
+        },
+        {
+          "link": "https://gulfpalms.com/en/terms-conditions/",
+          "label": "Terms & Conditions"
+        },
+        {
+          "link": "https://gulfpalms.com/en/contact-us/",
+          "label": "Contact Us"
+        }
+      ]
+    },
+    "productCategories": {
+      "title": "Product Categories",
+      "items": [
+        {
+          "link": "https://gulfpalms.com/en/product-category/tissue-culture-palms/",
+          "label": "Tissue Culture Palms"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/ornamental-plants/",
+          "label": "Ornamental Plants"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/citruses-trees/",
+          "label": "Citrus Trees"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/fertilizers/",
+          "label": "Fertilizers"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/fruits-trees/",
+          "label": "Fruit Trees"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/indoor-plants/",
+          "label": "Indoor Plants"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/pots/",
+          "label": "Pots & Bags"
+        }
+      ]
+    },
+    "footerNote": "Copyright &copy; {{year}} Gulf Palms | All Rights Reserved | Designed by Go Google",
+    "paymentMethods": "Payment Methods"
   }
 }

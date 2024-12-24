@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
+
 import {
   HeartIcon,
   Menu,
@@ -30,12 +31,12 @@ export default function PublicNavbar() {
 
       if (currentScrollY > 500) {
         if (currentScrollY > lastScrollY) {
-          setShowNavbar(false); // Hide navbar on scroll down
+          setShowNavbar(false);
         } else {
-          setShowNavbar(true); // Show navbar on scroll up
+          setShowNavbar(true);
         }
       } else {
-        setShowNavbar(true); // Always show navbar above 500px
+        setShowNavbar(true);
       }
 
       setLastScrollY(currentScrollY);
@@ -126,6 +127,35 @@ export default function PublicNavbar() {
                 </span>
               </Button>
             </SheetTrigger>
+            <div
+              className={`
+                absolute flex gap-4 lg:hidden 
+                ${
+                  currentLanguage === "ar"
+                    ? "right-[calc(50%_-_65px)]"
+                    : "right-[calc(50%_-_126px)]"
+                }
+              `}
+            >
+              <div className="w-[126px] ">
+                <BrandFullLogo height={60} />
+              </div>
+              <div className="flex items-center gap-4 text-secondary">
+                <div className="relative">
+                  <ShoppingCart />
+                  <p className="absolute -top-1 -right-2 text-xs bg-[#f89e6b] rounded-full h-4 grid place-content-center w-4 p-1">
+                    0
+                  </p>
+                </div>
+                <div className="hidden lg:block">
+                  <HeartIcon />
+                </div>
+                <div className="hidden lg:block">
+                  <SearchIcon />
+                </div>
+              </div>
+              <LocaleToggler />
+            </div>
             <SheetContent side="left">
               <nav className="grid gap-6 text-lg font-medium">
                 {NavLinksWithName.map((item) => (
@@ -140,6 +170,7 @@ export default function PublicNavbar() {
               </nav>
             </SheetContent>
           </Sheet>
+
           <Button
             asChild
             variant={"ghost"}
