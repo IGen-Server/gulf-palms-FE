@@ -17,6 +17,21 @@ iframe {
   padding: 0px;
 }
 
+.content {
+  z-index: 99;
+  background: #fff;
+  margin-bottom: 480px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 480px;
+  z-index: -99;
+}
+
 @layer base {
   :root {
     --default-text-color: #2e1050;

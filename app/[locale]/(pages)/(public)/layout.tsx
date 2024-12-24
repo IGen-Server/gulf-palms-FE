@@ -38,7 +38,7 @@ async function PublicPageLayout({
         ></iframe>
       </div>
 
-      <div className="flex-grow z-20 overflow-x-hidden px-1 sm:px-4 xl:px-0 bg-white">
+      <div className="content overflow-x-hidden px-1 sm:px-4 xl:px-0 bg-white">
         <PublicNavbar />
         <div className="min-h-[1000px]">{children}</div>
       </div>

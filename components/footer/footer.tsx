@@ -26,7 +26,7 @@ const Footer: FC = () => {
     }[]) || [];
 
   return (
-    <footer className="sticky bottom-0 bg-primary !min-w-[100vw] lg:h-[507px] !text-secondary -z-10">
+    <footer className="footer bg-primary text-secondary">
       <div className="relative h-full max-w-[1370px] mx-auto">
         <div className="container mx-auto pt-8 pb-[100px]">
           <div className="h-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
