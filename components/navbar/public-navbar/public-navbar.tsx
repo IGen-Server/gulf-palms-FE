@@ -112,7 +112,7 @@ export default function PublicNavbar() {
 
   return (
     <div
-      className={`w-full fixed duration-500 top-0 z-50 left-0 transition-transform 
+      className={`w-full  fixed duration-500 top-0 z-50 left-0 transition-transform 
        
         ${showNavbar ? "translate-y-0" : "-translate-y-full"}
         ${

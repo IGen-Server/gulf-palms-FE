@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function About() {
   return (
-    <div className="space-y-[50px]">
+    <div className="space-y-[50px] pt-[98px]">
       <section className=" bg-gray-100">
         <div className="flex max-w-[1140px] mx-auto py-[50px] justify-between">
           <div className="p-[40px] space-y-[20px]">
