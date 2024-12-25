@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import BrandLogoFull from "../../assets/images/fullLogo.png";
+import BrandLogoFull from "@/assets/images/fullLogo.png";
 import BrandLogoFullDarkTheme from "images/logo/logo.png";
 import { useEffect, useState } from "react";
 import { Skeleton } from "../ui/skeleton";

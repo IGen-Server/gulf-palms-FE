@@ -27,7 +27,7 @@ const Footer: FC = () => {
 
   return (
     <footer className="footer bg-primary text-secondary">
-      <div className="relative h-full max-w-[1370px] mx-auto">
+      <div className="relative h-full max-w-content mx-auto">
         <div className="container mx-auto pt-8 pb-[100px]">
           <div className="h-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Logo and Description */}
@@ -145,7 +145,7 @@ const Footer: FC = () => {
         </div>
       </div>
       <div className="border-t absolute bottom-0 w-full px-7">
-        <div className="container flex justify-between items-center py-6 max-w-[1370px] mx-auto">
+        <div className="container flex justify-between items-center py-6 max-w-content mx-auto">
           <small className="text-secondary">
             {t("footer.footerNote", { year: new Date().getFullYear() })}
           </small>

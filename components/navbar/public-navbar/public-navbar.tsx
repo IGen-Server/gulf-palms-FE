@@ -17,6 +17,7 @@ import { ThemeToggler } from "../../ThemeProvider/theme-toggler";
 import { LocaleToggler } from "../../LocaleProvider/locale-togger";
 import { NavLinksWithName } from "@/constants/global-constants";
 import { useTranslation } from "react-i18next";
+import { usePathname } from "next/navigation";
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,8 +25,12 @@ export default function PublicNavbar() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
-
+  const pathname = usePathname();
+  // console.log({ pathname });
   useEffect(() => {
+    if (pathname !== "/") {
+      setShowNavbar(true);
+    }
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
@@ -45,7 +50,7 @@ export default function PublicNavbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, [lastScrollY, pathname]);
 
   const renderNavLinks = () =>
     NavLinksWithName.map((item, index) => {
@@ -97,7 +102,7 @@ export default function PublicNavbar() {
         isScrolled ? "bg-primary shadow-lg" : "bg-transparent "
       } ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}
     >
-      <div className="max-w-[100vw] overflow-x-hidden lg:max-w-[1370px] mx-auto ">
+      <div className="max-w-[100vw] overflow-x-hidden lg:max-w-content mx-auto ">
         <div className=" flex pt-[18px]  items-center gap-4 min-h-[4rem] pb-2 lg:pb-1">
           {/* Left Navigation */}
           <nav className="hidden lg:flex lg:items-center lg:gap-6 w-full ">
@@ -143,7 +148,7 @@ export default function PublicNavbar() {
               <div className="flex items-center gap-4 text-secondary">
                 <div className="relative">
                   <ShoppingCart />
-                  <p className="absolute -top-1 -right-2 text-xs bg-[#f89e6b] rounded-full h-4 grid place-content-center w-4 p-1">
+                  <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
                     0
                   </p>
                 </div>
@@ -186,7 +191,7 @@ export default function PublicNavbar() {
           <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary">
             <div className="relative">
               <ShoppingCart className="w-5 h-5" />
-              <p className="absolute -top-1 -right-2 text-xs bg-[#f89e6b] rounded-full h-4 grid place-content-center w-4 p-1">
+              <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
                 0
               </p>
             </div>

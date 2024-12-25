@@ -9,7 +9,6 @@ import HomeSecondProductGrid from "@/components/home/HomeSecondProductGrid";
 import WhoWeAre from "@/components/home/WhoWeAre";
 import LocationMap from "@/components/home/LocationMap";
 import VideoShowCase from "@/components/home/VideoShowCase";
-import Footer from "@/components/footer/footer";
 
 async function HomePage({
   params: { locale },
