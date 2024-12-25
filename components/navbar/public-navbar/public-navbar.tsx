@@ -19,6 +19,12 @@ import { NavLinksWithName } from "@/constants/global-constants";
 import { useTranslation } from "react-i18next";
 import { usePathname } from "next/navigation";
 
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
@@ -26,11 +32,17 @@ export default function PublicNavbar() {
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
   const pathname = usePathname();
-  // console.log({ pathname });
+  const [isHomePage, setIsHomePage] = useState(false);
+
   useEffect(() => {
-    if (pathname !== "/") {
-      setShowNavbar(true);
+    if (pathname === "/" || pathname === "/ar" || pathname === "en") {
+      setIsHomePage(true);
+    } else {
+      setIsHomePage(false);
     }
+  }, [pathname]);
+
+  useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
@@ -50,22 +62,24 @@ export default function PublicNavbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, pathname]);
+  }, [lastScrollY]);
 
   const renderNavLinks = () =>
     NavLinksWithName.map((item, index) => {
       if (item.children) {
         return (
-          <div key={index} className="group !text-[13px] font-semibold">
-            <Link
-              href={item.href}
-              className="text-white hover:text-gray-200 transition-colors flex items-center gap-1"
-            >
-              {t(`navigation.${item.name}`)}
-              <ChevronDown className="h-3 w-3 text-secondary" />
-            </Link>
-            <div
-              className={`absolute hidden group-hover:block bg-transparent mt-6  bg-white  ${
+          <HoverCard key={index}>
+            <HoverCardTrigger asChild>
+              <Link
+                href={item.href}
+                className="text-white hover:text-gray-200 transition-colors flex items-center gap-1 !text-[13px] font-semibold"
+              >
+                {t(`navigation.${item.name}`)}
+                <ChevronDown className="h-3 w-3 text-secondary" />
+              </Link>
+            </HoverCardTrigger>
+            <HoverCardContent
+              className={`bg-transparent mt-6  bg-white  ${
                 item.href.includes("shop")
                   ? "w-full left-0 p-12"
                   : "w-[220px] p-4"
@@ -80,8 +94,8 @@ export default function PublicNavbar() {
                   {t(`navigation.${child.name}`)}
                 </Link>
               ))}
-            </div>
-          </div>
+            </HoverCardContent>
+          </HoverCard>
         );
       }
 
@@ -98,9 +112,14 @@ export default function PublicNavbar() {
 
   return (
     <div
-      className={`w-full fixed duration-500 top-0 z-50 left-0 transition-transform ${
-        isScrolled ? "bg-primary shadow-lg" : "bg-transparent "
-      } ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}
+      className={`w-full fixed duration-500 top-0 z-50 left-0 transition-transform 
+       
+        ${showNavbar ? "translate-y-0" : "-translate-y-full"}
+        ${
+          isHomePage
+            ? ` ${isScrolled ? "bg-primary shadow-lg" : "bg-transparent "}`
+            : "bg-primary"
+        }`}
     >
       <div className="max-w-[100vw] overflow-x-hidden lg:max-w-content mx-auto ">
         <div className=" flex pt-[18px]  items-center gap-4 min-h-[4rem] pb-2 lg:pb-1">
