@@ -1,0 +1,95 @@
+[33mcommit 39a3f7b89d8fe2d9b9c499d467621b4f5cae4ce4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mrecover-changes[m[33m, [m[1;31morigin/recover-changes[m[33m, [m[1;32mfeature/home-page[m[33m)[m
+Author: srs-shihab <sabbir.reza@bevycommerce.com>
+Date:   Wed Dec 25 23:12:58 2024 +0600
+
+    add about us
+
+[33mcommit a4aa9f50e0063f1ec8883722ae5dd486ab369da3[m[33m ([m[1;31morigin/feature/home-page[m[33m)[m
+Author: srs-shihab <sabbir.reza@bevycommerce.com>
+Date:   Wed Dec 25 17:57:40 2024 +0600
+
+    updated
+
+[33mcommit c51fdc102aab4137fa0b06d3705f85c878b32178[m
+Author: srs-shihab <sabbir.reza@bevycommerce.com>
+Date:   Tue Dec 24 17:30:10 2024 +0600
+
+    update footer
+
+[33mcommit ad82d79fc8a7b3fa096531963dbd907dfd47f055[m
+Author: srs-shihab <sabbir.reza@bevycommerce.com>
+Date:   Tue Dec 24 17:25:09 2024 +0600
+
+    update footer
+
+[33mcommit 40dba7dc906513f95314349035dba0f8bf816bca[m
+Author: srs-shihab <sabbir.reza@bevycommerce.com>
+Date:   Tue Dec 24 15:01:47 2024 +0600
+
+    add footer and update navbar effect
+
+[33mcommit d2d1a17fa156e86b2f8cba5ea31fc3bafbd19226[m
+Author: srs-shihab <sabbir.reza@bevycommerce.com>
+Date:   Tue Dec 24 11:48:39 2024 +0600
+
+    update navbar
+
+[33mcommit 69c32cc4cdf1fb36edf9c7f8741b9ecdb002f85a[m
+Author: srs-shihab <sabbir.reza@bevycommerce.com>
+Date:   Tue Dec 24 01:30:54 2024 +0600
+
+    update Iframe
+
+[33mcommit e89d3ca5979a61eff49a3a7aab01fdc1acacb41a[m
+Author: srs-shihab <sabbir.reza@bevycommerce.com>
+Date:   Tue Dec 24 00:01:55 2024 +0600
+
+    update Iframe
+
+[33mcommit 9623e2c52611e4e6cdebe85859443a1897b2e158[m
+Author: Your Personal Name <shihab11231@gmail.com>
+Date:   Mon Dec 23 03:15:47 2024 +0600
+
+    update the navigation menu
+
+[33mcommit 183d97f8231f28d4d0d7df6b2bf3651a2e0589d2[m
+Author: Your Personal Name <shihab11231@gmail.com>
+Date:   Sun Dec 22 23:55:17 2024 +0600
+
+    update navbar and add home image
+
+[33mcommit a013ee31db5f018fd63508c51f9bc02500f528b3[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Md. Arafat Hossain <arafathossainarafat6@gmail.com>
+Date:   Fri Dec 20 23:55:04 2024 +0600
+
+    Fix errors
+
+[33mcommit 383cdf3a17f559f6e4d925110ca3018f3bd2a448[m
+Author: Md. Arafat Hossain <arafathossainarafat6@gmail.com>
+Date:   Fri Dec 20 23:48:34 2024 +0600
+
+    Move file
+
+[33mcommit f23bf07940cf27efe4698908924fe20d0b0200ff[m
+Author: Md. Arafat Hossain <arafathossainarafat6@gmail.com>
+Date:   Wed Dec 18 23:50:57 2024 +0600
+
+    Update logo
+
+[33mcommit 2624510b1252ee01cdacfb1504d1501b1b2b26d0[m
+Author: Md. Arafat Hossain <arafathossainarafat6@gmail.com>
+Date:   Wed Dec 18 23:48:35 2024 +0600
+
+    Update brand name
+
+[33mcommit 7bcb6e7395f7b481f733b347346d77cb9e6cb6a0[m
+Author: Md. Arafat Hossain <arafathossainarafat6@gmail.com>
+Date:   Wed Dec 18 23:39:55 2024 +0600
+
+    Remove .env file from git ignore
+
+[33mcommit 4de9aec76e89b3aa146ff6c1577c6fc8c0c2f685[m
+Author: Md. Arafat Hossain <arafathossainarafat6@gmail.com>
+Date:   Wed Dec 18 23:37:32 2024 +0600
+
+    Initialize

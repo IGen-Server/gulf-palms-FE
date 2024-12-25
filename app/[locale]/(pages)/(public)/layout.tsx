@@ -13,7 +13,7 @@ function PublicPageLayout({
     <div>
       <div className="content overflow-x-hidden px-1 sm:px-4 xl:px-0 bg-white">
         <PublicNavbar />
-        <div className="min-h-[1000px]">{children}</div>
+        <div className="min-h-[1000px] pt-[98px]">{children}</div>
       </div>
       <Footer />
     </div>
