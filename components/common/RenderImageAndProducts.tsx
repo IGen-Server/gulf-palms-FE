@@ -42,9 +42,18 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
 
   if (renderType === "image") {
     return (
-      <div className="relative inline-block">
+      <div
+        className="relative inline-block"
+        style={{
+          width: "100%",
+          height: "100%",
+          backgroundImage: `url(${imageFileOrUrl})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         {/* Main Image */}
-        <img src={imageFileOrUrl} alt="Main" className="w-full h-auto" />
+        {/* <img src={imageFileOrUrl} alt="Main" className="w-full h-auto" /> */}
 
         {/* Hover Products */}
         {hoverProducts?.map((product, index) => (
@@ -71,7 +80,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   <img
                     src={product.imgUrl}
                     alt={product.description}
-                    className="w-20 h-20 object-cover mb-2"
+                    className="w-full h-full object-cover mb-2"
                   />
                   <p className="text-sm font-semibold">{product.description}</p>
                   <p className="text-sm text-gray-600">${product.price}</p>

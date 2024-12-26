@@ -17,7 +17,7 @@ async function HomePage({
 }) {
   return (
     <div>
-      <div className="max-w-[100vw] md:w-[1370px] mx-auto bg-white h-[500px]">
+      <div className="max-w-[100vw] md:w-[1370px] mx-auto bg-white min-h-fit space-y-[90px]">
         <HeroSection />
         <HomeFirstProductGrid />
         <RecentProducts />
