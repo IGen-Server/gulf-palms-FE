@@ -88,8 +88,8 @@ export default function HomeSecondProductGrid() {
   ];
 
   return (
-    <div className="">
-      <div className="h-[580px]">
+    <div className="pb-[150px]">
+      <div className="h-[600px]">
         <ProductsGrid items={items} />
       </div>
     </div>

@@ -20,9 +20,13 @@ async function HomePage({
       <div className="max-w-[100vw] md:w-[1370px] mx-auto bg-white min-h-fit space-y-[90px]">
         <HeroSection />
         <HomeFirstProductGrid />
-        <RecentProducts />
+        <div className="py-[100px] z-[20]">
+          <RecentProducts />
+        </div>
         <ShowRoom />
-        <Services />
+        <div className="pt-[396px]">
+          <Services />
+        </div>
         <ProductsShowCase />
         <HomeSecondProductGrid />
         <WhoWeAre />
