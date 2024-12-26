@@ -1,6 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import Image from "next/image";
+import Link from "next/link";
+
+interface ButtonProps {
+  text: string; // Button text
+  bgColor?: string; // Background color for the button
+  height?: string; // Height of the button
+  width?: string; // Width of the button
+  textColor?: string; // Text color for the button
+  fontWeight?: string; // Font weight for the button text
+  borderRadius?: string; // Border radius of the button
+  border?: string; // Border style (e.g., "1px solid")
+  borderColor?: string; // Border color
+  href?: string; // Hyperlink reference
+  onClick?: () => void; // Click handler
+}
+
+interface ButtonsGroupProps {
+  items: ButtonProps[]; // Array of button configurations
+  type?: "row" | "col"; // Layout type: row or column
+  gap?: string; // Gap between buttons
+}
 
 interface ContentProps {
   type: "image" | "text";
@@ -18,6 +38,7 @@ interface ContentProps {
   textColor?: string; // Text color for bullets
   fontWeight?: string; // Font weight for bullets
   bgColor?: string; // Background color for this content
+  buttons?: ButtonsGroupProps; // Buttons group configuration
 }
 
 interface ImageTextCardProps {
@@ -33,9 +54,54 @@ interface ImageTextCardProps {
 export default function ImageTextCard({
   leftContent,
   rightContent,
-  size = { width: "max-w-[1140px]", height: "h-fit " },
+  size = { width: "max-w-[1140px]", height: "h-fit" },
   className = "",
 }: ImageTextCardProps) {
+  const renderButtons = (buttons: ButtonsGroupProps | undefined) => {
+    if (!buttons || buttons.items.length === 0) return null;
+
+    const layoutClass = buttons.type === "col" ? "flex-col" : "flex-row";
+    const gapClass = buttons.gap || "gap-3";
+
+    return (
+      <div className={`flex ${layoutClass} ${gapClass}`}>
+        {buttons.items.map((button, index) => {
+          const ButtonContent = (
+            <button
+              key={index}
+              className={`
+                px-3 py-2 
+                ${button.bgColor || "bg-primary"} 
+                ${button.textColor || "text-white"} 
+                ${button.fontWeight || "font-medium"} 
+                ${button.borderRadius || "rounded"} 
+                !cursor-pointer
+              `}
+              style={{
+                height: button.height || "auto",
+                width: button.width || "auto",
+                border: button.border || "none",
+                borderColor: button.borderColor || "black",
+                cursor: "pointer",
+              }}
+              onClick={button.onClick}
+            >
+              {button.href ? (
+                <Link href={button.href} key={index} className="cursor-pointer">
+                  {button.text}
+                </Link>
+              ) : (
+                `${button.text}`
+              )}
+            </button>
+          );
+
+          return ButtonContent;
+        })}
+      </div>
+    );
+  };
+
   const renderContent = (content: ContentProps) => {
     if (content.type === "text") {
       return (
@@ -61,7 +127,7 @@ export default function ImageTextCard({
 
           {content.bullets && content.bullets.length === 1 ? (
             <p
-              className={`${content.textColor || "text-black"} ${
+              className={`${content.textColor || "text-secondary"} ${
                 content.textSize || "text-sm"
               } ${content.fontWeight || "font-normal"} mb-1`}
             >
@@ -74,7 +140,7 @@ export default function ImageTextCard({
                   {content.bullets.map((bullet, index) => (
                     <li
                       key={index}
-                      className={`${content.textColor || "text-black"} ${
+                      className={`${content.textColor || "text-secondary"} ${
                         content.textSize || "text-sm"
                       } ${content.fontWeight || "font-normal"} mb-1`}
                     >
@@ -85,6 +151,8 @@ export default function ImageTextCard({
               </div>
             )
           )}
+
+          {content.buttons && renderButtons(content.buttons)}
         </div>
       );
     }
