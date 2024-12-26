@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
+import ProductsGrid from '../common/ProductsGrid'
 
 export default function HomeFirstProductGrid() {
   return (
-    <div>HomeFirstProductGrid</div>
-  )
+    <div>
+      <ProductsGrid />
+    </div>
+  );
 }
