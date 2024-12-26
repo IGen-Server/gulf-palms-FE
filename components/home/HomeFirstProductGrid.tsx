@@ -6,6 +6,7 @@ export default function HomeFirstProductGrid() {
   const renderFunction = (url: any) => {
     return (
       <RenderImageAndProducts
+        productId=""
         renderType="image"
         imageFileOrUrl={`${url}`}
         hoverProducts={[

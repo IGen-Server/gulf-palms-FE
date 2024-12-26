@@ -28,7 +28,7 @@ export default function HeroSection() {
   );
 
   return (
-    <div className="absolute top-[80px] sm:top-[20%] lg:top-[25%] xl:top-[300px] bottom-[300px] w-full items-center justify-center z-10">
+    <div className="top-[80px] sm:top-[20%] lg:top-[25%] xl:top-[300px] bottom-[300px] w-full items-center justify-center z-10  absolute max-h-fit">
       <div className="text-secondary">{content}</div>
     </div>
   );

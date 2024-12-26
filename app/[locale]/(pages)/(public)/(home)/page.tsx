@@ -16,23 +16,24 @@ async function HomePage({
   params: { locale: string };
 }) {
   return (
-    <div>
-      <div className="max-w-[100vw] md:w-[1370px] mx-auto bg-white min-h-fit space-y-[90px]">
-        <HeroSection />
-        <HomeFirstProductGrid />
-        <div className="py-[100px] z-[20]">
-          <RecentProducts />
-        </div>
-        <ShowRoom />
-        <div className="pt-[396px]">
-          <Services />
-        </div>
-        <ProductsShowCase />
-        <HomeSecondProductGrid />
-        <WhoWeAre />
-        <LocationMap />
-        <VideoShowCase />
+    <div className="max-w-[100vw] md:w-[1370px] mx-auto bg-white h-fit max-h-fit space-y-[90px]">
+      <HeroSection />
+      <HomeFirstProductGrid />
+      <div className="py-[100px]">
+        <RecentProducts />
       </div>
+      <ShowRoom />
+      <div className="pt-[396px]">
+        <Services />
+      </div>
+      <ProductsShowCase />
+      <HomeSecondProductGrid />
+      <WhoWeAre />
+      <div className="pb-[90px]">
+        <LocationMap />
+      </div>
+      <VideoShowCase />
+      <div className="pt-1"></div>
     </div>
   );
 }
