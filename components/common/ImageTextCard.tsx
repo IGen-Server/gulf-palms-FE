@@ -23,7 +23,7 @@ interface ButtonsGroupProps {
 }
 
 interface ContentProps {
-  type: "image" | "text";
+  type: "image" | "text" | "component";
   src?: string; // Image source if the type is "image"
   heading?: string; // Heading if the type is "text"
   headingSize?: string; // Font size for the heading
@@ -39,6 +39,7 @@ interface ContentProps {
   fontWeight?: string; // Font weight for bullets
   bgColor?: string; // Background color for this content
   buttons?: ButtonsGroupProps; // Buttons group configuration
+  component?: React.JSX.Element; //
 }
 
 interface ImageTextCardProps {
@@ -165,6 +166,10 @@ export default function ImageTextCard({
         />
       );
     }
+    if (content.type === "component") {
+      return content.component;
+    }
+
     return null;
   };
 
