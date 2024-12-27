@@ -7,6 +7,7 @@ interface ProductItem {
   col: number; // Column number (1-based index)
   rowSpan?: string; // Row span as a percentage (e.g., '20%')
   height?: string; // Height of the item as a percentage (e.g., '60%')
+  maxHeight?: string; // Height of the item as a percentage (e.g., '60%')
 }
 
 // Interface for the grid component
@@ -25,9 +26,19 @@ const getHeightPercentage = (height?: string) => {
 // ProductsGrid component
 const ProductsGrid: React.FC<ProductsGridProps> = ({ items }) => {
   // Step 1: Group items by column number (1, 2, or 3)
-  const groupedItems: ProductItem[][] = [[], [], []]; // Three columns (0, 1, 2 => col 1, 2, 3)
+  const groupedItems: ProductItem[][] = Array(
+    Math.max(...items.map((item) => item.col)) || 3
+  )
+    .fill(null)
+    .map(() => []); // Dynamically create the groups
+
   items.forEach((item) => {
-    groupedItems[item.col - 1].push(item); // Group by col number (col 1 -> index 0, etc.)
+    const colIndex = item.col - 1; // Calculate the 0-based index
+    if (colIndex >= 0 && colIndex < groupedItems.length) {
+      groupedItems[colIndex].push(item); // Add the item to the correct column
+    } else {
+      console.warn(`Invalid column index: ${item.col}`);
+    }
   });
 
   // Step 2: Sort items within each column based on their height (ascending order)
@@ -53,7 +64,7 @@ const ProductsGrid: React.FC<ProductsGridProps> = ({ items }) => {
           {columnItems.map((item) => (
             <div
               key={item.id}
-              className="h-full"
+              className={`h-full ${item?.maxHeight ? item.maxHeight : ""}`}
               style={{
                 height: item.height, // Set height based on the percentage
                 flex: `0 0 ${item.height}`, // Fix the height based on the item
