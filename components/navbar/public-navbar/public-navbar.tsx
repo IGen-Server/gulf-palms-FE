@@ -1,136 +1,215 @@
-'use client'
+"use client";
 
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "../../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
-import { CircleUser, Menu, Package2, Search } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
+
+import {
+  HeartIcon,
+  Menu,
+  SearchIcon,
+  ShoppingCart,
+  ChevronDown,
+} from "lucide-react";
 import BrandFullLogo from "../../logo/brand-full-logo";
-import BrandLogo from "../../logo/brand-logo";
 import { ThemeToggler } from "../../ThemeProvider/theme-toggler";
 import { LocaleToggler } from "../../LocaleProvider/locale-togger";
+import { NavLinksWithName } from "@/constants/global-constants";
 import { useTranslation } from "react-i18next";
-import { refineLocalePrefixForRoute, refineRoutePath } from "@/i18nConfig";
-import { NavLink, NavLinksWithName } from "@/constants/global-constants";
-
-export type GeneralNavbarProps = {
-  navLinks: NavLink[];
-};
+import { usePathname } from "next/navigation";
 
 export default function PublicNavbar() {
-
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language;
   const pathname = usePathname();
-  const { i18n } = useTranslation();
-  const { t } = useTranslation("common");
-  const currentLocale = i18n.language;
+  // console.log({ pathname });
+  useEffect(() => {
+    if (pathname !== "/") {
+      setShowNavbar(true);
+    }
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 500) {
+        if (currentScrollY > lastScrollY) {
+          setShowNavbar(false);
+        } else {
+          setShowNavbar(true);
+        }
+      } else {
+        setShowNavbar(true);
+      }
+
+      setLastScrollY(currentScrollY);
+      setIsScrolled(currentScrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY, pathname]);
+
+  const renderNavLinks = () =>
+    NavLinksWithName.map((item, index) => {
+      if (item.children) {
+        return (
+          <div key={index} className="group !text-[13px] font-semibold">
+            <Link
+              href={item.href}
+              className="text-white hover:text-gray-200 transition-colors flex items-center gap-1"
+            >
+              {t(`navigation.${item.name}`)}
+              <ChevronDown className="h-3 w-3 text-secondary" />
+            </Link>
+            <div
+              className={`absolute hidden group-hover:block bg-transparent mt-6  bg-white  ${
+                item.href.includes("shop")
+                  ? "w-full left-0 p-12"
+                  : "w-[220px] p-4"
+              }`}
+            >
+              {item.children.map((child, idx) => (
+                <Link
+                  key={idx}
+                  href={child.href}
+                  className="block duration-1000 px-4 py-2 text-gray-700 hover:bg-gray-200 "
+                >
+                  {t(`navigation.${child.name}`)}
+                </Link>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <Link
+          href={item.href}
+          key={index}
+          className="text-white hover:text-gray-200 transition-colors text-[13px] font-semibold"
+        >
+          {t(`navigation.${item.name}`)}
+        </Link>
+      );
+    });
 
   return (
-    <div className="md:sticky md:top-0 flex py-1 items-center gap-4 border-b bg-background z-[50] min-h-[4rem]">
-      <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6 w-full">
-        <div className="w-[110px]">
-          <BrandFullLogo height={24} />
-        </div>
-
-        {NavLinksWithName.map((item, index) => (
-          <Link
-            key={index}
-            href={item.href}
-            className={`${ pathname === refineLocalePrefixForRoute(currentLocale) + refineRoutePath(item.href, currentLocale)
-              ? "text-primary"
-              : "text-muted-foreground"
-              } transition-colors hover:text-foreground text-base border border-transparent mt-[5px]`}
-          >
-            {item.name}
-            {/* {t('navigation.' + item.name)} */}
-          </Link>
-        ))}
-      </nav>
-
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle navigation menu</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="">
-          <nav className="grid gap-6 text-lg font-medium">
-          <BrandLogo height={26} />
-
-            {NavLinksWithName.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`${ pathname === refineLocalePrefixForRoute(currentLocale) + refineRoutePath(item.href, currentLocale)
-                  ? "text-primary"
-                  : "text-muted-foreground"
-                  } transition-colors hover:text-foreground text-base`}
-                aria-current={pathname === refineLocalePrefixForRoute(currentLocale) + refineRoutePath(item.href, currentLocale) ? "page" : undefined}
+    <div
+      className={`w-full fixed duration-500 top-0 z-50 left-0 transition-transform ${
+        isScrolled ? "bg-primary shadow-lg" : "bg-transparent "
+      } ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}
+    >
+      <div className="max-w-[100vw] overflow-x-hidden lg:max-w-content mx-auto ">
+        <div className=" flex pt-[18px]  items-center gap-4 min-h-[4rem] pb-2 lg:pb-1">
+          {/* Left Navigation */}
+          <nav className="hidden lg:flex lg:items-center lg:gap-6 w-full ">
+            <div className="w-[170px]">
+              <div
+                className={`transition-all duration-500 ${
+                  isScrolled ? "w-[125px] h-[60px]" : "w-[170px] h-[77px]"
+                }`}
               >
-                {item.name}
-              </Link>
-            ))}
+                <BrandFullLogo height={77} />
+              </div>
+            </div>
+            <div className="flex items-center gap-4 w-[80%] flex-wrap justify-center">
+              {renderNavLinks()}
+            </div>
           </nav>
-        </SheetContent>
-      </Sheet>
-      <div className="flex items-center w-full justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
-
-        <div>
-          <LocaleToggler />
-        </div>
-
-        <div>
-          <ThemeToggler />
-        </div>
-
-        <Button asChild>
-          <Link href="/signin">Sign In</Link>
-        </Button>
-        <Button asChild>
-          <Link href="/signup">Sign Up</Link>
-        </Button>
-
-        {/* <Button onClick={willBeAvailableSoon}>Contact Us</Button> */}
-        {/* <UnavailableFeatureToastButton buttonText="Contact Us" /> */}
-
-        {/* <div>
-          <NotificationSystem></NotificationSystem>
-        </div> */}
-
-        {/* <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                {context?.userData && (
-                  <ReactAvatar
-                    size="28"
-                    src={`${ImageApi}/${context?.userData?.picture}`}
-                    round={true}
-                    name={context?.userData?.name}
-                    email={context?.userData?.email}
-                    alt={context?.userData?.name}
-                    className="object-cover"
-                  />
-                )}
-                <span className="sr-only">Toggle user menu</span>
+          {/* Mobile Menu */}
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                className="lg:hidden hover:bg-transparent w-fit p-0"
+              >
+                <Menu className="h-5 w-5 text-white" />
+                <span className="text-[13px] gont-bold text-secondary">
+                  MENU
+                </span>
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>
-                <div className="flex flex-col font-normal">
-                  <span>{context?.userData?.name}</span>
-                  <span>{context?.userData?.email}</span>
+            </SheetTrigger>
+            <div
+              className={`
+                absolute flex gap-4 lg:hidden 
+                ${
+                  currentLanguage === "ar"
+                    ? "right-[calc(50%_-_65px)]"
+                    : "right-[calc(50%_-_126px)]"
+                }
+              `}
+            >
+              <div className="w-[126px] ">
+                <BrandFullLogo height={60} />
+              </div>
+              <div className="flex items-center gap-4 text-secondary">
+                <div className="relative">
+                  <ShoppingCart />
+                  <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
+                    0
+                  </p>
                 </div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={goToSetting}>Settings</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={onLogout}>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div> */}
+                <div className="hidden lg:block">
+                  <HeartIcon />
+                </div>
+                <div className="hidden lg:block">
+                  <SearchIcon />
+                </div>
+              </div>
+              <LocaleToggler />
+            </div>
+            <SheetContent side="left">
+              <nav className="grid gap-6 text-lg font-medium">
+                {NavLinksWithName.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="text-gray-700 hover:text-gray-900 transition-colors"
+                  >
+                    {t(`navigation.${item.name}`)}
+                  </Link>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+
+          <Button
+            asChild
+            variant={"ghost"}
+            className="hover:bg-transparent w-fit p-0 hidden lg:flex"
+          >
+            <Link
+              href="/signup"
+              className="!text-[13px] font-semibold text-secondary hover:text-secondary-foreground uppercase"
+            >
+              Login / Register
+            </Link>
+          </Button>
+          <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary">
+            <div className="relative">
+              <ShoppingCart className="w-5 h-5" />
+              <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
+                0
+              </p>
+            </div>
+            <div className="hidden lg:block">
+              <HeartIcon className="w-5 h-5" />
+            </div>
+            <div className="hidden lg:block">
+              <SearchIcon className="w-5 h-5" />
+            </div>
+          </div>
+          {/* Right Actions */}
+          <div className="ml-auto hidden lg:flex items-center gap-4 min-w-fit">
+            <p className="!text-[13px] font-semibold text-secondary">
+              0.000 KD
+            </p>
+            <LocaleToggler />
+          </div>
+        </div>
       </div>
     </div>
   );

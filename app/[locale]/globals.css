@@ -8,6 +8,30 @@
   }
 }
 
+iframe {
+  border: none;
+  overflow: hidden;
+  width: 100vw;
+  min-width: 100vw;
+  margin: 0px;
+  padding: 0px;
+}
+
+.content {
+  z-index: 99;
+  background: #fff;
+  margin-bottom: 480px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 480px;
+  z-index: -99;
+}
+
 @layer base {
   :root {
     --default-text-color: #2e1050;
@@ -17,7 +41,7 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 346.8 77.2% 49.8%;
+    --primary: 22, 91%, 70%;
     --primary-foreground: 355.7 100% 97.3%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -71,8 +95,10 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
   }
 }
 

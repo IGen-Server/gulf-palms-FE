@@ -2,21 +2,22 @@ import PublicNavbar from "@/components/navbar/public-navbar/public-navbar";
 import { ReactNode } from "react";
 import Footer from "@/components/footer/footer";
 
-async function PublicPageLayout({ children, params: { locale } }: { children: ReactNode, params: { locale: string } }) {
+function PublicPageLayout({
+  children,
+  params: { locale },
+}: {
+  children: ReactNode;
+  params: { locale: string };
+}) {
   return (
-    <>
-      <div className="mx-4 md:mx-6">
+    <div>
+      <div className="content overflow-x-hidden px-1 sm:px-4 xl:px-0 bg-white">
         <PublicNavbar />
-        {children}
+        <div className="min-h-[1000px]">{children}</div>
       </div>
-      <SectionGap />
       <Footer />
-    </>
+    </div>
   );
-}
-
-function SectionGap() {
-  return (<span className="my-5 border border-transparent"></span>);
 }
 
 export default PublicPageLayout;
