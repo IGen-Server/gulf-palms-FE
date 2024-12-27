@@ -9,7 +9,6 @@ module.exports = {
 	],
 	theme: {
 		extend: {
-
 			maxWidth: {
 				content: "1370px",
 			},
