@@ -39,8 +39,8 @@ export const NavLinksWithName: NavLink[] = [
     name: "OUR FARM",
     href: "/our-farms",
     children: [
-      { name: "Farm 1", href: "/our-farms/farm-1" },
-      { name: "Farm 2", href: "/our-farms/farm-2" },
+      { name: "Farm 1", href: "/our-farms/wafrah-farm" },
+      { name: "Farm 2", href: "/our-farms/abdali-farm" },
       // Add more farms here as needed
     ],
   },
