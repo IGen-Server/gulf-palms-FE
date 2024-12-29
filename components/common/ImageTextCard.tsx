@@ -20,6 +20,7 @@ interface ButtonsGroupProps {
   items: ButtonProps[]; // Array of button configurations
   type?: "row" | "col"; // Layout type: row or column
   gap?: string; // Gap between buttons
+  align?: string; // Gap between buttons
 }
 
 interface ContentProps {
@@ -40,6 +41,7 @@ interface ContentProps {
   bgColor?: string; // Background color for this content
   buttons?: ButtonsGroupProps; // Buttons group configuration
   component?: React.JSX.Element; //
+  textAlign?: string;
 }
 
 interface ImageTextCardProps {
@@ -49,7 +51,7 @@ interface ImageTextCardProps {
     width?: string; // Width of the card
     height?: string; // Height of the card
   };
-  className?: string; // Optional additional styling classes
+  className?: string;
 }
 
 export default function ImageTextCard({
@@ -63,9 +65,12 @@ export default function ImageTextCard({
 
     const layoutClass = buttons.type === "col" ? "flex-col" : "flex-row";
     const gapClass = buttons.gap || "gap-3";
+    const alignClass = buttons.align && `justify-${[buttons.align]}`;
 
     return (
-      <div className={`flex ${layoutClass} ${gapClass}`}>
+      <div
+        className={`flex w-full items-center ${alignClass} ${layoutClass} ${gapClass}`}
+      >
         {buttons.items.map((button, index) => {
           const ButtonContent = (
             <button
@@ -104,9 +109,15 @@ export default function ImageTextCard({
   };
 
   const renderContent = (content: ContentProps) => {
+    const textAlignClass = content.textAlign
+      ? `text-${content.textAlign}`
+      : "text-left";
+
     if (content.type === "text") {
       return (
-        <div className="space-y-[20px] p-[30px]">
+        <div
+          className={`space-y-[20px] p-[30px] ${textAlignClass}`} // Apply the generated class here
+        >
           {content.subheading && (
             <h3
               className={`${content.subheadingColor || "text-primary"} ${
@@ -181,7 +192,7 @@ export default function ImageTextCard({
       <div
         className={`flex flex-col items-start w-full text-justify ${
           leftContent.bgColor || ""
-        }`}
+        } ${leftContent.type === "text" && "grid place-content-center"}`}
       >
         {renderContent(leftContent)}
       </div>
@@ -190,7 +201,7 @@ export default function ImageTextCard({
       <div
         className={`flex flex-col items-start w-full text-justify  ${
           rightContent.bgColor || ""
-        }`}
+        }  ${rightContent.type === "text" && "grid place-content-center"}`}
       >
         {renderContent(rightContent)}
       </div>

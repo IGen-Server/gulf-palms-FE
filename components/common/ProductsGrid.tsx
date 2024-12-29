@@ -1,5 +1,5 @@
-import React from "react";
-
+"use client";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 // Interface for individual product item
 interface ProductItem {
   id: number;

@@ -5,7 +5,7 @@ export default function Services() {
   return (
     <div>
       <div className="pb-[30px] space-y-5 max-w-[800px]">
-        <p className="text-gray-800 text-xl">OUR SERVICES</p>
+        <p className="text-gray-700 text-[30px] font-light">OUR SERVICES</p>
         <p className="text-gray-800 font-bold text-[29px]">
           SERVICES PROVIED BY GULF PALM
         </p>
@@ -15,7 +15,7 @@ export default function Services() {
           agricultural environment to ensure sustainable green spaces.
         </p>
       </div>
-      <div>
+      <div className="pb-[50px]">
         <CustomCarousel
           slidesToScroll={3}
           slidesToShow={3}
