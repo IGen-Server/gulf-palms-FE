@@ -158,19 +158,6 @@ export default function About() {
         </div>
         <CustomCarousel
           withNavigation={true}
-          imageDimensions={{
-            width: "400px",
-            height: "200px",
-            padding: "16px",
-          }}
-          basisNumber={{
-            default: 4,
-            sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 5,
-            "2xl": 6,
-          }}
           data={[
             {
               imageSrc:

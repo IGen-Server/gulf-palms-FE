@@ -26,6 +26,7 @@ export default function HomeSecondProductGrid() {
             description: "Product 2",
           },
         ]}
+        productId={""}
       />
     );
   };

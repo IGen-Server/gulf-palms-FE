@@ -9,6 +9,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 interface CarouselData {
   component?: React.ReactNode;
+  imageSrc?: String;
+  content?: String;
 }
 
 interface CustomCarouselProps {
@@ -37,7 +39,15 @@ export default function CustomCarousel({
       <Slider {...settings}>
         {data.map((item, index) => (
           <div className="z-[10]" key={index}>
-            {item.component}
+            {!!item.imageSrc ? (
+              <img
+                src={`${item?.imageSrc || ""}`}
+                alt="image"
+                className="w-[300px] h-[300px]"
+              />
+            ) : (
+              item.component
+            )}
           </div>
         ))}
       </Slider>
