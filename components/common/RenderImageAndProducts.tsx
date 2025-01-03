@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Ellipsis, ShoppingCart } from "lucide-react";
 
 import {
   HoverCard,
@@ -9,10 +10,20 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Heart, Search, Shuffle } from "lucide-react";
+import Link from "next/link";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface HoverProduct {
   position: { x: number; y: number }; // Position on the image (absolute positioning)
   imgUrl: string; // Image URL for the hover product
+  hoveredHref: string; // Image URL for the hover product
+  hoveredTitle: string;
   productId: string; // Product ID
   price: string; // Product price
   description: string; // Product description
@@ -40,6 +51,9 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   productId,
 }) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
+  const [expandedDescriptionId, setExpandedDescriptionId] = useState<
+    string | null
+  >(null);
 
   if (renderType === "image") {
     return (
@@ -50,7 +64,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           height: "100%",
           backgroundImage: `url(${imageFileOrUrl})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "",
         }}
       >
         {/* Main Image */}
@@ -60,31 +74,80 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
         {hoverProducts?.map((product, index) => (
           <HoverCard key={index}>
             <div
-              className="absolute z-[10]"
+              className="absolute"
               style={{
                 top: `${product.position.y}%`,
                 left: `${product.position.x}%`,
               }}
             >
               {/* Position Marker */}
+
               <HoverCardTrigger
-                className="w-8 h-8 bg-primary rounded-full cursor-pointer animate-pulse grid place-content-center"
                 onMouseEnter={() => setHoveredProductId(product.productId)}
                 onMouseLeave={() => setHoveredProductId(null)}
               >
-                <p className="w-3 h-3 bg-white rounded-full"></p>
+                <div className="relative w-[50px] h-[50px] grid place-content-center">
+                  <div className="w-[20px] h-[20px] bg-primary rounded-full cursor-pointer grid place-content-center hotspot-btn">
+                    <div className="w-[6px] h-[6px] bg-white rounded-full z-10">
+                      <p className="hotspot-sonar !animate-ping"></p>
+                    </div>
+                  </div>
+                </div>
               </HoverCardTrigger>
 
               {/* Hover Product Card */}
               {hoveredProductId === product.productId && (
-                <HoverCardContent className="p-4 bg-white shadow-lg border rounded-md z-[50]">
+                <HoverCardContent
+                  className="p-4 bg-white shadow-lg border rounded-md text-center font-arabic"
+                  onMouseEnter={() => setHoveredProductId(product.productId)}
+                  onMouseLeave={() => setHoveredProductId(null)}
+                >
                   <img
                     src={product.imgUrl}
-                    alt={product.description}
+                    alt={"image"}
                     className="w-full h-full object-cover mb-2"
                   />
-                  <p className="text-sm font-semibold">{product.description}</p>
-                  <p className="text-sm text-gray-600">${product.price}</p>
+                  <p className="text-[16px] font-semibold text-gray-500">
+                    {product.hoveredTitle}
+                  </p>
+                  <p className="text-sm text-primary font-semibold py-4">
+                    {product.price} KD
+                  </p>
+                  <div
+                    className={`text-sm text-gray-500 overflow-hidden transition-all duration-300`}
+                    style={{
+                      height:
+                        expandedDescriptionId === product.productId
+                          ? "fit-content"
+                          : "70px",
+                    }}
+                  >
+                    {product.description}
+                  </div>
+
+                  <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100">
+                    {/* Toggle Visibility */}
+                    <Ellipsis
+                      className={
+                        expandedDescriptionId === product.productId
+                          ? "opacity-0"
+                          : "cursor-pointer "
+                      }
+                      onClick={() =>
+                        setExpandedDescriptionId((prevId) =>
+                          prevId === product.productId
+                            ? null
+                            : product.productId
+                        )
+                      }
+                    />
+                    <Link
+                      href={product.hoveredHref}
+                      className="bg-primary text-white text-[12px] px-3 py-2"
+                    >
+                      ADD TO CARD
+                    </Link>
+                  </div>
                 </HoverCardContent>
               )}
             </div>
@@ -93,49 +156,111 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
       </div>
     );
   }
-  console.log({ hoveredProductId });
+
   if (renderType === "product") {
+    console.log(hoveredProductId === productId);
     return (
       <div
-        className="relative overflow-hidden !w-[260px] !h-[376px] cursor-pointer z-[10]"
+        className="relative overflow-hidden !w-[260px] !h-[357px] cursor-pointer z-[10]"
         onMouseEnter={() => {
           setHoveredProductId(productId);
-          console.log("hovered");
         }}
         onMouseLeave={() => setHoveredProductId(null)}
       >
         {/* Product Image */}
         <div
-          className={`w-full !h-[280px] duration-300 overflow-hidden relative ${
-            hoveredProductId === productId ? "scale-[1.2]" : "scale-100"
-          }`}
+          className={`w-full !h-[280px] duration-700 !overflow-hidden relative`}
         >
           <img
-            src={(images?.length && images.length > 0 && images?.[0]) || ""}
+            src={images?.[0]}
             alt={name}
-            className={`w-full h-[250px] object-cover !overflow-hidden `}
+            className={`absolute inset-0 w-full h-full object-cover ${
+              hoveredProductId === productId ? "opacity-0 " : "opacity-100"
+            }`}
           />
-        </div>
+          {/* Second Image */}
+          <img
+            src={images?.[1]}
+            alt={name}
+            className={`absolute inset-0 w-full h-full object-cover  ${
+              hoveredProductId === productId
+                ? "opacity-100 scale-[1.1] transition-transform duration-1000"
+                : "opacity-0 scale-100"
+            }`}
+          />
 
-        {hoveredProductId === productId && (
-          <div>
-            <div className="h-[280px] w-full bg-black opacity-5 absolute top-0 left-0"></div>
-            <div className="absolute bg-white w-[45px] h-[150px] top-2 right-2 rounded-lg opacity-90 grid place-content-center ">
-              <div className="flex flex-col gap-3">
-                <Shuffle className="cursor-pointer w-8 h-8" />
-                <Search className="cursor-pointer w-8 h-8" />
-                <Heart className="cursor-pointer w-8 h-8" />
+          <div className="absolute bottom-0 left-0 w-full h-[38px] overflow-hidden">
+            <div
+              className={`h-full bg-primary w-full text-center font-arabic text-white duration-500 ${
+                hoveredProductId === productId
+                  ? "!translate-y-[0px] cursor-pointer opacity-90"
+                  : "opacity-0 pointer-events-none translate-y-[38px]"
+              }`}
+            >
+              <div className="group/cart">
+                <p className="translate-y-[8px] group-hover/cart:translate-y-[38px] transition-all duration-1000">
+                  SELECT OPTIONS
+                </p>
+                <p className="">
+                  <ShoppingCart className="-translate-y-[50px] group-hover/cart:-translate-y-[15px] group-hover/cart:bg-opacity-100 w-full place-content-center transition-all duration-1000" />
+                </p>
               </div>
             </div>
-            <div className="absolute text-white text-lg grid place-content-center bg-primary w-full h-[50px] bottom-[95px] opacity-90 left-0">
-              SELECT OPTIONS
-            </div>
           </div>
-        )}
+        </div>
+
+        <div
+          className={`duration-500 ${
+            hoveredProductId === productId ? "" : "opacity-0"
+          } `}
+        >
+          <div className="absolute bg-white w-[45px] top-2 right-2 rounded-lg opacity-90 grid place-content-center py-2 ">
+            <TooltipProvider>
+              <div className="space-y-2">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Shuffle className="cursor-pointer w-[20px]" />
+                  </TooltipTrigger>
+                  <TooltipContent
+                    sideOffset={15}
+                    side="left"
+                    className="bg-black"
+                  >
+                    <p>Compare</p>
+                  </TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Search className="cursor-pointer w-[20px]" />
+                  </TooltipTrigger>
+                  <TooltipContent
+                    sideOffset={15}
+                    side="left"
+                    className="bg-black"
+                  >
+                    <p>Quickview</p>
+                  </TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Heart className="cursor-pointer w-[20px]" />
+                  </TooltipTrigger>
+                  <TooltipContent
+                    sideOffset={15}
+                    side="left"
+                    className="bg-black"
+                  >
+                    <p>Add to wishlist</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </TooltipProvider>
+          </div>
+        </div>
 
         {/* Product Details */}
-        <div className="text-center !h-[96px] bg-white">
-          <h2 className="text-lg font-thin text-black">{name}</h2>
+        <div className="text-center bg-white mt-2">
+          <h2 className="text-[14px] font-arabic text-gray-800">{name}</h2>
           <p className="text-[13.3px] text-gray-500 overflow-ellipsis">
             {description}
           </p>

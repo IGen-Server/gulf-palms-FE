@@ -1,25 +1,22 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+"use client";
 
-export interface ClientRoutesModel {
-  Admin: {
-    SignIn: string;
-    Overview: string;
-    Settings: string;
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+
+export const useRouteService = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  return {
+    router,
+    pathname,
+    searchParams,
   };
-}
-
-export const ClientRoutes: ClientRoutesModel = {
-  Admin: {
-    SignIn: "/admin/signin",
-    Overview: "/admin/overview",
-    Settings: "/admin/settings",
-  },
 };
 
-export class RouteService {
-  private router = useRouter();
-  private pathname = usePathname();
-  private searchParams = useSearchParams();
-
-  constructor() {}
-}
+export const ClientRoutes = {
+  Admin: {
+    SignIn: "/admin/sign-in",
+    Overview: "/admin/overview",
+  },
+};
