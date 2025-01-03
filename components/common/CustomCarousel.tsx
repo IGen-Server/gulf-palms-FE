@@ -3,21 +3,22 @@
 
 import React from "react";
 import Slider from "react-slick";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 interface CarouselData {
   component?: React.ReactNode;
-  imageSrc?: String;
-  content?: String;
+  imageSrc?: string;
+  content?: string;
 }
 
 interface CustomCarouselProps {
   data: CarouselData[];
   withNavigation?: boolean;
   slidesToShow?: number; // Optional prop to customize slides to show, default is 4
-  slidesToScroll?: number; // Optional prop to customize slides to scroll, default
+  slidesToScroll?: number; // Optional prop to customize slides to scroll, default is 4
 }
 
 export default function CustomCarousel({
@@ -26,24 +27,74 @@ export default function CustomCarousel({
   slidesToScroll = 4,
   withNavigation = false,
 }: CustomCarouselProps) {
+  const NextArrow = ({ onClick }: { onClick?: () => void }) => (
+    <div
+      className="absolute -right-[22px] top-1/2 group transform -translate-y-1/2 marker:z-20 rounded-full cursor-pointer  overflow-hidden "
+      onClick={onClick}
+    >
+      <ChevronRight
+        size={34}
+        className="-translate-x-[100px] text-gray-600 group-hover:translate-x-[10px] transition-all duration-1000"
+      />
+    </div>
+  );
+
+  const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
+    <div
+      className="absolute -left-[35px] top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      onClick={onClick}
+    >
+      <ChevronLeft
+        size={34}
+        className="translate-x-[100px] text-gray-600 group-hover:-translate-x-[10px] transition-all duration-1000"
+      />
+    </div>
+  );
+
   const settings = {
     dots: true,
+    infinite: true,
     speed: 500,
     slidesToShow,
     slidesToScroll,
-    initialSlide: 0,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <div className="w-full h-full z-[100]">
+    <div className="relative w-full h-full group px-6">
       <Slider {...settings}>
         {data.map((item, index) => (
-          <div className="z-[10]" key={index}>
-            {!!item.imageSrc ? (
+          <div key={index}>
+            {item.imageSrc ? (
               <img
-                src={`${item?.imageSrc || ""}`}
-                alt="image"
-                className="w-[300px] h-[300px]"
+                src={item.imageSrc}
+                alt="Carousel Item"
+                className="w-full h-auto"
               />
             ) : (
               item.component

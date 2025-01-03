@@ -9,8 +9,12 @@ module.exports = {
 	],
 	theme: {
 		extend: {
+			fontFamily: {
+				sans: ['Lato', 'Arial', 'Helvetica', 'sans-serif'],
+				arabic: ['"Neo Sans Arabic"', 'sans-serif'],
+			},
 			maxWidth: {
-				content: "1370px",
+				content: '1396px'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

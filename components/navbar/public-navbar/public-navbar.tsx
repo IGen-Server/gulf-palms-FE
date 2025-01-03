@@ -72,10 +72,10 @@ export default function PublicNavbar() {
             <HoverCardTrigger asChild>
               <Link
                 href={item.href}
-                className="text-white hover:text-gray-200 transition-colors flex items-center gap-1 !text-[13px] font-semibold"
+                className="text-white hover:text-gray-200 transition-colors flex items-center gap-1 !text-[13px] font-semibold font-sans "
               >
                 {t(`navigation.${item.name}`)}
-                <ChevronDown className="h-3 w-3 text-secondary" />
+                <ChevronDown className="w-3 text-secondary opacity-90" />
               </Link>
             </HoverCardTrigger>
             <HoverCardContent
@@ -103,7 +103,7 @@ export default function PublicNavbar() {
         <Link
           href={item.href}
           key={index}
-          className="text-white hover:text-gray-200 transition-colors text-[13px] font-semibold"
+          className="text-white hover:text-gray-200 transition-colors text-[13px] font-semibold font-sans"
         >
           {t(`navigation.${item.name}`)}
         </Link>
@@ -112,29 +112,37 @@ export default function PublicNavbar() {
 
   return (
     <div
-      className={`w-full  fixed duration-500 top-0 z-50 left-0 transition-transform 
+      className={`w-full  fixed duration-500 top-0 z-[10000] left-0 transition-transform flex items-center
        
         ${showNavbar ? "translate-y-0" : "-translate-y-full"}
         ${
           isHomePage
-            ? ` ${isScrolled ? "bg-primary shadow-lg" : "bg-transparent "}`
+            ? ` ${
+                isScrolled
+                  ? "bg-primary shadow-lg h-[60px]"
+                  : "bg-transparent h-[105px]"
+              }`
             : "bg-primary"
         }`}
     >
-      <div className="max-w-[100vw] overflow-x-hidden lg:max-w-content mx-auto ">
-        <div className=" flex pt-[18px]  items-center gap-4 min-h-[4rem] pb-2 lg:pb-1">
+      <div className="max-w-[100vw] overflow-x-hidden lg:max-w-content mx-auto px-4">
+        <div className=" flex items-center gap-6 pb-2 lg:pb-1">
           {/* Left Navigation */}
           <nav className="hidden lg:flex lg:items-center lg:gap-6 w-full ">
             <div className="w-[170px]">
               <div
-                className={`transition-all duration-500 ${
-                  isScrolled ? "w-[125px] h-[60px]" : "w-[170px] h-[77px]"
+                className={`transition-all duration-500 grid place-content-center ${
+                  isScrolled ? "w-[125px] h-[60px]" : "w-[170px] !h-[77px]"
                 }`}
               >
-                <BrandFullLogo height={77} />
+                {isScrolled ? (
+                  <BrandFullLogo height={60} width={125} />
+                ) : (
+                  <BrandFullLogo height={77} width={170} />
+                )}
               </div>
             </div>
-            <div className="flex items-center gap-4 w-[80%] flex-wrap justify-center">
+            <div className="flex items-center gap-4 min-w-[758px] justify-evenly flex-wrap ">
               {renderNavLinks()}
             </div>
           </nav>
@@ -207,7 +215,7 @@ export default function PublicNavbar() {
               Login / Register
             </Link>
           </Button>
-          <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary">
+          <div className="hidden  lg:flex flex-row-reverse items-center gap-4 text-secondary ">
             <div className="relative">
               <ShoppingCart className="w-5 h-5" />
               <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
@@ -222,7 +230,7 @@ export default function PublicNavbar() {
             </div>
           </div>
           {/* Right Actions */}
-          <div className="ml-auto hidden lg:flex items-center gap-4 min-w-fit">
+          <div className="ml-auto hidden lg:flex items-center gap-4 min-w-fit ">
             <p className="!text-[13px] font-semibold text-secondary">
               0.000 KD
             </p>

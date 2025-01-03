@@ -10,17 +10,16 @@ import Link from "next/link";
 
 interface BrandFullLogoProps {
   height?: number;
+  width?: number | string;
   className?: string;
 }
 
 const BrandFullLogo: React.FC<BrandFullLogoProps> = ({
   height = 24,
+  width = "100%",
   className = "",
 }) => {
   const { theme } = useTheme();
-  const original_width = 1370;
-  const original_height = 307;
-  const width = (original_width / original_height) * height;
 
   const [logoSrc, setLogoSrc] = useState(BrandLogoFull);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +41,7 @@ const BrandFullLogo: React.FC<BrandFullLogoProps> = ({
         />
       )}
       <Image
-        className={isLoading ? "invisible w-0 h-0" : "visible"}
+        className={isLoading ? "invisible w-0 h-0" : className}
         src={logoSrc}
         height={height}
         alt="Brand Logo"
