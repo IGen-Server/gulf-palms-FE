@@ -12,6 +12,8 @@ interface CarouselData {
   component?: React.ReactNode;
   imageSrc?: string;
   content?: string;
+  width?: string;
+  height?: string;
 }
 
 interface CustomCarouselProps {
@@ -76,7 +78,7 @@ export default function CustomCarousel({
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 380,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -86,7 +88,7 @@ export default function CustomCarousel({
   };
 
   return (
-    <div className="relative w-full h-full group px-6">
+    <div className="relative w-full min-h-[420px] h-fit group px-6">
       <Slider {...settings}>
         {data.map((item, index) => (
           <div key={index}>
@@ -94,7 +96,9 @@ export default function CustomCarousel({
               <img
                 src={item.imageSrc}
                 alt="Carousel Item"
-                className="w-full h-auto"
+                className={`${item.height || "h-auto"} ${
+                  item.width || "w-full"
+                } object-contain`}
               />
             ) : (
               item.component

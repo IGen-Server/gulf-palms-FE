@@ -119,13 +119,16 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                       height:
                         expandedDescriptionId === product.productId
                           ? "fit-content"
-                          : "70px",
+                          : "72px",
                     }}
                   >
                     {product.description}
                   </div>
 
-                  <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100">
+                  <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100 relative">
+                    {!expandedDescriptionId && (
+                      <div className="absolute h-[15px] blur-sm bg-white/80 w-full -top-3 left-0"></div>
+                    )}
                     {/* Toggle Visibility */}
                     <Ellipsis
                       className={
@@ -158,10 +161,9 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   }
 
   if (renderType === "product") {
-    console.log(hoveredProductId === productId);
     return (
       <div
-        className="relative overflow-hidden !w-[260px] !h-[357px] cursor-pointer z-[10]"
+        className="relative overflow-hidden max-w-[260px] !h-[357px] cursor-pointer z-[10]"
         onMouseEnter={() => {
           setHoveredProductId(productId);
         }}
@@ -207,54 +209,57 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               </div>
             </div>
           </div>
-        </div>
-
-        <div
-          className={`duration-500 ${
-            hoveredProductId === productId ? "" : "opacity-0"
-          } `}
-        >
-          <div className="absolute bg-white w-[45px] top-2 right-2 rounded-lg opacity-90 grid place-content-center py-2 ">
-            <TooltipProvider>
-              <div className="space-y-2">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Shuffle className="cursor-pointer w-[20px]" />
-                  </TooltipTrigger>
-                  <TooltipContent
-                    sideOffset={15}
-                    side="left"
-                    className="bg-black"
-                  >
-                    <p>Compare</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Search className="cursor-pointer w-[20px]" />
-                  </TooltipTrigger>
-                  <TooltipContent
-                    sideOffset={15}
-                    side="left"
-                    className="bg-black"
-                  >
-                    <p>Quickview</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Heart className="cursor-pointer w-[20px]" />
-                  </TooltipTrigger>
-                  <TooltipContent
-                    sideOffset={15}
-                    side="left"
-                    className="bg-black"
-                  >
-                    <p>Add to wishlist</p>
-                  </TooltipContent>
-                </Tooltip>
+          <div className="absolute top-2 right-2 rounded-lg grid place-content-center ">
+            <div
+              className={`h-[135px] w-[45px] text-center font-arabic text-gray-700 duration-500 ${
+                hoveredProductId === productId
+                  ? "!translate-y-[0px] shadow shadow-gray-300 p-2 bg-white w-[45px]"
+                  : "opacity-0 pointer-events-none translate-x-[50px]"
+              }`}
+            >
+              <div className="group/cart h-full z-10">
+                <TooltipProvider>
+                  <div className="flex flex-col justify-between items-center h-full">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Shuffle className="cursor-pointer w-[20px]" />
+                      </TooltipTrigger>
+                      <TooltipContent
+                        sideOffset={15}
+                        side="left"
+                        className="bg-black"
+                      >
+                        <p>Compare</p>
+                      </TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Search className="cursor-pointer w-[20px]" />
+                      </TooltipTrigger>
+                      <TooltipContent
+                        sideOffset={15}
+                        side="left"
+                        className="bg-black"
+                      >
+                        <p>Quickview</p>
+                      </TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Heart className="cursor-pointer w-[20px]" />
+                      </TooltipTrigger>
+                      <TooltipContent
+                        sideOffset={15}
+                        side="left"
+                        className="bg-black"
+                      >
+                        <p>Add to wishlist</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                </TooltipProvider>
               </div>
-            </TooltipProvider>
+            </div>
           </div>
         </div>
 

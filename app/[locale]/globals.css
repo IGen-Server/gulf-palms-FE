@@ -250,6 +250,20 @@ body {
   font-size: 12px !important;
 }
 
+#sb_instagram .sbi_type_video .sbi_playbtn,
+#sb_instagram .sbi_type_carousel .sbi_playbtn,
+.sbi_type_carousel .fa-clone,
+#sb_instagram .sbi_type_carousel .svg-inline--fa.fa-play,
+#sb_instagram .sbi_type_video .svg-inline--fa.fa-play {
+  display: block !important;
+  position: absolute !important;
+  z-index: 1 !important;
+  color: #fff !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-style: normal !important;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8) !important;
+}
+
 .hotspot-btn {
   background-color: 346.8 77.2% 49.8%;
   animation: wd-Pulse 2s ease-in-out infinite;

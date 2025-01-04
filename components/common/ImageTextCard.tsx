@@ -42,6 +42,8 @@ interface ContentProps {
   buttons?: ButtonsGroupProps; // Buttons group configuration
   component?: React.JSX.Element; //
   textAlign?: string;
+  imgHeight?: string;
+  imgWidth?: string;
 }
 
 interface ImageTextCardProps {
@@ -173,7 +175,7 @@ export default function ImageTextCard({
         <img
           src={content.src}
           alt="Content"
-          className="w-full h-full object-cover"
+          className={`w-full ${content.imgHeight || "h-full"} object-cover`}
         />
       );
     }
