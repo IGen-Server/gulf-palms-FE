@@ -16,10 +16,10 @@ async function HomePage({
   params: { locale: string };
 }) {
   return (
-    <div className="max-w-[100vw] md:w-[1370px] mx-auto bg-white h-fit max-h-fit space-y-[90px]">
+    <div className="max-w-[100vw] md:w-[1370px] mx-auto bg-white h-fit max-h-fit space-y-[50px]">
       <HeroSection />
       <HomeFirstProductGrid />
-      <div className="py-[100px]">
+      <div className="pt-[100px]">
         <RecentProducts />
       </div>
       <ShowRoom />
@@ -28,9 +28,11 @@ async function HomePage({
       </div>
       <ProductsShowCase />
       <HomeSecondProductGrid />
-      <WhoWeAre />
-      <div className="pb-[90px]">
-        <LocationMap />
+      <div>
+        <WhoWeAre />
+        <div>
+          <LocationMap />
+        </div>
       </div>
       <VideoShowCase />
       <div className="pt-1"></div>
