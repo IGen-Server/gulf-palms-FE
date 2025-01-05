@@ -68,7 +68,7 @@ export default function PublicNavbar() {
     NavLinksWithName.map((item, index) => {
       if (item.children) {
         return (
-          <HoverCard key={index}>
+          <HoverCard key={index} openDelay={100}>
             <HoverCardTrigger asChild>
               <Link
                 href={item.href}
@@ -89,7 +89,7 @@ export default function PublicNavbar() {
                 <Link
                   key={idx}
                   href={child.href}
-                  className="block duration-1000 px-4 py-2 text-gray-700 hover:bg-gray-200 "
+                  className="block  px-4 py-2 text-gray-700 hover:bg-gray-200 "
                 >
                   {t(`navigation.${child.name}`)}
                 </Link>
@@ -112,7 +112,7 @@ export default function PublicNavbar() {
 
   return (
     <div
-      className={`w-full  fixed duration-500 top-0 z-[10000] left-0 transition-transform flex items-center
+      className={`w-full fixed duration-500 top-0 z-[10000] left-0 transition-transform flex items-center
        
         ${showNavbar ? "translate-y-0" : "-translate-y-full"}
         ${
@@ -125,7 +125,7 @@ export default function PublicNavbar() {
             : "bg-primary"
         }`}
     >
-      <div className="max-w-[100vw] overflow-x-hidden lg:max-w-content mx-auto px-4">
+      <div className="max-w-[100vw] overflow-x-hidden lg:max-w-content mx-auto lg:w-[1396px] px-4">
         <div className=" flex items-center gap-6 pb-2 lg:pb-1">
           {/* Left Navigation */}
           <nav className="hidden lg:flex lg:items-center lg:gap-6 w-full ">

@@ -1,11 +1,13 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import PublicNavbar from "@/components/navbar/public-navbar/public-navbar";
 import { ReactNode } from "react";
 import Footer from "@/components/footer/footer";
 import Image from "next/image";
 import homePageImage from "@/assets/images/homePageImage.jpg";
+import Player from "@vimeo/player";
 
 function PublicPageLayout({
   children,
@@ -15,49 +17,72 @@ function PublicPageLayout({
   params: { locale: string };
 }) {
   const [iframeLoaded, setIframeLoaded] = useState(false);
+  const playerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIframeLoaded(true), 1000); // Adjust timeout as needed
-    return () => clearTimeout(timer);
+    if (playerRef.current) {
+      const player = new Player(playerRef.current, {
+        id: 835241101,
+        autoplay: true,
+        muted: true,
+        loop: true,
+        controls: false,
+        background: true,
+        height: 960,
+        maxheight: 960,
+        quality: "1080p",
+        responsive: true,
+      });
+
+      // Set iframeLoaded to true when the video is loaded and ready
+      player
+        .ready()
+        .then(() => {
+          console.log("Player is ready!");
+          setTimeout(() => {
+            setIframeLoaded(true);
+          }, 3000);
+        })
+        .catch((error) => {
+          console.error("Error initializing player:", error);
+        });
+
+      // Debugging event listener for 'loaded'
+      player.on("loaded", () => {
+        console.log("Video fully loaded!");
+        setTimeout(() => {
+          setIframeLoaded(true);
+        }, 3000);
+      });
+
+      return () => {
+        player.destroy();
+      };
+    }
   }, []);
 
   return (
-    <div className="relative min-h-screen w-screen">
-      <div
-        className="overflow-hidden inset-0 h-[868px] bg-white"
-        style={{
-          padding: "56.25% 0 0 0",
-          position: "relative",
-          overflow: "hidden",
-          height: "100%",
-          minHeight: "368px",
-          width: "100vw",
-        }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div>
-        {!iframeLoaded ? (
+    <div className="w-screen ">
+      <div className="relative overflow-hidden w-screen inset-0 lg:h-[865px] mb-[90px]">
+        {!iframeLoaded && (
           <Image
             src={homePageImage}
             alt="Home Page"
             layout="fill"
             objectFit="cover"
             priority
+            className="absolute inset-0 z-0"
           />
-        ) : (
-          <iframe
-            src="https://player.vimeo.com/video/835241101?muted=1&autoplay=1&loop=1&background=1&app_id=122963"
-            allow="autoplay; fullscreen;"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              height: "100%",
-              minWidth: "100vw",
-            }}
-            title="مشروع الزهرة -"
-            onLoad={() => setIframeLoaded(true)}
-          ></iframe>
         )}
+
+        <div
+          ref={playerRef}
+          className={` inset-0 z-10 transition-opacity duration-500 ${
+            iframeLoaded ? "opacity-100" : "opacity-0"
+          }`}
+        ></div>
+
+        <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div>
       </div>
 
       <div className="content overflow-x-hidden px-1 sm:px-4 xl:px-0 bg-white">

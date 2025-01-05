@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Image from "next/image";
@@ -26,8 +28,8 @@ const Footer: FC = () => {
     }[]) || [];
 
   return (
-    <footer className="footer bg-primary text-secondary">
-      <div className="relative h-full max-w-content mx-auto">
+    <footer className="footer bg-primary text-secondary ">
+      <div className="relative h-full max-w-[1222px] mx-auto">
         <div className="container mx-auto pt-8 pb-[100px]">
           <div className="h-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Logo and Description */}
@@ -39,15 +41,12 @@ const Footer: FC = () => {
                 height={71}
                 width={179}
               />
-              <p className="text-sm text-secondary">
-                {t("footer.description")}
-              </p>
               <div className="flex space-x-4 py-4 ">
                 <Link
                   href="https://twitter.com/gulfpalms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-secondary hover:text-secondary cursor-pointer h-[30px] w-[30px] p-2 border rounded-full grid place-content-center"
+                  className="text-secondary/90 hover:text-white cursor-pointer h-[30px] w-[30px] p-2 border rounded-full grid place-content-center"
                 >
                   <i className="fab fa-twitter"></i>
                 </Link>
@@ -55,7 +54,7 @@ const Footer: FC = () => {
                   href="https://www.instagram.com/gulfpalms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-secondary hover:text-secondary cursor-pointer h-[30px] w-[30px] p-2 border rounded-full grid place-content-center"
+                  className="text-secondary/90 hover:text-white cursor-pointer h-[30px] w-[30px] p-2 border rounded-full grid place-content-center"
                 >
                   <i className="fab fa-instagram"></i>
                 </Link>
@@ -63,21 +62,42 @@ const Footer: FC = () => {
                   href="https://www.linkedin.com/company/gulfpalms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-secondary hover:text-secondary cursor-pointer h-[30px] w-[30px] p-2 border rounded-full grid place-content-center"
+                  className="text-secondary/90 hover:text-white cursor-pointer h-[30px] w-[30px] p-2 border rounded-full grid place-content-center"
                 >
                   <i className="fab fa-linkedin"></i>
                 </Link>
               </div>
-              <div>
-                <p>
-                  <i className="fas fa-map-marker-alt"></i>{" "}
+              <p className="text-sm text-secondary">
+                {t("footer.description")}
+              </p>
+
+              <div className="mt-3 space-y-1">
+                <p className="flex items-center gap-4">
+                  <img
+                    src="https://gulfpalms.com/wp-content/uploads/2021/09/wd-cursor-light.svg"
+                    title="wd-cursor-light"
+                    width="14"
+                    height="14"
+                  />
                   {t("footer.address")}
                 </p>
-                <p>
-                  <i className="fas fa-phone"></i> {t("footer.phone")}
+                <p className="flex items-center gap-4">
+                  <img
+                    src="https://gulfpalms.com/wp-content/uploads/2021/09/wd-phone-light.svg"
+                    title="wd-phone-light"
+                    width="14"
+                    height="14"
+                  />{" "}
+                  {t("footer.phone")}
                 </p>
-                <p>
-                  <i className="fas fa-envelope"></i> {t("footer.email")}{" "}
+                <p className="flex items-center gap-4">
+                  <img
+                    src="https://gulfpalms.com/wp-content/uploads/2021/09/wd-envelope-light.svg"
+                    title="wd-envelope-light"
+                    width="14"
+                    height="14"
+                  />{" "}
+                  {t("footer.email")}{" "}
                   <a href="mailto:contact@gulfpalms.com">
                     contact@gulfpalms.com
                   </a>
@@ -87,7 +107,7 @@ const Footer: FC = () => {
 
             {/* Our Showrooms */}
             <div>
-              <h5 className="text-lg font-bold text-secondary mb-4">
+              <h5 className="text-lg font-bold text-white mb-4">
                 {t("footer.showrooms.title")}
               </h5>
               <ul className="space-y-2 text-secondary">
@@ -95,7 +115,7 @@ const Footer: FC = () => {
                   <li key={index}>
                     <Link
                       href={showroom.link}
-                      className="text-secondary hover:text-secondary !cursor-pointer"
+                      className="text-secondary/90 hover:text-white !cursor-pointer"
                     >
                       {showroom.label}
                     </Link>
@@ -106,7 +126,7 @@ const Footer: FC = () => {
 
             {/* Useful Links */}
             <div>
-              <h5 className="font-bold text-secondary mb-4">
+              <h5 className="font-bold text-white mb-4">
                 {t("footer.usefulLinks.title")}
               </h5>
               <ul className="space-y-2">
@@ -114,7 +134,7 @@ const Footer: FC = () => {
                   <li key={index}>
                     <Link
                       href={link.link}
-                      className="text-secondary hover:text-secondary"
+                      className="text-secondary/90 hover:text-white"
                     >
                       {link.label}
                     </Link>
@@ -125,7 +145,7 @@ const Footer: FC = () => {
 
             {/* Product Categories */}
             <div>
-              <h5 className="font-bold text-secondary mb-4">
+              <h5 className="font-bold text-white mb-4">
                 {t("footer.productCategories.title")}
               </h5>
               <ul className="space-y-2">
@@ -133,7 +153,7 @@ const Footer: FC = () => {
                   <li key={index}>
                     <Link
                       href={category.link}
-                      className="text-secondary hover:text-secondary"
+                      className="text-secondary/90 hover:text-white"
                     >
                       {category.label}
                     </Link>
@@ -145,7 +165,7 @@ const Footer: FC = () => {
         </div>
       </div>
       <div className="border-t absolute bottom-0 w-full px-7">
-        <div className="container flex justify-between items-center py-6 max-w-content mx-auto">
+        <div className="container flex justify-between items-center py-6 max-w-[1222px] mx-auto">
           <small className="text-secondary">
             {t("footer.footerNote", { year: new Date().getFullYear() })}
           </small>

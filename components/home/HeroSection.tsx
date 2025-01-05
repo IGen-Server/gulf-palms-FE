@@ -20,14 +20,14 @@ export default function HeroSection() {
       </p>
       <div className="flex items-center gap-4 pt-6">
         <Button
-          className="rounded-none bg-primary opacity-90 hover:bg-primary hover:opacity-100 w-[137.7] h-[48px] grid place-content-center"
+          className="rounded-none bg-primary opacity-90 hover:bg-primary hover:opacity-100 w-[147.7px] h-[48px] grid place-content-center"
           variant={"default"}
         >
           READ MORE
         </Button>
         <Button
           variant={"outline"}
-          className="rounded-none bg-transparent hover:bg-transparent hover:text-current w-[137.7] h-[48px] grid place-content-center border-gray-400 hover:border-secondary"
+          className="rounded-none bg-transparent hover:bg-transparent hover:text-current w-[147.7px] h-[48px] grid place-content-center border-gray-400 hover:border-secondary"
         >
           SHOP NOW
         </Button>
@@ -36,7 +36,7 @@ export default function HeroSection() {
   );
 
   return (
-    <div className="top-[80px] sm:top-[20%] lg:top-[25%] xl:top-[300px] bottom-[300px] w-full items-center justify-center z-10  absolute max-h-fit">
+    <div className="top-[150px] 2xl:top-[363px] w-[1380px] ml-[50px] 2xl:-ml-[14px] items-center justify-center z-10 absolute">
       <div className="text-secondary">{content}</div>
     </div>
   );

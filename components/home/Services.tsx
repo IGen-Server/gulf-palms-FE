@@ -24,7 +24,7 @@ export default function Services() {
         </p>
         <div className="w-full h-[48px] overflow-hidden !mt-4 ">
           <Button
-            className="translate-y-[48px] group-hover/number:translate-y-[0px] rounded-none bg-primary transition-transform duration-500 opacity-90 hover:bg-primary hover:opacity-100 w-[137.7] h-[48px] grid place-content-center"
+            className="translate-y-[48px] group-hover/number:translate-y-[0px] rounded-none bg-primary transition-transform duration-500 opacity-90 hover:bg-primary hover:opacity-100 w-[113px] h-[42px] grid place-content-center"
             variant={"default"}
           >
             READ MORE

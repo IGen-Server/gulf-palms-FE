@@ -48,7 +48,7 @@ export default function CustomCarousel({
     >
       <ChevronLeft
         size={34}
-        className="translate-x-[100px] text-gray-600 group-hover:-translate-x-[10px] transition-all duration-1000"
+        className="translate-x-[30px] text-gray-600 group-hover:-translate-x-[10px] transition-all duration-1000"
       />
     </div>
   );
@@ -88,20 +88,22 @@ export default function CustomCarousel({
   };
 
   return (
-    <div className="relative w-full min-h-[420px] h-fit group px-6">
-      <Slider {...settings}>
+    <div className="relative w-full min-h-[420px] px-6 h-fit group">
+      <Slider {...settings} className="w-full ">
         {data.map((item, index) => (
-          <div key={index}>
+          <div key={index} className="flex items-center justify-center w-full">
             {item.imageSrc ? (
               <img
                 src={item.imageSrc}
                 alt="Carousel Item"
                 className={`${item.height || "h-auto"} ${
                   item.width || "w-full"
-                } object-contain`}
+                } `}
               />
             ) : (
-              item.component
+              <div className="flex items-center justify-center w-full">
+                {item.component}
+              </div>
             )}
           </div>
         ))}

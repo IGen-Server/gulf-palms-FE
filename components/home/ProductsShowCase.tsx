@@ -49,11 +49,13 @@ const products = [
 ];
 
 const topLayer = (
-  <div className="z-[100] grid h-full w-full place-content-center">
+  <div className=" grid h-full w-full place-content-center">
     <div className=" w-[476px] py-3 h-full flex flex-col justify-center items-center">
       <div className="grid place-content-center w-full ">
         <div className="pb-[20px] text-center w-[364px] ">
-          <p className="text-[#777777] text-[30px] font-sans">GULF PALMS</p>
+          <p className="text-[#777777] text-[30px] font-sans font-light">
+            GULF PALMS
+          </p>
           <p className="text-[#242424] font-bold text-[36px] font-arabic">
             PALMS PRODUCTS
           </p>
@@ -88,7 +90,7 @@ const topLayer = (
 
 export default function ProductsShowCase() {
   return (
-    <div className="grid place-content-center max-w-content mx-auto">
+    <div className="grid place-content-center max-w-content mx-auto mt-[50px]">
       <div className="w-[1140px]">
         <ImageTextCard
           rightContent={{
