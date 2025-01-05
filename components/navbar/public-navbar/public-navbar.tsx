@@ -68,7 +68,7 @@ export default function PublicNavbar() {
     NavLinksWithName.map((item, index) => {
       if (item.children) {
         return (
-          <HoverCard key={index} openDelay={100}>
+          <HoverCard key={index} openDelay={100} closeDelay={100}>
             <HoverCardTrigger asChild>
               <Link
                 href={item.href}

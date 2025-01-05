@@ -18,7 +18,7 @@ export default function HeroSection() {
         A concept focused on customer delight, Gulf Palms has been striving to
         bring you closer to nature.
       </p>
-      <div className="flex items-center gap-4 pt-6">
+      <div className="flex items-center gap-4 pt-8">
         <Button
           className="rounded-none bg-primary opacity-90 hover:bg-primary hover:opacity-100 w-[147.7px] h-[48px] grid place-content-center"
           variant={"default"}

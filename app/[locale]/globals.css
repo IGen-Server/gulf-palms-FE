@@ -250,6 +250,43 @@ body {
   font-size: 12px !important;
 }
 
+.scrollToTop.button-show {
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: visible !important;
+}
+
+.scrollToTop {
+  position: fixed !important;
+  right: 20px !important;
+  bottom: 20px !important;
+  z-index: 350 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+  background-color: rgba(255, 255, 255, 0.908) !important;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.17) !important;
+  color: lightgray !important;
+  font-size: 16px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  transform: translateX(100%) !important;
+}
+
+.scrollToTop:after {
+  content: "^" !important;
+  font-size: 35px !important;
+  font-weight: 300 !important;
+  padding-top: 10px !important;
+  transform: scaleX(1.6);
+  color: rgba(154, 153, 153, 0.747) !important;
+}
+
 #sb_instagram .sbi_type_video .sbi_playbtn,
 #sb_instagram .sbi_type_carousel .sbi_playbtn,
 .sbi_type_carousel .fa-clone,
