@@ -36,7 +36,7 @@ export default function VideoShowCase() {
   };
 
   return (
-    <div className="w-screen mx-auto absolute left-0 min-h-[400px]">
+    <div className="w-screen mx-auto absolute left-0 h-[400px] !mt-[50px] ">
       <div className="flex gap-3">
         {renderImage(
           "https://gulfpalms.com/wp-content/uploads/sb-instagram-feed-images/448317886_1209369780235439_7245717242166709013_nfull.jpg"

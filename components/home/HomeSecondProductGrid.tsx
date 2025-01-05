@@ -3,7 +3,7 @@ import RenderImageAndProducts from "../common/RenderImageAndProducts";
 
 export default function HomeSecondProductGrid() {
   return (
-    <div className="pb-[50px]">
+    <div className="py-[90px]">
       <div className="flex gap-5">
         <div className="space-y-5">
           <div className="w-[446.65px] h-[595.5px]">

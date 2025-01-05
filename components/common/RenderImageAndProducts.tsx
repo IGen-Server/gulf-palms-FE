@@ -72,7 +72,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
 
         {/* Hover Products */}
         {hoverProducts?.map((product, index) => (
-          <HoverCard key={index}>
+          <HoverCard key={index} openDelay={100}>
             <div
               className="absolute"
               style={{
@@ -218,7 +218,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               }`}
             >
               <div className="group/cart h-full z-10">
-                <TooltipProvider>
+                <TooltipProvider delayDuration={0}>
                   <div className="flex flex-col justify-between items-center h-full">
                     <Tooltip>
                       <TooltipTrigger asChild>
