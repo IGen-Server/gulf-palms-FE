@@ -164,8 +164,8 @@ const Footer: FC = () => {
           </div>
         </div>
       </div>
-      <div className="border-t absolute bottom-0 w-full px-7">
-        <div className="container flex justify-between items-center py-6 max-w-[1222px] mx-auto">
+      <div className="border-t border-opacity-30 border-white absolute bottom-0 w-full px-7">
+        <div className="container flex justify-between items-center py-6 max-w-[1222px] mx-auto h-[72px]">
           <small className="text-secondary">
             {t("footer.footerNote", { year: new Date().getFullYear() })}
           </small>
