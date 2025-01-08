@@ -80,10 +80,10 @@ function PublicPageLayout({
         loop: true,
         controls: false,
         background: true,
-        height: 960,
-        maxheight: 960,
+        height: 988,
+        maxheight: 980,
         quality: "1080p",
-        responsive: true,
+        //responsive: true,
       });
 
       // Set iframeLoaded to true when the video is loaded and ready
@@ -93,7 +93,7 @@ function PublicPageLayout({
           console.log("Player is ready!");
           setTimeout(() => {
             setIframeLoaded(true);
-          }, 3000);
+          }, 4000);
         })
         .catch((error) => {
           console.error("Error initializing player:", error);
@@ -104,7 +104,7 @@ function PublicPageLayout({
         console.log("Video fully loaded!");
         setTimeout(() => {
           setIframeLoaded(true);
-        }, 3000);
+        }, 4000);
       });
 
       return () => {
@@ -122,7 +122,7 @@ function PublicPageLayout({
 
   return (
     <div className="w-screen ">
-      <div className="relative overflow-hidden w-screen inset-0 lg:h-[865px] mb-[90px]">
+      <div className="relative overflow-hidden w-screen inset-0 lg:h-[948px] mb-[90px]">
         {!iframeLoaded && (
           <Image
             src={homePageImage}
@@ -136,7 +136,7 @@ function PublicPageLayout({
 
         <div
           ref={playerRef}
-          className={` inset-0 z-10 transition-opacity duration-500 ${
+          className={` inset-0 z-10 transition-opacity duration-100 lg:h-[948px] ${
             iframeLoaded ? "opacity-100" : "opacity-0"
           }`}
         ></div>

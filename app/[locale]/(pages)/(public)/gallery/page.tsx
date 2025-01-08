@@ -75,29 +75,7 @@ const imageUrls = [
   "https://gulfpalms.com/wp-content/uploads/2023/10/DSC01193-1.jpg",
 ];
 
-const distributeImages = (images: string[], totalCols: number) => {
-  const items = images.map((url, index) => {
-    const randomHeight = `${380 + Math.random() * 45}px`;
-
-    return {
-      id: index,
-      content: (
-        <img
-          src={url}
-          alt={`Image ${index + 1}`}
-          className="w-[292.5px]"
-          style={{ maxHeight: randomHeight }}
-        />
-      ),
-      col: (index % totalCols) + 1,
-    };
-  });
-
-  return items;
-};
-
 export default function Gallery() {
-  const gridItems = distributeImages(imageUrls, 4);
   return (
     <div className="pt-[98px] ">
       <div className="max-w-[1192px] mx-auto ">
@@ -106,7 +84,303 @@ export default function Gallery() {
           <CustomBreadCrumb links={breadcrumbLinks} />
         </div>
         <div className="pb-[80px]">
-          <ProductsGrid items={gridItems} />
+          <div className="grid grid-cols-4 gap-4">
+            <div className="space-y-7">
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Hasawi-Field-3.jpg"
+                alt="Image 1"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/1.jpg"
+                alt="Image 3"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/2.jpg"
+                alt="Image 4"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/3-Washingtonia-palm.jpg"
+                alt="Image 5"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/3-Washingtonia-palm.jpg"
+                alt="Image 7"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Hasawi-Field-3.jpg"
+                alt="Image 2"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Blueberry-1.jpg"
+                alt="Image 8"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Blueberry-1.jpg"
+                alt="Image 9"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Botus-1.jpg"
+                alt="Image 10"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Bougainvillea.jpg"
+                alt="Image 11"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/C5219.00_00_10_08.Still006-1.jpg"
+                alt="Image 12"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/C5219.00_01_38_23.Still004-1.jpg"
+                alt="Image 13"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/9.png"
+                alt="Image 14"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Clementine.jpg"
+                alt="Image 15"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Clerodendron.jpg"
+                alt="Image 16"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+            </div>
+            <div className="space-y-7">
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01133.jpg"
+                alt="Image 17"
+                className="h-[309px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01141.jpg"
+                alt="Image 18"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01156.jpg"
+                alt="Image 19"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01161-1.jpg"
+                alt="Image 20"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Hasawi-Field-3.jpg"
+                alt="Image 1"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/3-Washingtonia-palm.jpg"
+                alt="Image 6"
+                className="h-[209px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Hasawi-Field-3.jpg"
+                alt="Image 2"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/1.jpg"
+                alt="Image 3"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/2.jpg"
+                alt="Image 4"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/3-Washingtonia-palm.jpg"
+                alt="Image 5"
+                className="h-[309px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/3-Washingtonia-palm.jpg"
+                alt="Image 6"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/3-Washingtonia-palm.jpg"
+                alt="Image 7"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Blueberry-1.jpg"
+                alt="Image 8"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Blueberry-1.jpg"
+                alt="Image 9"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+            </div>
+            <div className="space-y-7">
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Botus-1.jpg"
+                alt="Image 10"
+                className="h-[309px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Bougainvillea.jpg"
+                alt="Image 11"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/C5219.00_00_10_08.Still006-1.jpg"
+                alt="Image 12"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/C5219.00_01_38_23.Still004-1.jpg"
+                alt="Image 13"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/9.png"
+                alt="Image 14"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Clementine.jpg"
+                alt="Image 15"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Clerodendron.jpg"
+                alt="Image 16"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01133.jpg"
+                alt="Image 17"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01141.jpg"
+                alt="Image 18"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01156.jpg"
+                alt="Image 19"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01161-1.jpg"
+                alt="Image 20"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Clementine.jpg"
+                alt="Image 15"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Clerodendron.jpg"
+                alt="Image 16"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01133.jpg"
+                alt="Image 17"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+            </div>
+            <div className="space-y-7">
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Botus-1.jpg"
+                alt="Image 10"
+                className="h-[309px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Bougainvillea.jpg"
+                alt="Image 11"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/C5219.00_00_10_08.Still006-1.jpg"
+                alt="Image 12"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/C5219.00_01_38_23.Still004-1.jpg"
+                alt="Image 13"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/9.png"
+                alt="Image 14"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Clementine.jpg"
+                alt="Image 15"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Clerodendron.jpg"
+                alt="Image 16"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01133.jpg"
+                alt="Image 17"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01141.jpg"
+                alt="Image 18"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01156.jpg"
+                alt="Image 19"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01161-1.jpg"
+                alt="Image 20"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Clementine.jpg"
+                alt="Image 15"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/Clerodendron.jpg"
+                alt="Image 16"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+              <img
+                src="https://gulfpalms.com/wp-content/uploads/2023/10/DSC01133.jpg"
+                alt="Image 17"
+                className="h-[409px] w-[272.5px] object-cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <GetInTouch />

@@ -122,7 +122,7 @@ export default function PublicNavbar() {
                   ? "bg-primary shadow-lg h-[60px]"
                   : "bg-transparent h-[105px]"
               }`
-            : "bg-primary"
+            : "bg-primary h-fit"
         }`}
     >
       <div className="max-w-[100vw] overflow-x-hidden lg:max-w-content mx-auto lg:w-[1396px] px-4">
@@ -210,7 +210,7 @@ export default function PublicNavbar() {
           >
             <Link
               href="/signup"
-              className="!text-[13px] font-semibold text-secondary hover:text-secondary-foreground uppercase"
+              className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase"
             >
               Login / Register
             </Link>

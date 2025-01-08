@@ -87,6 +87,7 @@ export default function Services() {
           slidesToScroll={3}
           slidesToShow={3}
           data={[...slidesData]}
+          autoPlay={true}
         />
       </div>
     </div>

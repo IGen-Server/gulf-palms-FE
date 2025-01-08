@@ -195,16 +195,19 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             <div
               className={`h-full bg-primary w-full text-center font-arabic text-white duration-500 ${
                 hoveredProductId === productId
-                  ? "!translate-y-[0px] cursor-pointer opacity-90"
-                  : "opacity-0 pointer-events-none translate-y-[38px]"
+                  ? "cursor-pointer opacity-90"
+                  : "opacity-0 pointer-events-none"
               }`}
             >
-              <div className="group/cart">
-                <p className="translate-y-[8px] group-hover/cart:translate-y-[38px] transition-all duration-1000">
+              <div className="group/cart relative h-full flex flex-col items-center justify-center">
+                {/* SELECT OPTIONS */}
+                <p className="translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200">
                   SELECT OPTIONS
                 </p>
-                <p className="">
-                  <ShoppingCart className="-translate-y-[50px] group-hover/cart:-translate-y-[15px] group-hover/cart:bg-opacity-100 w-full place-content-center transition-all duration-1000" />
+
+                {/* ShoppingCart */}
+                <p className="translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200">
+                  <ShoppingCart className="w-full place-content-center" />
                 </p>
               </div>
             </div>

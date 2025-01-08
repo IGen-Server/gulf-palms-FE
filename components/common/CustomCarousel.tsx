@@ -18,6 +18,7 @@ interface CarouselData {
 
 interface CustomCarouselProps {
   data: CarouselData[];
+  autoPlay?: boolean;
   withNavigation?: boolean;
   slidesToShow?: number; // Optional prop to customize slides to show, default is 4
   slidesToScroll?: number; // Optional prop to customize slides to scroll, default is 4
@@ -27,28 +28,29 @@ export default function CustomCarousel({
   data,
   slidesToShow = 4,
   slidesToScroll = 4,
+  autoPlay = false,
   withNavigation = false,
 }: CustomCarouselProps) {
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className="absolute -right-[22px] top-1/2 group transform -translate-y-1/2 marker:z-20 rounded-full cursor-pointer  overflow-hidden "
+      className="absolute -right-[22px] top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-1000"
       onClick={onClick}
     >
       <ChevronRight
         size={34}
-        className="-translate-x-[100px] text-gray-600 group-hover:translate-x-[10px] transition-all duration-1000"
+        className="translate-x-[100px] text-gray-600 group-hover:translate-x-0 transition-transform duration-1000"
       />
     </div>
   );
 
   const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className="absolute -left-[35px] top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      className="absolute -left-[35px] top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-all duration-1000"
       onClick={onClick}
     >
       <ChevronLeft
         size={34}
-        className="translate-x-[30px] text-gray-600 group-hover:-translate-x-[10px] transition-all duration-1000"
+        className="translate-x-[-100px] text-gray-600 group-hover:translate-x-0 transition-transform duration-1000"
       />
     </div>
   );
@@ -89,7 +91,7 @@ export default function CustomCarousel({
 
   return (
     <div className="relative w-full min-h-[420px] px-6 h-fit group">
-      <Slider {...settings} className="w-full ">
+      <Slider autoplay={autoPlay} {...settings} className="w-full ">
         {data.map((item, index) => (
           <div key={index} className="flex items-center justify-center w-full">
             {item.imageSrc ? (
