@@ -78,13 +78,13 @@ const imageUrls = [
 export default function Gallery() {
   return (
     <div className="pt-[98px] ">
-      <div className="max-w-[1192px] mx-auto ">
+      <div className="max-w-[1192px] mx-auto">
         <div className="flex flex-col items-center pb-[200px] pt-[50px]">
           <h1 className="text-[36px] font-bold text-black">Gallery</h1>
           <CustomBreadCrumb links={breadcrumbLinks} />
         </div>
         <div className="pb-[80px]">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-4">
             <div className="space-y-7">
               <img
                 src="https://gulfpalms.com/wp-content/uploads/2023/10/Hasawi-Field-3.jpg"
