@@ -13,7 +13,6 @@ import {
   ChevronDown,
 } from "lucide-react";
 import BrandFullLogo from "../../logo/brand-full-logo";
-import { ThemeToggler } from "../../ThemeProvider/theme-toggler";
 import { LocaleToggler } from "../../LocaleProvider/locale-togger";
 import { NavLinksWithName } from "@/constants/global-constants";
 import { useTranslation } from "react-i18next";
@@ -24,6 +23,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { AuthSheet } from "@/components/common/SideDrawer";
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,9 +33,10 @@ export default function PublicNavbar() {
   const currentLanguage = i18n.language;
   const pathname = usePathname();
   const [isHomePage, setIsHomePage] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
-    if (pathname === "/" || pathname === "/ar" || pathname === "en") {
+    if (pathname === "/" || pathname === "/ar" || pathname === "/en" || pathname === "/en-us") {
       setIsHomePage(true);
     } else {
       setIsHomePage(false);
@@ -112,8 +113,8 @@ export default function PublicNavbar() {
 
   return (
     <div
-      className={`w-full fixed duration-500 top-0 z-[10000] left-0 transition-transform flex items-center
-       
+      className={`w-full fixed duration-500 top-0 z-[1] left-0 transition-transform flex items-center
+        
         ${showNavbar ? "translate-y-0" : "-translate-y-full"}
         ${
           isHomePage
@@ -203,18 +204,8 @@ export default function PublicNavbar() {
             </SheetContent>
           </Sheet>
 
-          <Button
-            asChild
-            variant={"ghost"}
-            className="hover:bg-transparent w-fit p-0 hidden lg:flex"
-          >
-            <Link
-              href="/signup"
-              className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase"
-            >
-              Login / Register
-            </Link>
-          </Button>
+         <AuthSheet/>
+         
           <div className="hidden  lg:flex flex-row-reverse items-center gap-4 text-secondary ">
             <div className="relative">
               <ShoppingCart className="w-5 h-5" />

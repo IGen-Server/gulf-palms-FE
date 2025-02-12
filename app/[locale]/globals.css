@@ -256,6 +256,11 @@ body {
   pointer-events: visible !important;
 }
 
+.drawer button:has(span.sr-only) svg {
+  display: none !important;
+}
+
+
 .scrollToTop {
   position: fixed !important;
   right: 20px !important;
