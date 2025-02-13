@@ -1,0 +1,15 @@
+.video-container {
+    position: absolute;
+    width: 100vw;
+  }
+  
+  @media (max-width: 768px) {
+    .video-container {
+      max-height: 582px !important;
+      width: 100vw;
+      margin: 0 auto;
+      left: -15px;
+    }
+  }
+
+  

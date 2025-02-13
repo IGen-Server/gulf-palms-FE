@@ -8,6 +8,7 @@ import Footer from "@/components/footer/footer";
 import Image from "next/image";
 import homePageImage from "@/assets/images/homePageImage.jpg";
 import Player from "@vimeo/player";
+import './video-container.css'
 
 function PublicPageLayout({
   children,
@@ -83,7 +84,6 @@ function PublicPageLayout({
         height: 988,
         maxheight: 980,
         quality: "1080p",
-        //responsive: true,
       });
 
       // Set iframeLoaded to true when the video is loaded and ready
@@ -122,7 +122,7 @@ function PublicPageLayout({
 
   return (
     <div className="w-screen ">
-      <div className="relative overflow-hidden w-screen inset-0 lg:h-[948px] mb-[90px]">
+      <div className="relative overflow-hidden w-screen inset-0 h-[582px] lg:h-[948px] mb-[90px]">
         {!iframeLoaded && (
           <Image
             src={homePageImage}
