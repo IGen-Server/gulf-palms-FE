@@ -30,7 +30,7 @@ export function AuthSheet() {
           </p>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="z-[10000] overflow-y-auto px-0 w-[283px] xl:w-[340px] drawer">
+      <SheetContent side="right" className="!z-[10000] overflow-y-auto px-0 w-[283px] xl:w-[340px] drawer">
         <div className="grid gap-6">
           <div className="flex items-center justify-between !px-[20px] border-b pb-4">
             <h2 className="text-xl font-semibold ">Sign in</h2>

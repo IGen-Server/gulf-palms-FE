@@ -97,12 +97,16 @@ export default function PublicNavbar() {
 
   return (
     <div
-      className={`w-full fixed duration-500 top-0 z-[1] left-0 transition-transform flex items-center
+      className={`w-full fixed duration-500 top-0 z-[49] left-0 transition-transform flex items-center
         
         ${showNavbar ? "translate-y-0" : "-translate-y-full"}
         ${
           isHomePage
-            ? ` ${isScrolled ? "bg-primary shadow-lg h-[60px]" : "bg-transparent h-[60px] lg:h-[105px]"}`
+            ? ` ${
+                isScrolled
+                  ? "bg-primary shadow-lg h-[60px]"
+                  : "bg-transparent h-[60px] lg:h-[105px]"
+              }`
             : "bg-primary h-[60px] lg:h-fit"
         }`}
     >
@@ -116,18 +120,29 @@ export default function PublicNavbar() {
                   isScrolled ? "w-[125px] h-[60px]" : "w-[170px] !h-[77px]"
                 }`}
               >
-                {isScrolled ? <BrandFullLogo height={60} width={125} /> : <BrandFullLogo height={77} width={170} />}
+                {isScrolled ? (
+                  <BrandFullLogo height={60} width={125} />
+                ) : (
+                  <BrandFullLogo height={77} width={170} />
+                )}
               </div>
             </div>
-            <div className="flex items-center gap-4 min-w-[758px] justify-evenly flex-wrap ">{renderNavLinks()}</div>
+            <div className="flex items-center gap-4 min-w-[758px] justify-evenly flex-wrap ">
+              {renderNavLinks()}
+            </div>
           </nav>
           {/* Mobile Menu */}
           <div className="flex lg:hidden justify-between items-center w-full gap-4">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" className="hover:bg-transparent w-fit p-0 flex items-center gap-1">
+                <Button
+                  variant="ghost"
+                  className="hover:bg-transparent w-fit p-0 flex items-center gap-1"
+                >
                   <Menu className="h-5 w-5 text-white" />
-                  <span className="text-[13px] font-bold text-secondary">MENU</span>
+                  <span className="text-[13px] font-bold text-secondary">
+                    MENU
+                  </span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="left">
@@ -162,7 +177,7 @@ export default function PublicNavbar() {
             </div>
           </div>
 
-          <AuthSheet />
+          {pathname.includes('my-account') || <AuthSheet />}
 
           <div className="hidden  lg:flex flex-row-reverse items-center gap-4 text-secondary ">
             <div className="relative">
@@ -180,12 +195,14 @@ export default function PublicNavbar() {
           </div>
           {/* Right Actions */}
           <div className="ml-auto hidden lg:flex items-center gap-4 min-w-fit ">
-            <p className="!text-[13px] font-semibold text-secondary">0.000 KD</p>
+            <p className="!text-[13px] font-semibold text-secondary">
+              0.000 KD
+            </p>
             <LocaleToggler />
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 

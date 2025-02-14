@@ -54,6 +54,7 @@ interface ImageTextCardProps {
     height?: string; // Height of the card
   };
   className?: string;
+  colReversed?: boolean;
 }
 
 export default function ImageTextCard({
@@ -61,89 +62,68 @@ export default function ImageTextCard({
   rightContent,
   size = { width: "max-w-[1140px]", height: "h-fit" },
   className = "",
+  colReversed = false,
 }: ImageTextCardProps) {
   const renderButtons = (buttons: ButtonsGroupProps | undefined) => {
     if (!buttons || buttons.items.length === 0) return null;
 
     const layoutClass = buttons.type === "col" ? "flex-col" : "flex-row";
     const gapClass = buttons.gap || "gap-3";
-    const alignClass = buttons.align && `justify-${[buttons.align]}`;
+    const alignClass = buttons.align && `justify-${buttons.align}`;
 
     return (
-      <div
-        className={`flex w-full items-center ${alignClass} ${layoutClass} ${gapClass}`}
-      >
-        {buttons.items.map((button, index) => {
-          const ButtonContent = (
-            <button
-              key={index}
-              className={`
-                px-3 py-2 
-                ${button.bgColor || "bg-primary"} 
-                ${button.textColor || "text-white"} 
-                ${button.fontWeight || "font-medium"} 
-                ${button.borderRadius || "rounded"} 
-                !cursor-pointer
-              `}
-              style={{
-                height: button.height || "auto",
-                width: button.width || "auto",
-                border: button.border || "none",
-                borderColor: button.borderColor || "black",
-                cursor: "pointer",
-              }}
-              onClick={button.onClick}
-            >
-              {button.href ? (
-                <Link href={button.href} key={index} className="cursor-pointer">
-                  {button.text}
-                </Link>
-              ) : (
-                `${button.text}`
-              )}
-            </button>
-          );
-
-          return ButtonContent;
-        })}
+      <div className={`flex w-full items-center ${alignClass} ${layoutClass} ${gapClass}`}>
+        {buttons.items.map((button, index) => (
+          <button
+            key={index}
+            className={`px-3 py-2 ${button.bgColor || "bg-primary"} ${button.textColor || "text-white"} 
+              ${button.fontWeight || "font-medium"} ${button.borderRadius || "rounded"} !cursor-pointer`}
+            style={{
+              height: button.height || "auto",
+              width: button.width || "auto",
+              border: button.border || "none",
+              borderColor: button.borderColor || "black",
+              cursor: "pointer",
+            }}
+            onClick={button.onClick}
+          >
+            {button.href ? (
+              <Link href={button.href} key={index} className="cursor-pointer">
+                {button.text}
+              </Link>
+            ) : (
+              button.text
+            )}
+          </button>
+        ))}
       </div>
     );
   };
 
   const renderContent = (content: ContentProps) => {
-    const textAlignClass = content.textAlign
-      ? `text-${content.textAlign}`
-      : "text-left";
+    const textAlignClass = content.textAlign ? `text-${content.textAlign}` : "text-left";
 
     if (content.type === "text") {
       return (
-        <div
-          className={`space-y-[20px] p-[30px] ${textAlignClass}`} // Apply the generated class here
-        >
+        <div className={`space-y-[20px] p-[30px] ${textAlignClass}`}>
           {content.subheading && (
-            <h3
-              className={`${content.subheadingColor || "text-primary"} ${
-                content.subheadingSize || "text-md"
-              } ${content.subheadingWeight || "font-medium"} mb-2`}
+            <h3 className={`${content.subheadingColor || "text-primary"} ${content.subheadingSize || "text-md"} 
+              ${content.subheadingWeight || "font-medium"} mb-2`}
             >
               {content.subheading}
             </h3>
           )}
           {content.heading && (
-            <h2
-              className={`${content.headingColor || "text-black"} ${
-                content.headingSize || "text-[30px]"
-              } ${content.headingWeight || "font-bold"} mb-2`}
+            <h2 className={`${content.headingColor || "text-black"} ${content.headingSize || "text-[30px]"} 
+              ${content.headingWeight || "font-bold"} mb-2`}
             >
               {content.heading}
             </h2>
           )}
 
           {content.bullets && content.bullets.length === 1 ? (
-            <p
-              className={`${content.textColor || "text-secondary"} ${
-                content.textSize || "text-sm"
-              } ${content.fontWeight || "font-normal"} mb-1`}
+            <p className={`${content.textColor || "text-secondary"} ${content.textSize || "text-sm"} 
+              ${content.fontWeight || "font-normal"} mb-1`}
             >
               {content.bullets[0]}
             </p>
@@ -152,11 +132,8 @@ export default function ImageTextCard({
               <div className="w-full h-full pl-3">
                 <ul className="list-disc text-gray-600 space-y-3">
                   {content.bullets.map((bullet, index) => (
-                    <li
-                      key={index}
-                      className={`${content.textColor || "text-secondary"} ${
-                        content.textSize || "text-sm"
-                      } ${content.fontWeight || "font-normal"} mb-1`}
+                    <li key={index} className={`${content.textColor || "text-secondary"} ${content.textSize || "text-sm"} 
+                      ${content.fontWeight || "font-normal"} mb-1`}
                     >
                       {bullet}
                     </li>
@@ -187,26 +164,29 @@ export default function ImageTextCard({
   };
 
   return (
-    <div
-      className={`w-max mx-auto ${size.width} ${size.height} grid grid-cols-1 md:grid-cols-2 ${className} justify-between`}
-    >
+    <div className={`w-max mx-auto ${size.width} ${size.height} grid grid-cols-1 lg:grid-cols-2 ${className} justify-between`}>
       {/* Left Content */}
       <div
-        className={`flex flex-col items-start w-full text-justify ${
-          leftContent.bgColor || ""
-        } ${leftContent.type === "text" && "grid place-content-center"}`}
+        className={`flex flex-col items-start w-full text-justify
+          ${leftContent.bgColor || ""}
+          ${colReversed ? "order-2 md:order-1" : "order-1"}
+          ${leftContent.type === "text" && "grid place-content-center"}
+        `}
       >
         {renderContent(leftContent)}
       </div>
 
       {/* Right Content */}
       <div
-        className={`flex flex-col items-start w-full text-justify  ${
-          rightContent.bgColor || ""
-        }  ${rightContent.type === "text" && "grid place-content-center"}`}
+        className={`flex flex-col items-start w-full text-justify
+          ${rightContent.bgColor || ""}
+          ${colReversed ? "order-1 md:order-2" : "order-2"}
+          ${rightContent.type === "text" && "grid place-content-center"}
+        `}
       >
         {renderContent(rightContent)}
       </div>
     </div>
   );
 }
+

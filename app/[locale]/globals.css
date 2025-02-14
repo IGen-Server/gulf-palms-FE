@@ -118,7 +118,7 @@
 }
 
 .content {
-  z-index: 99;
+  z-index: 48 !important;
   background: #fff;
   margin-bottom: 480px;
 }
@@ -129,7 +129,7 @@
   right: 0;
   left: 0;
   height: 480px;
-  z-index: -99;
+  z-index: -1 !important;
 }
 
 @layer base {

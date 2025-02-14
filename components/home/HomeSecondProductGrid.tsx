@@ -4,9 +4,9 @@ import RenderImageAndProducts from "../common/RenderImageAndProducts";
 export default function HomeSecondProductGrid() {
   return (
     <div className="py-[90px]">
-      <div className="flex gap-5">
+      <div className="grid grid-cols-2 lg:grid-cols-3 lg:gap-5">
         <div className="space-y-5">
-          <div className="w-[446.65px] h-[595.5px]">
+          <div className="w-[45vw] lg:w-[446.65px] h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/jjf600by800-thumb.jpg"
@@ -27,7 +27,7 @@ export default function HomeSecondProductGrid() {
               productId={""}
             />
           </div>
-          <div className="w-[446.65px] h-[446.6px]">
+          <div className="w-[45vw] lg:w-[446.65px] h-[446.6px]">
             <RenderImageAndProducts
               renderType="image"
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/09/600by600-thumb5-300x300.jpg"
@@ -74,7 +74,7 @@ export default function HomeSecondProductGrid() {
           </div>
         </div>
         <div className="space-y-5">
-          <div className="w-[446.65px] h-[446.6px]">
+          <div className="w-[45vw] lg:w-[446.65px] h-[446.6px]">
             <RenderImageAndProducts
               renderType="image"
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/09/600by6003-thumb-300x300.jpg"
@@ -95,7 +95,7 @@ export default function HomeSecondProductGrid() {
               productId={""}
             />
           </div>
-          <div className="w-[446.65px] h-[595.5px]">
+          <div className="w-[45vw] lg:w-[446.65px] h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/e600by800-thumb.jpg"
@@ -142,7 +142,7 @@ export default function HomeSecondProductGrid() {
           </div>
         </div>
         <div className="space-y-5">
-          <div className="w-[446.65px] h-[595.5px]">
+          <div className="w-[100vw] lg:w-[446.65px] h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/q600by800-thumb.jpg"
@@ -187,7 +187,7 @@ export default function HomeSecondProductGrid() {
               productId={""}
             />
           </div>
-          <div className="w-[446.65px] h-[595.5px]">
+          <div className="w-[100vw] lg:w-[446.65px] h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/w600by800-thumb.jpg"

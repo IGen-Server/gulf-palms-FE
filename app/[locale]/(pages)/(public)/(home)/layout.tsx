@@ -4,11 +4,11 @@
 import { useEffect, useRef, useState } from "react";
 import PublicNavbar from "@/components/navbar/public-navbar/public-navbar";
 import { ReactNode } from "react";
-import Footer from "@/components/footer/footer";
 import Image from "next/image";
 import homePageImage from "@/assets/images/homePageImage.jpg";
 import Player from "@vimeo/player";
 import './video-container.css'
+import Footer from "@/components/footer/Footer";
 
 function PublicPageLayout({
   children,
@@ -82,7 +82,6 @@ function PublicPageLayout({
         controls: false,
         background: true,
         height: 988,
-        maxheight: 980,
         quality: "1080p",
       });
 
@@ -136,7 +135,7 @@ function PublicPageLayout({
 
         <div
           ref={playerRef}
-          className={` inset-0 z-10 transition-opacity duration-100 lg:h-[948px] ${
+          className={` inset-0 z-10 transition-opacity duration-100 h-[582px] lg:h-[948px] ${
             iframeLoaded ? "opacity-100" : "opacity-0"
           }`}
         ></div>
