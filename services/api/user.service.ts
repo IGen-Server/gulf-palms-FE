@@ -4,7 +4,6 @@ import { WpResponseModel } from "@/models/wp-response.model";
 import { UserProfileModel } from "@/models/user/user-profile.model";
 
 export const UserService  = {
-  // Define a static method to handle the sign-in request
   async GetProfile(): Promise<UserProfileModel> {
     try {
       const response = await AxiosInstance.get<UserProfileModel>(ApiRoutes.User.Profile);

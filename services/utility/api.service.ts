@@ -4,23 +4,16 @@ import { useRouter } from 'next/router';
 import { ApiBaseUrl, ApiMaxTimeOut } from '@/constants/url.constant';
 import { ClientRoutes } from './router.service';
 
-export interface ApiRoutes {
-  Auth: { 
-    SignIn: string;
-    SignUp: string;
-  }
-  User: {
-    Profile: string;
-  }
-}
-
-export const ApiRoutes: ApiRoutes = {
+export const ApiRoutes = {
   Auth: {
     SignIn: '/auth/signin',
     SignUp: '/auth/signup',
   },
   User: {
     Profile: '/user/profile',
+  },
+  Order: {
+    Get: 'orders',
   }
 };
 

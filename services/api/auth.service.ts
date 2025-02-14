@@ -3,7 +3,6 @@ import AxiosInstance, { ApiRoutes } from "../utility/api.service";
 import { WpResponseModel } from "@/models/wp-response.model";
 
 export const AuthService  = {
-  // Define a static method to handle the sign-in request
   async SignIn(email: string, password: string): Promise<WpResponseModel<SignInResponseModel>> {
     try {
       const response = await AxiosInstance.post<WpResponseModel<SignInResponseModel>>(ApiRoutes.Auth.SignIn, {
