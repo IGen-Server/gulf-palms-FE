@@ -22,7 +22,7 @@ export default function AuthComponent() {
     e.preventDefault()
     setError(null)
 
-    const url = isLogin ? "http://localhost:9000/auth/signin" : "http://localhost:9000/auth/signup"
+    const url = isLogin ? "http://localhost:9000/api/auth/signin" : "http://localhost:9000/api/auth/signup"
     const payload = isLogin ? { email, password } : { email, password, username }
 
     try {

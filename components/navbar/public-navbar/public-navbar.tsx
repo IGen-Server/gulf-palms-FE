@@ -13,7 +13,8 @@ import { useTranslation } from "react-i18next"
 import { usePathname } from "next/navigation"
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
-import { AuthSheet } from "@/components/common/SideDrawer"
+import { SideDrawer } from "@/components/common/SideDrawer"
+import UserSigninFormForDrawer from "@/components/auth/UserSigninFormForDrawer"
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -162,7 +163,19 @@ export default function PublicNavbar() {
             </div>
           </div>
 
-          <AuthSheet />
+          <SideDrawer 
+            title={"Sign in"}
+            triggerComponent={<Button
+                asChild
+                variant="ghost"
+                className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
+              >
+                <p className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
+                  Login / Register
+                </p>
+              </Button>}
+            bodyComponent={<UserSigninFormForDrawer />}
+          />
 
           <div className="hidden  lg:flex flex-row-reverse items-center gap-4 text-secondary ">
             <div className="relative">
