@@ -7,6 +7,7 @@ import { ClientRoutes } from './router.service';
 export interface ApiRoutes {
   Auth: { 
     SignIn: string;
+    SignUp: string;
   }
   User: {
     Profile: string;
@@ -15,7 +16,8 @@ export interface ApiRoutes {
 
 export const ApiRoutes: ApiRoutes = {
   Auth: {
-    SignIn: '/auth/admin-sign-in'
+    SignIn: '/auth/signin',
+    SignUp: '/auth/signup',
   },
   User: {
     Profile: '/user/profile',
@@ -46,7 +48,7 @@ AxiosInstance.interceptors.response.use(
         // Handle Unauthorized (401) error
         console.log('Unauthorized. Redirecting to login...');
         // Optionally redirect to login or handle logout logic
-        window.location.href = ClientRoutes.Admin.SignIn;
+        // window.location.href = ClientRoutes.Admin.SignIn;
         return;
 
       } else if (error.response.status === HttpStatusCode.Forbidden) {

@@ -2,16 +2,12 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+import { CookieStorageService } from "@/services/utility/storage.service";
+import { UserService } from "@/services/api/user.service";
+import { UserProfileModel } from "@/models/user/user-profile.model";
 
 interface AuthContextType {
-  user: User | null;
-  login: (userData: User) => void;
+  user: UserProfileModel | null;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -19,21 +15,19 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserProfileModel | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    UserService.GetProfile()
+      .then(response=> {
+        console.log(response);
+        setUser(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, []);
-
-  const login = (userData: User) => {
-    setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
-    router.push("/my-account/dashboard");
-  };
 
   const logout = () => {
     setUser(null);
@@ -42,7 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ user, logout, isAuthenticated: !!user }}>
       {children}
     </AuthContext.Provider>
   );

@@ -7,36 +7,42 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
+import { AuthService } from "@/services/api/auth.service"
+import { CookieStorageService } from "@/services/utility/storage.service"
 
 export default function AuthComponent() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLogin, setIsLogin] = useState(true)
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [username, setUsername] = useState("")
-  const [error, setError] = useState<null | string>(null)
+  const [showPassword, setShowPassword] = useState(false);
+  const [isSignIn, setIsLogin] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [error, setError] = useState<null | string>(null);
 
-  const toggleAuth = () => setIsLogin(!isLogin)
+  const toggleAuth = () => setIsLogin(!isSignIn);
 
   const handleAuth = async (e:any) => {
-    e.preventDefault()
-    setError(null)
+    e.preventDefault();
+    setError(null);
 
-    const url = isLogin ? "http://localhost:9000/api/auth/signin" : "http://localhost:9000/api/auth/signup"
-    const payload = isLogin ? { email, password } : { email, password, username }
-
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      const data = await response.json()
-      if (!response.ok) throw new Error(data.message || "Authentication failed")
-      console.log("Auth Success:", data)
-    } catch (err) {
-      console.error("Auth Error:", err)
-      setError("Authentication failed. Please try again.")
+    if (isSignIn) {
+      AuthService.SignIn(email, password)
+        .then(response=> {
+          console.log(response);
+          CookieStorageService.setAccessToken(response.data.jwt);
+        })
+        .catch(error => {
+          console.error(error);
+          setError("Authentication failed. Please try again.");
+        });
+    } else {
+      AuthService.SignUp(username, email, password)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.error(error);
+          setError("Authentication failed. Please try again.");
+        });
     }
   }
 
@@ -45,10 +51,10 @@ export default function AuthComponent() {
       <div className="w-full max-w-5xl grid gap-12 md:grid-cols-2">
         {/* Left Side - Dynamic Form */}
         <div className="space-y-6 text-[#2B2B2B]">
-          <h1 className="text-[22px] font-semibold">{isLogin ? "LOGIN" : "REGISTER"}</h1>
+          <h1 className="text-[22px] font-semibold">{isSignIn ? "LOGIN" : "REGISTER"}</h1>
           {error && <p className="text-red-500">{error}</p>}
           <form className="space-y-6" onSubmit={handleAuth}>
-            {!isLogin && (
+            {!isSignIn && (
               <div className="space-y-2">
                 <Label htmlFor="username" className="text-base font-normal">
                   Username <span className="text-red-500">*</span>
@@ -58,7 +64,7 @@ export default function AuthComponent() {
             )}
             <div className="space-y-2">
               <Label htmlFor="email" className="text-base font-normal">
-                {isLogin ? "Username or email address" : "Email address"} <span className="text-red-500">*</span>
+                {isSignIn ? "Username or email address" : "Email address"} <span className="text-red-500">*</span>
               </Label>
               <Input id="email" type="email" required className="h-12 border-gray-200" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
@@ -87,9 +93,9 @@ export default function AuthComponent() {
               </div>
             </div>
             <Button type="submit" className="w-full h-12 bg-primary hover:bg-[#E59B62] font-normal border-b-2 border-[#e68b46]">
-              {isLogin ? "LOG IN" : "REGISTER"}
+              {isSignIn ? "LOG IN" : "REGISTER"}
             </Button>
-            {isLogin && (
+            {isSignIn && (
               <div className="flex items-center justify-between pt-2">
                 <div className="flex items-center space-x-2">
                   <Checkbox id="remember" />
@@ -102,7 +108,7 @@ export default function AuthComponent() {
                 </Link>
               </div>
             )}
-            {!isLogin && (
+            {!isSignIn && (
               <p className="text-sm text-gray-600">
                 Your personal data will be used to support your experience throughout this website, to manage access to
                 your account, and for other purposes described in our{" "}
@@ -117,7 +123,7 @@ export default function AuthComponent() {
 
         {/* Right Side - Info */}
         <div className="space-y-6 text-center">
-          <h2 className="text-[22px] font-semibold">{!isLogin ? "LOGIN" : "REGISTER"}</h2>
+          <h2 className="text-[22px] font-semibold">{!isSignIn ? "LOGIN" : "REGISTER"}</h2>
           <p className="text-gray-600 leading-relaxed">
             Registering for this site allows you to access your order status and history. Just fill in the fields below,
             and we&apos;ll get a new account set up for you in no time. We will only ask you for information necessary
@@ -128,7 +134,7 @@ export default function AuthComponent() {
             onClick={toggleAuth}
             className="text-gray-800 hover:text-gray-600 px-3 py-2 h-auto font-semibold "
           >
-            {!isLogin ? "LOG IN" : "REGISTER"}
+            {!isSignIn ? "LOG IN" : "REGISTER"}
           </Button>
         </div>
       </div>
