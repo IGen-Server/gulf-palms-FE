@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { FileText, Download, MapPin, User, LogOut } from "lucide-react"
-import { useAuth } from "@/provider/Authprovider";
+import { useAuth } from "@/providers/Authprovider";
 
 export default function Dashboard() {
 

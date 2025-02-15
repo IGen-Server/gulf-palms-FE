@@ -1,11 +1,12 @@
 import { SignInResponseModel } from "@/models/auth/signin-response.model";
-import AxiosInstance, { ApiRoutes } from "../utility/api.service";
+import { ApiRoutes } from "../utility/api.service";
 import { WpResponseModel } from "@/models/wp-response.model";
+import { AxiosInstance } from "axios";
 
 export const AuthService  = {
-  async SignIn(email: string, password: string): Promise<WpResponseModel<SignInResponseModel>> {
+  async SignIn(axiosInstance: AxiosInstance, email: string, password: string): Promise<WpResponseModel<SignInResponseModel>> {
     try {
-      const response = await AxiosInstance.post<WpResponseModel<SignInResponseModel>>(ApiRoutes.Auth.SignIn, {
+      const response = await axiosInstance.post<WpResponseModel<SignInResponseModel>>(ApiRoutes.Auth.SignIn, {
         email: email,
         password: password
       });
@@ -15,9 +16,9 @@ export const AuthService  = {
     }
   },
 
-  async SignUp(username: string, email: string, password: string): Promise<WpResponseModel<SignInResponseModel>> {
+  async SignUp(axiosInstance: AxiosInstance, username: string, email: string, password: string): Promise<WpResponseModel<SignInResponseModel>> {
     try {
-      const response = await AxiosInstance.post<WpResponseModel<SignInResponseModel>>(ApiRoutes.Auth.SignUp, {
+      const response = await axiosInstance.post<WpResponseModel<SignInResponseModel>>(ApiRoutes.Auth.SignUp, {
         username: username,
         email: email,
         password: password

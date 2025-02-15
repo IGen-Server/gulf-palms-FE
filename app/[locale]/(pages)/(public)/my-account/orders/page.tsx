@@ -2,18 +2,20 @@
 
 import { Button } from "@/components/ui/button"
 import { OrderService } from "@/services/api/order.service"
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { getTotalQuantity } from "@/services/utility/utility.service";
 import { useEffect, useState } from "react"
 
 export default function OrdersPage() {
 
+  const axiosInstance = CreateAxiosInstanceWithLoader();
   // page: 1, per_page: 10
   const [orderConfig, setOrderConfig] = useState({ });
   const [orders, setOrders] = useState<any[]>([]);
   
   useEffect(() => {
     const getOrders = async () => {
-      OrderService.Get(orderConfig)
+      OrderService.Get(axiosInstance, orderConfig)
         .then(response=> {
           console.log(response);
           setOrders(response);

@@ -6,6 +6,7 @@ import { CookieStorageService } from "@/services/utility/storage.service";
 import { UserService } from "@/services/api/user.service";
 import { UserProfileModel } from "@/models/user/user-profile.model";
 import { UserAsCustomer } from "@/models/user/user-as-customer";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 
 interface AuthContextType {
   user: UserProfileModel | null;
@@ -17,6 +18,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const axiosInstance = CreateAxiosInstanceWithLoader();
   const [user, setUser] = useState<UserProfileModel | null>(null);
   const [userSettings, setUserSettings] = useState<UserAsCustomer | null>(null);
   
@@ -24,7 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const getProfile = async () => {
-      UserService.GetProfile()
+      UserService.GetProfile(axiosInstance)
         .then(response => {
           console.log(response);
           setUser(response);
@@ -35,7 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const getSettings = async () => {
-      UserService.GetSettings()
+      UserService.GetSettings(axiosInstance)
         .then(response=> {
           console.log(response);
           setUserSettings(response);

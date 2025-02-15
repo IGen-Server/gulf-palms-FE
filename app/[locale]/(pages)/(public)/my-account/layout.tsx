@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import GetInTouch from "@/components/common/GetInTouch";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
-import { useAuth } from "@/provider/Authprovider";
+import { useAuth } from "@/providers/Authprovider";
 
 const breadcrumbLinks = [
   { name: "Home", href: "/" },

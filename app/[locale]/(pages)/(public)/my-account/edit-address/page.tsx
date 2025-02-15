@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { UserAsCustomer } from "@/models/user/user-as-customer";
-import { useAuth } from "@/provider/Authprovider";
+import { useAuth } from "@/providers/Authprovider";
 import { UserService } from "@/services/api/user.service";
 import Link from "next/link"
 import { useEffect, useState } from "react";

@@ -9,8 +9,10 @@ import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
 import { AuthService } from "@/services/api/auth.service"
 import { CookieStorageService } from "@/services/utility/storage.service"
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service"
 
 export default function AuthComponent() {
+  const axiosInstance = CreateAxiosInstanceWithLoader();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignIn, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
@@ -25,7 +27,7 @@ export default function AuthComponent() {
     setError(null);
 
     if (isSignIn) {
-      AuthService.SignIn(email, password)
+      AuthService.SignIn(axiosInstance, email, password)
         .then(response=> {
           console.log(response);
           CookieStorageService.setAccessToken(response.data.jwt);
@@ -36,7 +38,7 @@ export default function AuthComponent() {
           setError("Authentication failed. Please try again.");
         });
     } else {
-      AuthService.SignUp(username, email, password)
+      AuthService.SignUp(axiosInstance, username, email, password)
         .then(response => {
           console.log(response);
         })
@@ -69,7 +71,7 @@ export default function AuthComponent() {
               </Label>
               <Input id="email" type="email" required className="h-12 border-gray-200" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
-            <div className="space-y-2">
+            <div className="relative space-y-2">
               <Label htmlFor="password" className="text-base font-normal">
                 Password <span className="text-red-500">*</span>
               </Label>

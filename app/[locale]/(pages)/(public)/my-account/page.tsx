@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import AuthComponent from '@/components/auth/AuthComponent';
 import Dashboard from './dashboard/page';
-import { useAuth } from '@/provider/Authprovider';
+import { useAuth } from '@/providers/Authprovider';
 
 export default function MyAccount() {
   const router = useRouter();

@@ -8,7 +8,8 @@ import { ThemeProvider } from "@/components/ThemeProvider/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import "./globals.css";
-import { AuthProvider } from "@/provider/Authprovider";
+import { AuthProvider } from "@/providers/Authprovider";
+import { LoadingProvider } from "@/providers/LoadingProvider";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -47,21 +48,23 @@ export default function RootLayout({
         ></link>
       </head>
       <body className={lato.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AuthProvider>{children}</AuthProvider>
-          <Toaster
-            richColors
-            duration={3000}
-            position="top-right"
-            expand={false}
-            visibleToasts={5}
-          />
-        </ThemeProvider>
+        <LoadingProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AuthProvider>{children}</AuthProvider>
+            <Toaster
+              richColors
+              duration={3000}
+              position="top-right"
+              expand={false}
+              visibleToasts={5}
+            />
+          </ThemeProvider>
+        </LoadingProvider>
       </body>
     </html>
   );

@@ -19,12 +19,12 @@ export const ApiRoutes = {
   }
 };
 
-const AxiosInstance = axios.create({
+const AxiosInstanceWithInterceptor = axios.create({
   baseURL: ApiBaseUrl,
   timeout: +ApiMaxTimeOut || 10000,
 });
 
-AxiosInstance.interceptors.request.use(config => {
+AxiosInstanceWithInterceptor.interceptors.request.use(config => {
   const token = CookieStorageService.getAccessToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -35,7 +35,7 @@ AxiosInstance.interceptors.request.use(config => {
 });
 
 // Response interceptor
-AxiosInstance.interceptors.response.use(
+AxiosInstanceWithInterceptor.interceptors.response.use(
   response => response,
   error => {
     if (error.response) {
@@ -43,14 +43,14 @@ AxiosInstance.interceptors.response.use(
         // Handle Unauthorized (401) error
         console.log('Unauthorized. Redirecting to login...');
         // Optionally redirect to login or handle logout logic
-        // window.location.href = ClientRoutes.Admin.SignIn;
+        window.location.href = ClientRoutes.User.MyAccount;
         return;
 
       } else if (error.response.status === HttpStatusCode.Forbidden) {
         // Handle Forbidden (403) error
         console.log('Forbidden access.');
 
-        window.location.href = ClientRoutes.Admin.Overview;
+        window.location.href = ClientRoutes.Home;
         return;
 
       } else {
@@ -65,4 +65,4 @@ AxiosInstance.interceptors.response.use(
   }
 );
 
-export default AxiosInstance;
+export default AxiosInstanceWithInterceptor;

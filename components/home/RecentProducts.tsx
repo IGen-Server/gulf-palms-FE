@@ -129,7 +129,7 @@ const products = [
 
 export default function RecentProducts() {
   return (
-    <div className="z-[100]">
+    <div className="z-[50]">
       <div className="pb-[50px] space-y-[10px]">
         <p className="text-[#777777] md:text-[30px] font-sans font-light">
           NEWLY ADDED

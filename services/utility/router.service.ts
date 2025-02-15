@@ -17,7 +17,7 @@ export const useRouteService = () => {
 export const ClientRoutes = {
   Home: "/",
   User: {
-    MyAccount: "my-account"
+    MyAccount: "/my-account"
   },
   Admin: {
     SignIn: "/admin/sign-in",
