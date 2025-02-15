@@ -3,6 +3,7 @@ import { CookieStorageService } from './storage.service';
 import { useRouter } from 'next/router';
 import { ApiBaseUrl, ApiMaxTimeOut } from '@/constants/url.constant';
 import { ClientRoutes } from './router.service';
+import { Settings } from 'lucide-react';
 
 export const ApiRoutes = {
   Auth: {
@@ -11,6 +12,7 @@ export const ApiRoutes = {
   },
   User: {
     Profile: '/user/profile',
+    Settings: '/user/settings',
   },
   Order: {
     Get: 'orders',

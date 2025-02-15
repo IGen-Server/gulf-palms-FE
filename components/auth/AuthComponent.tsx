@@ -29,6 +29,7 @@ export default function AuthComponent() {
         .then(response=> {
           console.log(response);
           CookieStorageService.setAccessToken(response.data.jwt);
+          window.location.reload();
         })
         .catch(error => {
           console.error(error);
