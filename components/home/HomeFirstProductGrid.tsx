@@ -3,19 +3,19 @@ import RenderImageAndProducts from "../common/RenderImageAndProducts";
 
 export default function HomeFirstProductGrid() {
   return (
-    <div className="flex items-center gap-[40px] h-[839px] w-max font-sans">
+    <div className="flex items-center gap-[40px] min-h-fit h-[100vh] flex-col lg:flex-row  lg:h-[839px] w-max font-sans">
       <div
         style={{
           backgroundImage: `url(https://gulfpalms.com/wp-content/uploads/2023/10/DSC08580.jpg)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        className="relative h-full w-[576px]"
+        className="relative h-full w-full lg:w-[576px]"
       >
         <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-30 p-[30px] text-white space-y-[10px]">
-          <p className="text-[30px]">PLANTS DOCTORS</p>
-          <p className="text-[36px] font-arabic font-bold">GULF PALM</p>
-          <p className="text-[16px] max-w-sm">
+          <p className="md:text-[30px]">PLANTS DOCTORS</p>
+          <p className="md:text-[36px] font-arabic font-bold">GULF PALM</p>
+          <p className="md:text-[16px] max-w-sm">
             Gulf Palms caters to a wide scope of clients ranging from
             Governmental, Commercial, Industrial to Residential. Our experienced
             team provides customized solutions from design to execution based on
@@ -23,8 +23,8 @@ export default function HomeFirstProductGrid() {
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-[40px] h-full">
-        <div className="w-[352px] flex flex-col h-full gap-[17px]">
+      <div className="flex items-center gap-[17px] lg:gap-[40px] h-full">
+        <div className="w-[calc(50vw-17px)] lg:w-[352px] flex flex-col h-full gap-[17px]">
           <div className="w-full h-[325px]">
             <RenderImageAndProducts
               productId=""
@@ -140,7 +140,7 @@ export default function HomeFirstProductGrid() {
             />
           </div>
         </div>
-        <div className="w-[352px] flex flex-col h-full gap-[17px]">
+        <div className="w-[calc(50vw-17px)] lg:w-[352px] flex flex-col h-full gap-[17px]">
           <div className="w-full h-full flex-1">
             <RenderImageAndProducts
               productId=""

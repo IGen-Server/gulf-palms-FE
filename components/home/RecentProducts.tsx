@@ -131,13 +131,13 @@ export default function RecentProducts() {
   return (
     <div className="z-[100]">
       <div className="pb-[50px] space-y-[10px]">
-        <p className="text-[#777777] text-[30px] font-sans font-light">
+        <p className="text-[#777777] md:text-[30px] font-sans font-light">
           NEWLY ADDED
         </p>
-        <p className="text-[#242424] font-bold text-[36px] font-arabic">
+        <p className="text-[#242424] font-bold md:text-[36px] font-arabic">
           RECENT PRODUCTS
         </p>
-        <p className="text-[#777777] text-[16px] font-sans">
+        <p className="text-[#777777] md:text-[16px] font-sans">
           Providing outstanding agricultural products, services and solutions
           for our clients both individuals and institutions.{" "}
         </p>

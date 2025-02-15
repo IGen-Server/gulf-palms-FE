@@ -9,6 +9,7 @@ import HomeSecondProductGrid from "@/components/home/HomeSecondProductGrid";
 import WhoWeAre from "@/components/home/WhoWeAre";
 import LocationMap from "@/components/home/LocationMap";
 import VideoShowCase from "@/components/home/VideoShowCase";
+import Customers from "@/components/home/Customers";
 
 async function HomePage({
   params: { locale },
@@ -23,9 +24,10 @@ async function HomePage({
         <RecentProducts />
       </div>
       <ShowRoom />
-      <div className="pt-[396px] pb-[50px]">
+      <div className="pt-[1000px] lg:pt-[396px] pb-[50px]">
         <Services />
       </div>
+      <Customers/>
       <ProductsShowCase />
       <HomeSecondProductGrid />
       <div className="">
@@ -34,8 +36,8 @@ async function HomePage({
           <LocationMap />
         </div>
       </div>
-      <VideoShowCase />
-      <div className="pt-1"></div>
+      {/* <VideoShowCase />
+      <div className="pt-1"></div> */}
     </div>
   );
 }

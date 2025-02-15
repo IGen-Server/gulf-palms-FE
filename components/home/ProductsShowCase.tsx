@@ -91,7 +91,7 @@ const topLayer = (
 export default function ProductsShowCase() {
   return (
     <div className="grid place-content-center max-w-content mx-auto mt-[50px]">
-      <div className="w-[1140px]">
+      <div className="w-[1140px] space-y-[100px]">
         <ImageTextCard
           rightContent={{
             type: "image",
@@ -103,6 +103,7 @@ export default function ProductsShowCase() {
             type: "component",
             component: topLayer,
           }}
+          colReversed = {true}
         />
         <ImageTextCard
           leftContent={{
@@ -115,6 +116,7 @@ export default function ProductsShowCase() {
             type: "component",
             component: topLayer,
           }}
+          
         />
       </div>
     </div>
