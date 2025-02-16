@@ -1,60 +1,76 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { Button } from "../../ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet"
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Button } from "../../ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
 
-import { HeartIcon, Menu, SearchIcon, ShoppingCart, ChevronDown } from "lucide-react"
-import BrandFullLogo from "../../logo/brand-full-logo"
-import { LocaleToggler } from "../../LocaleProvider/locale-togger"
-import { NavLinksWithName } from "@/constants/global-constants"
-import { useTranslation } from "react-i18next"
-import { usePathname } from "next/navigation"
+import {
+  HeartIcon,
+  Menu,
+  SearchIcon,
+  ShoppingCart,
+  ChevronDown,
+} from "lucide-react";
+import BrandFullLogo from "../../logo/brand-full-logo";
+import { LocaleToggler } from "../../LocaleProvider/locale-togger";
+import { NavLinksWithName } from "@/constants/global-constants";
+import { useTranslation } from "react-i18next";
+import { usePathname } from "next/navigation";
 
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
-import { SideDrawer } from "@/components/common/SideDrawer"
-import UserSigninFormForDrawer from "@/components/auth/UserSigninFormForDrawer"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { SideDrawer } from "@/components/common/SideDrawer";
+import UserSigninFormForDrawer from "@/components/auth/UserSigninFormForDrawer";
+import MobileNav from "./MobileNav";
+import { DesktopNav } from "./DesktopNav";
 
 export default function PublicNavbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [showNavbar, setShowNavbar] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
-  const { t, i18n } = useTranslation()
-  const currentLanguage = i18n.language
-  const pathname = usePathname()
-  const [isHomePage, setIsHomePage] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language;
+  const pathname = usePathname();
+  const [isHomePage, setIsHomePage] = useState(false);
 
   useEffect(() => {
-    if (pathname === "/" || pathname === "/ar" || pathname === "/en" || pathname === "/en-us") {
-      setIsHomePage(true)
+    if (
+      pathname === "/" ||
+      pathname === "/ar" ||
+      pathname === "/en" ||
+      pathname === "/en-us"
+    ) {
+      setIsHomePage(true);
     } else {
-      setIsHomePage(false)
+      setIsHomePage(false);
     }
-  }, [pathname])
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
+      const currentScrollY = window.scrollY;
 
       if (currentScrollY > 500) {
         if (currentScrollY > lastScrollY) {
-          setShowNavbar(false)
+          setShowNavbar(false);
         } else {
-          setShowNavbar(true)
+          setShowNavbar(true);
         }
       } else {
-        setShowNavbar(true)
+        setShowNavbar(true);
       }
 
-      setLastScrollY(currentScrollY)
-      setIsScrolled(currentScrollY > 10)
-    }
+      setLastScrollY(currentScrollY);
+      setIsScrolled(currentScrollY > 10);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [lastScrollY])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const renderNavLinks = () =>
     NavLinksWithName.map((item, index) => {
@@ -72,17 +88,23 @@ export default function PublicNavbar() {
             </HoverCardTrigger>
             <HoverCardContent
               className={`bg-transparent mt-6  bg-white  ${
-                item.href.includes("shop") ? "w-full left-0 p-12" : "w-[220px] p-4"
+                item.href.includes("shop")
+                  ? "w-full left-0 p-12"
+                  : "w-[220px] p-4"
               }`}
             >
               {item.children.map((child, idx) => (
-                <Link key={idx} href={child.href} className="block  px-4 py-2 text-gray-700 hover:bg-gray-200 ">
+                <Link
+                  key={idx}
+                  href={child.href}
+                  className="block  px-4 py-2 text-gray-700 hover:bg-gray-200 "
+                >
                   {t(`navigation.${child.name}`)}
                 </Link>
               ))}
             </HoverCardContent>
           </HoverCard>
-        )
+        );
       }
 
       return (
@@ -93,8 +115,8 @@ export default function PublicNavbar() {
         >
           {t(`navigation.${item.name}`)}
         </Link>
-      )
-    })
+      );
+    });
 
   return (
     <div
@@ -128,12 +150,12 @@ export default function PublicNavbar() {
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-4 min-w-[758px] justify-evenly flex-wrap ">
-              {renderNavLinks()}
+            <div className="flex items-center gap-4 min-w-[758px] justify-evenly flex-wrap">
+              <DesktopNav/>
             </div>
           </nav>
           {/* Mobile Menu */}
-          <div className="flex lg:hidden justify-between items-center w-full gap-4">
+          <div className="flex lg:hidden justify-between items-center w-full gap-4 ">
             <Sheet>
               <SheetTrigger asChild>
                 <Button
@@ -146,18 +168,11 @@ export default function PublicNavbar() {
                   </span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left">
-                <nav className="grid gap-6 text-lg font-medium">
-                  {NavLinksWithName.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className="text-gray-700 hover:text-gray-900 transition-colors"
-                    >
-                      {t(`navigation.${item.name}`)}
-                    </Link>
-                  ))}
-                </nav>
+              <SheetContent
+                side="left"
+                className="p-0 w-[340px] drawer max-h-screen overflow-y-auto"
+              >
+                <MobileNav />
               </SheetContent>
             </Sheet>
 
@@ -178,9 +193,10 @@ export default function PublicNavbar() {
             </div>
           </div>
 
-          <SideDrawer 
+          <SideDrawer
             title={"Sign in"}
-            triggerComponent={<Button
+            triggerComponent={
+              <Button
                 asChild
                 variant="ghost"
                 className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
@@ -188,7 +204,8 @@ export default function PublicNavbar() {
                 <p className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
                   Login / Register
                 </p>
-              </Button>}
+              </Button>
+            }
             bodyComponent={<UserSigninFormForDrawer />}
           />
           {/* {pathname.includes('my-account') || <AuthSheet />} */}
@@ -219,4 +236,3 @@ export default function PublicNavbar() {
     </div>
   );
 }
-

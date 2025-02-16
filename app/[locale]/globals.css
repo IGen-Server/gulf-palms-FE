@@ -258,8 +258,12 @@ body {
 
 .drawer button:has(span.sr-only) svg {
   display: none !important;
+  outline: none !important;
 }
 
+.drawer button:has(span.sr-only):focus {
+  display: none !important;
+}
 
 .scrollToTop {
   position: fixed !important;
