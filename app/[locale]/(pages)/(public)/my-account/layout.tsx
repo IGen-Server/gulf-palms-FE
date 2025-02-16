@@ -2,10 +2,14 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import GetInTouch from "@/components/common/GetInTouch";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import { useAuth } from "@/providers/Authprovider";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { OrderService } from "@/services/api/order.service";
+import OrdersPage from "./orders/page";
+import { ClientRoutes } from "@/services/utility/router.service";
 
 const breadcrumbLinks = [
   { name: "Home", href: "/" },
@@ -17,6 +21,27 @@ export default function AccountLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+
+  // Orders
+  const [orderConfig, setOrderConfig] = useState({ }); // page: 1, per_page: 10
+  const [orders, setOrders] = useState<any[]>([]);
+  
+  useEffect(() => {
+    const getOrders = async () => {
+      OrderService.Get(orderConfig)
+        .then(response=> {
+          setOrders(response);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    };
+
+    getOrders();
+  }, [orderConfig]);
+
   const { user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
@@ -53,7 +78,16 @@ export default function AccountLayout({
                 </div>
               </nav>
             </aside>
-            <main className="flex-1 p-6">{children}</main>
+            <main className="flex-1 p-6">
+              {(() => {
+                switch (pathname) {
+                  case ClientRoutes.User.MyAccountOrders:
+                    return <OrdersPage orders={orders} />;
+                  default:
+                    return children;
+                }
+              })()}
+            </main>
           </div>
         </div>
       ) : (

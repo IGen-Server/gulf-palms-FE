@@ -7,27 +7,7 @@ import { getTotalQuantity } from "@/services/utility/utility.service";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 
-export default function OrdersPage() {
-
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
-  // page: 1, per_page: 10
-  const [orderConfig, setOrderConfig] = useState({ });
-  const [orders, setOrders] = useState<any[]>([]);
-  
-  useEffect(() => {
-    const getOrders = async () => {
-      OrderService.Get(orderConfig, axiosInstanceWithLoader)
-        .then(response=> {
-          console.log(response);
-          setOrders(response);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    };
-
-    getOrders();
-  }, [orderConfig]);
+export default function OrdersPage({ orders }: { orders: any[] | null }) {
 
   return (
     <div>
@@ -45,7 +25,7 @@ export default function OrdersPage() {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order, index) => (
+            {orders?.map((order, index) => (
               <tr className="border-b" key={index}>
                 <td className="px-4 py-4 text-[14px] font-semibold">#{order.id}</td>
                 <td className="px-4 py-4 text-black/60 text-[14px]">{dayjs(order.date_created).format("MMMM D, YYYY")}</td>
