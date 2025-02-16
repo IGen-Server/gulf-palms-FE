@@ -1,152 +1,146 @@
-/* eslint-disable @next/next/no-img-element */
-import WhoWeAre from "@/components/home/WhoWeAre";
-import Services from "@/components/home/Services";
-import GetInTouch from "@/components/common/GetInTouch";
+import Image from "next/image";
 import Link from "next/link";
-import ImageTextCard from "@/components/common/ImageTextCard";
-import ProductsGrid from "@/components/common/ProductsGrid";
+import { serviceData } from "@/data/serviceData";
+import { notFound } from "next/navigation";
+import { ChevronRight } from "lucide-react";
 
 export default async function ServiceDetails({
   params,
 }: {
-  params: Promise<{
-    id: any;
-    slug: string;
-  }>;
+  params: { id: string };
 }) {
-  const sentence = "Garden Maintenance";
+  const service = serviceData.find((s) => s.id === params.id);
+
+  if (!service) {
+    notFound();
+  }
+
   return (
-    <div className="pt-[98px] w-screen mx-auto flex flex-col items-center">
-      <div className="max-w-content max-auto pt-[40px]">
-        <div className="">
-          <div className="flex gap-3">
-            {/* <div
-              className="w-[490px] h-[575px]"
-              style={{
-                backgroundImage:
-                  "url(https://gulfpalms.com/wp-content/uploads/2023/06/books-quotes-dahttps://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_106616339.jpg)",
-                backgroundSize: "",
-                backgroundPosition: "right center",
-                backgroundRepeat: "no-repeat",
-              }}
-            ></div> */}
-            <img
-              className="max-w-[575px] h-[588px]"
-              src="https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_106616339.jpg"
-              alt=""
-            />
-            <div
-              className="w-[490px] h-[588px] bg-black opacity-95 text-gray-300 grid place-content-center space-y-[20px] px-[30px]"
-              style={{
-                backgroundImage:
-                  "url(https://gulfpalms.com/wp-content/uploads/2023/06/books-quotes-dark.svg)",
-                backgroundSize: "",
-                backgroundPosition: "right center",
-                backgroundRepeat: "no-repeat",
-              }}
-            >
-              <p>OUR PROFESSIONAL SERVICES</p>
-              <p className="text-[38px] font-bold text-white">
-                {sentence.split(" ").slice(0, -1).join(" ")}{" "}
-                <span className="text-primary">
-                  {sentence.split(" ").slice(-1)}
-                </span>
-              </p>
-              <p>
-                Gulf palms provides a complete range of landscaping maintenance
-                services to maintain the forever charm of your outdoor living
-                spaces.
-              </p>
-              <Link
-                href="tel:%20+965%206901%208041"
-                className="underline text-white"
-              >
-                GET IN TOUCH
-              </Link>
-            </div>
-            <div className="w-[322px] flex flex-col justify-between">
-              <img
-                src="https://gulfpalms.com/wp-content/uploads/2023/10/compressed-Untitled_1.2.1-430x764.jpg"
-                alt="img2"
-                className="w-full h-[280px]"
-              />
-              <img
-                src="https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_667654081-768x512.jpg"
-                alt="img3"
-                className="w-full h-[280px]"
-              />
-            </div>
+    <div className="pt-[98px] w-screen mx-auto flex flex-col items-center !font-sans">
+      <div className="max-w-content mx-auto">
+        {/* Hero Section */}
+        <div className="flex gap-3 pt-[40px]">
+          <Image
+            src={service.details.heroSection.images[0] || "/placeholder.svg"}
+            alt=""
+            width={575}
+            height={588}
+            className="max-w-[575px] h-[588px] object-cover"
+          />
+          <div
+            className="w-[490px] h-[588px] bg-black/95 text-gray-300 grid place-content-center space-y-[20px] px-[30px]"
+            style={{
+              backgroundImage: "url('/images/texture-overlay.svg')",
+              backgroundSize: "cover",
+              backgroundPosition: "right center",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
+            <p className="text-sm tracking-wide">OUR PROFESSIONAL SERVICES</p>
+            <p className="text-[38px] font-bold text-white">
+              {service.title.split(" ").slice(0, -1).join(" ")}{" "}
+              <span className="text-[#C17C0E]">
+                {service.title.split(" ").slice(-1)}
+              </span>
+            </p>
+            <p>{service.details.heroSection.summary}</p>
+            <Link href="/contact" className="underline text-white">
+              GET IN TOUCH
+            </Link>
           </div>
-          <div className="flex flex-col text-center py-[80px]">
-            <div className="space-y-5">
-              <p className="text-gray-600">OUR PROFESSIONAL SERVICES</p>
-              <p className="text-[30px] font-bold">
-                Creating A Project Plan For Your Garden
-              </p>
-            </div>
-            <div className="max-h-[220px] flex items-center justify-center max-w-content overflow-hidden mt-10">
-              <p className="p-10">
-                Transform your dream designs for a cosy outdoors into reality
-                with our customised design solutions. Whether you wish to
-                install nature–inspired swimming pools, enchanting water
-                features, picturesque plantings, or whatnot, our bespoke designs
-                will sprinkle life in each of your outdoor elements. All our
-                designs are sustainable, cost effective and resource efficient.
-                They preserve nature, water, energy, environment and reduce the
-                cost of maintenance significantly. They create value through
-                significant economic, social and environmental benefits.
-              </p>
-              <img
-                className="!w-1/2"
-                src="https://gulfpalms.com/wp-content/uploads/2023/10/IMG_EE4609C5A18F-1.jpeg"
-                alt="img"
+          <div className="w-[322px] flex flex-col gap-3">
+            {service.details.heroSection.images.slice(1).map((image, index) => (
+              <Image
+                key={index}
+                src={image || "/placeholder.svg"}
+                alt={`Palm service ${index + 2}`}
+                width={322}
+                height={280}
+                className="w-full h-full object-cover"
               />
-            </div>
-          </div>
-          <div className="py-[80px]">
-            <ProductsGrid
-              items={[
-                {
-                  id: 1,
-                  col: 1,
-                  content: (
-                    <img
-                      src="https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_626590571-1200x800.jpg"
-                      alt="image"
-                    />
-                  ),
-                  height: "100%",
-                },
-                {
-                  id: 2,
-                  col: 2,
-                  content: (
-                    <img
-                      src="https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_590308763-1067x800.jpg"
-                      alt="image"
-                    />
-                  ),
-                  height: "110%",
-                },
-                {
-                  id: 3,
-                  col: 3,
-                  content: (
-                    <img
-                      src="https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_567716494-1199x800.jpg"
-                      alt="image"
-                    />
-                  ),
-                  height: "100%",
-                },
-              ]}
-            />
+            ))}
           </div>
         </div>
-        <Services />
-        <WhoWeAre />
+
+        {/* Content Section */}
+        <div className="w-full ">
+          <div className="py-16">
+            <div className="text-center mb-12">
+              <p className="text-sm uppercase tracking-wider text-gray-600 mb-2">
+                OUR PROFESSIONAL SERVICES
+              </p>
+              <h1 className="text-4xl font-bold text-gray-900">
+                {service.title}
+              </h1>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+              {/* Content Column */}
+              <div className="space-y-8">
+                <div className="prose max-w-none">
+                  <p className="text-gray-700 leading-relaxed">
+                    {service.details.content.overview}
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <h2 className="text-xl font-semibold text-gray-900">
+                    What our maintenance contracts include:
+                  </h2>
+                  <ul className="space-y-4">
+                    {service.details.content.serviceHighlights.map(
+                      (highlight, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <span className="text-primary text-xl"><ChevronRight/></span>
+                          <span className="text-gray-700">{highlight}</span>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Image Column */}
+              <div className="relative h-[600px] rounded-lg overflow-hidden">
+                <Image
+                  src={
+                    service.details.heroSection.images[0] ||
+                    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9F2WinKvnGRw6HTYDoKOEAUgST4giB.png"
+                  }
+                  alt="Palm maintenance service"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Gallery Grid */}
+        <div className="py-[80px]">
+          <div className="grid grid-cols-4 gap-4 auto-rows-[200px]">
+            {service.details.galleryImages.map((image, index) => {
+              // Determine if image should span multiple rows
+              const spanClass = index % 3 === 0 ? "row-span-1" : "row-span-2";
+
+              return (
+                <div
+                  key={index}
+                  className={`relative overflow-hidden ${spanClass}`}
+                >
+                  <Image
+                    src={image || "/placeholder.svg"}
+                    alt={`Gallery image ${index + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
-      <GetInTouch />
     </div>
   );
 }
