@@ -43,14 +43,14 @@ AxiosInstanceWithInterceptor.interceptors.response.use(
         // Handle Unauthorized (401) error
         console.log('Unauthorized. Redirecting to login...');
         // Optionally redirect to login or handle logout logic
-        window.location.href = ClientRoutes.User.MyAccountDashboard;
+        // window.location.href = ClientRoutes.User.MyAccountDashboard;
         return;
 
       } else if (error.response.status === HttpStatusCode.Forbidden) {
         // Handle Forbidden (403) error
         console.log('Forbidden access.');
 
-        window.location.href = ClientRoutes.Home;
+        // window.location.href = ClientRoutes.Home;
         return;
 
       } else {
