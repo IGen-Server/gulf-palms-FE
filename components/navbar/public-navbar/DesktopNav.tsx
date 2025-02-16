@@ -5,12 +5,6 @@ import { ChevronDown, ChevronRight } from "lucide-react"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 import { desktopMenuItems } from "./navData"
 
-interface NavItem {
-  title: string
-  href?: string
-  submenu?: NavItem[]
-  icon?: string
-}
 
 export function DesktopNav() {
   return (
