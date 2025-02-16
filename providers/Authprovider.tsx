@@ -18,7 +18,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const axiosInstance = CreateAxiosInstanceWithLoader();
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const [user, setUser] = useState<UserProfileModel | null>(null);
   const [userSettings, setUserSettings] = useState<UserAsCustomer | null>(null);
   
@@ -26,7 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const getProfile = async () => {
-      UserService.GetProfile(axiosInstance)
+      UserService.GetProfile(axiosInstanceWithLoader)
         .then(response => {
           console.log(response);
           setUser(response);
@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const getSettings = async () => {
-      UserService.GetSettings(axiosInstance)
+      UserService.GetSettings(axiosInstanceWithLoader)
         .then(response=> {
           console.log(response);
           setUserSettings(response);

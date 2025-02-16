@@ -12,7 +12,7 @@ import { CookieStorageService } from "@/services/utility/storage.service"
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service"
 
 export default function AuthComponent() {
-  const axiosInstance = CreateAxiosInstanceWithLoader();
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignIn, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
@@ -27,7 +27,7 @@ export default function AuthComponent() {
     setError(null);
 
     if (isSignIn) {
-      AuthService.SignIn(email, password, axiosInstance)
+      AuthService.SignIn(email, password, axiosInstanceWithLoader)
         .then(response=> {
           console.log(response);
           CookieStorageService.setAccessToken(response.data.jwt);
@@ -38,7 +38,7 @@ export default function AuthComponent() {
           setError("Authentication failed. Please try again.");
         });
     } else {
-      AuthService.SignUp(username, email, password, axiosInstance)
+      AuthService.SignUp(username, email, password, axiosInstanceWithLoader)
         .then(response => {
           console.log(response);
         })
