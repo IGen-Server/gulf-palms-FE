@@ -16,11 +16,7 @@ const breadcrumbLinks = [
   { name: "My account", href: "/my-account" },
 ];
 
-export default function AccountLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AccountLayout({ children }: { children: React.ReactNode }) {
 
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
 
