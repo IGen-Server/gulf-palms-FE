@@ -1,8 +1,8 @@
 import { AxiosInstance } from "axios";
-import { ApiRoutes } from "../utility/api.service";
+import AxiosInstanceWithInterceptor, { ApiRoutes } from "../utility/api.service";
 
 export const OrderService  = {
-  async Get(axiosInstance: AxiosInstance, query: Record<string, any> = {}): Promise<any> {
+  async Get(query: Record<string, any> = {}, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
     try {
       const queryParams = Object.keys(query).length ? `?${new URLSearchParams(query).toString()}` : '';
       const ordersUrl = `${ApiRoutes.Order.Get}${queryParams}`;

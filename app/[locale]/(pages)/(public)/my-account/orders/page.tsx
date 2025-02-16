@@ -15,7 +15,7 @@ export default function OrdersPage() {
   
   useEffect(() => {
     const getOrders = async () => {
-      OrderService.Get(axiosInstance, orderConfig)
+      OrderService.Get(orderConfig, axiosInstance)
         .then(response=> {
           console.log(response);
           setOrders(response);

@@ -27,7 +27,7 @@ export default function AuthComponent() {
     setError(null);
 
     if (isSignIn) {
-      AuthService.SignIn(axiosInstance, email, password)
+      AuthService.SignIn(email, password, axiosInstance)
         .then(response=> {
           console.log(response);
           CookieStorageService.setAccessToken(response.data.jwt);
@@ -38,7 +38,7 @@ export default function AuthComponent() {
           setError("Authentication failed. Please try again.");
         });
     } else {
-      AuthService.SignUp(axiosInstance, username, email, password)
+      AuthService.SignUp(username, email, password, axiosInstance)
         .then(response => {
           console.log(response);
         })
