@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ShowRoom() {
   return (
-    <div className="w-screen mx-auto absolute left-0 min-h-[306px]">
+    <div className="w-screen mx-auto  min-h-[306px]">
       <div className="flex flex-col lg:flex-row">
         <div className="text-white space-y-3 bg-[#6F803D] p-[50px] text-center w-full h-[306px] flex flex-col items-center justify-center">
           <p className="text-[30px] font-sans font-light">ABDALI</p>

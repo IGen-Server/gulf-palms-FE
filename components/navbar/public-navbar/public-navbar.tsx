@@ -27,6 +27,8 @@ import { SideDrawer } from "@/components/common/SideDrawer";
 import UserSigninFormForDrawer from "@/components/auth/UserSigninFormForDrawer";
 import MobileNav from "./MobileNav";
 import { DesktopNav } from "./DesktopNav";
+import { CartDrawer } from "@/components/cart/CartDrawer";
+import { useCart } from "@/providers/CartProvider";
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,6 +38,7 @@ export default function PublicNavbar() {
   const currentLanguage = i18n.language;
   const pathname = usePathname();
   const [isHomePage, setIsHomePage] = useState(false);
+  const { cartItems,  subtotal } = useCart();
 
   useEffect(() => {
     if (
@@ -151,7 +154,7 @@ export default function PublicNavbar() {
               </div>
             </div>
             <div className="flex items-center gap-4 min-w-[758px] justify-evenly flex-wrap">
-              <DesktopNav/>
+              <DesktopNav />
             </div>
           </nav>
           {/* Mobile Menu */}
@@ -183,12 +186,24 @@ export default function PublicNavbar() {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="relative">
-                <ShoppingCart className="w-5 h-5 text-secondary" />
-                <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
-                  0
-                </p>
-              </div>
+            <SideDrawer
+              title={"Cart"}
+              triggerComponent={
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="hover:bg-transparent w-fit p-0 lg:hidden close_btn text-white hover:text-white"
+                >
+                  <div className="relative cursor-pointer">
+                    <ShoppingCart className="w-5 h-5" />
+                    <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
+                    {cartItems?.length || 0}
+                    </p>
+                  </div>
+                </Button>
+              }
+              bodyComponent={<CartDrawer />}
+            />
               <LocaleToggler />
             </div>
           </div>
@@ -211,12 +226,25 @@ export default function PublicNavbar() {
           {/* {pathname.includes('my-account') || <AuthSheet />} */}
 
           <div className="hidden  lg:flex flex-row-reverse items-center gap-4 text-secondary ">
-            <div className="relative">
-              <ShoppingCart className="w-5 h-5" />
-              <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
-                0
-              </p>
-            </div>
+            <SideDrawer
+              title={"Cart"}
+              triggerComponent={
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn hover:text-white"
+                >
+                  <div className="relative cursor-pointer">
+                    <ShoppingCart className="w-5 h-5" />
+                    <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
+                    {cartItems?.length || 0}
+                    </p>
+                  </div>
+                </Button>
+              }
+              bodyComponent={<CartDrawer />}
+            />
+
             <div className="hidden lg:block">
               <HeartIcon className="w-5 h-5" />
             </div>

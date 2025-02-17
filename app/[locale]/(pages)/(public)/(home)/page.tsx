@@ -17,27 +17,34 @@ async function HomePage({
   params: { locale: string };
 }) {
   return (
-    <div className="max-w-[100vw] md:w-[1370px] mx-auto bg-white h-fit max-h-fit space-y-[0px]">
-      <HeroSection />
-      <HomeFirstProductGrid />
-      <div className="pt-[100px]">
-        <RecentProducts />
+    <div className="w-full mx-auto bg-white h-fit max-h-fit space-y-[0px]">
+      <div className="w-full max-w-[1370px] mx-auto">
+        <HeroSection />
+      </div>
+      <div className="w-full max-w-[1370px] mx-auto">
+        <HomeFirstProductGrid />
+      </div>
+      <div className="w-full max-w-[1370px] mx-auto py-[100px]">
+      <RecentProducts />
       </div>
       <ShowRoom />
-      <div className="pt-[1000px] lg:pt-[396px] pb-[50px]">
-        <Services />
+      <div className="w-full max-w-[1370px] mx-auto pt-[100px]">
+      <Services />
       </div>
-      <Customers/>
-      <ProductsShowCase />
-      <HomeSecondProductGrid />
-      <div className="">
-        <WhoWeAre />
-        <div>
-          <LocationMap />
-        </div>
+      <div className="w-full max-w-[1370px] mx-auto">
+        <Customers />
       </div>
-      {/* <VideoShowCase />
-      <div className="pt-1"></div> */}
+      <div className="w-full max-w-[1370px] mx-auto">
+        <ProductsShowCase />
+      </div>
+      <div className="w-full max-w-[1370px] mx-auto">
+        {" "}
+        <HomeSecondProductGrid />
+      </div>
+      <WhoWeAre />
+      <div className="w-full max-w-[1370px] mx-auto">
+        <LocationMap />
+      </div>
     </div>
   );
 }

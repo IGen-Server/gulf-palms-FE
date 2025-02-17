@@ -120,8 +120,8 @@ function PublicPageLayout({
   };
 
   return (
-    <div className="w-screen ">
-      <div className="relative overflow-hidden w-screen inset-0 h-[582px] lg:h-[948px] mb-[90px]">
+    <div className="w-[100vw] mx-auto">
+      <div className="relative overflow-hidden w-full inset-0 h-[582px] lg:h-[948px] mb-[90px]">
         {!iframeLoaded && (
           <Image
             src={homePageImage}
@@ -142,7 +142,7 @@ function PublicPageLayout({
 
         <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div>
       </div>
-      <div className="content overflow-x-hidden px-1 sm:px-4 xl:px-0 bg-white">
+      <div className="content overflow-x-hidden px-1 sm:px-4 xl:px-0 bg-white !w-[100vw] mx-auto">
         <PublicNavbar />
         <div>{children}</div>
       </div>

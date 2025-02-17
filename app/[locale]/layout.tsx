@@ -10,6 +10,7 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 import "./globals.css";
 import { AuthProvider } from "@/providers/Authprovider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
+import { CartProvider } from "@/providers/CartProvider";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -55,7 +56,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <AuthProvider>{children}</AuthProvider>
+            <CartProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </CartProvider>
             <Toaster
               richColors
               duration={3000}
