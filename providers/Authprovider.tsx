@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CookieStorageService } from "@/services/utility/storage.service";
 import { UserService } from "@/services/api/user.service";
@@ -11,7 +11,9 @@ import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.
 
 interface AuthContextType {
   user: UserProfileModel | null;
+  setUser: Dispatch<SetStateAction<UserProfileModel | null>>;
   userSettings: UserAsCustomer | null;
+  setUserSettings: Dispatch<SetStateAction<UserAsCustomer | null>>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -19,7 +21,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const axiosInstance = CreateAxiosInstanceWithLoader();
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const [user, setUser] = useState<UserProfileModel | null>(null);
   const [userSettings, setUserSettings] = useState<UserAsCustomer | null>(null);
   
@@ -27,7 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const getProfile = async () => {
-      UserService.GetProfile(axiosInstance)
+      UserService.GetProfile(axiosInstanceWithLoader)
         .then(response => {
           console.log(response);
           setUser(response);
@@ -37,19 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         });
     };
 
-    const getSettings = async () => {
-      UserService.GetSettings(axiosInstance)
-        .then(response=> {
-          console.log(response);
-          setUserSettings(response);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    };
-
     getProfile();
-    getSettings();
   }, []);
 
   const logout = () => {
@@ -59,7 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, userSettings, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ user, setUser, userSettings, setUserSettings, logout, isAuthenticated: !!user }}>
       {children}
     </AuthContext.Provider>
   );

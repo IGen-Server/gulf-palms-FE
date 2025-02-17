@@ -47,7 +47,7 @@ export const CreateAxiosInstanceWithLoader = () => {
           // window.location.href = ClientRoutes.User.MyAccount;
         } else if (error.response.status === 403) {
           console.log("Forbidden access.");
-          window.location.href = ClientRoutes.Home;
+          // window.location.href = ClientRoutes.Home;
         } else {
           console.error("API Error (interceptor):", error.response.data.message || error.message);
         }

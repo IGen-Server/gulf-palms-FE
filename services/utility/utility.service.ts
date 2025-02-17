@@ -1,3 +1,6 @@
+import { AxiosInstance } from "axios";
+import AxiosInstanceWithInterceptor from "./api.service";
+
 export function getNameInitials(name: string): string {
   return name
     .split(" ")
