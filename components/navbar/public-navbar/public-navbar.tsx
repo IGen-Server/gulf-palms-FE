@@ -76,51 +76,6 @@ export default function PublicNavbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  const renderNavLinks = () =>
-    NavLinksWithName.map((item, index) => {
-      if (item.children) {
-        return (
-          <HoverCard key={index} openDelay={100} closeDelay={100}>
-            <HoverCardTrigger asChild>
-              <Link
-                href={item.href}
-                className="text-white hover:text-gray-200 transition-colors flex items-center gap-1 !text-[13px] font-semibold font-sans "
-              >
-                {t(`navigation.${item.name}`)}
-                <ChevronDown className="w-3 text-secondary opacity-90" />
-              </Link>
-            </HoverCardTrigger>
-            <HoverCardContent
-              className={`bg-transparent mt-6  bg-white  ${
-                item.href.includes("shop")
-                  ? "w-full left-0 p-12"
-                  : "w-[220px] p-4"
-              }`}
-            >
-              {item.children.map((child, idx) => (
-                <Link
-                  key={idx}
-                  href={child.href}
-                  className="block  px-4 py-2 text-gray-700 hover:bg-gray-200 "
-                >
-                  {t(`navigation.${child.name}`)}
-                </Link>
-              ))}
-            </HoverCardContent>
-          </HoverCard>
-        );
-      }
-
-      return (
-        <Link
-          href={item.href}
-          key={index}
-          className="text-white hover:text-gray-200 transition-colors text-[13px] font-semibold font-sans"
-        >
-          {t(`navigation.${item.name}`)}
-        </Link>
-      );
-    });
 
   return (
     <div

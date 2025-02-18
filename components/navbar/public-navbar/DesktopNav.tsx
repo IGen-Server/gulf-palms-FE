@@ -22,7 +22,7 @@ export function DesktopNav() {
                   <ChevronDown className="w-3 text-secondary opacity-90" />
                 </Link>
               </HoverCardTrigger>
-              <HoverCardContent className="!w-[100vw] !p-0 mt-[25px]">
+              <HoverCardContent className="!w-[100vw] !p-0 mt-[16px]">
                 <div className="max-w-[1100px] mx-auto p-8">
                   <div className="grid grid-cols-4 gap-x-8 gap-y-8">
                     {item.submenu?.map((category) => (
@@ -34,7 +34,7 @@ export function DesktopNav() {
                                 <img
                                   src={category.icon || "/placeholder.svg"}
                                   alt=""
-                                  className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                                  className="w-full h-full object-contain opacity-100"
                                 />
                               </div>
                             )}
@@ -79,7 +79,7 @@ export function DesktopNav() {
                   <ChevronDown className="w-3 text-secondary opacity-90" />
                 </Link>
               </HoverCardTrigger>
-              <HoverCardContent className="w-[220px] p-4 mt-[25px]">
+              <HoverCardContent className="w-[220px] p-4 mt-[16px]">
                 <nav className="flex flex-col space-y-2">
                   {item.submenu.map((subItem) => (
                     <Link
