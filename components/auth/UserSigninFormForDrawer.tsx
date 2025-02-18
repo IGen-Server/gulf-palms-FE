@@ -7,12 +7,38 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service"
+import { AuthService } from "@/services/api/auth.service"
+import { CookieStorageService } from "@/services/utility/storage.service"
 
 export default function UserSigninFormForDrawer() {
+
   const [showPassword, setShowPassword] = useState(false);
 
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [error, setError] = useState<null | string>(null);
+
+  const handleAuth = async (e: any) => {
+    e.preventDefault();
+    // setError(null);
+
+    AuthService.SignIn(email, password, axiosInstanceWithLoader)
+      .then(response => {
+        console.log(response);
+        CookieStorageService.setAccessToken(response.data.jwt);
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error(error);
+        // setError("Authentication failed. Please try again.");
+      });
+  }
+
   return (<>
-    <form className="grid gap-8 px-[20px]">
+    <form className="grid gap-8 px-[20px]" onSubmit={handleAuth}>
       <div className="grid gap-3">
         <Label htmlFor="email">
           Username or email address{" "}
@@ -21,6 +47,8 @@ export default function UserSigninFormForDrawer() {
         <Input
           id="email"
           type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
           className="h-10 border-gray-200"
         />
@@ -36,6 +64,8 @@ export default function UserSigninFormForDrawer() {
             type={showPassword ? "text" : "password"}
             required
             className="h-10 border-gray-200"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             type="button"

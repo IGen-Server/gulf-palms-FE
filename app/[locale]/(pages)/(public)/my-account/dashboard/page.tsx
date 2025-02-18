@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { FileText, Download, MapPin, User, LogOut } from "lucide-react"
 import { useAuth } from "@/providers/Authprovider";
+import { onLogout } from "@/services/utility/utility.service";
 
 export default function Dashboard() {
 
@@ -70,6 +71,7 @@ export default function Dashboard() {
       </Link>
       <Link
         href="/logout"
+        onClick={onLogout}
         className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted"
       >
         <LogOut className="mb-4 h-12 w-12 text-[#a7a7a7] hover:text-primary" />

@@ -21,7 +21,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true);
   const [user, setUser] = useState<UserProfileModel | null>(null);
   const [userSettings, setUserSettings] = useState<UserAsCustomer | null>(null);
   

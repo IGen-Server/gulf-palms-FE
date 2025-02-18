@@ -10,6 +10,7 @@ import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.
 import { OrderService } from "@/services/api/order.service";
 import OrdersPage from "./orders/page";
 import { ClientRoutes } from "@/services/utility/router.service";
+import { onLogout } from "@/services/utility/utility.service";
 
 const breadcrumbLinks = [
   { name: "Home", href: "/" },
@@ -18,7 +19,7 @@ const breadcrumbLinks = [
 
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
 
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true, false);
 
   // Orders
   const [orderConfig, setOrderConfig] = useState({ }); // page: 1, per_page: 10
@@ -26,7 +27,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
   
   useEffect(() => {
     const getOrders = async () => {
-      OrderService.Get(orderConfig)
+      OrderService.Get(orderConfig, axiosInstanceWithLoader)
         .then(response=> {
           setOrders(response);
         })
@@ -70,7 +71,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
                   <NavLink href="/my-account/account-details">
                     Account details
                   </NavLink>
-                  <NavLink href="/my-account/logout">Logout</NavLink>
+                  <span onClick={onLogout}>Logout</span>
                 </div>
               </nav>
             </aside>
