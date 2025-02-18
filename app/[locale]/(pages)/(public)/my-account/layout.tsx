@@ -71,7 +71,9 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
                   <NavLink href="/my-account/account-details">
                     Account details
                   </NavLink>
-                  <span onClick={onLogout}>Logout</span>
+                  <NavLink href="">
+                    <span onClick={onLogout}>Logout</span>
+                  </NavLink>
                 </div>
               </nav>
             </aside>
