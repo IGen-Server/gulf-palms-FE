@@ -16,18 +16,18 @@ import Link from "next/link";
 
 interface SideDrawerProps {
   title: string;
+  side?: "top" | "bottom" | "left" | "right" | null | undefined;
   triggerComponent: ReactNode;
   bodyComponent: ReactNode;
 }
 
-export function SideDrawer({ title, triggerComponent, bodyComponent }: SideDrawerProps) {
-
+export function SideDrawer({ title, triggerComponent, bodyComponent, side="right" }: SideDrawerProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>
         {triggerComponent}
       </SheetTrigger>
-      <SheetContent side="right" className="!z-[51] overflow-y-auto px-0 w-[283px] xl:w-[340px] drawer">
+      <SheetContent side={side} className={`!z-[51] overflow-y-auto px-0 drawer ${side === 'bottom' ? " " : " w-[283px] xl:w-[340px]"}`}>
         <div className="grid gap-6">
           <div className="flex items-center justify-between !px-[20px] border-b pb-4">
             <h2 className="text-xl font-semibold ">{title}</h2>

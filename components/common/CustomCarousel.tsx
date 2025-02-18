@@ -78,6 +78,7 @@ export default function CustomCarousel({
         settings: {
           slidesToShow: Math.min(3, slidesToShow),
           slidesToScroll: Math.min(3, slidesToScroll),
+          dots: false,
         },
       },
       {
@@ -85,6 +86,7 @@ export default function CustomCarousel({
         settings: {
           slidesToShow: Math.min(2, slidesToShow),
           slidesToScroll: Math.min(2, slidesToScroll),
+          dots: false,
         },
       },
       {

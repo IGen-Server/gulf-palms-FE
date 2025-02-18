@@ -13,6 +13,28 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { mobileCategoryItems, mobileMenuItems, NavItem } from "./navData";
+import Image from "next/image";
+
+const products = [
+  {
+    name: "Mango Alphonso",
+    price: "From 9.000 KD",
+    image:
+      "https://gulfpalms.com/wp-content/uploads/2023/08/Slide1-11-700x700.jpg",
+  },
+  {
+    name: "Washington Navel Orange",
+    price: "From 9.500 KD",
+    image:
+      "https://gulfpalms.com/wp-content/uploads/2023/08/red-blood-orange--700x700.jpg",
+  },
+  {
+    name: "Red Blood Orange",
+    price: "From 9.500 KD",
+    image:
+      "https://gulfpalms.com/wp-content/uploads/2023/08/Slide1-12-700x700.jpg",
+  },
+];
 
 function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -71,18 +93,47 @@ function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
 }
 
 export default function MobileNav() {
+  const [searchQuery, setSearchQuery] = React.useState("");
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="w-full max-w-md mx-auto bg-background font-sans !text-[13px]">
       <div className="relative p-4">
         <Search className="absolute right-6 top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground cursor-pointer" />
         <Input
           type="search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search for products"
           className="w-full pr-10 border-none shadow-none outline-none ring-0 focus:outline-none focus:ring-0 focus:border-none"
           style={{ outline: "none", boxShadow: "none", border: "none" }}
         />
       </div>
 
+      {searchQuery && filteredProducts.length === 0 && (
+        <div className=" items-center px-6 py-3 !text-[13px] text-black font-[600] uppercase">No items found !</div>
+      )}
+
+     {searchQuery && <div className="grid grid-cols-1 gap-6 px-6">
+        {filteredProducts.map((product, index) => (
+          <div key={index} className="group cursor-pointer shadow">
+            <div className="aspect-square mb-2 bg-gray-100 rounded-lg overflow-hidden">
+              <Image
+                src={product.image || "/placeholder.svg"}
+                alt={product.name}
+                width={100}
+                height={150}
+                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <h3 className="font-medium text-center">{product.name}</h3>
+            <p className="text-muted-foreground text-center">{product.price}</p>
+          </div>
+        ))}
+      </div>}
       <Tabs defaultValue="menu" className="w-full">
         <TabsList className="w-full grid grid-cols-2 !p-0 h-[60px]">
           <TabsTrigger

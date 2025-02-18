@@ -29,6 +29,7 @@ import MobileNav from "./MobileNav";
 import { DesktopNav } from "./DesktopNav";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { useCart } from "@/providers/CartProvider";
+import SearchDrawer from "@/components/search/SearchDrawer";
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -249,13 +250,20 @@ export default function PublicNavbar() {
               <HeartIcon className="w-5 h-5" />
             </div>
             <div className="hidden lg:block">
-              <SearchIcon className="w-5 h-5" />
+            <SideDrawer
+              title={""}
+              side='bottom'
+              triggerComponent={
+                <SearchIcon className="w-5 h-5 cursor-pointer" />
+              }
+              bodyComponent={<SearchDrawer />}
+            />
             </div>
           </div>
           {/* Right Actions */}
           <div className="ml-auto hidden lg:flex items-center gap-4 min-w-fit ">
             <p className="!text-[13px] font-semibold text-secondary">
-              0.000 KD
+              {subtotal} KD
             </p>
             <LocaleToggler />
           </div>
