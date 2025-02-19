@@ -103,7 +103,7 @@ export default function BillingAddressForm() {
             <Input id="first_name" value={billingAddress.first_name} onChange={(e) => handleChange(e, 'first_name')} className="bg-gray-50" required />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="lastName">
+            <Label htmlFor="last_name">
               Last name
               <span className="text-red-500 ml-0.5">*</span>
             </Label>
@@ -112,7 +112,7 @@ export default function BillingAddressForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="fullAddress">
+          <Label htmlFor="address_1">
             Full address
             <span className="text-red-500 ml-0.5">*</span>
           </Label>
@@ -120,7 +120,7 @@ export default function BillingAddressForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="area">
+          <Label htmlFor="city">
             Area
             <span className="text-red-500 ml-0.5">*</span>
           </Label>
