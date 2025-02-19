@@ -82,6 +82,7 @@ function PublicPageLayout({
         controls: false,
         background: true,
         height: 988,
+        responsive:false,
         quality: "1080p",
       });
 
@@ -133,16 +134,15 @@ function PublicPageLayout({
           />
         )}
 
-        <div
+        {/* <div
           ref={playerRef}
-          className={` inset-0 z-10 transition-opacity duration-100 h-[582px] lg:h-[948px] ${
+          className={`inset-0 z-[1000] bg-black bg-opacity-50 transition-opacity duration-100 h-[582px] lg:h-[948px] ${
             iframeLoaded ? "opacity-100" : "opacity-0"
           }`}
-        ></div>
+        ></div> */}
 
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div>
       </div>
-      <div className="content overflow-x-hidden px-1 sm:px-4 xl:px-0 bg-white !w-[100vw] mx-auto">
+      <div className="content overflow-x-hidden px-1 sm:px-4 xl:px-0 !w-[100vw] mx-auto">
         <PublicNavbar />
         <div>{children}</div>
       </div>
