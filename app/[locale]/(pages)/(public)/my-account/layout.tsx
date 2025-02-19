@@ -23,7 +23,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
 
   // Orders
   const [orderConfig, setOrderConfig] = useState({ }); // page: 1, per_page: 10
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<any[] | null>(null);
   
   useEffect(() => {
     const getOrders = async () => {
