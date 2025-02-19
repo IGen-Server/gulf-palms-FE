@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/tooltip";
 import SelectProductVariant from "./SelectProductVariant";
 import { ProductDrawer } from "./ProductDrawer";
+import { ProductCategoryModel } from "@/models/product/product";
 
 export default function ProductCard({
   id,
@@ -19,8 +20,8 @@ export default function ProductCard({
   price,
   img,
   options,
-  category = "",
-  categoryLink = "",
+  sku,
+  categories = [],
   description = "",
 }: {
   id: any;
@@ -28,8 +29,8 @@ export default function ProductCard({
   price: any;
   img: any;
   options: any;
-  category: any;
-  categoryLink: any;
+  sku: string;
+  categories: ProductCategoryModel[];
   description: any;
 }) {
   const [selectProductId, setSelectProductId] = useState<
@@ -44,8 +45,8 @@ export default function ProductCard({
     price: Number.parseFloat(price),
     description: description || "Product description not available",
     image: img,
-    sku: `SKU-${id}`,
-    categories: [category],
+    sku: sku || 'N/A',
+    categories: categories,
   };
 
   return (
@@ -87,11 +88,15 @@ export default function ProductCard({
             {name}
           </Link>
         </h3>
-        <div className="text-[13.3px] text-[#a5a5a5]">
-          <Link href={categoryLink} rel="tag" className="hover:underline">
-            {category}
-          </Link>
-        </div>
+        {
+          categories.map((category) => (
+            <div key={category.id} className="text-[13.3px] text-[#a5a5a5]">
+              <Link href={category.slug} rel="tag" className="hover:underline">
+                {category.name}
+              </Link>
+            </div>
+          ))
+        }
         <div>
           <span className="text-primary text-[14px] font-semibold">
             From {price} <span className="">KD</span>

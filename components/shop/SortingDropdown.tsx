@@ -7,35 +7,41 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
+import { useState } from "react";
 
-export function SortingDropdown() {
+export const ProductSortValues = [
+  "menu_order",
+  "popularity",
+  "rating",
+  "date",
+  "price",
+  "price-desc",
+];
+
+interface SortingDropdownProps {
+  setSorting: (key: string, value: any) => void;
+}
+
+export function SortingDropdown({ setSorting }: SortingDropdownProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   // List of valid orderby values
-  const knownValues = [
-    "menu_order",
-    "popularity",
-    "rating",
-    "date",
-    "price",
-    "price-desc",
-  ];
-
-  // Get the current "orderby" parameter, default to "menu_order" if invalid
-  const currentOrderby = knownValues.includes(
-    searchParams.get("popularity") || ""
-  )
-    ? searchParams.get("orderby")!
-    : "menu_order";
+  const [currentOrderby, setCurrentOrderby] = useState<string>('menu_order');
+  // const currentOrderby = ProductSortValues.includes(
+  //   searchParams.get("popularity") || ""
+  // )
+  //   ? searchParams.get("orderby")!
+  //   : "menu_order";
 
   // Handle change in sorting option
   const handleChange = (value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("orderby", value); // Update the "orderby" parameter
-    params.set("paged", "1"); // Reset the pagination to page 1
-
-    router.push(`/shop?${params.toString()}`); // Navigate to the updated URL
+    // const params = new URLSearchParams(searchParams.toString());
+    // params.set("orderby", value); // Update the "orderby" parameter
+    // params.set("paged", "1"); // Reset the pagination to page 1
+    // router.push(`/shop?${params.toString()}`); // Navigate to the updated URL
+    setCurrentOrderby(value)
+    setSorting('orderby', value);
   };
 
   return (

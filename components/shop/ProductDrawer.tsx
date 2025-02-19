@@ -17,6 +17,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { ProductCategoryModel } from "@/models/product/product"
 
 interface ProductDrawerProps {
   open: boolean
@@ -28,7 +29,7 @@ interface ProductDrawerProps {
     description: string
     image: string
     sku: string
-    categories: string[]
+    categories: ProductCategoryModel[]
   }
 }
 
@@ -135,7 +136,7 @@ export function ProductDrawer({ open, onOpenChange, product }: ProductDrawerProp
               <span className="text-gray-600">
                 {product.categories.map((cat, i) => (
                   <span key={i} className="hover:text-[#fdb777] cursor-pointer">
-                    {cat}
+                    {cat.name}
                     {i < product.categories.length - 1 ? ", " : ""}
                   </span>
                 ))}
