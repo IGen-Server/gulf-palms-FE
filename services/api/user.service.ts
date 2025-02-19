@@ -22,4 +22,12 @@ export const UserService  = {
       throw error;
     }
   },
+  async SetSettings(body: any, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<UserAsCustomer> {
+    try {
+      const response = await axiosInstance.post<UserAsCustomer>(ApiRoutes.User.Settings, body);
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
 }
