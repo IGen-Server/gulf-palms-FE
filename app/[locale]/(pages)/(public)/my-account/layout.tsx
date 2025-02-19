@@ -43,12 +43,6 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
-    if (!user && pathname !== "/my-account") {
-      router.push("/my-account");
-    }
-  }, [user, pathname, router]);
-
   return (
     <div className="pt-[98px] ">
       {user ? (

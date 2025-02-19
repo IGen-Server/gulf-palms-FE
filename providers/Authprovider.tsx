@@ -10,11 +10,10 @@ import { UserAsCustomer } from "@/models/user/user-as-customer";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 
 interface AuthContextType {
-  user: UserProfileModel | null;
-  setUser: Dispatch<SetStateAction<UserProfileModel | null>>;
+  user: UserProfileModel | null | undefined;
+  setUser: Dispatch<SetStateAction<UserProfileModel | null | undefined>>;
   userSettings: UserAsCustomer | null;
   setUserSettings: Dispatch<SetStateAction<UserAsCustomer | null>>;
-  logout: () => void;
   isAuthenticated: boolean;
 }
 
@@ -22,7 +21,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true);
-  const [user, setUser] = useState<UserProfileModel | null>(null);
+  const [user, setUser] = useState<UserProfileModel | null | undefined>(undefined);
   const [userSettings, setUserSettings] = useState<UserAsCustomer | null>(null);
   
   const router = useRouter();
@@ -35,6 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setUser(response);
         })
         .catch(error => {
+          setUser(null);
           console.error(error);
         });
     };
@@ -42,14 +42,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     getProfile();
   }, []);
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
-    router.push("/login"); 
-  };
-
   return (
-    <AuthContext.Provider value={{ user, setUser, userSettings, setUserSettings, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ user, setUser, userSettings, setUserSettings, isAuthenticated: !!user }}>
       {children}
     </AuthContext.Provider>
   );
