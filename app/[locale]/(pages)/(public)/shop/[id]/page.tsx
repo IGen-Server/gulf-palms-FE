@@ -2,8 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, ArrowLeftRight, Heart , Expand  } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowLeftRight,
+  Heart,
+  Expand,
+  Grid2x2,
+} from "lucide-react";
 import { useState } from "react";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
+import { Button } from "@/components/ui/button";
 
 export default function ProductDetailsPage() {
   const [selectedImage, setselectedImage] = useState(
@@ -23,7 +33,11 @@ export default function ProductDetailsPage() {
                 width={122}
                 height={122}
                 className="object-cover w-full h-full"
-                onClick={()=>setselectedImage("https://gulfpalms.com/wp-content/uploads/2025/02/Jozi-3-300x300.jpg")}
+                onClick={() =>
+                  setselectedImage(
+                    "https://gulfpalms.com/wp-content/uploads/2025/02/Jozi-3-300x300.jpg"
+                  )
+                }
               />
             </div>
             <div className="border rounded overflow-hidden cursor-pointer">
@@ -33,20 +47,52 @@ export default function ProductDetailsPage() {
                 width={122}
                 height={122}
                 className="object-cover w-full h-full"
-                onClick={()=>setselectedImage("https://gulfpalms.com/wp-content/uploads/2025/02/Jozi-2-300x300.png")}
+                onClick={() =>
+                  setselectedImage(
+                    "https://gulfpalms.com/wp-content/uploads/2025/02/Jozi-2-300x300.png"
+                  )
+                }
               />
             </div>
           </div>
 
-          <div className="relative flex-1">
-            <Image
-              src={selectedImage}
-              alt="Jozi plant"
-              width={450}
-              height={450}
-              className="object-cover rounded w-full max-w-[450px]"
-            />
-          </div>
+          <PhotoProvider
+            speed={() => 800}
+            easing={(type) =>
+              type === 2
+                ? "cubic-bezier(0.36, 0, 0.66, -0.56)"
+                : "cubic-bezier(0.34, 1.56, 0.64, 1)"
+            }
+            toolbarRender={({ onScale, scale }) => {
+              return (
+                <>
+                  <svg
+                    className="PhotoView-Slider__toolbarIcon"
+                    onClick={() => onScale(scale + 1)}
+                  />
+                  <svg
+                    className="PhotoView-Slider__toolbarIcon"
+                    onClick={() => onScale(scale - 1)}
+                  />
+                </>
+              );
+            }}
+          >
+            <div className="relative flex-1 cursor-pointer">
+              <Image
+                src={selectedImage}
+                alt="Jozi plant"
+                width={450}
+                height={450}
+                className="object-cover rounded w-full max-w-[450px] h-full z-0"
+              />
+              <PhotoView src={selectedImage}>
+                <Button className="absolute bottom-5 ml-5 p-3 w-[150px] rounded-full text-black bg-white justify-start hover:bg-white">
+                  <Expand />
+                </Button>
+              </PhotoView>
+            </div>
+          </PhotoProvider>
         </div>
 
         {/* Product Details */}
@@ -67,6 +113,10 @@ export default function ProductDetailsPage() {
               <button className="p-2 hover:bg-muted rounded-sm">
                 <ChevronLeft className="w-4 h-4" />
               </button>
+              <Link href='/shop' title="Back to product">
+              <button className="p-2 hover:bg-muted rounded-sm">
+                <Grid2x2 className="w-4 h-4" />
+              </button></Link>
               <button className="p-2 hover:bg-muted rounded-sm">
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -177,12 +227,12 @@ export default function ProductDetailsPage() {
       </div>
 
       {/* Product Specifications */}
-      <div className="mt-16">
+      {/* <div className="mt-16">
         <div className="flex justify-between py-4 border-b">
           <span>Pot Size</span>
           <span>40CM</span>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
