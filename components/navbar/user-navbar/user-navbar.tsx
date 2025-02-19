@@ -35,12 +35,7 @@ export default function UserNavbar() {
   const { t } = useTranslation("common");
   const currentLocale = i18n.language;
 
-  const userProfileModel: UserProfileModel = {
-    firstName: "Arafat",
-    lastName: "Hossain",
-    email: "arafathossainarafat6@gmail.com",
-    image: "images/users/user.png",
-  };
+  // const userProfileModel: UserProfileModel = {};
 
   return (
     <div className="md:sticky md:top-0 flex py-1 items-center gap-4 border-b bg-background z-[50] min-h-[4rem]">
@@ -112,7 +107,7 @@ export default function UserNavbar() {
           <ThemeToggler />
         </div>
 
-        <UserAvatarDropdown userProfileModel={userProfileModel} />
+        {/* <UserAvatarDropdown userProfileModel={userProfileModel} /> */}
 
         {/* <div>
           <NotificationSystem></NotificationSystem>

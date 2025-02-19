@@ -30,6 +30,8 @@ import { DesktopNav } from "./DesktopNav";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { useCart } from "@/providers/CartProvider";
 import SearchDrawer from "@/components/search/SearchDrawer";
+import { useAuth } from "@/providers/Authprovider";
+import { ClientRoutes, RouteService } from "@/services/utility/router.service";
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,6 +42,8 @@ export default function PublicNavbar() {
   const pathname = usePathname();
   const [isHomePage, setIsHomePage] = useState(false);
   const { cartItems,  subtotal } = useCart();
+  const { user } = useAuth();
+  const routeService = new RouteService();
 
   useEffect(() => {
     if (
@@ -164,24 +168,41 @@ export default function PublicNavbar() {
             </div>
           </div>
 
-          <SideDrawer
-            title={"Sign in"}
-            triggerComponent={
-              <Button
-                asChild
-                variant="ghost"
-                className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
-              >
-                <p className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
-                  Login / Register
-                </p>
-              </Button>
-            }
-            bodyComponent={<UserSigninFormForDrawer />}
-          />
+          {
+            user &&
+            <Button
+              asChild
+              variant="ghost"
+              className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
+              onClick={() => routeService.redirectTo(ClientRoutes.User.MyAccountDashboard)}
+            >
+              <p className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
+                My Account
+              </p>
+            </Button>
+          }
+          {
+            !user &&
+            <SideDrawer
+              title={"Sign in"}
+              triggerComponent={
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
+                >
+                  <p className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
+                    Login / Register
+                  </p>
+                </Button>
+              }
+              bodyComponent={<UserSigninFormForDrawer />}
+            />
+          }
+          
           {/* {pathname.includes('my-account') || <AuthSheet />} */}
 
-          <div className="hidden  lg:flex flex-row-reverse items-center gap-4 text-secondary ">
+          <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary ">
             <SideDrawer
               title={"Cart"}
               triggerComponent={
