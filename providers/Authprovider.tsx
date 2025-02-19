@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const getProfile = async () => {
-      UserService.GetProfile(axiosInstanceWithLoader)
+      UserService.GetFullProfile(axiosInstanceWithLoader)
         .then(response => {
           console.log(response);
           setUser(response);

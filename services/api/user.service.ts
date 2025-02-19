@@ -14,6 +14,22 @@ export const UserService  = {
       throw error;
     }
   },
+  async GetFullProfile(axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<UserProfileModel> {
+    try {
+      const response = await axiosInstance.post<UserProfileModel>(ApiRoutes.User.Profile);
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
+  async SetProfile(body: any, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<UserProfileModel> {
+    try {
+      const response = await axiosInstance.post<UserProfileModel>(ApiRoutes.User.Profile, body);
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
   async GetSettings(axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<UserAsCustomer> {
     try {
       const response = await axiosInstance.get<UserAsCustomer>(ApiRoutes.User.Settings);

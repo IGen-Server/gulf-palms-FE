@@ -2,6 +2,7 @@ import { useLoading } from "@/providers/LoadingProvider";
 import axios, { AxiosInstance } from "axios";
 import { CookieStorageService } from "./storage.service";
 import { ApiBaseUrl, ApiMaxTimeOut } from "@/constants/url.constant";
+import { ClientRoutes } from "./router.service";
 
 export interface CustomAxiosInstance extends AxiosInstance {
   setRequiresJwt: (value: boolean) => void;
@@ -61,7 +62,8 @@ const CreateAxiosInstanceWithLoader = (initialRequiresJwt: boolean = false, init
       if (error.response) {
         if (error.response.status === 401) {
           console.log("Unauthorized. Redirecting to login...");
-          // window.location.href = ClientRoutes.User.MyAccount;
+          CookieStorageService.clearAllTokens();
+          window.location.href = ClientRoutes.User.MyAccountDashboard;
         } else if (error.response.status === 403) {
           console.log("Forbidden access.");
           // window.location.href = ClientRoutes.Home;
