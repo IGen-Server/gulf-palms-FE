@@ -149,7 +149,7 @@ export default function CheckoutPage() {
             {/* Payment Method */}
             <div className="mt-6">
               <div className="bg-white p-4 rounded border mb-4">
-                <Image src="/placeholder.svg" alt="KNET Payment" width={100} height={40} className="mb-2" />
+                <Image src="https://portal.myfatoorah.com/imgs/payment-methods/kn.png" alt="KNET Payment" width={50} height={40} className="mb-2" />
                 <p className="text-sm text-muted-foreground">Checkout with My Favorite Payment Gateway</p>
               </div>
 
