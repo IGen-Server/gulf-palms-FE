@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['gulfpalms.com'], // Add your image domains
+        domains: ['gulfpalms.com','portal.myfatoorah.com'], // Add your image domains
     },
     webpack: (config) => {
         config.module.rules.push({

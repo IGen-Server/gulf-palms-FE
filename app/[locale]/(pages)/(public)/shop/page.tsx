@@ -1,5 +1,5 @@
 "use client";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import ProductCard from "@/components/shop/ProductCard";
 import PriceSlider from "@/components/shop/PriceSlider";
@@ -20,7 +20,48 @@ const showPerpage = [
   { name: "24", href: "/shop/?per_page=24" },
 ];
 
+const products = [
+  {
+    "id": 1,
+    "name": "Bamboo Stick",
+    "price": 0.040,
+    "img": "https://gulfpalms.com/wp-content/uploads/2024/01/Citrus-Porring-Soil-300x300.jpeg",
+    "options": ["Small", "Medium", "Large"]
+  },
+  {
+    "id": 2,
+    "name": "Garden Shovel",
+    "price": 2.50,
+    "img": "https://gulfpalms.com/wp-content/uploads/2024/01/Citrus-Porring-Soil-300x300.jpeg",
+    "options": ["Standard", "Heavy-Duty"]
+  },
+  {
+    "id": 3,
+    "name": "Watering Can",
+    "price": 5.99,
+    "img": "https://gulfpalms.com/wp-content/uploads/2024/01/Citrus-Porring-Soil-300x300.jpeg",
+    "options": ["1L", "2L", "5L"]
+  },
+  {
+    "id": 4,
+    "name": "Potting Soil",
+    "price": 3.75,
+    "img": "https://gulfpalms.com/wp-content/uploads/2024/01/Citrus-Porring-Soil-300x300.jpeg",
+    "options": ["5kg", "10kg", "20kg"]
+  },
+  {
+    "id": 5,
+    "name": "Pruning Shears",
+    "price": 7.25,
+    "img": "https://gulfpalms.com/wp-content/uploads/2024/01/Citrus-Porring-Soil-300x300.jpeg",
+    "options": ["Standard", "Premium"]
+  }
+]
+
+
 export default function Shop() {
+  const [columns, setColumns] = useState(4)
+
   return (
     <div className="pt-[98px] ">
       <div className="max-w-content mx-auto">
@@ -49,9 +90,18 @@ export default function Shop() {
                   />
                 </div>
                 <div className="flex items-center gap-2">
-                  <LayoutGrid className="cursor-pointer" />
-                  <Grip className="cursor-pointer" />
-                  <div className="flex items-center justify-center cursor-pointer -ml-[10px]">
+                  <LayoutGrid
+                    className="cursor-pointer"
+                    onClick={() => setColumns(2)}
+                  />
+                  <Grip
+                    className="cursor-pointer"
+                    onClick={() => setColumns(3)}
+                  />
+                  <div
+                    className="flex items-center justify-center cursor-pointer -ml-[10px]"
+                    onClick={() => setColumns(4)}
+                  >
                     <EllipsisVertical className="-mr-[10px]" />
                     <Grip />
                   </div>
@@ -61,8 +111,22 @@ export default function Shop() {
                 </Suspense>
               </div>
             </div>
-            <div className="grid  pt-16">
-              <ProductCard />
+            <div
+              className={`grid pt-16 grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-${columns}`}
+            >
+              {products.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  id={product.id}
+                  name={product.name}
+                  price={product.price}
+                  img={product.img}
+                  options={product.options}
+                  category={undefined}
+                  categoryLink={undefined} 
+                  description={undefined}                  
+                  />
+              ))}
             </div>
           </div>
         </div>
