@@ -76,7 +76,7 @@ export default function ProductCard({
             height={280}
             src={img}
             alt={name}
-            className="w-[280px] h-[265px] group-hover:scale-[105%] duration-500"
+            className="w-full object-contain !h-[265px] group-hover:scale-[105%] duration-500"
           />
         </Link>
       </div>
@@ -105,7 +105,7 @@ export default function ProductCard({
       </div>
 
       {/* Compare Button */}
-      <div className="absolute left-0 bottom-[105px] w-full bg-white transform translate-y-[-100%] opacity-0 transition-all place-content-end pr-5 grid duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+      <div className="absolute left-0 bottom-[125px] w-full bg-white transform translate-y-[-100%] opacity-0 transition-all place-content-center grid duration-300 group-hover:translate-y-0 group-hover:opacity-100">
         <div className="text-center py-2" title="Compare">
           <TooltipProvider delayDuration={0}>
             <Tooltip>

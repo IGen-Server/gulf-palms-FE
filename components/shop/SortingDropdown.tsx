@@ -48,7 +48,7 @@ export function SortingDropdown({ setSorting }: SortingDropdownProps) {
     <form className="sorting" method="get">
       <Select onValueChange={handleChange} defaultValue={currentOrderby}>
         <SelectTrigger className="orderby" aria-label="Shop order">
-          <span>{currentOrderby}</span>
+          <span>{currentOrderby != 'menu_order' ? currentOrderby : "Default Sorting"}</span>
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="menu_order">Default sorting</SelectItem>

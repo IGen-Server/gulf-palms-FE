@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import Link from "next/link";
@@ -54,7 +55,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
           <div className="flex min-h-screen flex-col md:flex-row font-sans !text-[rgb(36,36,36)] max-w-[1192px] mx-auto">
             <aside className="w-full border-b md:w-64 md:border-b-0 md:border-r">
               <nav className="p-4">
-                <h1 className="mb-6 text-[18px] font-[600]">MY ACCOUNT</h1>
+                <h1 className="mb-6 text-[18px] font-[600] pl-2">MY ACCOUNT</h1>
                 <div className="space-y-2">
                   <NavLink href="/my-account" exact>
                     Dashboard
@@ -112,7 +113,7 @@ function NavLink({
   return (
     <Link
       href={href}
-      className={`block rounded-lg py-2 text-sm font-[600] ${
+      className={`block rounded-none p-2 text-sm font-[600] ${
         isActive ? "!text-[#242424]" : "!text-[#242424] hover:bg-muted"
       }`}
     >
