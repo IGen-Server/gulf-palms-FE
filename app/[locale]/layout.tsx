@@ -48,7 +48,7 @@ export default function RootLayout({
           rel="stylesheet"
         ></link>
       </head>
-      <body className={lato.className}>
+      <body className={`${lato.className} w-[100vw] mx-auto overflow-x-hidden`}>
         <LoadingProvider>
           <ThemeProvider
             attribute="class"

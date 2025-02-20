@@ -142,7 +142,7 @@ function PublicPageLayout({
         ></div> */}
 
       </div>
-      <div className="content overflow-x-hidden px-1 sm:px-4 xl:px-0 !w-[100vw] mx-auto">
+      <div className="content !overflow-x-hidden px-1 sm:px-4 xl:px-0 !max-w-[100vw] mx-auto">
         <PublicNavbar />
         <div>{children}</div>
       </div>
