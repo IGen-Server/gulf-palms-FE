@@ -50,7 +50,7 @@ export default function ProductCard({
   };
 
   return (
-    <div className="relative group max-w-[433px] grid place-content-center mb-[70px]">
+    <div className="relative group max-w-[433px] grid place-content-center mb-[70px] hover:shadow-xl pb-2">
       <SelectProductVariant
         isOpen={isSheetOpen}
         onClose={() => {
@@ -105,8 +105,8 @@ export default function ProductCard({
       </div>
 
       {/* Compare Button */}
-      <div className="absolute left-0 bottom-[125px] w-full bg-white transform translate-y-[-100%] opacity-0 transition-all place-content-center grid duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-        <div className="text-center py-2" title="Compare">
+      <div className="absolute left-0 bottom-[125px] w-full bg-white transform translate-y-[-100%] opacity-0 transition-all place-content-center grid duration-300 group-hover:translate-y-0 group-hover:opacity-100 border-t border-b">
+        <div className="text-center py-2 " title="Compare">
           <TooltipProvider delayDuration={0}>
             <Tooltip>
               <TooltipTrigger asChild>
