@@ -50,7 +50,7 @@ export default function ProductCard({
   };
 
   return (
-    <div className="relative group max-w-[433px] grid place-content-center mb-[70px] hover:shadow-xl pb-2">
+    <div className="relative group max-w-[433px] grid place-content-center mb-[70px] hover:shadow-xl pb-2 ">
       <SelectProductVariant
         isOpen={isSheetOpen}
         onClose={() => {
@@ -121,7 +121,7 @@ export default function ProductCard({
       </div>
 
       {/* Hover Content */}
-      <div className="transform translate-y-10 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 mt-3">
+      <div className="transform translate-y-10 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 mt-3 px-3">
         <div className="flex items-center justify-between">
           {/* Wishlist Button */}
           <div>
