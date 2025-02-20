@@ -50,7 +50,7 @@ export default function ProductCard({
   };
 
   return (
-    <div className="relative group max-w-[433px] grid place-content-center mb-[70px] hover:shadow-2xl pb-4 pt-7">
+    <div className="relative group max-w-[390px] grid place-content-center mb-[70px] hover:shadow-2xl pb-4 pt-7">
       <SelectProductVariant
         isOpen={isSheetOpen}
         onClose={() => {
@@ -68,7 +68,7 @@ export default function ProductCard({
       />
 
       {/* Product Image Section */}
-      <div className="grid place-content-center w-[280px] overflow-hidden h-[280px]">
+      <div className="grid place-content-center w-full overflow-hidden h-[280px]">
         <Link href={`/shop/${name}`} className="block">
           <img
             loading="lazy"

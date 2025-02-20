@@ -48,7 +48,7 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
           </Select>
         </div>
       </div>
-        <Button className='absolute bottom-1 w-full hover:bg-primary'>Add to cart</Button>
+        <Button className='absolute -bottom-5 w-full hover:bg-primary'>Add to cart</Button>
     </div>
   )
 }
