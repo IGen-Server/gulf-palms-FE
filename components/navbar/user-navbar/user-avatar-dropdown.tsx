@@ -23,16 +23,16 @@ export function UserAvatarDropdown({ userProfileModel }: { userProfileModel: Use
       <DropdownMenuTrigger asChild>
         {/* <Button variant="outline"> */}
           <Avatar.Root className="cursor-pointer inline-flex size-[36px] border-2 select-none items-center justify-center overflow-hidden rounded-full align-middle">
-              <Avatar.Image
+              {/* <Avatar.Image
                 className="size-full rounded-[inherit] object-cover"
                 src={userProfileModel.image}
                 alt={userProfileModel.firstName}
-              />
+              /> */}
               <Avatar.Fallback
                 className="leading-1 flex size-full items-center justify-center text-[15px] font-medium"
                 delayMs={500}
               >
-                {getNameInitials(`${userProfileModel.firstName} ${userProfileModel.lastName}`)}
+                {/* {getNameInitials(`${userProfileModel.firstName} ${userProfileModel.lastName}`)} */}
               </Avatar.Fallback>
             </Avatar.Root>
         {/* </Button> */}

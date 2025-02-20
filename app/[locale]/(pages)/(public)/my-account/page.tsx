@@ -1,18 +1,19 @@
 'use client'
 
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 import AuthComponent from '@/components/auth/AuthComponent';
 import Dashboard from './dashboard/page';
 import { useAuth } from '@/providers/Authprovider';
+import SkeletonType1 from '@/components/skeleton/skeleton-type1';
 
 export default function MyAccount() {
-  const router = useRouter();
   const { user } = useAuth();
 
-  useEffect(() => {
-    
-  }, [user, router]);
-
-  return user ? <Dashboard/> : <AuthComponent />;
+  return (<>
+    {user === undefined
+      ? <SkeletonType1 />
+      : user ? <Dashboard/> : <AuthComponent />
+    }
+  </>);
 }
+

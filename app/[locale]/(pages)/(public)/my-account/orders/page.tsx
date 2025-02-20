@@ -6,59 +6,63 @@ import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.
 import { getTotalQuantity } from "@/services/utility/utility.service";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
+import SkeletonType2 from "@/components/skeleton/skeleton-type2";
 
-export default function OrdersPage({ orders }: { orders: any[] | null }) {
+export default function OrdersPage({ orders = null }: { orders: any[] | null }) {
 
   return (
     <div>
       {/* Desktop View */}
-      <div className="hidden md:block overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b">
-              <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">ORDER</th>
-              <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">DATE</th>
-              <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">STATUS</th>
-              {/* <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">DELIVERY DETAILS</th> */}
-              <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">TOTAL</th>
-              <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 pl-[100px]">ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders?.map((order, index) => (
-              <tr className="border-b" key={index}>
-                <td className="px-4 py-4 text-[14px] font-semibold">#{order.id}</td>
-                <td className="px-4 py-4 text-black/60 text-[14px]">{dayjs(order.date_created).format("MMMM D, YYYY")}</td>
-                <td className="px-4 py-4 text-black/60 text-[14px]">{order.status}</td>
-                {/* <td className="px-4 py-4 text-black/60 text-[14px]">
+      { !orders && <SkeletonType2/>}
+      {
+        orders &&
+        <div className="hidden md:block overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b">
+                <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">ORDER</th>
+                <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">DATE</th>
+                <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">STATUS</th>
+                {/* <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">DELIVERY DETAILS</th> */}
+                <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">TOTAL</th>
+                <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 pl-[100px]">ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders?.map((order, index) => (
+                <tr className="border-b" key={index}>
+                  <td className="px-4 py-4 text-[14px] font-semibold">#{order.id}</td>
+                  <td className="px-4 py-4 text-black/60 text-[14px]">{dayjs(order.date_created).format("MMMM D, YYYY")}</td>
+                  <td className="px-4 py-4 text-black/60 text-[14px]">{order.status}</td>
+                  {/* <td className="px-4 py-4 text-black/60 text-[14px]">
                   <div>Delivery Date: February 21, 2025</div>
                   <div>Delivery Time: 02:00 PM - 06:00 PM</div>
                 </td> */}
-                <td className="px-4 py-4">
-                  <span className="text-[#ff9666]">{order.total} {order.currency_symbol}</span> for {getTotalQuantity(order?.line_items) || 0} items
-                </td>
-                <td className="px-4 py-4 pl-[100px]">
-                  {
-                    order.needs_payment && !order.date_paid &&
-                    <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
-                      PAY
-                    </Button>
-                  }
-                  {
-                    <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white ml-2 mb-2">
-                      VIEW
-                    </Button>
-                  }
-                  {
-                    order.status !== 'cancelled' && !order.date_paid && !order.date_completed &&
-                    <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
-                      CANCEL
-                    </Button>
-                  }
-                </td>
-              </tr>
-            ))}
-            {/* <tr className="border-b">
+                  <td className="px-4 py-4">
+                    <span className="text-[#ff9666]">{order.total} {order.currency_symbol}</span> for {getTotalQuantity(order?.line_items) || 0} items
+                  </td>
+                  <td className="px-4 py-4 pl-[100px]">
+                    {
+                      order.needs_payment && !order.date_paid &&
+                      <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
+                        PAY
+                      </Button>
+                    }
+                    {
+                      <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white ml-2 mb-2">
+                        VIEW
+                      </Button>
+                    }
+                    {
+                      order.status !== 'cancelled' && !order.date_paid && !order.date_completed &&
+                      <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
+                        CANCEL
+                      </Button>
+                    }
+                  </td>
+                </tr>
+              ))}
+              {/* <tr className="border-b">
               <td className="px-4 py-4 text-[14px]">#27815</td>
               <td className="px-4 py-4 text-black/60 text-[14px]">February 11, 2025</td>
               <td className="px-4 py-4 text-black/60 text-[14px]">Failed</td>
@@ -81,9 +85,10 @@ export default function OrdersPage({ orders }: { orders: any[] | null }) {
                 </Button>
               </td>
             </tr> */}
-          </tbody>
-        </table>
-      </div>
+            </tbody>
+          </table>
+        </div>
+      }
 
       {/* Mobile View */}
       <div className="md:hidden space-y-4 py-4">
