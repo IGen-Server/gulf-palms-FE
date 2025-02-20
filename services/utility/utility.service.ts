@@ -2,6 +2,7 @@ import { AxiosInstance } from "axios";
 import AxiosInstanceWithInterceptor from "./api.service";
 import { CookieStorageService } from "./storage.service";
 import { CustomAxiosInstance } from "./axios-with-loader.service";
+import { ClientRoutes } from "./router.service";
 
 export function getNameInitials(name: string): string {
   return name
@@ -24,7 +25,7 @@ export function getTotalQuantity(lineItems: any[] | null | undefined): number {
 export function onLogout(e:any) {
   e.preventDefault();
   CookieStorageService.clearAllTokens();
-  window.location.reload();
+  window.location.href = ClientRoutes.User.MyAccountDashboard;
 }
 
 export function updateAxiosInstanceLoaderAndJwtChecking(axiosInstance: CustomAxiosInstance, requiresJwt: boolean = false, enableLoader: boolean = true) {
