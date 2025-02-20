@@ -52,3 +52,10 @@ export const UserNavLinks = {
   Dashboard: "/dashboard",
   Profile: "/profile",
 } as const;
+
+export const showPerPage = [
+  { name: "9", href: "/shop/?per_page=9", value: 9 },
+  { name: "12", href: "/shop/?per_page=12", value: 12 },
+  { name: "18", href: "/shop/?per_page=18", value: 18 },
+  { name: "24", href: "/shop/?per_page=24", value: 24 },
+];

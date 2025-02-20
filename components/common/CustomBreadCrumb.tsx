@@ -33,14 +33,14 @@ export function CustomBreadCrumb({
             {isLast ? (
               <span
                 onClick={() => updatePerPage && updatePerPage('per_page', link.value)}
-                className={cn("text-gray-800", currentStyle && currentStyle)}
+                className={cn("text-gray-800 cursor-pointer", currentStyle && currentStyle)}
               >
                 {linkName}
               </span>
             ) : (
-              <Link href={link.href} className="hover:text-gray-500" onClick={() => updatePerPage && updatePerPage('per_page', link.value)}>
+              <span className="hover:text-gray-500 cursor-pointer" onClick={() => updatePerPage && updatePerPage('per_page', link.value)}>
                 {linkName}
-              </Link>
+              </span>
             )}
           </div>
         );

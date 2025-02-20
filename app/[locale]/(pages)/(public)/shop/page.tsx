@@ -11,17 +11,11 @@ import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
 import { ProductModel } from "@/models/product/product";
+import { showPerPage } from "@/constants/global-constants";
 
 const breadcrumbLinks = [
   { name: "Home", href: "/" },
   { name: "Shop", href: "/shop" },
-];
-
-const showPerPage = [
-  { name: "9", href: "/shop/?per_page=9", value: 9 },
-  { name: "12", href: "/shop/?per_page=12", value: 12 },
-  { name: "18", href: "/shop/?per_page=18", value: 18 },
-  { name: "24", href: "/shop/?per_page=24", value: 24 },
 ];
 
 // const products = [
@@ -127,7 +121,7 @@ export default function Shop() {
               />
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-3">
-                  <p className="text-sm font-semibold ">Show :</p>
+                  <p className="text-sm font-semibold">Show :</p>
                   <CustomBreadCrumb
                     links={showPerPage}
                     updatePerPage={updatePageConfig}
