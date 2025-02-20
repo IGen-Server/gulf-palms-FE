@@ -105,7 +105,7 @@ export default function Shop() {
           <h1 className="text-[36px] font-bold text-black">Shop</h1>
         </div>
         
-        <div className="flex items-start">
+        <div className="flex items-start gap-3">
           <div className="w-[276px] px-[15px] divide-y-2">
             <PriceSlider setPriceSlider={updatePageConfig} />
             <Productcategories />
