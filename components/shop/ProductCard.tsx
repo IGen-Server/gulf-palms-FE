@@ -50,7 +50,7 @@ export default function ProductCard({
   };
 
   return (
-    <div className="relative group max-w-[390px] grid place-content-center mb-[70px] hover:shadow-2xl pb-4 pt-7">
+    <div className="relative group max-w-[390px] grid place-content-center mb-[70px] custom-shadow pb-4 pt-7">
       <SelectProductVariant
         isOpen={isSheetOpen}
         onClose={() => {
