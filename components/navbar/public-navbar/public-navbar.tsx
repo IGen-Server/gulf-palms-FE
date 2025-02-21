@@ -83,13 +83,14 @@ export default function PublicNavbar() {
   }, [lastScrollY]);
 
   useEffect(() => {
-    if (cartItems.length > 0) {
-      if (cartRef.current) {
+    if (cartItems.length > 0 && cartRef.current) {
+      if (!cartRef.current.classList.contains("opened")) {
         cartRef.current.click();
+        cartRef.current.classList.add("opened");
       }
     }
   }, [cartItems.length]);
-
+  
   return (
     <div
       className={`w-full fixed duration-500 top-0 z-[49] left-0 transition-transform flex items-center
@@ -154,7 +155,7 @@ export default function PublicNavbar() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex lg:hidden items-center gap-4">
               <SideDrawer
                 title="Cart"
                 triggerComponent={

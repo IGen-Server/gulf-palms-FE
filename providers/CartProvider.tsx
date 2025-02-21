@@ -29,7 +29,7 @@ type CartAction =
 // Initial state
 const initialState: CartState = {
   cartItems: [],
-  shippingCost:0,
+  shippingCost: 2.0,
 };
 
 // Reducer function
@@ -51,7 +51,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       } else {
         return {
           ...state,
-          cartItems: [...state.cartItems, { ...action.payload, quantity: 1 }],
+          cartItems: [...state.cartItems, { ...action.payload, quantity: action.payload.quantity }],
         };
       }
 

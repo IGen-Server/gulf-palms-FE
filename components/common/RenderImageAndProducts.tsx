@@ -256,7 +256,9 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                 selectProductId === productId ? "w-full z-[20]" : "w-[35px]"
               } `}
             >
-              <ShoppingCart className="cursor-pointer w-full text-white" />
+              <ShoppingCart
+              onClick={handleAddToCart}
+              className="cursor-pointer w-full text-white" />
             </div>
           </div>
 
