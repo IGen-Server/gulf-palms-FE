@@ -33,6 +33,7 @@ export default function CustomCarousel({
   withNavigation = false,
   MobileSlidesNumber = 2,
 }: CustomCarouselProps) {
+  
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
       className="absolute -right-[22px] top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
@@ -105,6 +106,7 @@ export default function CustomCarousel({
       <Slider autoplay={autoPlay} {...settings} className="w-full">
         {data.map((item, index) => (
           <div key={index} className="h-full">
+            {/* <span>{item.imageSrc}</span> */}
             {item.imageSrc ? (
               <img
                 src={item.imageSrc || "/placeholder.svg"}

@@ -15,6 +15,7 @@ import { ProductDrawer } from "./ProductDrawer";
 import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { getCategoryPathById, getCategoryPathByIdFromRecord, getProductCategoryLink } from "@/services/utility/utility.service";
 
 export default function ProductCard({
   id,
@@ -26,6 +27,7 @@ export default function ProductCard({
   sku,
   currentCategories = [],
   description = "",
+  slugToCategoryRecord
 }: {
   id: any;
   slug: string;
@@ -36,6 +38,7 @@ export default function ProductCard({
   sku: string;
   currentCategories: ProductCategoryModel[];
   description: any;
+  slugToCategoryRecord: Record<number, ProductCategoryModel>;
 }) {
   const [selectProductId, setSelectProductId] = useState<
     string | null | number
@@ -52,11 +55,6 @@ export default function ProductCard({
     sku: sku || 'N/A',
     categories: currentCategories,
   };
-
-  function getProductCategoryLink(currentCategories: ProductCategoryModel[], index: number) {
-    const path = currentCategories.slice(0, index + 1).map(category => category.slug).join('/');
-    return `product-category/${path}`;
-  }
 
   return (
     <div className="relative group max-w-[390px] grid place-content-center mb-[70px] custom-shadow pb-4 pt-7">
@@ -98,14 +96,18 @@ export default function ProductCard({
           </Link>
         </h3>
 
-        {currentCategories.map((category, index) => (
-          <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
-            <Link href={getProductCategoryLink(currentCategories, index)} rel="tag" className="hover:underline">
-              {category.name}
-            </Link>
-            {index < currentCategories.length - 1 && ", "}
-          </span>
-        ))}
+        {slugToCategoryRecord && currentCategories.map((category, index) => {
+          // console.log(category.id, category.name);
+          console.log(category.slug, getCategoryPathByIdFromRecord(category.id, slugToCategoryRecord));
+          return (
+            <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
+              <Link href={getCategoryPathByIdFromRecord(category.id, slugToCategoryRecord)} rel="tag" className="hover:underline">
+                {category.name}
+              </Link>
+              {index < currentCategories.length - 1 && ", "}
+            </span>
+          );
+        })}
 
         <div>
           <span className="text-primary text-[14px] font-semibold">

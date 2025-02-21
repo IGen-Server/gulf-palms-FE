@@ -13,6 +13,9 @@ import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
 import { showPerPage } from "@/constants/global-constants";
+import { ProductCategoryModel } from "@/models/product/product";
+import { ProductCategoryService } from "@/services/api/product-category.service";
+import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
 
 export default function SubcategoryPage({ children }: { children: any }) {
   const pathname = usePathname().split("/");
@@ -43,7 +46,7 @@ export default function SubcategoryPage({ children }: { children: any }) {
     category: slug
   });
 
-  const [products, setProducts] = useState<any[] | null>(null);
+  const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
   
@@ -56,18 +59,20 @@ export default function SubcategoryPage({ children }: { children: any }) {
   
   useEffect(() => {
     const getProducts = async () => {
+      setLoading(true);
       const cleanedPageConfig = Object.fromEntries(
         Object.entries(pageConfig).filter(([key, value]) => value !== null && value !== undefined)
       );
-      
-      ProductService.Get(cleanedPageConfig, axiosInstanceWithLoader)
-        .then(response => {
-          console.log(response);
-          setProducts(response);
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      try {
+        const response = await ProductService.Get(cleanedPageConfig, axiosInstanceWithLoader);
+        setProducts((prev) =>
+          pageConfig.page === 1 ? response : [...prev, ...response]
+        );
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     getProducts();
@@ -92,6 +97,33 @@ export default function SubcategoryPage({ children }: { children: any }) {
 
     return () => observer.disconnect();
   }, [loading]);
+
+  // Category
+  const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<Record<number, ProductCategoryModel>>({});
+
+  useEffect(() => {
+    const getProductCategories = async () => {
+      try {
+        const response = await ProductCategoryService.Get(
+          {
+            lang: i18n.language,
+            page: 1,
+            per_page: 100
+          },
+          axiosInstanceWithLoader
+        );
+
+        var currentSlugToCategoryRecord = generateIdToCategoryRecord(response);
+        console.log(currentSlugToCategoryRecord);
+        setSlugToCategoryRecord(currentSlugToCategoryRecord);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getProductCategories();
+  }, []);
 
   return (
     <div className="pt-[98px] ">
@@ -160,6 +192,7 @@ export default function SubcategoryPage({ children }: { children: any }) {
                   sku={product.sku}
                   currentCategories={product.categories}
                   description={undefined}
+                  slugToCategoryRecord={slugToCategoryRecord}
                 />
               ))}
             </div>

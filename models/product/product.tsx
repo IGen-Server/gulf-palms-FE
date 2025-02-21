@@ -21,7 +21,9 @@ export interface ProductModel {
 }
 
 export interface ProductCategoryModel {
-  id: number;
-  name: string;
-  slug: string;
+  id: number; 
+  parent: number; 
+  name: string; 
+  slug: string; 
+  children?: ProductCategoryModel[] 
 }

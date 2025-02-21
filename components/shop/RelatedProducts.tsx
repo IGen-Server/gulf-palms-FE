@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import CustomCarousel from "../common/CustomCarousel";
+import { extractCurrency, getCategoryNameAndLinksAsArray } from "@/services/utility/utility.service";
 
 // const products = [
 //   {
@@ -139,24 +140,30 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
           Related products
         </p>
       </div>
-      <CustomCarousel
-        slidesToShow={4}
-        slidesToScroll={4}
-        data={products?.map((product) => ({
-          component: (
-            <RenderImageAndProducts
-              key={product?.id}
-              renderType="product"
-              imageFileOrUrl={`product/${product?.slug}`}
-              images={product.images}
-              name={product.name}
-              description={''}
-              price={product.price}
-              productId={product.id}
-            />
-          ),
-        }))}
-      />
+      {
+        products &&
+        <CustomCarousel
+          slidesToShow={4}
+          slidesToScroll={4}
+          data={products?.map((product) => ({
+            component: (
+              <RenderImageAndProducts
+                key={product?.id}
+                renderType="product"
+                imageFileOrUrl={`product/${product?.slug}`}
+                images={product.images}
+                name={product.name}
+                description={''}
+                slug={product.slug}
+                price={product.price}
+                currency={extractCurrency(product.price_html)}
+                productId={product.id}
+                currentCategories={product.categories}
+              />
+            ),
+          }))}
+        />
+      }
     </div>
   );
 }

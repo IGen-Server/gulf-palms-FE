@@ -13,6 +13,9 @@ import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
 import { showPerPage } from "@/constants/global-constants";
+import { ProductCategoryModel } from "@/models/product/product";
+import { ProductCategoryService } from "@/services/api/product-category.service";
+import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
 
 export default function CategoryPage({ children }: { children: any }) {
   const pathname = usePathname().split("/");
@@ -101,6 +104,32 @@ export default function CategoryPage({ children }: { children: any }) {
     return () => observer.disconnect();
   }, [loading]);
 
+  // Category
+  const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<Record<number, ProductCategoryModel>>({});
+  
+  useEffect(() => {
+    const getProductCategories = async () => {
+      try {
+        const response = await ProductCategoryService.Get(
+          {
+            lang: i18n.language,
+            page: 1,
+            per_page: 100
+          },
+          axiosInstanceWithLoader
+        );
+
+        var currentSlugToCategoryRecord = generateIdToCategoryRecord(response);
+        setSlugToCategoryRecord(currentSlugToCategoryRecord);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getProductCategories();
+  }, []);
+
   return (
     <div className="pt-[98px] ">
       <div className="max-w-content mx-auto">
@@ -168,6 +197,7 @@ export default function CategoryPage({ children }: { children: any }) {
                   sku={product.sku}
                   currentCategories={product.categories}
                   description={undefined}
+                  slugToCategoryRecord={slugToCategoryRecord}
                 />
               ))}
             </div>

@@ -14,8 +14,9 @@ import GetInTouch from "@/components/common/GetInTouch";
 import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
-import { ProductModel } from "@/models/product/product";
+import { ProductCategoryModel, ProductModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
+import { buildCategoryTree, generateIdToCategoryRecord } from "@/services/utility/utility.service";
 
 const breadcrumbLinks = [
   { name: "Home", href: "/" },
@@ -100,6 +101,32 @@ export default function Shop() {
     return () => observer.disconnect();
   }, [loading]);
 
+  // Category
+  const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<Record<number, ProductCategoryModel>>({});
+  
+  useEffect(() => {
+    const getProductCategories = async () => {
+      try {
+        const response = await ProductCategoryService.Get(
+          {
+            lang: i18n.language,
+            page: 1,
+            per_page: 100
+          },
+          axiosInstanceWithLoader
+        );
+
+        var currentSlugToCategoryRecord = generateIdToCategoryRecord(response);
+        setSlugToCategoryRecord(currentSlugToCategoryRecord);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getProductCategories();
+  }, []);
+  
   return (
     <div className="pt-[98px]">
       <div className="max-w-content mx-auto">
@@ -167,6 +194,7 @@ export default function Shop() {
                     options={product.options}
                     sku={product.sku}
                     currentCategories={product.categories}
+                    slugToCategoryRecord={slugToCategoryRecord}
                     description={undefined}
                   />
                 ))}

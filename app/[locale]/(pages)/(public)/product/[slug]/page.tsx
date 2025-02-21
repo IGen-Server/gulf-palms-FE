@@ -119,7 +119,10 @@ export default function ProductPage({
   const getRelatedProducts = async (relatedProductIds: number[]) => {
     try {
       const response = await ProductService.Get(
-        { include: `[${relatedProductIds.join(',')}]` },
+        {
+          lang: i18n.language,
+          include: `[0,${relatedProductIds.join(',')}]`
+        },
         axiosInstanceWithLoader
       );
       setRelatedProducts(response);

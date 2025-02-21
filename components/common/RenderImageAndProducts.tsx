@@ -2,8 +2,8 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
-import { Ellipsis, ShoppingCart } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Currency, Ellipsis, ShoppingCart } from "lucide-react"
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 import { Heart, Search, Shuffle } from "lucide-react"
@@ -11,6 +11,8 @@ import Link from "next/link"
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import ProductSelectionSheet from "./ProductSelectionSheet"
+import { ProductCategoryModel } from "@/models/product/product"
+import { getProductCategoryLink } from "@/services/utility/utility.service"
 
 interface HoverProduct {
   position: { x: number; y: number }
@@ -23,14 +25,17 @@ interface HoverProduct {
 }
 
 interface RenderImageAndProductsProps {
-  renderType: "image" | "product"
-  imageFileOrUrl: string
-  hoverProducts?: HoverProduct[]
-  images?: any[]
-  name?: string
-  description?: string
-  price?: number
-  productId: string
+  renderType: "image" | "product";
+  imageFileOrUrl: string;
+  hoverProducts?: HoverProduct[];
+  images?: any[];
+  name?: string;
+  description?: string;
+  slug: string;
+  price?: number;
+  currency: string;
+  productId: string;
+  currentCategories: ProductCategoryModel[];
 }
 
 const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
@@ -40,8 +45,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   images,
   name,
   description,
+  slug,
   price,
+  currency,
   productId,
+  currentCategories = [],
 }) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null)
   const [selectProductId, setSelectProductId] = useState<string | null>(null)
@@ -92,7 +100,6 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                     className="w-full h-auto object-cover mb-2"
                   />
                   <p className="text-[14px] sm:text-[16px] font-semibold text-gray-500">{product.hoveredTitle}</p>
-                  <p className="text-sm text-primary font-semibold py-2 sm:py-4">{product.price} KD</p>
                   <div
                     className={`text-xs sm:text-sm text-gray-500 overflow-hidden transition-all duration-300`}
                     style={{
@@ -244,9 +251,20 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           </div>
 
           <div className="text-center bg-white mt-2 ">
-            <h2 className="text-[12px] sm:text-[14px] font-arabic text-gray-800">{name}</h2>
-            <p className="text-[11px] sm:text-[13.3px] text-gray-500 overflow-ellipsis">{description}</p>
-            <p className="text-[12px] sm:text-[14px] text-primary font-bold">From ${price}</p>
+            
+            <Link href={`/product/${slug}`} className="text-center">
+              <h2 className="text-[12px] sm:text-[14px] font-arabic text-gray-800">{name}</h2>
+            </Link>
+            {/* <p className="text-[11px] sm:text-[13.3px] text-gray-500 overflow-ellipsis">{description}</p> */}
+            {currentCategories.map((category, index) => (
+              <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
+                <Link href={getProductCategoryLink(currentCategories, index)} rel="tag" className="hover:underline">
+                  {category.name}
+                </Link>
+                {index < currentCategories.length - 1 && ", "}
+              </span>
+            ))}
+            <p className="text-[12px] sm:text-[14px] text-primary font-bold">{price} {currency}</p>
           </div>
         </div>
       </>

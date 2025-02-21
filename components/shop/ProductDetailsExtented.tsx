@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react"
 import RenderImageAndProducts from "../common/RenderImageAndProducts"
+import { extractCurrency } from "@/services/utility/utility.service"
 
 interface ProductDetailsProps {
   fertilizationData: {
@@ -141,8 +142,11 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
                         ]}
                         name={product.name}
                         description={product.category}
+                        slug={''} //product.slug
                         price={product.price}
+                        currency={''} //extractCurrency(product.price_html)
                         productId={product.id}
+                        currentCategories={[]}
                       />
                       {index > 0 && (
                         <Plus className="absolute top-1/2 -left-5 h-6 w-6 text-gray-400 z-[200]" />
