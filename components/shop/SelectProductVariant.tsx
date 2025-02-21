@@ -1,22 +1,42 @@
-import React from 'react'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { X } from 'lucide-react'
-import { Button } from '../ui/button'
+import React from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { X } from "lucide-react";
+import { Button } from "../ui/button";
+import { useCart } from "@/providers/CartProvider";
 
 interface ProductSelectionSheetProps {
-  isOpen: boolean
-  onClose: () => void
-  productId: string
-  options: string[]
+  isOpen: boolean;
+  onClose: () => void;
+  productId: string;
+  options: string[];
+  product?: any;
 }
 
 const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
   isOpen,
   onClose,
   productId,
-  options = []
+  options = [],
+  product,
 }) => {
-  if (!isOpen) return null
+  const { addToCart } = useCart();
+  if (!isOpen) return null;
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      image: product.image,
+    });
+  };
 
   return (
     <div className="absolute -top-[50px] inset-0 w-full h-[328px] bg-white/90 z-20">
@@ -48,9 +68,13 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
           </Select>
         </div>
       </div>
-        <Button className='absolute bottom-1 w-full hover:bg-primary'>Add to cart</Button>
+      <Button className="absolute bottom-1 w-full hover:bg-primary"
+      onClick={()=>handleAddToCart()}
+      >
+        Add to cart
+      </Button>
     </div>
-  )
-}
+  );
+};
 
-export default SelectProductVariant
+export default SelectProductVariant;

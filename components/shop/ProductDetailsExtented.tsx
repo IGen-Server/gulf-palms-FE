@@ -229,7 +229,7 @@ export function ProductDetailsExtented({ fertilizationData, waterRequirementData
               </p>
               <Button
                 className="w-full bg-[#fdb777] hover:bg-[#fda757] text-white h-8 sm:h-10 text-xs sm:text-sm"
-                onClick={() => console.log("Adding to cart:", selectedProducts)}
+                onClick={() => console.log( selectedProducts)}
               >
                 ADD TO CART
               </Button>

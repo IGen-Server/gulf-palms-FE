@@ -19,6 +19,7 @@ export default function ProductDetailsPage() {
   const [selectedImage, setselectedImage] = useState(
     "https://gulfpalms.com/wp-content/uploads/2025/02/Jozi-3-300x300.jpg"
   );
+
   return (
     <div className="container max-w-[1200px] px-2 lg:px-0 lg:py-8 mx-auto font-sans">
       {/* Breadcrumb and Navigation */}

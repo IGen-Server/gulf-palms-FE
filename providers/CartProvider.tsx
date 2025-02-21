@@ -4,7 +4,7 @@ import React, { createContext, useContext, useReducer, ReactNode } from "react";
 
 // Define the structure of a cart item
 interface CartItem {
-  id: number;
+  id: number | string;
   name: string;
   price: number;
   quantity: number;
@@ -24,41 +24,12 @@ type CartAction =
   | { type: "UPDATE_QUANTITY"; payload: { id: number; quantity: number } }
   | { type: "CLEAR_CART" };
 
-const fakeCartItems = [
-  {
-    id: 1,
-    name: "Laptop Bag",
-    price: 30.0,
-    quantity: 2,
-    image: "https://gulfpalms.com/wp-content/uploads/2025/02/Jozi-2-300x300.png",
-  },
-  {
-    id: 2,
-    name: "Wireless Mouse",
-    price: 15.0,
-    quantity: 1,
-    image: "https://gulfpalms.com/wp-content/uploads/2025/02/shutterstock_2472267765-1-300x300.jpg",
-  },
-  {
-    id: 3,
-    name: "Bluetooth Headphones",
-    price: 50.0,
-    quantity: 1,
-    image: "https://gulfpalms.com/wp-content/uploads/2025/02/Apricot-305x300.jpg",
-  },
-  {
-    id: 4,
-    name: "Bluetooth Headphones",
-    price: 50.0,
-    quantity: 1,
-    image: "https://gulfpalms.com/wp-content/uploads/2025/02/Apricot-305x300.jpg",
-  },
-];
+
 
 // Initial state
 const initialState: CartState = {
-  cartItems: [...fakeCartItems],
-  shippingCost: 2.0,
+  cartItems: [],
+  shippingCost:0,
 };
 
 // Reducer function

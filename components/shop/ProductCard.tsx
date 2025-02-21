@@ -58,6 +58,7 @@ export default function ProductCard({
           setIsSheetOpen(false);
         }}
         productId={id}
+        product={productData}
         options={options}
       />
 
