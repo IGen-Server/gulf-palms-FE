@@ -89,6 +89,42 @@ export function getCategoryPathByIdFromRecord(categoryId: number, categoriesMap:
   return '/product-category/' + path.join('/'); // Join the slugs with '/'
 }
 
+export function getLargestCategoryPathByIdFromRecord(categories: ProductCategoryModel[], categoriesMap: Record<number, ProductCategoryModel>): ProductCategoryModel[] {
+  let largestPath: ProductCategoryModel[] = [];
+
+  categories.forEach(category => {
+    const categoryPath = getCategoryPathAsArrayByIdFromRecord(category.id, categoriesMap);
+
+    if (categoryPath.length > largestPath.length) {
+      largestPath = categoryPath;
+    }
+  });
+
+  return largestPath;
+}
+
+function getCategoryPathAsArrayByIdFromRecord(categoryId: number, categoriesMap: Record<number, ProductCategoryModel>): ProductCategoryModel[] {
+  if (!categoriesMap) {
+    return [];
+  }
+
+  let currentCategory = categoriesMap[categoryId]; // Get category by ID
+  let path: ProductCategoryModel[] = [];
+
+  // Loop until we find the root category (parent === 0)
+  while (currentCategory && currentCategory.parent !== 0) {
+    path.unshift(currentCategory); // Add slug to the beginning of the path array
+    currentCategory = categoriesMap[currentCategory.parent]; // Move to the parent category
+  }
+
+  // Add the root category slug (if exists)
+  if (currentCategory) {
+    path.unshift(currentCategory);
+  }
+
+  return path || [];
+}
+
 // Tree
 export function buildCategoryTree(categories: ProductCategoryModel[]): ProductCategoryModel[] {
   const categoryMap = new Map<number, ProductCategoryModel>();

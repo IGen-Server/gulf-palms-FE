@@ -98,7 +98,7 @@ export default function ProductCard({
 
         {slugToCategoryRecord && currentCategories.map((category, index) => {
           // console.log(category.id, category.name);
-          console.log(category.slug, getCategoryPathByIdFromRecord(category.id, slugToCategoryRecord));
+          // console.log(category.slug, getCategoryPathByIdFromRecord(category.id, slugToCategoryRecord));
           return (
             <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
               <Link href={getCategoryPathByIdFromRecord(category.id, slugToCategoryRecord)} rel="tag" className="hover:underline">

@@ -11,7 +11,7 @@ import Link from "next/link"
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import ProductSelectionSheet from "./ProductSelectionSheet"
-import { ProductCategoryModel } from "@/models/product/product"
+import { ProductAttribute, ProductCategoryModel } from "@/models/product/product"
 import { getProductCategoryLink } from "@/services/utility/utility.service"
 
 interface HoverProduct {
@@ -36,6 +36,7 @@ interface RenderImageAndProductsProps {
   currency: string;
   productId: string;
   currentCategories: ProductCategoryModel[];
+  productAttribute: ProductAttribute | null;
 }
 
 const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
@@ -50,6 +51,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   currency,
   productId,
   currentCategories = [],
+  productAttribute
 }) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null)
   const [selectProductId, setSelectProductId] = useState<string | null>(null)
@@ -161,12 +163,15 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               }`}
             />
 
-            <ProductSelectionSheet
-              isOpen={isSheetOpen}
-              onClose={() => {setSelectProductId(null);setIsSheetOpen(false)}}
-              productId={productId}
-              options={["Small", "Medium", "Large"]}
-            />
+            {
+              productAttribute && productAttribute.visible && productAttribute.variation &&
+              <ProductSelectionSheet
+                isOpen={isSheetOpen}
+                onClose={() => {setSelectProductId(null);setIsSheetOpen(false)}}
+                productId={productId}
+                options={productAttribute.options}
+              />
+            }
 
             <div className={`hidden lg:block absolute bottom-0 left-0 w-full h-[38px] overflow-hidden ${selectProductId === productId && 'z-[20]' }`}>
               <div

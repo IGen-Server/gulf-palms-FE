@@ -27,3 +27,13 @@ export interface ProductCategoryModel {
   slug: string; 
   children?: ProductCategoryModel[] 
 }
+
+export interface ProductAttribute {
+  id: number;
+  name: string;
+  slug: string;
+  position: number;
+  visible: boolean;
+  variation: boolean;
+  options: string[];
+} 

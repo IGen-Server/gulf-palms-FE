@@ -159,6 +159,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
                 currency={extractCurrency(product.price_html)}
                 productId={product.id}
                 currentCategories={product.categories}
+                productAttribute={product.attributes ? product.attributes[0] : {}}
               />
             ),
           }))}

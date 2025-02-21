@@ -9,6 +9,9 @@ import ProductDetails from "./product-details";
 import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
+import { ProductCategoryModel } from "@/models/product/product";
+import { ProductCategoryService } from "@/services/api/product-category.service";
+import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
 
 const fertilizationData = [
   { size: "Small", details: "Apply 50g of organic fertilizer every 2 months." },
@@ -131,10 +134,36 @@ export default function ProductPage({
     }
   };
 
+  // Category
+  const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<Record<number, ProductCategoryModel>>({});
+
+  useEffect(() => {
+    const getProductCategories = async () => {
+      try {
+        const response = await ProductCategoryService.Get(
+          {
+            lang: i18n.language,
+            page: 1,
+            per_page: 100
+          },
+          axiosInstanceWithLoader
+        );
+
+        var currentSlugToCategoryRecord = generateIdToCategoryRecord(response);
+        setSlugToCategoryRecord(currentSlugToCategoryRecord);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getProductCategories();
+  }, []);
+
   return (
     <div className="pt-[75px] lg:pt-[98px]">
 
-      <ProductDetails product={product} />
+      <ProductDetails product={product} slugToCategoryRecord={slugToCategoryRecord}/>
       
       <div className="w-screen max-w-[1370px] mx-auto py-[100px]">
         <ProductDetailsExtended

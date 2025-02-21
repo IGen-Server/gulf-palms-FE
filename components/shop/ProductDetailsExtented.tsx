@@ -147,6 +147,7 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
                         currency={''} //extractCurrency(product.price_html)
                         productId={product.id}
                         currentCategories={[]}
+                        productAttribute={null} //product.attributes
                       />
                       {index > 0 && (
                         <Plus className="absolute top-1/2 -left-5 h-6 w-6 text-gray-400 z-[200]" />

@@ -18,12 +18,16 @@ import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.
 import { useTranslation } from "react-i18next";
 import { ProductService } from "@/services/api/product.service";
 import { usePathname } from "next/navigation";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { ProductCategoryModel } from "@/models/product/product";
+import { getCategoryPathByIdFromRecord, getLargestCategoryPathByIdFromRecord } from "@/services/utility/utility.service";
 
 interface ProductDetailsProps {
   product: any;
+  slugToCategoryRecord: Record<number, ProductCategoryModel>;
 }
 
-export default function ProductDetails({ product }: ProductDetailsProps) {
+export default function ProductDetails({ product, slugToCategoryRecord }: ProductDetailsProps) {
 
   const [selectedImage, setSelectedImage] = useState('');
 
@@ -95,35 +99,56 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         {/* Product Details */}
         <div className="space-y-6">
           <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="flex items-center text-sm text-muted-foreground">
               <Link href="/" className="hover:text-primary">
                 Home
               </Link>
-              <span>/</span>
-              <Link href="/ya-hala-offers" className="hover:text-primary">
-                Ya Hala Offers
-              </Link>
-              <span>/</span>
-              <span>{product?.name}</span>
+              <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+              
+              {getLargestCategoryPathByIdFromRecord(product?.categories || [], slugToCategoryRecord).map((category) => {
+                return (<Link href={getCategoryPathByIdFromRecord(category.id, slugToCategoryRecord)} className="hover:text-primary">{category.name}&nbsp;&nbsp;/&nbsp;&nbsp;</Link>);
+              })}
+              
+              <span className="font-semibold">{product?.name}</span>
             </div>
             <div className="flex gap-2">
               <button className="p-2 hover:bg-muted rounded-sm">
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <Link href='/shop' title="Back to product">
-              <button className="p-2 hover:bg-muted rounded-sm">
-                <Grid2x2 className="w-4 h-4" />
-              </button></Link>
+                <button className="p-2 hover:bg-muted rounded-sm">
+                  <Grid2x2 className="w-4 h-4" />
+                </button>
+              </Link>
               <button className="p-2 hover:bg-muted rounded-sm">
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
-          <h1 border-b-2me="text-3xl font-arabic text-gray-800">{product?.name}</h1>
+          <h1 className="text-3xl font-arabic text-gray-800">{product?.name}</h1>
           <div
             className="text-primary text-2xl font-semibold"
             dangerouslySetInnerHTML={{ __html: product?.price_html ?? '' }}
           />
+
+          {
+            product && product.attributes[0] && product.attributes[0].visible && product.attributes[0].variation &&
+            <div>
+              <Select>
+                <SelectTrigger className="bg-white border-gray-300 w-fit">
+                  <SelectValue placeholder="Choose an option" />
+                </SelectTrigger>
+                <SelectContent>
+                  {product?.attributes[0]?.options?.map((option: string) => (
+                    <SelectItem key={option} value={option}>
+                      {option}&nbsp;
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          }
+
           {/* <p className="text-muted-foreground">
             High quality grafted sider tree. It is evergreen and suitable for
             Kuwait&apos;s weather. Fruits are large and taste great. Ripens at
@@ -175,18 +200,28 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
           {/* Product Info */}
           <div className="space-y-4 pt-4">
+            <span className="text-muted-foreground/80"><span className="font-semibold">SKU: </span> { product?.sku || 'N/A' }</span>
             <div className="flex gap-2">
-              <span className="text-muted-foreground">Category:</span>
-              <Link
-                href="/ya-hala-offers"
-                className="text-primary hover:underline"
-              >
-                Ya Hala Offers
-              </Link>
+              <span className="text-muted-foreground font-semibold">Category:</span>
+              {
+                product?.categories?.map((category: any, index: number) => (
+                  <span className="text-muted-foreground/80">
+                    <Link
+                      href={getCategoryPathByIdFromRecord(category.id, slugToCategoryRecord)}
+                      key={category.id}
+                      className=" hover:underline"
+                    >
+                      {category.name}
+                    </Link>
+                    {index < product.categories.length - 1 && ","}
+                  </span>
+                ))
+              }
+
             </div>
 
             <div className="flex gap-4 items-center">
-              <span className="text-muted-foreground">Share:</span>
+              <span className="text-muted-foreground font-semibold">Share:</span>
               <div className="flex gap-4">
                 <Link href="#" className="hover:primary">
                   <svg
