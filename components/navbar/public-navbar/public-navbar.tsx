@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
@@ -37,12 +37,12 @@ export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const cartRef = useRef<HTMLDivElement>(null);
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
   const pathname = usePathname();
   const [isHomePage, setIsHomePage] = useState(false);
   const { cartItems, subtotal } = useCart();
-  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const { user } = useAuth();
   const routeService = new RouteService();
@@ -84,7 +84,9 @@ export default function PublicNavbar() {
 
   useEffect(() => {
     if (cartItems.length > 0) {
-      setIsCartOpen(true);
+      if (cartRef.current) {
+        cartRef.current.click();
+      }
     }
   }, [cartItems.length]);
 
@@ -155,15 +157,12 @@ export default function PublicNavbar() {
             <div className="flex items-center gap-4">
               <SideDrawer
                 title="Cart"
-                isOpen={isCartOpen}
-                setIsOpen={setIsCartOpen}
                 triggerComponent={
                   <Button
                     variant="ghost"
                     className="hover:bg-transparent w-fit p-0 flex items-center"
-                    onClick={() => setIsCartOpen(true)}
                   >
-                    <div className="relative cursor-pointer">
+                    <div ref={cartRef} className="relative cursor-pointer">
                       <ShoppingCart className="w-5 h-5" />
                       <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 w-4 grid place-content-center">
                         {cartItems.length || 0}

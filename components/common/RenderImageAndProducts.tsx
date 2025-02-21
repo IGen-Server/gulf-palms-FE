@@ -12,6 +12,8 @@ import Link from "next/link"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import ProductSelectionSheet from "./ProductSelectionSheet"
 
+import { useCart } from "@/providers/CartProvider";
+
 interface HoverProduct {
   position: { x: number; y: number }
   imgUrl: string
@@ -47,6 +49,19 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   const [selectProductId, setSelectProductId] = useState<string | null>(null)
   const [expandedDescriptionId, setExpandedDescriptionId] = useState<string | null>(null)
   const [isSheetOpen, setIsSheetOpen] = useState(false)
+
+  const { addToCart } = useCart();
+    
+    const handleAddToCart = () => {
+      addToCart({
+        id: productId,
+        name: name as string,
+        price: Number(price) as number,
+        quantity: 1,
+        image: images?.[0] || imageFileOrUrl,
+      });
+      setIsSheetOpen(false)
+    };
 
   if (renderType === "image") {
     return (
@@ -181,7 +196,9 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                     setIsSheetOpen(true)
                   }}
                   >
-                    <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" 
+                    onClick={handleAddToCart}
+                    />
                   </p>
                 </div>
               </div>

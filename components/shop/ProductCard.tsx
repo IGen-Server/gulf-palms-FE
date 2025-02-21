@@ -53,6 +53,8 @@ export default function ProductCard({
     <div className="relative group max-w-[390px] grid place-content-center mb-[70px] custom-shadow pb-4 pt-7">
       <SelectProductVariant
         isOpen={isSheetOpen}
+        setIsOpen={setIsSheetOpen}
+        setSelectProductId={setSelectProductId}
         onClose={() => {
           setSelectProductId(null);
           setIsSheetOpen(false);
