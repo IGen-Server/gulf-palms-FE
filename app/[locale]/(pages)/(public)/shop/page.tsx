@@ -105,7 +105,7 @@ export default function Shop() {
         <div className="flex flex-col items-center pb-[200px] pt-[50px]">
           <h1 className="text-[36px] font-bold text-black">Shop</h1>
         </div>
-        
+
         <div className="flex items-start gap-3">
           <div className="w-[276px] px-[15px] divide-y-2 hidden lg:block">
             <PriceSlider setPriceSlider={updatePageConfig} />
@@ -151,44 +151,44 @@ export default function Shop() {
                 </Suspense>
               </div>
             </div>
-           <div className="flex items-center justify-center">
-           <div
-              className={`grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-${columns}`}
-            >
-              {products.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  id={product.id}
-                  name={product.name}
-                  price={product.price}
-                  img={product.images ? product?.images[0]?.src : ""}
-                  options={product.options}
-                  sku={product.sku}
-                  categories={product.categories}
-                  description={undefined}
-                />
-              ))}
+            <div className="flex items-center justify-center">
+              <div
+                className={`grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-${columns}`}
+              >
+                {products.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    id={product.id}
+                    name={product.name}
+                    price={product.price}
+                    img={product.images ? product?.images[0]?.src : ""}
+                    options={product.options}
+                    sku={product.sku}
+                    categories={product.categories}
+                    description={undefined}
+                  />
+                ))}
+              </div>
             </div>
-           </div>
             <div ref={loaderRef} className="text-center my-6 grid place-content-center w-full">
               {loading && (
                 <div className="flex items-center gap-2 bg-gray-100 w-fit px-3 py-2 border border-gray-400 rounded-lg">
-                LOADING{" "}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="animate-spin"
-                >
-                  <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-                </svg>
-              </div>
+                  LOADING{" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="animate-spin"
+                  >
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                  </svg>
+                </div>
               )}
             </div>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import ProductCard from "@/components/shop/ProductCard";
 import PriceSlider from "@/components/shop/PriceSlider";
@@ -42,8 +42,11 @@ export default function SubcategoryPage({ children }: { children: any }) {
     max_price: null,
     category: slug
   });
-  const [products, setProducts] = useState<any[] | null>(null);
 
+  const [products, setProducts] = useState<any[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const loaderRef = useRef<HTMLDivElement>(null);
+  
   const updatePageConfig = (key: string, value: any) => {
     setPageConfig((prevState) => ({
       ...prevState,
@@ -71,6 +74,24 @@ export default function SubcategoryPage({ children }: { children: any }) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageConfig]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !loading) {
+          setPageConfig((prev) => ({
+            ...prev,
+            page: prev.page + 1,
+          }));
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    if (loaderRef.current) observer.observe(loaderRef.current);
+
+    return () => observer.disconnect();
+  }, [loading]);
 
   return (
     <div className="pt-[98px] ">
@@ -140,6 +161,27 @@ export default function SubcategoryPage({ children }: { children: any }) {
                   description={undefined}
                 />
               ))}
+            </div>
+            <div ref={loaderRef} className="text-center my-6 grid place-content-center w-full">
+              {loading && (
+                <div className="flex items-center gap-2 bg-gray-100 w-fit px-3 py-2 border border-gray-400 rounded-lg">
+                  LOADING{" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="animate-spin"
+                  >
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                  </svg>
+                </div>
+              )}
             </div>
           </div>
         </div>
