@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { Heart, Search, ShoppingCart, Shuffle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -13,24 +13,28 @@ import {
 import SelectProductVariant from "./SelectProductVariant";
 import { ProductDrawer } from "./ProductDrawer";
 import { ProductCategoryModel } from "@/models/product/product";
+import { ProductCategoryService } from "@/services/api/product-category.service";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 
 export default function ProductCard({
   id,
+  slug,
   name,
   price,
   img,
   options,
   sku,
-  categories = [],
+  currentCategories = [],
   description = "",
 }: {
   id: any;
+  slug: string;
   name: any;
   price: any;
   img: any;
   options: any;
   sku: string;
-  categories: ProductCategoryModel[];
+  currentCategories: ProductCategoryModel[];
   description: any;
 }) {
   const [selectProductId, setSelectProductId] = useState<
@@ -46,8 +50,13 @@ export default function ProductCard({
     description: description || "Product description not available",
     image: img,
     sku: sku || 'N/A',
-    categories: categories,
+    categories: currentCategories,
   };
+
+  function getProductCategoryLink(currentCategories: ProductCategoryModel[], index: number) {
+    const path = currentCategories.slice(0, index + 1).map(category => category.slug).join('/');
+    return `product-category/${path}`;
+  }
 
   return (
     <div className="relative group max-w-[390px] grid place-content-center mb-[70px] custom-shadow pb-4 pt-7">
@@ -72,7 +81,7 @@ export default function ProductCard({
 
       {/* Product Image Section */}
       <div className="grid place-content-center w-full overflow-hidden h-[280px]">
-        <Link href={`/shop/${name}`} className="block">
+        <Link href={`/product/${slug}`} className="block">
           <img
             loading="lazy"
             width={280}
@@ -87,19 +96,20 @@ export default function ProductCard({
       {/* Product Details */}
       <div className="w-full text-center">
         <h3 className="text-[14px] font-semibold">
-          <Link href={`/product/${id}`} className="text-center">
+          <Link href={`/product/${slug}`} className="text-center">
             {name}
           </Link>
         </h3>
-        {
-          categories.map((category) => (
-            <div key={category.id} className="text-[13.3px] text-[#a5a5a5]">
-              <Link href={category.slug} rel="tag" className="hover:underline">
-                {category.name}
-              </Link>
-            </div>
-          ))
-        }
+
+        {currentCategories.map((category, index) => (
+          <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
+            <Link href={getProductCategoryLink(currentCategories, index)} rel="tag" className="hover:underline">
+              {category.name}
+            </Link>
+            {index < currentCategories.length - 1 && ", "}
+          </span>
+        ))}
+
         <div>
           <span className="text-primary text-[14px] font-semibold">
             From {price} <span className="">KD</span>

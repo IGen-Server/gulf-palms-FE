@@ -1,9 +1,14 @@
 "use client";
 
 import GetInTouch from "@/components/common/GetInTouch";
-import { ProductDetailsExtented } from "@/components/shop/ProductDetailsExtented";
+import { ProductDetailsExtended } from "@/components/shop/ProductDetailsExtented";
 import RelatedProducts from "@/components/shop/RelatedProducts";
-import React from "react";
+import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import ProductDetails from "./product-details";
+import { useTranslation } from "react-i18next";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { ProductService } from "@/services/api/product.service";
 
 const fertilizationData = [
   { size: "Small", details: "Apply 50g of organic fertilizer every 2 months." },
@@ -69,21 +74,72 @@ const recommendedProducts = [
   }
 ]
 
-export default function ProductDetails({
+export default function ProductPage({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
+  const { i18n } = useTranslation();
+  const { slug } = useParams();
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+
+  const [pageConfig, setPageConfig] = useState({
+    lang: i18n.language,
+    slug: slug,
+  });
+
+  const [product, setProduct] = useState<any | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await ProductService.Get(
+          pageConfig,
+          axiosInstanceWithLoader
+        );
+
+        console.log(response[0]);
+        setProduct(response[0]);
+
+        if (response[0].related_ids) {
+          console.log(response[0].related_ids);
+          await getRelatedProducts(response[0].related_ids)
+        }
+        
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getProducts();
+  }, [pageConfig]);
+
+  const getRelatedProducts = async (relatedProductIds: number[]) => {
+    try {
+      const response = await ProductService.Get(
+        { include: `[${relatedProductIds.join(',')}]` },
+        axiosInstanceWithLoader
+      );
+      setRelatedProducts(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="pt-[75px] lg:pt-[98px]">
-      {children}
+
+      <ProductDetails product={product} />
+      
       <div className="w-screen max-w-[1370px] mx-auto py-[100px]">
-        <ProductDetailsExtented
+        <ProductDetailsExtended
           fertilizationData={fertilizationData}
           waterRequirementData={waterRequirementData}
           recommendedProducts={recommendedProducts}
         />
-        <RelatedProducts />
+        <RelatedProducts products={relatedProducts} />
       </div>
       <GetInTouch />
     </div>
