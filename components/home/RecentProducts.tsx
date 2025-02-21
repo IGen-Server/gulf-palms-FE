@@ -3,6 +3,7 @@
 import React from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import CustomCarousel from "../common/CustomCarousel";
+import { extractCurrency } from "@/services/utility/utility.service";
 
 const products = [
   {
@@ -16,6 +17,10 @@ const products = [
     description: "Stylish red sneakers for casual wear.",
     price: 49.99,
     productId: "P001",
+    slug: "",
+    price_html: "",
+    categories: [],
+    attributes: []
   },
   {
     renderType: "product",
@@ -28,6 +33,10 @@ const products = [
     description: "Classic denim jacket for all seasons.",
     price: 79.99,
     productId: "P003",
+    slug: "",
+    price_html: "",
+    categories: [],
+    attributes: []
   },
   {
     renderType: "product",
@@ -40,6 +49,10 @@ const products = [
     description: "Classic denim jacket for all seasons.",
     price: 79.99,
     productId: "P004",
+    slug: "",
+    price_html: "",
+    categories: [],
+    attributes: []
   },
   {
     renderType: "product",
@@ -52,6 +65,10 @@ const products = [
     description: "Classic denim jacket for all seasons.",
     price: 79.99,
     productId: "P005",
+    slug: "",
+    price_html: "",
+    categories: [],
+    attributes: []
   },
   {
     renderType: "product",
@@ -64,6 +81,10 @@ const products = [
     description: "Classic denim jacket for all seasons.",
     price: 79.99,
     productId: "P006",
+    slug: "",
+    price_html: "",
+    categories: [],
+    attributes: []
   },
   {
     renderType: "product",
@@ -76,6 +97,10 @@ const products = [
     description: "Classic denim jacket for all seasons.",
     price: 79.99,
     productId: "P007",
+    slug: "",
+    price_html: "",
+    categories: [],
+    attributes: []
   },
   {
     renderType: "product",
@@ -88,6 +113,10 @@ const products = [
     description: "Classic denim jacket for all seasons.",
     price: 79.99,
     productId: "P008",
+    slug: "",
+    price_html: "",
+    categories: [],
+    attributes: []
   },
   {
     renderType: "product",
@@ -100,6 +129,10 @@ const products = [
     description: "Classic denim jacket for all seasons.",
     price: 79.99,
     productId: "P008",
+    slug: "",
+    price_html: "",
+    categories: [],
+    attributes: []
   },
   {
     renderType: "product",
@@ -112,6 +145,10 @@ const products = [
     description: "Classic denim jacket for all seasons.",
     price: 79.99,
     productId: "P009",
+    slug: "",
+    price_html: "",
+    categories: [],
+    attributes: []
   },
   {
     renderType: "product",
@@ -124,6 +161,10 @@ const products = [
     description: "Classic denim jacket for all seasons.",
     price: 79.99,
     productId: "P010",
+    slug: "",
+    price_html: "",
+    categories: [],
+    attributes: []
   },
 ];
 
@@ -150,12 +191,16 @@ export default function RecentProducts() {
             <RenderImageAndProducts
               key={product.productId}
               renderType="product"
-              imageFileOrUrl={product.imageFileOrUrl}
+              imageFileOrUrl={`product/${product?.slug}`}
               images={product.images}
               name={product.name}
               description={product.description}
               price={product.price}
-              productId={product.productId}
+              productId={product.productId} 
+              slug={product.slug} 
+              currency={extractCurrency(product.price_html)} 
+              currentCategories={product.categories} 
+              productAttribute={product.attributes ? product.attributes[0] : null}
             />
           ),
         }))}

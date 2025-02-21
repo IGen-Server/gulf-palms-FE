@@ -19,6 +19,7 @@ export const ApiRoutes = {
   },
   Product: {
     Get: 'products',
+    GetSuggestedProducts: 'products/suggested',
   },
   ProductCategory: {
     Get: 'categories',

@@ -94,7 +94,6 @@ export default function ProductPage({
   });
 
   const [product, setProduct] = useState<any | null>(null);
-  const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -104,13 +103,14 @@ export default function ProductPage({
           axiosInstanceWithLoader
         );
 
-        console.log(response[0]);
         setProduct(response[0]);
 
         if (response[0].related_ids) {
           console.log(response[0].related_ids);
           await getRelatedProducts(response[0].related_ids)
         }
+
+        await getSuggestedProducts();
         
       } catch (error) {
         console.error(error);
@@ -120,6 +120,8 @@ export default function ProductPage({
     getProducts();
   }, [pageConfig]);
 
+  // Related products
+  const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
   const getRelatedProducts = async (relatedProductIds: number[]) => {
     try {
       const response = await ProductService.Get(
@@ -135,9 +137,28 @@ export default function ProductPage({
     }
   };
 
+  // Suggested products
+  const [suggestedProducts, setSuggestedProducts] = useState<any[]>([]);
+  const getSuggestedProducts = async () => {
+    try {
+      const response = await ProductService.Get(
+        {
+          lang: i18n.language,
+          orderby: 'random',
+          order: 'asc',
+          page: 1,
+          per_page: Math.floor(Math.random() * 4) + 2
+        },
+        axiosInstanceWithLoader
+      );
+      setSuggestedProducts(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // Category
   const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<Record<number, ProductCategoryModel>>({});
-
   useEffect(() => {
     const getProductCategories = async () => {
       try {
@@ -170,7 +191,7 @@ export default function ProductPage({
         <ProductDetailsExtended
           fertilizationData={fertilizationData}
           waterRequirementData={waterRequirementData}
-          recommendedProducts={recommendedProducts}
+          recommendedProducts={suggestedProducts}
         />
         <RelatedProducts products={relatedProducts} />
       </div>

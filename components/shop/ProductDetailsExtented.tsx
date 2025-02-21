@@ -19,14 +19,7 @@ interface ProductDetailsProps {
     size: string
     details: string
   }[]
-  recommendedProducts: {
-    id: string
-    name: string
-    price: number
-    image: string
-    sizes?: string[]
-    category?: string
-  }[]
+  recommendedProducts: any[]
 }
 
 export function ProductDetailsExtended({ fertilizationData, waterRequirementData, recommendedProducts }: ProductDetailsProps) {
@@ -134,20 +127,16 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
                       <RenderImageAndProducts
                         key={product.id}
                         renderType="product"
-                        imageFileOrUrl={product.image}
-                        images={[
-                          product.image,
-                          recommendedProducts[index - 1]?.image ||
-                            "http://localhost:3000/_next/image?url=https%3A%2F%2Fgulfpalms.com%2Fwp-content%2Fuploads%2F2025%2F02%2FJozi-3-300x300.jpg&w=640&q=75",
-                        ]}
+                        imageFileOrUrl={`product/${product?.slug}`}
+                        images={product.images}
                         name={product.name}
-                        description={product.category}
-                        slug={''} //product.slug
+                        description={product.short_description}
+                        slug={product.slug}
                         price={product.price}
-                        currency={''} //extractCurrency(product.price_html)
+                        currency={extractCurrency(product.price_html)}
                         productId={product.id}
-                        currentCategories={[]}
-                        productAttribute={null} //product.attributes
+                        currentCategories={product.categories}
+                        productAttribute={product.attributes ? product.attributes[0] : {}}
                       />
                       {index > 0 && (
                         <Plus className="absolute top-1/2 -left-5 h-6 w-6 text-gray-400 z-[200]" />
@@ -199,17 +188,17 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
                         {product.name}
                       </span>
                       <span className="text-orange-400 font-semibold text-xs sm:text-sm whitespace-nowrap">
-                        {product.price.toFixed(3)} KD
+                        {product.price} {extractCurrency(product.price_html)}
                       </span>
                     </div>
                   </div>
-                  {product.sizes && (
-                    <Select defaultValue={product.sizes[0]}>
+                  {product && product.attributes[0] && product.attributes[0].visible && product.attributes[0].variation && (
+                    <Select defaultValue={product?.attributes[0]?.options?.[0]}>
                       <SelectTrigger className="w-full h-8 sm:h-10 text-xs sm:text-sm">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {product.sizes.map((size) => (
+                        {product?.attributes[0]?.options?.map((size: any) => (
                           <SelectItem
                             key={size}
                             value={size}
@@ -230,7 +219,7 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
                 For {selectedProducts.length} items
               </p>
               <p className="text-xl sm:text-2xl font-bold text-orange-400 mb-4">
-                {totalPrice.toFixed(3)} KD
+                {totalPrice} KD
               </p>
               <Button
                 className="w-full bg-[#fdb777] hover:bg-[#fda757] text-white h-8 sm:h-10 text-xs sm:text-sm"

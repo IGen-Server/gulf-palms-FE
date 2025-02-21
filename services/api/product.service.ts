@@ -18,4 +18,17 @@ export const ProductService  = {
       throw error;
     }
   },
+  async GetSuggestedProducts(query: Record<string, any> = {}, axiosInstance: CustomAxiosInstance, requiresJwt: boolean = false, enableLoader: boolean = true): Promise<any[]> {
+    axiosInstance = updateAxiosInstanceLoaderAndJwtChecking(axiosInstance, requiresJwt, enableLoader);
+    
+    try {
+      const queryParams = Object.keys(query).length ? `?${new URLSearchParams(query).toString()}` : '';
+      const productsUrl = `${ApiRoutes.Product.GetSuggestedProducts}${queryParams}`;
+
+      const response = await axiosInstance.get<any[]>(productsUrl);
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
 }
