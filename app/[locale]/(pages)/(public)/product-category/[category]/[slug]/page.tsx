@@ -152,6 +152,7 @@ export default function SubcategoryPage({ children }: { children: any }) {
                 <ProductCard
                   key={product.id}
                   id={product.id}
+                  slug={product.slug}
                   name={product.name}
                   price={product.price}
                   img={product.images ? product.images[0].src : ''}

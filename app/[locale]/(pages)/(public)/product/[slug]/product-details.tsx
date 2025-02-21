@@ -10,15 +10,27 @@ import {
   Expand,
   Grid2x2,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import { Button } from "@/components/ui/button";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { useTranslation } from "react-i18next";
+import { ProductService } from "@/services/api/product.service";
+import { usePathname } from "next/navigation";
 
-export default function ProductDetailsPage() {
-  const [selectedImage, setselectedImage] = useState(
-    "https://gulfpalms.com/wp-content/uploads/2025/02/Jozi-3-300x300.jpg"
-  );
+interface ProductDetailsProps {
+  product: any;
+}
+
+export default function ProductDetails({ product }: ProductDetailsProps) {
+
+  const [selectedImage, setSelectedImage] = useState('');
+
+  useEffect(() => {
+    setSelectedImage(product?.images?.[0]?.src || '');
+  }, [product])
+
   return (
     <div className="container max-w-[1200px] px-2 lg:px-0 lg:py-8 mx-auto font-sans">
       {/* Breadcrumb and Navigation */}
@@ -26,34 +38,19 @@ export default function ProductDetailsPage() {
         {/* Image Gallery */}
         <div className="flex flex-col-reverse lg:flex-row gap-4">
           <div className="flex lg:flex-col gap-4">
-            <div className="border rounded overflow-hidden cursor-pointer">
-              <Image
-                src="https://gulfpalms.com/wp-content/uploads/2025/02/Jozi-3-300x300.jpg"
-                alt="Jozi plant thumbnail"
-                width={122}
-                height={122}
-                className="object-cover w-full h-full"
-                onClick={() =>
-                  setselectedImage(
-                    "https://gulfpalms.com/wp-content/uploads/2025/02/Jozi-3-300x300.jpg"
-                  )
-                }
-              />
-            </div>
-            <div className="border rounded overflow-hidden cursor-pointer">
-              <Image
-                src="https://gulfpalms.com/wp-content/uploads/2025/02/Jozi-2-300x300.png"
-                alt="Jozi plant thumbnail"
-                width={122}
-                height={122}
-                className="object-cover w-full h-full"
-                onClick={() =>
-                  setselectedImage(
-                    "https://gulfpalms.com/wp-content/uploads/2025/02/Jozi-2-300x300.png"
-                  )
-                }
-              />
-            </div>
+
+            {product?.images?.map((image: any, index: number) => (
+              <div key={index} className="border rounded overflow-hidden cursor-pointer">
+                <Image
+                  src={image.src}
+                  alt={image.name}
+                  width={122}
+                  height={122}
+                  className="object-cover w-full h-full"
+                  onClick={() => setSelectedImage(image.src)}
+                />
+              </div>
+            ))}
           </div>
 
           <PhotoProvider
@@ -81,7 +78,7 @@ export default function ProductDetailsPage() {
             <div className="relative flex-1 cursor-pointer">
               <Image
                 src={selectedImage}
-                alt="Jozi plant"
+                alt={selectedImage}
                 width={450}
                 height={450}
                 className="object-cover rounded w-full max-w-[450px] h-full z-0"
@@ -107,7 +104,7 @@ export default function ProductDetailsPage() {
                 Ya Hala Offers
               </Link>
               <span>/</span>
-              <span>Jozi</span>
+              <span>{product?.name}</span>
             </div>
             <div className="flex gap-2">
               <button className="p-2 hover:bg-muted rounded-sm">
@@ -122,14 +119,21 @@ export default function ProductDetailsPage() {
               </button>
             </div>
           </div>
-          <h1 border-b-2me="text-3xl font-arabic text-gray-800">Jozi</h1>
-          <div className="text-primary text-2xl font-semibold">22.000 KD</div>
-
-          <p className="text-muted-foreground">
+          <h1 border-b-2me="text-3xl font-arabic text-gray-800">{product?.name}</h1>
+          <div
+            className="text-primary text-2xl font-semibold"
+            dangerouslySetInnerHTML={{ __html: product?.price_html ?? '' }}
+          />
+          {/* <p className="text-muted-foreground">
             High quality grafted sider tree. It is evergreen and suitable for
             Kuwait&apos;s weather. Fruits are large and taste great. Ripens at
             the start of the season.
-          </p>
+          </p> */}
+
+          <div
+            className="text-muted-foreground"
+            dangerouslySetInnerHTML={{ __html: product?.short_description ?? '' }}
+          />
 
           {/* Quantity Selector */}
           <div className="flex items-center gap-6">

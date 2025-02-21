@@ -18,6 +18,7 @@ import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.
 
 export default function ProductCard({
   id,
+  slug,
   name,
   price,
   img,
@@ -27,6 +28,7 @@ export default function ProductCard({
   description = "",
 }: {
   id: any;
+  slug: string;
   name: any;
   price: any;
   img: any;
@@ -76,7 +78,7 @@ export default function ProductCard({
 
       {/* Product Image Section */}
       <div className="grid place-content-center w-full overflow-hidden h-[280px]">
-        <Link href={`/shop/${name}`} className="block">
+        <Link href={`/product/${slug}`} className="block">
           <img
             loading="lazy"
             width={280}
@@ -91,7 +93,7 @@ export default function ProductCard({
       {/* Product Details */}
       <div className="w-full text-center">
         <h3 className="text-[14px] font-semibold">
-          <Link href={`/product/${id}`} className="text-center">
+          <Link href={`/product/${slug}`} className="text-center">
             {name}
           </Link>
         </h3>

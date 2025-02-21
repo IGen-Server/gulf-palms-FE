@@ -28,7 +28,7 @@ interface ProductDetailsProps {
   }[]
 }
 
-export function ProductDetailsExtented({ fertilizationData, waterRequirementData, recommendedProducts }: ProductDetailsProps) {
+export function ProductDetailsExtended({ fertilizationData, waterRequirementData, recommendedProducts }: ProductDetailsProps) {
   const [selectedProducts, setSelectedProducts] = React.useState<string[]>([])
   const [currentSlide, setCurrentSlide] = React.useState(0)
 
