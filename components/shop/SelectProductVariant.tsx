@@ -31,9 +31,9 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
       </div>
 
       {/* Size Selection */}
-      <div className="absolute top-[25%] left-1/2  -translate-x-1/2 -translate-y-1/2 w-[90%]">
+      <div className="absolute !top-[50%] grid place-content-center h-full left-1/2  -translate-x-1/2 -translate-y-1/2 w-[90%]">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">Size:</label>
+          <label className="text-sm !text-center font-medium text-gray-700">Size:</label>
           <Select>
             <SelectTrigger className="w-full bg-white border-gray-300">
               <SelectValue placeholder="Choose an option" />
@@ -48,7 +48,7 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
           </Select>
         </div>
       </div>
-        <Button className='absolute bottom-1 w-full hover:bg-primary'>Add to cart</Button>
+        <Button className='absolute -bottom-5 w-full hover:bg-primary'>Add to cart</Button>
     </div>
   )
 }

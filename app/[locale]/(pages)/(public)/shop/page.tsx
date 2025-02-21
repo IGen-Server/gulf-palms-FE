@@ -106,8 +106,8 @@ export default function Shop() {
           <h1 className="text-[36px] font-bold text-black">Shop</h1>
         </div>
         
-        <div className="flex items-start">
-          <div className="w-[276px] px-[15px] divide-y-2">
+        <div className="flex items-start gap-3">
+          <div className="w-[276px] px-[15px] divide-y-2 hidden lg:block">
             <PriceSlider setPriceSlider={updatePageConfig} />
             <Productcategories />
           </div>
@@ -151,8 +151,9 @@ export default function Shop() {
                 </Suspense>
               </div>
             </div>
-            <div
-              className={`grid pt-16 grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-${columns}`}
+           <div className="flex items-center justify-center">
+           <div
+              className={`grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-${columns}`}
             >
               {products.map((product) => (
                 <ProductCard
@@ -168,6 +169,7 @@ export default function Shop() {
                 />
               ))}
             </div>
+           </div>
             <div ref={loaderRef} className="text-center my-6 grid place-content-center w-full">
               {loading && (
                 <div className="flex items-center gap-2 bg-gray-100 w-fit px-3 py-2 border border-gray-400 rounded-lg">

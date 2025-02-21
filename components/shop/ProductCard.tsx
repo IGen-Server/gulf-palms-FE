@@ -50,7 +50,7 @@ export default function ProductCard({
   };
 
   return (
-    <div className="relative group max-w-[433px] grid place-content-center mb-[70px]">
+    <div className="relative group max-w-[390px] grid place-content-center mb-[70px] custom-shadow pb-4 pt-7">
       <SelectProductVariant
         isOpen={isSheetOpen}
         onClose={() => {
@@ -68,7 +68,7 @@ export default function ProductCard({
       />
 
       {/* Product Image Section */}
-      <div className="grid place-content-center w-[280px] overflow-hidden h-[280px]">
+      <div className="grid place-content-center w-full overflow-hidden h-[280px]">
         <Link href={`/shop/${name}`} className="block">
           <img
             loading="lazy"
@@ -105,8 +105,8 @@ export default function ProductCard({
       </div>
 
       {/* Compare Button */}
-      <div className="absolute left-0 bottom-[125px] w-full bg-white transform translate-y-[-100%] opacity-0 transition-all place-content-center grid duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-        <div className="text-center py-2" title="Compare">
+      <div className="absolute left-0 bottom-[138px] w-full bg-white transform translate-y-[-100%] opacity-0 transition-all place-content-center grid duration-300 group-hover:translate-y-0 group-hover:opacity-100 border-t border-b">
+        <div className="text-center py-2 " title="Compare">
           <TooltipProvider delayDuration={0}>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -121,7 +121,7 @@ export default function ProductCard({
       </div>
 
       {/* Hover Content */}
-      <div className="transform translate-y-10 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 mt-3">
+      <div className="transform translate-y-10 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 mt-3 px-3">
         <div className="flex items-center justify-between">
           {/* Wishlist Button */}
           <div>
