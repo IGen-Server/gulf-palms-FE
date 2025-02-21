@@ -90,6 +90,7 @@ export default function ProductPage({
   });
 
   const [product, setProduct] = useState<any | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -101,6 +102,12 @@ export default function ProductPage({
 
         console.log(response[0]);
         setProduct(response[0]);
+
+        if (response[0].related_ids) {
+          console.log(response[0].related_ids);
+          await getRelatedProducts(response[0].related_ids)
+        }
+        
       } catch (error) {
         console.error(error);
       }
@@ -108,6 +115,18 @@ export default function ProductPage({
 
     getProducts();
   }, [pageConfig]);
+
+  const getRelatedProducts = async (relatedProductIds: number[]) => {
+    try {
+      const response = await ProductService.Get(
+        { include: `[${relatedProductIds.join(',')}]` },
+        axiosInstanceWithLoader
+      );
+      setRelatedProducts(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="pt-[75px] lg:pt-[98px]">
@@ -120,7 +139,7 @@ export default function ProductPage({
           waterRequirementData={waterRequirementData}
           recommendedProducts={recommendedProducts}
         />
-        <RelatedProducts />
+        <RelatedProducts products={relatedProducts} />
       </div>
       <GetInTouch />
     </div>

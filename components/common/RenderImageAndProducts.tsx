@@ -26,7 +26,7 @@ interface RenderImageAndProductsProps {
   renderType: "image" | "product"
   imageFileOrUrl: string
   hoverProducts?: HoverProduct[]
-  images?: string[]
+  images?: any[]
   name?: string
   description?: string
   price?: number
@@ -138,14 +138,14 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
         >
           <div className="w-full h-full sm:h-[280px] duration-700 overflow-hidden relative">
             <img
-              src={images?.[0] || "/placeholder.svg"}
+              src={images?.[0]?.src || "/placeholder.svg"}
               alt={name}
               className={`absolute inset-0 w-full h-full object-cover ${
                 hoveredProductId === productId ? " opacity-100 lg:opacity-0 " : " lg:opacity-100 "
               }`}
             />
             <img
-              src={images?.[1] || "/placeholder.svg"}
+              src={images?.[1]?.src || "/placeholder.svg"}
               alt={name}
               className={`absolute inset-0 w-full h-full object-cover ${
                 hoveredProductId === productId
