@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
 import { ProductModel } from "@/models/product/product";
+import { ProductCategoryService } from "@/services/api/product-category.service";
 
 const breadcrumbLinks = [
   { name: "Home", href: "/" },
@@ -164,7 +165,7 @@ export default function Shop() {
                     img={product.images ? product?.images[0]?.src : ""}
                     options={product.options}
                     sku={product.sku}
-                    categories={product.categories}
+                    currentCategories={product.categories}
                     description={undefined}
                   />
                 ))}

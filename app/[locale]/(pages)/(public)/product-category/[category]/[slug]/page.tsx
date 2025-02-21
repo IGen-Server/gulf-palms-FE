@@ -157,7 +157,7 @@ export default function SubcategoryPage({ children }: { children: any }) {
                   img={product.images ? product.images[0].src : ''}
                   options={product.options}
                   sku={product.sku}
-                  categories={product.categories}
+                  currentCategories={product.categories}
                   description={undefined}
                 />
               ))}
