@@ -1,27 +1,53 @@
-import React from 'react'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { X } from 'lucide-react'
-import { Button } from '../ui/button'
+import React from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { X } from "lucide-react";
+import { Button } from "../ui/button";
+import { useCart } from "@/providers/CartProvider";
 
 interface ProductSelectionSheetProps {
-  isOpen: boolean
-  onClose: () => void
-  productId: string
-  options: string[]
+  isOpen: boolean;
+  onClose: () => void;
+  productId: string;
+  options: string[];
+  product?: any;
+  setIsOpen?: any;
+  setSelectProductId?: any;
 }
 
 const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
   isOpen,
   onClose,
   productId,
-  options = []
+  options = [],
+  product,
+  setIsOpen,
+  setSelectProductId
 }) => {
-  if (!isOpen) return null
+  const { addToCart } = useCart();
+  if (!isOpen) return null;
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      image: product.image,
+    });
+    setIsOpen(false);
+    setSelectProductId(null)
+  };
 
   return (
     <div className="absolute -top-[50px] inset-0 w-full h-[328px] bg-white/90 z-20">
       {/* Close and Wishlist buttons */}
-      <div className="absolute top-0 w-full px-4 flex justify-end z-10">
+      <div className="absolute top-[40px] w-full px-4 flex justify-end z-10">
         <button
           onClick={onClose}
           className="w-8 h-8 rounded-full bg-white shadow-md grid place-content-center"
@@ -48,9 +74,13 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
           </Select>
         </div>
       </div>
-        <Button className='absolute -bottom-5 w-full hover:bg-primary'>Add to cart</Button>
+      <Button className="absolute -bottom-7 w-full hover:bg-primary h-[45px]"
+      onClick={()=>handleAddToCart()}
+      >
+        Add to cart
+      </Button>
     </div>
-  )
-}
+  );
+};
 
-export default SelectProductVariant
+export default SelectProductVariant;

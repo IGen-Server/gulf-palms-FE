@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
@@ -37,11 +37,13 @@ export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const cartRef = useRef<HTMLDivElement>(null);
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
   const pathname = usePathname();
   const [isHomePage, setIsHomePage] = useState(false);
-  const { cartItems,  subtotal } = useCart();
+  const { cartItems, subtotal } = useCart();
+
   const { user } = useAuth();
   const routeService = new RouteService();
 
@@ -80,7 +82,15 @@ export default function PublicNavbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-
+  useEffect(() => {
+    if (cartItems.length > 0 && cartRef.current) {
+      if (!cartRef.current.classList.contains("opened")) {
+        cartRef.current.click();
+        cartRef.current.classList.add("opened");
+      }
+    }
+  }, [cartItems.length]);
+  
   return (
     <div
       className={`w-full fixed duration-500 top-0 z-[49] left-0 transition-transform flex items-center
@@ -145,44 +155,44 @@ export default function PublicNavbar() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
-            <SideDrawer
-              title={"Cart"}
-              triggerComponent={
-                <Button
-                  asChild
-                  variant="ghost"
-                  className="hover:bg-transparent w-fit p-0 lg:hidden close_btn text-white hover:text-white"
-                >
-                  <div className="relative cursor-pointer">
-                    <ShoppingCart className="w-5 h-5" />
-                    <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
-                    {cartItems?.length || 0}
-                    </p>
-                  </div>
-                </Button>
-              }
-              bodyComponent={<CartDrawer />}
-            />
+            <div className="flex lg:hidden items-center gap-4">
+              <SideDrawer
+                title="Cart"
+                triggerComponent={
+                  <Button
+                    variant="ghost"
+                    className="hover:bg-transparent w-fit p-0 flex items-center"
+                  >
+                    <div ref={cartRef} className="relative cursor-pointer">
+                      <ShoppingCart className="w-5 h-5" />
+                      <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 w-4 grid place-content-center">
+                        {cartItems.length || 0}
+                      </p>
+                    </div>
+                  </Button>
+                }
+                bodyComponent={<CartDrawer />}
+              />
+
               <LocaleToggler />
             </div>
           </div>
 
-          {
-            user &&
+          {user && (
             <Button
               asChild
               variant="ghost"
               className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
-              onClick={() => routeService.redirectTo(ClientRoutes.User.MyAccountDashboard)}
+              onClick={() =>
+                routeService.redirectTo(ClientRoutes.User.MyAccountDashboard)
+              }
             >
               <p className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
                 My Account
               </p>
             </Button>
-          }
-          {
-            !user &&
+          )}
+          {!user && (
             <SideDrawer
               title={"Sign in"}
               triggerComponent={
@@ -198,8 +208,8 @@ export default function PublicNavbar() {
               }
               bodyComponent={<UserSigninFormForDrawer />}
             />
-          }
-          
+          )}
+
           {/* {pathname.includes('my-account') || <AuthSheet />} */}
 
           <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary ">
@@ -214,7 +224,7 @@ export default function PublicNavbar() {
                   <div className="relative cursor-pointer">
                     <ShoppingCart className="w-5 h-5" />
                     <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
-                    {cartItems?.length || 0}
+                      {cartItems?.length || 0}
                     </p>
                   </div>
                 </Button>
@@ -226,14 +236,14 @@ export default function PublicNavbar() {
               <HeartIcon className="w-5 h-5" />
             </div>
             <div className="hidden lg:block">
-            <SideDrawer
-              title={""}
-              side='bottom'
-              triggerComponent={
-                <SearchIcon className="w-5 h-5 cursor-pointer" />
-              }
-              bodyComponent={<SearchDrawer />}
-            />
+              <SideDrawer
+                title={""}
+                side="bottom"
+                triggerComponent={
+                  <SearchIcon className="w-5 h-5 cursor-pointer" />
+                }
+                bodyComponent={<SearchDrawer />}
+              />
             </div>
           </div>
           {/* Right Actions */}

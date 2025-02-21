@@ -18,6 +18,8 @@ import { Sheet, SheetContent } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ProductCategoryModel } from "@/models/product/product"
+import { useCart } from "@/providers/CartProvider"
+
 
 interface ProductDrawerProps {
   open: boolean
@@ -36,6 +38,7 @@ interface ProductDrawerProps {
 export function ProductDrawer({ open, onOpenChange, product }: ProductDrawerProps) {
   const [quantity, setQuantity] = React.useState(1)
   const [isMobile, setIsMobile] = React.useState(false)
+  const { addToCart } = useCart();
 
   React.useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -114,7 +117,7 @@ export function ProductDrawer({ open, onOpenChange, product }: ProductDrawerProp
           <div className="flex gap-4 mb-8">
             <Button
               className="flex-1 bg-[#fdb777] hover:bg-[#fda757] text-white font-semibold"
-              onClick={() => console.log("Added to cart")}
+              onClick={()=>{addToCart(product)}}
             >
               ADD TO CART
             </Button>

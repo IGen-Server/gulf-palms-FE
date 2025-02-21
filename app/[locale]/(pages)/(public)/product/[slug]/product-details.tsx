@@ -21,6 +21,7 @@ import { usePathname } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ProductCategoryModel } from "@/models/product/product";
 import { getCategoryPathByIdFromRecord, getLargestCategoryPathByIdFromRecord } from "@/services/utility/utility.service";
+import { useCart } from "@/providers/CartProvider";
 
 interface ProductDetailsProps {
   product: any;
@@ -28,12 +29,30 @@ interface ProductDetailsProps {
 }
 
 export default function ProductDetails({ product, slugToCategoryRecord }: ProductDetailsProps) {
-
   const [selectedImage, setSelectedImage] = useState('');
-
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
   useEffect(() => {
     setSelectedImage(product?.images?.[0]?.src || '');
   }, [product])
+
+  const handleQuantityChange = (operation: string) => {
+    if (operation === "increase") {
+      setQuantity(prevQuantity => prevQuantity + 1);
+    } else if (operation === "decrease" && quantity > 1) {
+      setQuantity(prevQuantity => prevQuantity - 1);
+    }
+  };
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: Number(product.price),
+      quantity: quantity,
+      image: product?.images?.[0]?.src,
+    });
+  };
 
   return (
     <div className="container max-w-[1200px] px-2 lg:px-0 lg:py-8 mx-auto font-sans">
@@ -162,23 +181,29 @@ export default function ProductDetails({ product, slugToCategoryRecord }: Produc
 
           {/* Quantity Selector */}
           <div className="flex items-center gap-6">
-            <button className="text-xl px-2 py-1 hover:bg-muted rounded">
+            <button 
+            onClick={() => handleQuantityChange("decrease")}
+            className="text-xl px-2 py-1 hover:bg-muted rounded">
               -
             </button>
             <input
               type="number"
-              value="1"
+              value={quantity}
               className="w-12 text-center border-none"
               min="1"
             />
-            <button className="text-xl px-2 py-1 hover:bg-muted rounded">
+            <button 
+            onClick={() => handleQuantityChange("increase")}
+            className="text-xl px-2 py-1 hover:bg-muted rounded">
               +
             </button>
           </div>
 
           {/* Action Buttons */}
           <div className="flex gap-4">
-            <button className="rounded-none px-6 py-2 bg-primary text-white border-b-2 border-orange-700/20 hover:bg-[#FFA366]/90">
+            <button className="rounded-none px-6 py-2 bg-primary text-white border-b-2 border-orange-700/20 hover:bg-[#FFA366]/90"
+            onClick={handleAddToCart}
+            >
               ADD TO CART
             </button>
             <button className="rounded-none px-6 py-2 bg-primary text-white border-b-2 border-orange-700/20 hover:bg-[#FFA366]/90">
