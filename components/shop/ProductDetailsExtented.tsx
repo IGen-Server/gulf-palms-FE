@@ -29,8 +29,8 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
   const totalPrice = React.useMemo(() => {
     return recommendedProducts
       .filter((product) => selectedProducts.includes(product.id))
-      .reduce((sum, product) => sum + product.price, 0)
-  }, [recommendedProducts, selectedProducts])
+      .reduce((sum, product) => (sum + +product.price), 0);
+  }, [recommendedProducts, selectedProducts]);
 
   return (
     <div className="w-full max-w-6xl mx-auto mb-16 border-t ">
