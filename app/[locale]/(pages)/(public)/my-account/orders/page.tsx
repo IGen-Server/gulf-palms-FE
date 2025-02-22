@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { OrderService } from "@/services/api/order.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
-import { getTotalQuantity } from "@/services/utility/utility.service";
+import { getTotalQuantity, orderStatusesToReadableSentence } from "@/services/utility/utility.service";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import SkeletonType2 from "@/components/skeleton/skeleton-type2";
@@ -13,9 +13,9 @@ export default function OrdersPage({ orders = null }: { orders: any[] | null }) 
   return (
     <div>
       {/* Desktop View */}
-      { !orders && <SkeletonType2/>}
+      { orders === null && <SkeletonType2/>}
       {
-        orders &&
+        orders !== null &&
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -33,7 +33,7 @@ export default function OrdersPage({ orders = null }: { orders: any[] | null }) 
                 <tr className="border-b" key={index}>
                   <td className="px-4 py-4 text-[14px] font-semibold">#{order.id}</td>
                   <td className="px-4 py-4 text-black/60 text-[14px]">{dayjs(order.date_created).format("MMMM D, YYYY")}</td>
-                  <td className="px-4 py-4 text-black/60 text-[14px]">{order.status}</td>
+                  <td className="px-4 py-4 text-black/60 text-[14px]">{orderStatusesToReadableSentence(order.status)}</td>
                   {/* <td className="px-4 py-4 text-black/60 text-[14px]">
                   <div>Delivery Date: February 21, 2025</div>
                   <div>Delivery Time: 02:00 PM - 06:00 PM</div>

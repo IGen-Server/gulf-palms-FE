@@ -30,7 +30,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
     const getOrders = async () => {
       OrderService.Get(orderConfig, axiosInstanceWithLoader)
         .then(response=> {
-          setOrders(response);
+          setOrders(response || []);
         })
         .catch(error => {
           console.error(error);
@@ -74,8 +74,8 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
             </aside>
             <main className="flex-1 p-6">
               {(() => {
-                switch (pathname) {
-                  case ClientRoutes.User.MyAccountOrders:
+                switch (pathname.split('/').filter(Boolean).pop()) {
+                  case ClientRoutes.User.MyAccountOrders.split('/').filter(Boolean).pop():
                     return <OrdersPage orders={orders} />;
                   default:
                     return children;

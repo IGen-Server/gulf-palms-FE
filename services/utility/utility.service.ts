@@ -184,3 +184,23 @@ export function getCategoryPathBySlug(categorySlug: string, categoryMap: Map<num
 
   return path.join("/");
 }
+
+export const OrderStatuses = [
+  "any", "trash", "auto-draft", "pending", "processing",
+  "on-hold", "completed", "cancelled", "refunded",
+  "failed", "spamorder", "checkout-draft"
+];
+
+export function orderStatusesToReadableSentence(slug: string): string {
+  const customMappings: Record<string, string> = {
+      "pending": "Pending Payment",
+      "on-hold": "On Hold",
+      "auto-draft": "Auto Draft",
+      "checkout-draft": "Checkout Draft",
+      "spamorder": "Spam Order"
+  };
+
+  return customMappings[slug] || slug
+      .replace(/-/g, " ") // Replace hyphens with spaces
+      .replace(/\b\w/g, char => char.toUpperCase()); // Capitalize first letter of each word
+}

@@ -15,6 +15,7 @@ export const ApiRoutes = {
     Settings: '/user/settings',
   },
   Order: {
+    GetById: 'orders/getById',
     Get: 'orders',
   },
   Product: {
