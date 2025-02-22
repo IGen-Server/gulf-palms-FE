@@ -18,10 +18,12 @@ export const ApiRoutes = {
     Get: 'orders',
   },
   Product: {
+    GetById: 'products/getById',
     Get: 'products',
     GetSuggestedProducts: 'products/suggested',
   },
   ProductCategory: {
+    GetById: 'categories/getById',
     Get: 'categories',
   }
 };

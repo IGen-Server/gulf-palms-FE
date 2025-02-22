@@ -5,6 +5,17 @@ import { updateAxiosInstanceLoaderAndJwtChecking } from "../utility/utility.serv
 import { ProductModel } from "@/models/product/product";
 
 export const ProductService  = {
+  async GetById(productId: number, axiosInstance: CustomAxiosInstance, requiresJwt: boolean = false, enableLoader: boolean = true): Promise<any> {
+    axiosInstance = updateAxiosInstanceLoaderAndJwtChecking(axiosInstance, requiresJwt, enableLoader);
+    
+    try {
+      const productsUrl = `${ApiRoutes.Product.GetById}/${productId}`;
+      const response = await axiosInstance.get<any>(productsUrl);
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
   async Get(query: Record<string, any> = {}, axiosInstance: CustomAxiosInstance, requiresJwt: boolean = false, enableLoader: boolean = true): Promise<any[]> {
     axiosInstance = updateAxiosInstanceLoaderAndJwtChecking(axiosInstance, requiresJwt, enableLoader);
     

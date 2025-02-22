@@ -28,7 +28,7 @@ export function normalizeLocale(locale: string) {
 export function refineLocalePrefixForRoute(locale: string) {
   locale = normalizeLocale(locale);
 
-  if (locale === "en") {
+  if (locale === "ar") {
     return ""; // No prefix for default locale
   }
 
@@ -47,7 +47,7 @@ export function refineRoutePath(path: string, locale: string) {
 
 const i18nConfig: Config = {
   locales, // Now includes "en-us"
-  defaultLocale: "en",
+  defaultLocale: "ar",
 };
 
 export default i18nConfig;

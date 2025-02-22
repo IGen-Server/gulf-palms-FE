@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import i18nConfig from "@/i18nConfig";
+import { useAuth } from "@/providers/Authprovider";
 
 const localeNames = {
   en: "English",
@@ -13,6 +14,7 @@ const localeNames = {
 
 export function LocaleToggler() {
   const { i18n } = useTranslation();
+  const { translations } = useAuth();
   const currentLocale = i18n.language;
   const router = useRouter();
   const currentPathname = usePathname();
@@ -26,15 +28,19 @@ export function LocaleToggler() {
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     document.cookie = `NEXT_LOCALE=${newLocale};expires=${date.toUTCString()};path=/`;
 
+    const segments = currentPathname.split("/").filter(Boolean);
+    const translatedSegments = segments.map(segment => translations[currentLocale][decodeURIComponent(segment)] || segment);
+    const translatedPath = "/" + translatedSegments.join("/");
+
     // Redirect to the new locale path
     if (
       currentLocale === i18nConfig.defaultLocale &&
       !i18nConfig.prefixDefault
     ) {
-      router.push("/" + newLocale + currentPathname);
+      router.push("/" + newLocale + translatedPath);
     } else {
       router.push(
-        currentPathname.replace(`/${currentLocale}`, `/${newLocale}`)
+        translatedPath.replace(`/${currentLocale}`, `/${newLocale}`)
       );
     }
 

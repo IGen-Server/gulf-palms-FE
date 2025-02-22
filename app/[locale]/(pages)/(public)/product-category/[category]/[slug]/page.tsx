@@ -8,7 +8,7 @@ import Productcategories from "@/components/shop/Productcategories";
 import { ProductSortValues, SortingDropdown } from "@/components/shop/SortingDropdown";
 import { LayoutGrid, Grip, EllipsisVertical } from "lucide-react";
 import GetInTouch from "@/components/common/GetInTouch";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
@@ -16,18 +16,22 @@ import { showPerPage } from "@/constants/global-constants";
 import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
+import { useAuth } from "@/providers/Authprovider";
+import Link from "next/link";
 
 export default function SubcategoryPage({ children }: { children: any }) {
-  const pathname = usePathname().split("/");
-  const slug = pathname[pathname.length - 1].split("-").join(" ");
+  // const pathname = usePathname().split("/");
+  const { category: categorySlug, slug: subcategorySlug } = useParams();
+  // const slug = pathname[pathname.length - 1].split("-").join(" ");
   const breadcrumbLinks = [{ name: "Home", href: "/" }];
+  const { setTranslation } = useAuth();
 
-  pathname.slice(2).forEach((p) => {
-    breadcrumbLinks.push({
-      name: p.split("-").join(" "),
-      href: `/product-category/${p}`,
-    });
-  });
+  // pathname.slice(2).forEach((p) => {
+  //   breadcrumbLinks.push({
+  //     name: p.split("-").join(" "),
+  //     href: `/product-category/${p}`,
+  //   });
+  // });
 
 
   const [columns, setColumns] = useState(4)
@@ -43,7 +47,7 @@ export default function SubcategoryPage({ children }: { children: any }) {
     per_page: 24,
     min_price: null,
     max_price: null,
-    category: slug
+    category: subcategorySlug
   });
 
   const [products, setProducts] = useState<any[]>([]);
@@ -100,11 +104,13 @@ export default function SubcategoryPage({ children }: { children: any }) {
 
   // Category
   const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<Record<number, ProductCategoryModel>>({});
+  const [currentCategory, setCurrentCategory] = useState<any>({});
+  const [currentSubCategory, setCurrentSubCategory] = useState<any>({});
 
   useEffect(() => {
     const getProductCategories = async () => {
       try {
-        const response = await ProductCategoryService.Get(
+        let response = await ProductCategoryService.Get(
           {
             lang: i18n.language,
             page: 1,
@@ -113,9 +119,62 @@ export default function SubcategoryPage({ children }: { children: any }) {
           axiosInstanceWithLoader
         );
 
-        var currentSlugToCategoryRecord = generateIdToCategoryRecord(response);
-        console.log(currentSlugToCategoryRecord);
+        if (i18n.language === 'ar') {
+          response = response?.map(item => ({
+            ...item,
+            slug: decodeURIComponent(item.slug)
+          }));
+        }
+
+        //Category
+        let currentCategorySlug = decodeURIComponent(categorySlug as string);
+        const selectedCategory = response?.find((x) => x.slug === currentCategorySlug) || null;
+        setCurrentCategory(selectedCategory);
+        const categoryTranslationIds = selectedCategory?.translations;
+        let categoryOtherLangId;
+        
+        if (i18n.language === 'en') {
+          categoryOtherLangId = categoryTranslationIds?.ar;
+        } else {
+          categoryOtherLangId = categoryTranslationIds?.en;
+        }
+        
+        if (categoryOtherLangId) {
+          const categoryInOtherLang = await ProductCategoryService.GetById(
+            categoryOtherLangId,
+            axiosInstanceWithLoader
+          );
+
+          setTranslation(i18n.language, selectedCategory.slug, decodeURIComponent(categoryInOtherLang?.slug));
+          setTranslation(i18n.language === 'en' ? 'ar' : 'en', decodeURIComponent(categoryInOtherLang?.slug), selectedCategory.slug);
+        }
+
+        //Sub Category
+        const currentSlugToCategoryRecord = generateIdToCategoryRecord(response);
         setSlugToCategoryRecord(currentSlugToCategoryRecord);
+
+        let currentSubCategorySlug = decodeURIComponent(subcategorySlug as string);
+        const selectedSubCategory = response?.find((x) => x.slug === currentSubCategorySlug) || null;
+        setCurrentSubCategory(selectedSubCategory);
+
+        const subcategoryTranslationIds = selectedSubCategory?.translations;
+        let subcategoryOtherLangId;
+        
+        if (i18n.language === 'en') {
+          subcategoryOtherLangId = subcategoryTranslationIds?.ar;
+        } else {
+          subcategoryOtherLangId = subcategoryTranslationIds?.en;
+        }
+        
+        if (subcategoryOtherLangId) {
+          const subcategoryInOtherLang = await ProductCategoryService.GetById(
+            subcategoryOtherLangId,
+            axiosInstanceWithLoader
+          );
+
+          setTranslation(i18n.language, selectedSubCategory.slug, decodeURIComponent(subcategoryInOtherLang?.slug));
+          setTranslation(i18n.language === 'en' ? 'ar' : 'en', decodeURIComponent(subcategoryInOtherLang?.slug), selectedSubCategory.slug);
+        }
 
       } catch (error) {
         console.error(error);
@@ -130,7 +189,7 @@ export default function SubcategoryPage({ children }: { children: any }) {
       <div className="max-w-content mx-auto">
         <div className="flex flex-col items-center pb-[200px] pt-[50px]">
           <h1 className="text-[36px] font-bold text-black capitalize">
-            {slug}
+            {currentSubCategory?.name ? decodeURIComponent(currentSubCategory?.name) : ''}
           </h1>
         </div>
         <div className="flex items-start ">
@@ -140,11 +199,20 @@ export default function SubcategoryPage({ children }: { children: any }) {
           </div>
           <div className=" flex-1 ">
             <div className="px-[15px] flex  justify-between">
-              <CustomBreadCrumb
+              {/* <CustomBreadCrumb
                 links={breadcrumbLinks}
                 uppercase={true}
                 currentStyle="font-semibold"
-              />
+              /> */}
+              <div className="">
+                <span className="text-muted-foreground font-medium">
+                  <span>Home</span>
+                  &nbsp;&nbsp;/&nbsp;&nbsp;
+                  <Link href={`/product-category/${currentCategory?.slug}`}>{currentCategory?.name ? decodeURIComponent(currentCategory?.name) : ''}</Link>
+                  &nbsp;&nbsp;/&nbsp;&nbsp;
+                  <span className=" font-semibold">{currentSubCategory?.name ? decodeURIComponent(currentSubCategory?.name) : ''}</span>
+                </span>
+              </div>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-3">
                   <p className="text-sm font-semibold ">Show :</p>

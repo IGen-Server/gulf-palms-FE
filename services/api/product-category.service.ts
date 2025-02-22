@@ -4,6 +4,18 @@ import { updateAxiosInstanceLoaderAndJwtChecking } from "../utility/utility.serv
 
 
 export const ProductCategoryService  = {
+  async GetById(categoryId: number, axiosInstance: CustomAxiosInstance, requiresJwt: boolean = false, enableLoader: boolean = true): Promise<any> {
+    axiosInstance = updateAxiosInstanceLoaderAndJwtChecking(axiosInstance, requiresJwt, enableLoader);
+    
+    try {
+      const productCategoryByIdUrl = `${ApiRoutes.ProductCategory.GetById}/${categoryId}`;
+
+      const response = await axiosInstance.get<any>(productCategoryByIdUrl);
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
   async Get(query: Record<string, any> = {}, axiosInstance: CustomAxiosInstance, requiresJwt: boolean = false, enableLoader: boolean = true): Promise<any[]> {
     axiosInstance = updateAxiosInstanceLoaderAndJwtChecking(axiosInstance, requiresJwt, enableLoader);
     

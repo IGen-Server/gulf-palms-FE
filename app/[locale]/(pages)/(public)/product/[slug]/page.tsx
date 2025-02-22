@@ -13,6 +13,7 @@ import { ProductService } from "@/services/api/product.service";
 import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
+import { useAuth } from "@/providers/Authprovider";
 
 const fertilizationData = [
   { size: "Small", details: "Apply 50g of organic fertilizer every 2 months." },
@@ -51,33 +52,6 @@ const waterRequirementData = [
   },
 ];
 
-const recommendedProducts = [
-  {
-    "id": "p1",
-    "name": "Organic Plant Fertilizer",
-    "category": "Fertilizers",
-    "price": 4.990,
-    "image": "https://gulfpalms.com/wp-content/uploads/2023/09/GULF-AGRO-1-LITRE-700x700.jpg",
-    "sizes": ["500g", "1kg", "5kg"]
-  },
-  {
-    "id": "p2",
-    "name": "Premium Potting Soil",
-    "category": "Soil & Compost",
-    "price": 7.250,
-    "image": "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2025-02-06-at-15.31.01-600x800.jpeg",
-    "sizes": ["2kg", "5kg", "10kg"]
-  },
-  {
-    "id": "p3",
-    "name": "Self-Watering Planter",
-    "category": "Planters & Pots",
-    "price": 12.500,
-    "image": "https://gulfpalms.com/wp-content/uploads/2023/11/113-700x700.jpg",
-    "sizes": ["Small", "Medium", "Large"]
-  }
-]
-
 export default function ProductPage({
   children,
 }: {
@@ -86,6 +60,7 @@ export default function ProductPage({
 
   const { i18n } = useTranslation();
   const { slug } = useParams();
+  const { setTranslation } = useAuth();
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
 
   const [pageConfig, setPageConfig] = useState({
@@ -106,12 +81,30 @@ export default function ProductPage({
         setProduct(response[0]);
 
         if (response[0].related_ids) {
-          console.log(response[0].related_ids);
           await getRelatedProducts(response[0].related_ids)
         }
 
         await getSuggestedProducts();
+
+        const productTranslationIds = response[0]?.translations;
+        let productOtherLangId;
+
+        if (i18n.language === 'en') {
+          productOtherLangId = productTranslationIds?.ar;
+        } else {
+          productOtherLangId = productTranslationIds?.en;
+        }
         
+        if (productOtherLangId) {
+          const productInOtherLang = await ProductService.GetById(
+            productOtherLangId,
+            axiosInstanceWithLoader
+          );
+
+          setTranslation(i18n.language, decodeURIComponent(response[0].slug), decodeURIComponent(productInOtherLang?.slug));
+          setTranslation(i18n.language === 'en' ? 'ar' : 'en', decodeURIComponent(productInOtherLang?.slug), decodeURIComponent(response[0].slug));
+        }
+
       } catch (error) {
         console.error(error);
       }
@@ -162,7 +155,7 @@ export default function ProductPage({
   useEffect(() => {
     const getProductCategories = async () => {
       try {
-        const response = await ProductCategoryService.Get(
+        let response = await ProductCategoryService.Get(
           {
             lang: i18n.language,
             page: 1,
@@ -170,6 +163,13 @@ export default function ProductPage({
           },
           axiosInstanceWithLoader
         );
+
+        if (i18n.language === 'ar') {
+          response = response?.map(item => ({
+            ...item,
+            slug: decodeURIComponent(item.slug)
+          }));
+        }
 
         var currentSlugToCategoryRecord = generateIdToCategoryRecord(response);
         setSlugToCategoryRecord(currentSlugToCategoryRecord);

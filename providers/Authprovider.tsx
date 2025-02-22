@@ -15,6 +15,9 @@ interface AuthContextType {
   userSettings: UserAsCustomer | null;
   setUserSettings: Dispatch<SetStateAction<UserAsCustomer | null>>;
   isAuthenticated: boolean;
+  translations: Record<string, Record<string, string>>;
+  setTranslation: (lang: string, key: string, value: string) => void;
+  getTranslation: (lang: string, key: string) => string;
 }
 
 
@@ -24,6 +27,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true);
   const [user, setUser] = useState<UserProfileModel | null | undefined>(undefined);
   const [userSettings, setUserSettings] = useState<UserAsCustomer | null>(null);
+  const [translations, setTranslations] = useState<Record<string, Record<string, string>>>({
+    en: { },
+    ar: { }
+  });
   
   const router = useRouter();
 
@@ -43,8 +50,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     getProfile();
   }, []);
 
+  const setTranslation = (lang: string, key: string, value: string) => {
+    setTranslations(prev => ({
+      ...prev,
+      [lang]: {
+        ...prev[lang],
+        [key]: value
+      }
+    }));
+  };
+
+  const getTranslation = (lang: string, key: string): string => {
+    return translations[lang]?.[key] || `Translation not found for ${key}`;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, userSettings, setUserSettings, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{
+      user,
+      setUser,
+      userSettings,
+      setUserSettings,
+      isAuthenticated: !!user,
+      translations,
+      setTranslation,
+      getTranslation,
+    }}>
       {children}
     </AuthContext.Provider>
   );
