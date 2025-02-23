@@ -68,8 +68,8 @@ export default function Services() {
   ];
 
   return (
-    <div className="w-[1458px] mx-auto">
-      <div className="pb-[30px] space-y-2 max-w-[800px] px-6">
+    <div className="container mx-auto px-4 max-w-[1458px]">
+        <div className="pb-[30px] space-y-2 md:space-y-6 max-w-[800px] ">
       <p className="text-[#777777] text-xl md:text-[30px] font-light font-sans">
           OUR SERVICES
         </p>
