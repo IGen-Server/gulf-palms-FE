@@ -27,6 +27,7 @@ import {
 import { getProductCategoryLink } from "@/services/utility/utility.service";
 
 import { useCart } from "@/providers/CartProvider";
+import { ProductDrawer } from "../shop/ProductDrawer";
 
 interface HoverProduct {
   position: { x: number; y: number };
@@ -73,15 +74,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
     string | null
   >(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
-    console.log({ id: productId,
-      name: name as string,
-      price: Number(price) as number,
-      quantity: 1,
-      image: images?.[0] || imageFileOrUrl,})
     addToCart({
       id: productId,
       name: name as string,
@@ -185,6 +182,15 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   }
 
   if (renderType === "product") {
+    const productData = {
+      id: productId,
+      name: name,
+      price: Number(price),
+      description: description || "Product description not available",
+      image: imageFileOrUrl || images[0]?.src || images[0],
+      sku: productId || 'N/A',
+      categories: currentCategories,
+    };
     return (
       <>
         <div
@@ -194,7 +200,12 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
         >
           <div className="w-full h-full sm:h-[280px] duration-700 overflow-hidden relative">
             <img
-              src={imageFileOrUrl || images?.[0]?.src  || "/placeholder.svg"}
+              src={
+                imageFileOrUrl ||
+                images?.[0]?.src ||
+                images?.[0] ||
+                "/placeholder.svg"
+              }
               alt={name}
               className={`absolute inset-0 w-full h-full object-cover ${
                 hoveredProductId === productId
@@ -203,7 +214,13 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               }`}
             />
             <img
-              src={images?.[1]?.src || imageFileOrUrl || images?.[0]?.src || "/placeholder.svg"}
+              src={
+                images?.[1]?.src ||
+                images?.[1] ||
+                imageFileOrUrl ||
+                images?.[0]?.src ||
+                "/placeholder.svg"
+              }
               alt={name}
               className={`absolute inset-0 w-full h-full object-cover ${
                 hoveredProductId === productId
@@ -294,7 +311,10 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                       </Tooltip>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Search className="cursor-pointer w-[15px] sm:w-[20px]" />
+                          <Search
+                            className="cursor-pointer w-[15px] sm:w-[20px]"
+                            onClick={() => setIsQuickViewOpen(true)}
+                          />
                         </TooltipTrigger>
                         <TooltipContent
                           sideOffset={15}
@@ -365,6 +385,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             </p>
           </div>
         </div>
+        <ProductDrawer
+          open={isQuickViewOpen}
+          onOpenChange={setIsQuickViewOpen}
+          product={productData}
+        />
       </>
     );
   }

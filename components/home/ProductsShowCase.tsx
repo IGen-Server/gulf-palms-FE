@@ -6,10 +6,10 @@ import ImageTextCard from "../common/ImageTextCard";
 const products = [
   {
     renderType: "product",
-    imageFileOrUrl: "",
+    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Offshoot-Bag-Palm-75-litre-300x300.jpg",
     images: [
       "https://gulfpalms.com/wp-content/uploads/2024/10/%D9%85%D9%84%D9%85%D8%B9-%D9%86%D8%A8%D8%A7%D8%AA%D8%A7%D8%AA.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2024/10/%D9%85%D9%84%D9%85%D8%B9-%D9%86%D8%A8%D8%A7%D8%AA%D8%A7%D8%AA.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/08/Offshoot-Bag-Palm-75-litre-300x300.jpg",
     ],
     name: "Red Sneakers",
     description: "Stylish red sneakers for casual wear.",
@@ -18,10 +18,10 @@ const products = [
   },
   {
     renderType: "product",
-    imageFileOrUrl: "",
+    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Slide2-1-300x300.jpg",
     images: [
       "https://gulfpalms.com/wp-content/uploads/2024/03/Palms-Pollen-Powder-1.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2024/03/Palms-Pollen-Powder-2-860x860.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/08/Slide2-1-300x300.jpg",
     ],
     name: "Blue Denim Jacket",
     description: "Classic denim jacket for all seasons.",
@@ -30,8 +30,8 @@ const products = [
   },
   {
     renderType: "product",
-    imageFileOrUrl: "",
-    images: ["https://gulfpalms.com/wp-content/uploads/2023/10/18-430x430.jpg"],
+    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/10/18-300x300.jpg",
+    images: ["https://gulfpalms.com/wp-content/uploads/2023/10/18-430x430.jpg","https://gulfpalms.com/wp-content/uploads/2023/10/18-300x300.jpg"],
     name: "Red Sneakers",
     description: "Stylish red sneakers for casual wear.",
     price: 49.99,
@@ -39,8 +39,8 @@ const products = [
   },
   {
     renderType: "product",
-    imageFileOrUrl: "",
-    images: ["https://gulfpalms.com/wp-content/uploads/2023/10/18-430x430.jpg"],
+    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/10/8-300x300.jpg",
+    images: ["https://gulfpalms.com/wp-content/uploads/2023/10/18-430x430.jpg","https://gulfpalms.com/wp-content/uploads/2023/10/8-300x300.jpg"],
     name: "Blue Denim Jacket",
     description: "Classic denim jacket for all seasons.",
     price: 79.99,
@@ -78,8 +78,12 @@ const topLayer = (
               name={product.name}
               description={product.description}
               price={product.price}
-              productId={product.productId}
-            />
+              productId={product.productId} 
+              slug={""} 
+              currency={""} 
+              currentCategories={[]} 
+              productAttribute={null}            
+              />
           ),
           width: " !w-[218px] ",
         }))}
