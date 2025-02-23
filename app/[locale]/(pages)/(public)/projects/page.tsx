@@ -14,54 +14,54 @@ const ProjectSection = () => {
       name: "Khiran Garden",
       image:
         "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9961-scaled.jpg",
-      link: "http://localhost:3000/projects/khiran-garden/",
+      link: "/projects/khiran-garden/",
     },
     {
       name: "Pick Kaifan",
       image:
         "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08629-scaled.jpg",
-      link: "http://localhost:3000/projects/pick-kaifan/",
+      link: "/projects/pick-kaifan/",
     },
     {
       name: "Zahra Garden 2",
       image:
         "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9891-scaled.jpg",
-      link: "http://localhost:3000/projects/zahra-garden-2/",
+      link: "/projects/zahra-garden-2/",
     },
     {
       name: "Zahra Garden",
       image:
         "https://gulfpalms.com/wp-content/uploads/2023/10/Screenshot_408.png",
-      link: "http://localhost:3000/projects/zahra-garden/",
+      link: "/projects/zahra-garden/",
     },
     {
       name: "Al Raziq",
       image:
         "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0050-1-2048x2048.png",
-      link: "http://localhost:3000/projects/al-raziq/",
+      link: "/projects/al-raziq/",
     },
     {
       name: "Sunrise Hills",
       image:
         "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9891-2048x1428.jpg",
-      link: "http://localhost:3000/projects/sunrise-hills/",
+      link: "/projects/sunrise-hills/",
     },
     {
       name: "Jahra Oasis",
       image:
         "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-8.jpeg",
-      link: "http://localhost:3000/projects/jahra-oasis/",
+      link: "/projects/jahra-oasis/",
     },
     {
       name: "Green Park",
       image:
         "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM.jpeg",
-      link: "http://localhost:3000/projects/green-park/",
+      link: "/projects/green-park/",
     },
     {
       name: "Crystal Bay",
       image: "https://gulfpalms.com/wp-content/uploads/2023/10/5.jpg",
-      link: "http://localhost:3000/projects/crystal-bay/",
+      link: "/projects/crystal-bay/",
     },
   ];
 
