@@ -9,6 +9,7 @@ import homePageImage from "@/assets/images/homePageImage.jpg";
 import Player from "@vimeo/player";
 import './video-container.css'
 import Footer from "@/components/footer/Footer";
+import Link from "next/link";
 
 function PublicPageLayout({
   children,
@@ -159,7 +160,7 @@ function PublicPageLayout({
         ></a>
       )}
       <div className="fixed bottom-[75px] left-4 cursor-pointer z-[50]">
-        <ChatIcon />
+       <Link href='https://api.whatsapp.com/send/?phone=96560660378&text&type=phone_number&app_absent=0'> <ChatIcon /> </Link>
       </div>
     </div>
   );
