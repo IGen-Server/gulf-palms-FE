@@ -12,7 +12,7 @@ function PublicPageLayout({
 }) {
   return (
     <div>
-      <div className="content overflow-x-hidden px-0 bg-white min-h-fit">
+      <div className="content overflow-x-hidden px-0 bg-white min-h-fit ">
         <PublicNavbar />
         <div className="">{children}</div>
       </div>

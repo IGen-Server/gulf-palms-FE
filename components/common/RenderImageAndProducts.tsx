@@ -1,29 +1,41 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
+"use client";
 
-import type React from "react"
-import { useEffect, useState } from "react"
-import { Currency, Ellipsis, ShoppingCart } from "lucide-react"
+import type React from "react";
+import { useEffect, useState } from "react";
+import { Currency, Ellipsis, ShoppingCart } from "lucide-react";
 
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
-import { Heart, Search, Shuffle } from "lucide-react"
-import Link from "next/link"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { Heart, Search, Shuffle } from "lucide-react";
+import Link from "next/link";
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import ProductSelectionSheet from "./ProductSelectionSheet"
-import { ProductAttribute, ProductCategoryModel } from "@/models/product/product"
-import { getProductCategoryLink } from "@/services/utility/utility.service"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import ProductSelectionSheet from "./ProductSelectionSheet";
+import {
+  ProductAttribute,
+  ProductCategoryModel,
+} from "@/models/product/product";
+import { getProductCategoryLink } from "@/services/utility/utility.service";
 
 import { useCart } from "@/providers/CartProvider";
 
 interface HoverProduct {
-  position: { x: number; y: number }
-  imgUrl: string
-  hoveredHref: string
-  hoveredTitle: string
-  productId: string
-  price: string
-  description: string
+  position: { x: number; y: number };
+  imgUrl: string;
+  hoveredHref: string;
+  hoveredTitle: string;
+  productId: string;
+  price: string;
+  description: string;
 }
 
 interface RenderImageAndProductsProps {
@@ -53,25 +65,32 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   currency,
   productId,
   currentCategories = [],
-  productAttribute
+  productAttribute,
 }) => {
-  const [hoveredProductId, setHoveredProductId] = useState<string | null>(null)
-  const [selectProductId, setSelectProductId] = useState<string | null>(null)
-  const [expandedDescriptionId, setExpandedDescriptionId] = useState<string | null>(null)
-  const [isSheetOpen, setIsSheetOpen] = useState(false)
+  const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
+  const [selectProductId, setSelectProductId] = useState<string | null>(null);
+  const [expandedDescriptionId, setExpandedDescriptionId] = useState<
+    string | null
+  >(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const { addToCart } = useCart();
-    
-    const handleAddToCart = () => {
-      addToCart({
-        id: productId,
-        name: name as string,
-        price: Number(price) as number,
-        quantity: 1,
-        image: images?.[0] || imageFileOrUrl,
-      });
-      setIsSheetOpen(false)
-    };
+
+  const handleAddToCart = () => {
+    console.log({ id: productId,
+      name: name as string,
+      price: Number(price) as number,
+      quantity: 1,
+      image: images?.[0] || imageFileOrUrl,})
+    addToCart({
+      id: productId,
+      name: name as string,
+      price: Number(price) as number,
+      quantity: 1,
+      image: images?.[0] || imageFileOrUrl,
+    });
+    setIsSheetOpen(false);
+  };
 
   if (renderType === "image") {
     return (
@@ -116,11 +135,16 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                     alt={product.hoveredTitle}
                     className="w-full h-auto object-cover mb-2"
                   />
-                  <p className="text-[14px] sm:text-[16px] font-semibold text-gray-500">{product.hoveredTitle}</p>
+                  <p className="text-[14px] sm:text-[16px] font-semibold text-gray-500">
+                    {product.hoveredTitle}
+                  </p>
                   <div
                     className={`text-xs sm:text-sm text-gray-500 overflow-hidden transition-all duration-300`}
                     style={{
-                      height: expandedDescriptionId === product.productId ? "fit-content" : "48px sm:72px",
+                      height:
+                        expandedDescriptionId === product.productId
+                          ? "fit-content"
+                          : "48px sm:72px",
                     }}
                   >
                     {product.description}
@@ -131,17 +155,25 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                       <div className="absolute h-[15px] blur-sm bg-white/80 w-full -top-3 left-0"></div>
                     )}
                     <Ellipsis
-                      className={expandedDescriptionId === product.productId ? "opacity-0" : "cursor-pointer"}
+                      className={
+                        expandedDescriptionId === product.productId
+                          ? "opacity-0"
+                          : "cursor-pointer"
+                      }
                       onClick={() =>
-                        setExpandedDescriptionId((prevId) => (prevId === product.productId ? null : product.productId))
+                        setExpandedDescriptionId((prevId) =>
+                          prevId === product.productId
+                            ? null
+                            : product.productId
+                        )
                       }
                     />
-                    <Link
-                      href={product.hoveredHref}
-                      className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-full"
+                    <div
+                      className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-full cursor-pointer"
+                      onClick={() => handleAddToCart()}
                     >
                       ADD TO CART
-                    </Link>
+                    </div>
                   </div>
                 </HoverCardContent>
               )}
@@ -149,7 +181,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           </HoverCard>
         ))}
       </div>
-    )
+    );
   }
 
   if (renderType === "product") {
@@ -162,14 +194,16 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
         >
           <div className="w-full h-full sm:h-[280px] duration-700 overflow-hidden relative">
             <img
-              src={images?.[0]?.src || "/placeholder.svg"}
+              src={imageFileOrUrl || images?.[0]?.src  || "/placeholder.svg"}
               alt={name}
               className={`absolute inset-0 w-full h-full object-cover ${
-                hoveredProductId === productId ? " opacity-100 lg:opacity-0 " : " lg:opacity-100 "
+                hoveredProductId === productId
+                  ? " opacity-100 lg:opacity-0 "
+                  : " lg:opacity-100 "
               }`}
             />
             <img
-              src={images?.[1]?.src || "/placeholder.svg"}
+              src={images?.[1]?.src || imageFileOrUrl || images?.[0]?.src || "/placeholder.svg"}
               alt={name}
               className={`absolute inset-0 w-full h-full object-cover ${
                 hoveredProductId === productId
@@ -178,38 +212,57 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               }`}
             />
 
-            {
-              productAttribute && productAttribute.visible && productAttribute.variation &&
-              <ProductSelectionSheet
-                isOpen={isSheetOpen}
-                onClose={() => {setSelectProductId(null);setIsSheetOpen(false)}}
-                productId={productId}
-                options={productAttribute.options}
-              />
-            }
+            {productAttribute &&
+              productAttribute.visible &&
+              productAttribute.variation && (
+                <ProductSelectionSheet
+                  isOpen={isSheetOpen}
+                  onClose={() => {
+                    setSelectProductId(null);
+                    setIsSheetOpen(false);
+                  }}
+                  productId={productId}
+                  options={productAttribute.options}
+                />
+              )}
 
-            <div className={`hidden lg:block absolute bottom-0 left-0 w-full h-[38px] overflow-hidden ${selectProductId === productId && 'z-[20]' }`}>
+            <div
+              className={`hidden lg:block absolute bottom-0 left-0 w-full h-[38px] overflow-hidden ${
+                selectProductId === productId && "z-[20]"
+              }`}
+            >
               <div
                 className={`h-full bg-primary w-full text-center font-arabic text-white duration-500 ${
-                  (hoveredProductId === productId) || (selectProductId === productId) ? " cursor-pointer opacity-90" : " opacity-0 pointer-events-none "
+                  hoveredProductId === productId ||
+                  selectProductId === productId
+                    ? " cursor-pointer opacity-90"
+                    : " opacity-0 pointer-events-none "
                 }`}
               >
                 <div className="group/cart relative h-full flex flex-col items-center justify-center">
-                  <p className={`translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200 text-xs sm:text-sm ${
-                selectProductId === productId ? " -translate-y-[20px] " : "  "
-              }`}>
+                  <p
+                    className={`translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200 text-xs sm:text-sm ${
+                      selectProductId === productId
+                        ? " -translate-y-[20px] "
+                        : "  "
+                    }`}
+                  >
                     SELECT OPTIONS
                   </p>
-                  <p className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${
-                selectProductId === productId ? " -translate-y-3 z-[20] " : "  "
-              } `}
-                  onClick={() => {
-                    setSelectProductId(productId)
-                    setIsSheetOpen(true)
-                  }}
+                  <p
+                    className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${
+                      selectProductId === productId
+                        ? " -translate-y-3 z-[20] "
+                        : "  "
+                    } `}
+                    onClick={() => {
+                      setSelectProductId(productId);
+                      setIsSheetOpen(true);
+                    }}
                   >
-                    <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" 
-                    onClick={handleAddToCart}
+                    <ShoppingCart
+                      className="w-4 h-4 sm:w-5 sm:h-5"
+                      onClick={handleAddToCart}
                     />
                   </p>
                 </div>
@@ -218,7 +271,8 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             <div className="hidden lg:grid absolute top-2 right-2 rounded-lg  place-content-center">
               <div
                 className={`h-[100px] sm:h-[135px] w-[35px] sm:w-[45px] text-center font-arabic text-gray-700 duration-500 ${
-                  (hoveredProductId === productId) || (selectProductId === productId) 
+                  hoveredProductId === productId ||
+                  selectProductId === productId
                     ? "!translate-y-[0px] shadow shadow-gray-300 p-2 bg-white"
                     : "opacity-0 pointer-events-none translate-x-[50px]"
                 }`}
@@ -230,7 +284,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                         <TooltipTrigger asChild>
                           <Shuffle className="cursor-pointer w-[15px] sm:w-[20px]" />
                         </TooltipTrigger>
-                        <TooltipContent sideOffset={15} side="left" className="bg-black">
+                        <TooltipContent
+                          sideOffset={15}
+                          side="left"
+                          className="bg-black"
+                        >
                           <p className="text-xs sm:text-sm">Compare</p>
                         </TooltipContent>
                       </Tooltip>
@@ -238,7 +296,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                         <TooltipTrigger asChild>
                           <Search className="cursor-pointer w-[15px] sm:w-[20px]" />
                         </TooltipTrigger>
-                        <TooltipContent sideOffset={15} side="left" className="bg-black">
+                        <TooltipContent
+                          sideOffset={15}
+                          side="left"
+                          className="bg-black"
+                        >
                           <p className="text-xs sm:text-sm">Quickview</p>
                         </TooltipContent>
                       </Tooltip>
@@ -246,7 +308,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                         <TooltipTrigger asChild>
                           <Heart className="cursor-pointer w-[15px] sm:w-[20px]" />
                         </TooltipTrigger>
-                        <TooltipContent sideOffset={15} side="left" className="bg-black">
+                        <TooltipContent
+                          sideOffset={15}
+                          side="left"
+                          className="bg-black"
+                        >
                           <p className="text-xs sm:text-sm">Add to wishlist</p>
                         </TooltipContent>
                       </Tooltip>
@@ -261,42 +327,49 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             </div>
             <div
               onClick={() => {
-                setSelectProductId(productId)
-                setIsSheetOpen(true)
+                setSelectProductId(productId);
+                setIsSheetOpen(true);
               }}
               className={`lg:hidden absolute left-2 p-1 bottom-1 grid place-content-center bg-primary shadow-md h-[35px] ${
                 selectProductId === productId ? "w-full z-[20]" : "w-[35px]"
               } `}
             >
               <ShoppingCart
-              onClick={handleAddToCart}
-              className="cursor-pointer w-full text-white" />
+                onClick={handleAddToCart}
+                className="cursor-pointer w-full text-white"
+              />
             </div>
           </div>
 
           <div className="text-center bg-white mt-2 ">
-            
             <Link href={`/product/${slug}`} className="text-center">
-              <h2 className="text-[12px] sm:text-[14px] font-arabic text-gray-800">{name}</h2>
+              <h2 className="text-[12px] sm:text-[14px] font-arabic text-gray-800">
+                {name}
+              </h2>
             </Link>
             {/* <p className="text-[11px] sm:text-[13.3px] text-gray-500 overflow-ellipsis">{description}</p> */}
             {currentCategories.map((category, index) => (
               <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
-                <Link href={getProductCategoryLink(currentCategories, index)} rel="tag" className="hover:underline">
+                <Link
+                  href={getProductCategoryLink(currentCategories, index)}
+                  rel="tag"
+                  className="hover:underline"
+                >
                   {category.name}
                 </Link>
                 {index < currentCategories.length - 1 && ", "}
               </span>
             ))}
-            <p className="text-[12px] sm:text-[14px] text-primary font-bold">{price} {currency}</p>
+            <p className="text-[12px] sm:text-[14px] text-primary font-bold">
+              {price} {currency}
+            </p>
           </div>
         </div>
       </>
-    )
+    );
   }
 
-  return null
-}
+  return null;
+};
 
-export default RenderImageAndProducts
-
+export default RenderImageAndProducts;

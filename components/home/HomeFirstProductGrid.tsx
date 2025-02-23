@@ -27,7 +27,9 @@ export default function HomeFirstProductGrid() {
         <div className="w-[calc(50vw-17px)] lg:w-[352px] flex flex-col h-full gap-[17px]">
           <div className="w-full h-[325px]">
             <RenderImageAndProducts
-              productId=""
+              productId="1"
+              name= "Flower"
+              price = {10}
               renderType="image"
               imageFileOrUrl={`"https://gulfpalms.com/wp-content/uploads/2023/10/3123600by600-thumb-430x430.jpg"`}
               hoverProducts={[
@@ -72,7 +74,9 @@ export default function HomeFirstProductGrid() {
           </div>
           <div className="w-full flex-1 h-full">
             <RenderImageAndProducts
-              productId=""
+              productId="2"
+              name= "Flower"
+              price = {10}
               renderType="image"
               imageFileOrUrl={`https://gulfpalms.com/wp-content/uploads/2023/10/lkl600by800-thumb.jpg`}
               hoverProducts={[
@@ -143,7 +147,9 @@ export default function HomeFirstProductGrid() {
         <div className="w-[calc(50vw-17px)] lg:w-[352px] flex flex-col h-full gap-[17px]">
           <div className="w-full h-full flex-1">
             <RenderImageAndProducts
-              productId=""
+              productId="3"
+              name= "Flower"
+              price = {10}
               renderType="image"
               imageFileOrUrl={`https://gulfpalms.com/wp-content/uploads/2023/10/3-mian-img.jpg`}
               hoverProducts={[
@@ -164,7 +170,9 @@ export default function HomeFirstProductGrid() {
           </div>
           <div className="w-full h-[325px]">
             <RenderImageAndProducts
-              productId=""
+              productId="4"
+              name= "Flower"
+              price = {10}
               renderType="image"
               imageFileOrUrl={`https://gulfpalms.com/wp-content/uploads/2023/10/kjkjkj600by600-thumb.jpg`}
               hoverProducts={[

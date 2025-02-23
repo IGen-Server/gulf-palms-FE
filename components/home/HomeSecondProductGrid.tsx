@@ -9,6 +9,8 @@ export default function HomeSecondProductGrid() {
           <div className="w-[45vw] lg:w-[446.65px] h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
+              name= "Flower"
+              price = {10}
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/jjf600by800-thumb.jpg"
               hoverProducts={[
                 {
@@ -30,6 +32,8 @@ export default function HomeSecondProductGrid() {
           <div className="w-[45vw] lg:w-[446.65px] h-[446.6px]">
             <RenderImageAndProducts
               renderType="image"
+              name= "Flower"
+              price = {10}
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/09/600by600-thumb5-300x300.jpg"
               hoverProducts={[
                 {
@@ -77,6 +81,9 @@ export default function HomeSecondProductGrid() {
           <div className="w-[45vw] lg:w-[446.65px] h-[446.6px]">
             <RenderImageAndProducts
               renderType="image"
+
+              name= "Flower"
+              price = {10}
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/09/600by6003-thumb-300x300.jpg"
               hoverProducts={[
                 {
@@ -98,6 +105,8 @@ export default function HomeSecondProductGrid() {
           <div className="w-[45vw] lg:w-[446.65px] h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
+              name= "Flower"
+              price = {10}
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/e600by800-thumb.jpg"
               hoverProducts={[
                 {
@@ -145,6 +154,8 @@ export default function HomeSecondProductGrid() {
           <div className="w-[100vw] lg:w-[446.65px] h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
+              name= "Flower"
+              price = {10}
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/q600by800-thumb.jpg"
               hoverProducts={[
                 {
@@ -190,6 +201,8 @@ export default function HomeSecondProductGrid() {
           <div className="w-[100vw] lg:w-[446.65px] h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
+              name= "Flower"
+              price = {10}
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/w600by800-thumb.jpg"
               hoverProducts={[]}
               productId={""}

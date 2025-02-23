@@ -188,12 +188,12 @@ export default function ProductPage({
       <ProductDetails product={product} slugToCategoryRecord={slugToCategoryRecord}/>
       
       <div className="w-screen max-w-[1370px] mx-auto py-[100px]">
-        <ProductDetailsExtended
+        {suggestedProducts.length > 0  && <ProductDetailsExtended
           fertilizationData={fertilizationData}
           waterRequirementData={waterRequirementData}
           recommendedProducts={suggestedProducts}
-        />
-        <RelatedProducts products={relatedProducts} />
+        />}
+        {relatedProducts.length > 0 && <RelatedProducts products={relatedProducts} />}
       </div>
       <GetInTouch />
     </div>

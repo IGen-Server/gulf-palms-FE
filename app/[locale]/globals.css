@@ -120,16 +120,23 @@
 .content {
   z-index: 48 !important;
   background: #fff;
-  margin-bottom: 480px;
+  margin-bottom: 680px;
 }
+
+@media (max-width: 1020px) {
+  .content {
+    margin-bottom: 1500px !important;
+  }
+}
+
 
 .footer {
   position: fixed;
   bottom: 0;
   right: 0;
   left: 0;
-  height: 480px;
   z-index: -1 !important;
+  min-height: fit-content;
 }
 
 @layer base {
