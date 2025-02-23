@@ -4,17 +4,18 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
 export default function HeroSection() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === "ar"; // Check if the language is Arabic
 
   const content = (
     <>
-      <p className="text-[24px] sm:text-[28px] lg:text-[42px] font-[300] font-sans">
+      <p className={`text-[24px] ${isArabic ? 'text-right' : 'text-left'} sm:text-[28px] lg:text-[42px] font-[300] font-sans`}>
         YOUR ONE-STOP SOLUTION FOR
       </p>
-      <p className="text-[28px] sm:text-[32px] lg:text-[46px] font-bold font-arabic pt-1">
+      <p className={`text-[28px] ${isArabic ? 'text-right' : 'text-left'} sm:text-[32px] lg:text-[46px] font-bold font-arabic pt-1`}>
         ALL YOUR LANDSCAPING NEEDS
       </p>
-      <p className="text-[14px] lg:text-[16px] pt-3 font-sans max-w-[600px] mx-auto lg:mx-0">
+      <p className={`text-[14px] lg:text-[16px] pt-3 font-sans max-w-[600px] mx-auto lg:mx-0 ${isArabic ? 'text-right' : 'text-left'}`}>
         A concept focused on customer delight, Gulf Palms has been striving to
         bring you closer to nature.
       </p>
@@ -36,7 +37,7 @@ export default function HeroSection() {
   );
 
   return (
-    <div className="w-full lg:max-w-[1000px] px-4 text-center lg:text-left absolute top-[125px] lg:top-[150px] 2xl:top-[333px] lg:ml-[50px] 2xl:-ml-[25px]">
+    <div className="w-full lg:max-w-[1000px] px-4 lg:text-left absolute top-[125px] lg:top-[150px] 2xl:top-[333px] lg:ml-[50px] 2xl:-ml-[25px]">
       <div className="relative z-10 text-white lg:text-secondary">
         {content}
       </div>

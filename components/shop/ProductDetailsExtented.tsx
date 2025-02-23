@@ -1,36 +1,64 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
+"use client";
 
-import * as React from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ChevronLeft, ChevronRight, Plus } from "lucide-react"
-import RenderImageAndProducts from "../common/RenderImageAndProducts"
-import { extractCurrency } from "@/services/utility/utility.service"
+import * as React from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import RenderImageAndProducts from "../common/RenderImageAndProducts";
+import { extractCurrency } from "@/services/utility/utility.service";
 
 interface ProductDetailsProps {
   fertilizationData: {
-    size: string
-    details: string
-  }[]
+    size: string;
+    details: string;
+  }[];
   waterRequirementData: {
-    size: string
-    details: string
-  }[]
-  recommendedProducts: any[]
+    size: string;
+    details: string;
+  }[];
+  recommendedProducts: any[];
 }
 
-export function ProductDetailsExtended({ fertilizationData, waterRequirementData, recommendedProducts }: ProductDetailsProps) {
-  const [selectedProducts, setSelectedProducts] = React.useState<string[]>([])
-  const [currentSlide, setCurrentSlide] = React.useState(0)
+export function ProductDetailsExtended({
+  fertilizationData,
+  waterRequirementData,
+  recommendedProducts,
+}: ProductDetailsProps) {
+  const [selectedProducts, setSelectedProducts] = React.useState<string[]>([]);
+  const [currentSlide, setCurrentSlide] = React.useState(0);
 
   const totalPrice = React.useMemo(() => {
     return recommendedProducts
       .filter((product) => selectedProducts.includes(product.id))
-      .reduce((sum, product) => (sum + +product.price), 0);
+      .reduce((sum, product) => sum + +product.price, 0);
   }, [recommendedProducts, selectedProducts]);
+
+  const chunkArray = (array: any[], size: number) => {
+    return array.length > 0
+      ? Array.from({ length: Math.ceil(array.length / size) }, (_, i) =>
+          array.slice(i * size, i * size + size)
+        )
+      : [];
+  };
+
+  const productChunks = chunkArray(recommendedProducts, 3);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => Math.min(prev + 1, productChunks.length - 1));
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => Math.max(prev - 1, 0));
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto mb-16 border-t ">
@@ -52,11 +80,14 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
 
         <TabsContent value="fertilization" className="mt-0 pb-[50px] px-5">
           <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
+            <table className="w-full border-collapse">
               <thead className="bg-[#f3b083]">
                 <tr>
                   {fertilizationData.map((item, index) => (
-                    <th key={index} className="p-4 text-center font-semibold border">
+                    <th
+                      key={index}
+                      className="p-4 text-center font-semibold border"
+                    >
                       {item.size}
                     </th>
                   ))}
@@ -65,7 +96,10 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
               <tbody>
                 <tr>
                   {fertilizationData.map((item, index) => (
-                    <td key={index} className="p-4 text-sm text-gray-600 text-center border">
+                    <td
+                      key={index}
+                      className="p-4 text-sm text-gray-600 text-center border"
+                    >
                       {item.details}
                     </td>
                   ))}
@@ -76,12 +110,15 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
         </TabsContent>
 
         <TabsContent value="water" className="mt-0 pb-[50px] px-5">
-        <div className="overflow-x-auto">
+          <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead className="bg-[#f3b083]">
                 <tr>
                   {waterRequirementData.map((item, index) => (
-                    <th key={index} className="p-4 text-center font-semibold border">
+                    <th
+                      key={index}
+                      className="p-4 text-center font-semibold border"
+                    >
                       {item.size}
                     </th>
                   ))}
@@ -90,7 +127,10 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
               <tbody>
                 <tr>
                   {waterRequirementData.map((item, index) => (
-                    <td key={index} className="p-4 text-sm text-gray-600 text-center border">
+                    <td
+                      key={index}
+                      className="p-4 text-sm text-gray-600 text-center border"
+                    >
                       {item.details}
                     </td>
                   ))}
@@ -109,21 +149,23 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Product Slider */}
           <div className="flex-1 relative">
-            <div className="flex items-center gap-4">
+            {/* Product Slider */}
+            <div className="flex-1 relative flex items-center">
               <button
-                onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))}
-                className="absolute left-0 z-1 p-2"
+                onClick={prevSlide}
+                className="absolute left-0 z-10 p-2 bg-white  rounded-full"
+                disabled={currentSlide === 0}
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-6 w-6 text-gray-500" />
               </button>
 
               <div className="overflow-hidden mx-8">
-                <div
-                  className="flex items-center gap-5 transition-transform duration-300"
-                  style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                >
-                  {recommendedProducts.map((product, index) => (
-                    <div key={product.id} className="w-[200px] relative ">
+                <div className="flex transition-transform duration-300 ease-in-out">
+                  {productChunks[currentSlide]?.map((product, index) => (
+                    <div
+                      key={product.id}
+                      className="w-[200px] flex-shrink-0 relative mx-2"
+                    >
                       <RenderImageAndProducts
                         key={product.id}
                         renderType="product"
@@ -136,7 +178,9 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
                         currency={extractCurrency(product.price_html)}
                         productId={product.id}
                         currentCategories={product.categories}
-                        productAttribute={product.attributes ? product.attributes[0] : {}}
+                        productAttribute={
+                          product.attributes ? product.attributes[0] : {}
+                        }
                       />
                       {index > 0 && (
                         <Plus className="absolute top-1/2 -left-5 h-6 w-6 text-gray-400 z-[200]" />
@@ -147,14 +191,11 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
               </div>
 
               <button
-                onClick={() =>
-                  setCurrentSlide(
-                    Math.min(recommendedProducts.length - 1, currentSlide + 1)
-                  )
-                }
-                className="absolute right-0 z-10 p-2"
+                onClick={nextSlide}
+                className="absolute right-0 z-10 p-2 bg-white rounded-full"
+                disabled={currentSlide >= productChunks.length - 1}
               >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-6 w-6 text-gray-500" />
               </button>
             </div>
           </div>
@@ -192,24 +233,29 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
                       </span>
                     </div>
                   </div>
-                  {product && product.attributes[0] && product.attributes[0].visible && product.attributes[0].variation && (
-                    <Select defaultValue={product?.attributes[0]?.options?.[0]}>
-                      <SelectTrigger className="w-full h-8 sm:h-10 text-xs sm:text-sm">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {product?.attributes[0]?.options?.map((size: any) => (
-                          <SelectItem
-                            key={size}
-                            value={size}
-                            className="text-xs sm:text-sm"
-                          >
-                            {size}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  )}
+                  {product &&
+                    product.attributes[0] &&
+                    product.attributes[0].visible &&
+                    product.attributes[0].variation && (
+                      <Select
+                        defaultValue={product?.attributes[0]?.options?.[0]}
+                      >
+                        <SelectTrigger className="w-full h-8 sm:h-10 text-xs sm:text-sm">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {product?.attributes[0]?.options?.map((size: any) => (
+                            <SelectItem
+                              key={size}
+                              value={size}
+                              className="text-xs sm:text-sm"
+                            >
+                              {size}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
                 </div>
               </div>
             ))}
@@ -223,7 +269,7 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
               </p>
               <Button
                 className="w-full bg-[#fdb777] hover:bg-[#fda757] text-white h-8 sm:h-10 text-xs sm:text-sm"
-                onClick={() => console.log( selectedProducts)}
+                onClick={() => console.log(selectedProducts)}
               >
                 ADD TO CART
               </Button>
@@ -234,4 +280,3 @@ export function ProductDetailsExtended({ fertilizationData, waterRequirementData
     </div>
   );
 }
-

@@ -161,7 +161,7 @@ export default function PublicNavbar() {
                 triggerComponent={
                   <Button
                     variant="ghost"
-                    className="hover:bg-transparent w-fit p-0 flex items-center"
+                    className="hover:bg-transparent w-fit p-0 flex items-center text-white"
                   >
                     <div ref={cartRef} className="relative cursor-pointer">
                       <ShoppingCart className="w-5 h-5" />
@@ -219,10 +219,10 @@ export default function PublicNavbar() {
                 <Button
                   asChild
                   variant="ghost"
-                  className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn hover:text-white"
+                  className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn hover:text-white text-white"
                 >
                   <div className="relative cursor-pointer">
-                    <ShoppingCart className="w-5 h-5" />
+                    <ShoppingCart className="w-5 h-5 " />
                     <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
                       {cartItems?.length || 0}
                     </p>
