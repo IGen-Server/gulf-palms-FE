@@ -8,7 +8,19 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import SkeletonType2 from "@/components/skeleton/skeleton-type2";
 
-export default function OrdersPage({ orders = null }: { orders: any[] | null }) {
+export default function OrdersPage({ orders = null, refreshOrders }: { orders: any[] | null, refreshOrders: () => void; }) {
+
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true, true);
+
+  function onOrderCancel(orderId: number) {
+    OrderService.Cancel(orderId, axiosInstanceWithLoader)
+      .then(response => {
+        refreshOrders();
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   return (
     <div>
@@ -41,9 +53,12 @@ export default function OrdersPage({ orders = null }: { orders: any[] | null }) 
                   <td className="px-4 py-4">
                     <span className="text-[#ff9666]">{order.total} {order.currency_symbol}</span> for {getTotalQuantity(order?.line_items) || 0} items
                   </td>
-                  <td className="px-4 py-4 pl-[100px]">
+                  <td className="px-4 py-4 pl-[100px] flex justify-end gap-2">
+                    {/* <span>status: {order.status}</span><br></br>
+                    <span>{order.needs_payment ? 'needs_payment' : 'no needs_payment'}</span><br></br>
+                    <span>{order.needs_processing ? 'needs_processing' : 'no needs_processing'}</span><br></br> */}
                     {
-                      order.needs_payment && !order.date_paid &&
+                      (order.status === 'processing' || order.status === 'pending') && order.is_editable && getTotalQuantity(order?.line_items) > 0 &&
                       <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
                         PAY
                       </Button>
@@ -54,8 +69,8 @@ export default function OrdersPage({ orders = null }: { orders: any[] | null }) 
                       </Button>
                     }
                     {
-                      order.status !== 'cancelled' && !order.date_paid && !order.date_completed &&
-                      <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
+                      (order.status === 'processing' || order.status === 'pending') && order.is_editable &&
+                      <Button onClick={() => onOrderCancel(order.id)} size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
                         CANCEL
                       </Button>
                     }
@@ -116,17 +131,17 @@ export default function OrdersPage({ orders = null }: { orders: any[] | null }) 
         <div className="flex justify-between items-start">
           <span className="text-gray-800 text-[12.5px] font-[600]">ACTIONS</span>
           <div className="text-right">
-          <div className="flex justify-end gap-2">
-          <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
-            PAY
-          </Button>
-          <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
-            VIEW
-          </Button>
-          <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
-            CANCEL
-          </Button>
-        </div>
+            <div className="flex justify-end gap-2">
+              <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
+                PAY
+              </Button>
+              <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
+                VIEW
+              </Button>
+              <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
+                CANCEL
+              </Button>
+            </div>
           </div>
         </div>
         

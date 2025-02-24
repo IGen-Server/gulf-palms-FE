@@ -1,4 +1,4 @@
-import axios, { HttpStatusCode } from 'axios';
+import axios, { CanceledError, HttpStatusCode } from 'axios';
 import { CookieStorageService } from './storage.service';
 import { useRouter } from 'next/router';
 import { ApiBaseUrl, ApiMaxTimeOut } from '@/constants/url.constant';
@@ -17,6 +17,7 @@ export const ApiRoutes = {
   Order: {
     GetById: 'orders/getById',
     Get: 'orders',
+    Cancel: 'orders/cancel',
   },
   Product: {
     GetById: 'products/getById',

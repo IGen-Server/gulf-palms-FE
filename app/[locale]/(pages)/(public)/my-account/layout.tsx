@@ -26,17 +26,19 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
   const [orderConfig, setOrderConfig] = useState({ }); // page: 1, per_page: 10
   const [orders, setOrders] = useState<any[] | null>(null);
   
-  useEffect(() => {
-    const getOrders = async () => {
-      OrderService.Get(orderConfig, axiosInstanceWithLoader)
-        .then(response=> {
-          setOrders(response || []);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    };
+  const getOrders = async () => {
+    setOrders(null);
 
+    OrderService.Get(orderConfig, axiosInstanceWithLoader)
+      .then(response=> {
+        setOrders(response || []);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
     getOrders();
   }, [orderConfig]);
 
@@ -76,7 +78,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
               {(() => {
                 switch (pathname.split('/').filter(Boolean).pop()) {
                   case ClientRoutes.User.MyAccountOrders.split('/').filter(Boolean).pop():
-                    return <OrdersPage orders={orders} />;
+                    return <OrdersPage orders={orders} refreshOrders={getOrders} />;
                   default:
                     return children;
                 }

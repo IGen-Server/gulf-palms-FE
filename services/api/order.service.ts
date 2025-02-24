@@ -31,4 +31,17 @@ export const OrderService  = {
       throw error;
     }
   },
+  async Cancel(orderId: number, axiosInstance: CustomAxiosInstance, requiresJwt: boolean = false, enableLoader: boolean = true): Promise<any> {
+    
+    axiosInstance = updateAxiosInstanceLoaderAndJwtChecking(axiosInstance, requiresJwt, enableLoader);
+    
+    try {
+      const ordersUrl = `${ApiRoutes.Order.Cancel}/${orderId}`;
+
+      const response = await axiosInstance.patch<any>(ordersUrl);
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
 }
