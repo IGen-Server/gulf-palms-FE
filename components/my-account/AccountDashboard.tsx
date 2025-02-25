@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link"
 import { FileText, Download, MapPin, User, LogOut } from "lucide-react"
 

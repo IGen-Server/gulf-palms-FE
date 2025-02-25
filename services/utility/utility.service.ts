@@ -2,8 +2,8 @@ import { AxiosInstance } from "axios";
 import AxiosInstanceWithInterceptor from "./api.service";
 import { CookieStorageService } from "./storage.service";
 import { CustomAxiosInstance } from "./axios-with-loader.service";
-import { ClientRoutes } from "./router.service";
 import { ProductCategoryModel } from "@/models/product/product";
+import { ClientRoutes } from "./router.service";
 
 export function getNameInitials(name: string): string {
   return name

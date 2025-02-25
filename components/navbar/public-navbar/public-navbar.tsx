@@ -16,7 +16,7 @@ import BrandFullLogo from "../../logo/brand-full-logo";
 import { LocaleToggler } from "../../LocaleProvider/locale-togger";
 import { NavLinksWithName } from "@/constants/global-constants";
 import { useTranslation } from "react-i18next";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   HoverCard,
@@ -31,7 +31,7 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 import { useCart } from "@/providers/CartProvider";
 import SearchDrawer from "@/components/search/SearchDrawer";
 import { useAuth } from "@/providers/AuthProvider";
-import { ClientRoutes, RouteService } from "@/services/utility/router.service";
+import { ClientRoutes } from "@/services/utility/router.service";
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -43,9 +43,8 @@ export default function PublicNavbar() {
   const pathname = usePathname();
   const [isHomePage, setIsHomePage] = useState(false);
   const { cartItems, subtotal } = useCart();
-
+  const router = useRouter();
   const { user } = useAuth();
-  const routeService = new RouteService();
 
   useEffect(() => {
     if (
@@ -184,7 +183,7 @@ export default function PublicNavbar() {
               variant="ghost"
               className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
               onClick={() =>
-                routeService.redirectTo(ClientRoutes.User.MyAccountDashboard)
+                () => router.push(ClientRoutes.User.MyAccountDashboard)
               }
             >
               <p className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
