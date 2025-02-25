@@ -5,7 +5,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 export const useRouteService = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = new URLSearchParams(useSearchParams().toString());
+  const searchParams = useSearchParams();
 
   return {
     router,
@@ -29,7 +29,7 @@ export const ClientRoutes = {
 export class RouteService {
   private router = useRouter();
   private pathname = usePathname();
-  private searchParams = new URLSearchParams(useSearchParams().toString());
+  private searchParams = useSearchParams();
   // private langCodes: string[] = getLanguageCodesAsArray();
 
   constructor() {}
