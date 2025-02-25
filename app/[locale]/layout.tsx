@@ -36,7 +36,6 @@ export default function RootLayout({
   return (
     <html lang={locale} dir={dir(locale)} suppressHydrationWarning>
       <head>
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
         <link rel="favicon" href="public\images\favicon\favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
         <link
