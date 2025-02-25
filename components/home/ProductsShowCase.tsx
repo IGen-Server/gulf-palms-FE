@@ -50,7 +50,7 @@ const products = [
 
 const topLayer = (
   <div className=" grid h-full w-full place-content-center">
-    <div className=" w-[476px] py-3 h-full flex flex-col justify-center items-center">
+    <div className="max-lg:w-[85vw] lg:w-[576px] py-3 h-full flex flex-col justify-center items-center">
       <div className="grid place-content-center w-full ">
         <div className="pb-[20px] text-center w-[364px] ">
           <p className="text-[#777777] text-[30px] font-sans font-light">
@@ -68,6 +68,7 @@ const topLayer = (
       <CustomCarousel
         slidesToShow={2}
         slidesToScroll={2}
+        MobileSlidesNumber={1}
         data={products.map((product) => ({
           component: (
             <RenderImageAndProducts
@@ -101,7 +102,7 @@ export default function ProductsShowCase() {
             type: "image",
             src: "https://gulfpalms.com/wp-content/uploads/2023/06/3-slide-img.jpg",
             bgColor: "bg-white",
-            imgHeight: "h-[706px]",
+            imgHeight: "h-[706px] lg:max-w-[540px]",
           }}
           leftContent={{
             type: "component",
@@ -114,7 +115,7 @@ export default function ProductsShowCase() {
             type: "image",
             src: "https://gulfpalms.com/wp-content/uploads/2021/09/2-slide-img.jpg",
             bgColor: "bg-white",
-            imgHeight: "h-[730px]",
+            imgHeight: "h-[730px] lg:max-w-[540px]",
           }}
           rightContent={{
             type: "component",

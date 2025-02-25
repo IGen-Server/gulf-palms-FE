@@ -105,7 +105,7 @@ export default function CustomCarousel({
     <div className="relative w-full min-h-[300px] md:min-h-[420px] h-fit group">
       <Slider autoplay={autoPlay} {...settings} className="w-full">
         {data.map((item, index) => (
-          <div key={index} className="h-full">
+          <div key={index} className="h-full ">
             {/* <span>{item.imageSrc}</span> */}
             {item.imageSrc ? (
               <img

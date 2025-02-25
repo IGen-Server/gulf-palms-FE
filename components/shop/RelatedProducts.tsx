@@ -145,6 +145,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
         <CustomCarousel
           slidesToShow={4}
           slidesToScroll={4}
+          MobileSlidesNumber={1}
           data={products?.map((product) => ({
             component: (
               <RenderImageAndProducts
