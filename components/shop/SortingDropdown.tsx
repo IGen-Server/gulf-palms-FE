@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -24,7 +24,6 @@ interface SortingDropdownProps {
 
 export function SortingDropdown({ setSorting }: SortingDropdownProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   // List of valid orderby values
   const [currentOrderby, setCurrentOrderby] = useState<string>('menu_order');
