@@ -147,7 +147,7 @@ function PublicPageLayout({
         <PublicNavbar />
         <div>{children}</div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
       {isVisible && (
         <a
           href="#"
