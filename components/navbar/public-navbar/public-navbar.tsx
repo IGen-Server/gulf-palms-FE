@@ -178,18 +178,14 @@ export default function PublicNavbar() {
           </div>
 
           {user && (
-            <Button
-              asChild
-              variant="ghost"
+            <Link
+              href={ClientRoutes.User.MyAccountDashboard}
               className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
-              onClick={() =>
-                () => router.push(ClientRoutes.User.MyAccountDashboard)
-              }
             >
-              <p className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
+              <span className="w-[5.5rem] !text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
                 My Account
-              </p>
-            </Button>
+              </span>
+            </Link>
           )}
           {!user && (
             <SideDrawer
