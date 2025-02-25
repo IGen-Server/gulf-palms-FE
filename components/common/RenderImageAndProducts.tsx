@@ -52,6 +52,7 @@ interface RenderImageAndProductsProps {
   productId: string;
   currentCategories: ProductCategoryModel[];
   productAttribute: ProductAttribute | null;
+  quantity?: number;
 }
 
 const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
@@ -67,6 +68,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   productId,
   currentCategories = [],
   productAttribute,
+  quantity
 }) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
   const [selectProductId, setSelectProductId] = useState<string | null>(null);
@@ -184,12 +186,13 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   if (renderType === "product") {
     const productData = {
       id: productId,
-      name: name,
+      name: name || '',
       price: Number(price),
       description: description || "Product description not available",
-      image: imageFileOrUrl || images[0]?.src || images[0],
+      image: imageFileOrUrl || (images && (images[0]?.src || images[0])),
       sku: productId || 'N/A',
       categories: currentCategories,
+      quantity: quantity,
     };
     return (
       <>

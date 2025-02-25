@@ -28,48 +28,43 @@ export default function HomeFirstProductGrid() {
           <div className="w-full h-[325px]">
             <RenderImageAndProducts
               productId="1"
-              name= "Flower"
-              price = {10}
+              name="Flower"
+              price={10}
               renderType="image"
               imageFileOrUrl={`"https://gulfpalms.com/wp-content/uploads/2023/10/3123600by600-thumb-430x430.jpg"`}
               hoverProducts={[
                 {
                   position: { x: 10, y: 27 },
-                  imgUrl:
-                    "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
+                  imgUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
                   productId: "1",
                   hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref:
-                    "https://gulfpalms.com/en/product/cholorophytum/",
+                  hoveredHref: "https://gulfpalms.com/en/product/cholorophytum/",
                   price: "2000",
-                  description:
-                    "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
+                  description: "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
                 },
                 {
                   position: { x: 52, y: 62 },
-                  imgUrl:
-                    "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
+                  imgUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
                   productId: "2",
                   hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref:
-                    "https://gulfpalms.com/en/product/cholorophytum/",
+                  hoveredHref: "https://gulfpalms.com/en/product/cholorophytum/",
                   price: "2000",
-                  description:
-                    "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
+                  description: "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
                 },
                 {
                   position: { x: 75, y: 72 },
-                  imgUrl:
-                    "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
+                  imgUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
                   productId: "3",
                   hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref:
-                    "https://gulfpalms.com/en/product/cholorophytum/",
+                  hoveredHref: "https://gulfpalms.com/en/product/cholorophytum/",
                   price: "2000",
-                  description:
-                    "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
+                  description: "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
                 },
               ]}
+              slug={""}
+              currency={""}
+              currentCategories={[]}
+              productAttribute={null}
             />
           </div>
           <div className="w-full flex-1 h-full">
@@ -141,6 +136,10 @@ export default function HomeFirstProductGrid() {
                     "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
                 },
               ]}
+              slug={""}
+              currency={""}
+              currentCategories={[]}
+              productAttribute={null}
             />
           </div>
         </div>
@@ -166,6 +165,10 @@ export default function HomeFirstProductGrid() {
                     "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
                 },
               ]}
+              slug={""}
+              currency={""}
+              currentCategories={[]}
+              productAttribute={null}
             />
           </div>
           <div className="w-full h-[325px]">
@@ -189,6 +192,10 @@ export default function HomeFirstProductGrid() {
                     "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
                 },
               ]}
+              slug={""}
+              currency={""}
+              currentCategories={[]}
+              productAttribute={null}
             />
           </div>
         </div>

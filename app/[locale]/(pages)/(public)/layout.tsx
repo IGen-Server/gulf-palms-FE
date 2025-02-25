@@ -1,4 +1,4 @@
-import Footer from "@/components/footer/Footer";
+import Footer from "@/components/footer/footer";
 import PublicNavbar from "@/components/navbar/public-navbar/public-navbar";
 import { ReactNode } from "react";
 

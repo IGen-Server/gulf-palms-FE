@@ -8,7 +8,7 @@ import Image from "next/image";
 import homePageImage from "@/assets/images/homePageImage.jpg";
 import Player from "@vimeo/player";
 import './video-container.css'
-import Footer from "@/components/footer/Footer";
+import Footer from "@/components/footer/footer";
 import Link from "next/link";
 
 function PublicPageLayout({

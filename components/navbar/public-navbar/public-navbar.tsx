@@ -30,7 +30,7 @@ import { DesktopNav } from "./DesktopNav";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { useCart } from "@/providers/CartProvider";
 import SearchDrawer from "@/components/search/SearchDrawer";
-import { useAuth } from "@/providers/Authprovider";
+import { useAuth } from "@/providers/AuthProvider";
 import { ClientRoutes, RouteService } from "@/services/utility/router.service";
 
 export default function PublicNavbar() {

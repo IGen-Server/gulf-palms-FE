@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 
-export default function OrdersPage() {
+export default function OrdersPageDemo() {
   return (
     <div>
       {/* Desktop View */}

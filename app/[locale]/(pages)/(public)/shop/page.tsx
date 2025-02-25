@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState, useRef } from "react";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import ProductCard from "@/components/shop/ProductCard";
 import PriceSlider from "@/components/shop/PriceSlider";
-import Productcategories from "@/components/shop/Productcategories";
+import ProductCategories from "@/components/shop/Productcategories";
 import {
   ProductSortValues,
   SortingDropdown,
@@ -137,7 +137,7 @@ export default function Shop() {
         <div className="flex items-start gap-3">
           <div className="w-[276px] px-[15px] divide-y-2 hidden lg:block">
             <PriceSlider setPriceSlider={updatePageConfig} />
-            <Productcategories />
+            <ProductCategories />
           </div>
           <div className="flex-1">
             <div className="px-[15px] flex justify-between">

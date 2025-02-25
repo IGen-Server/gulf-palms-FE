@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import i18nConfig from "@/i18nConfig";
-import { useAuth } from "@/providers/Authprovider";
+import { useAuth } from "@/providers/AuthProvider";
 
 const localeNames = {
   en: "English",

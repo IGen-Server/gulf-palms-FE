@@ -2,15 +2,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import React, { ReactElement, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import React from "react";
 import GetInTouch from "@/components/common/GetInTouch";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
-import { useAuth } from "@/providers/Authprovider";
-import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
-import { OrderService } from "@/services/api/order.service";
-import OrdersPage from "./orders/page";
-import { ClientRoutes } from "@/services/utility/router.service";
+import { useAuth } from "@/providers/AuthProvider";
 import { onLogout } from "@/services/utility/utility.service";
 
 const breadcrumbLinks = [
@@ -18,33 +14,8 @@ const breadcrumbLinks = [
   { name: "My account", href: "/my-account" },
 ];
 
-export default function AccountLayout({ children }: { children: React.ReactNode }) {
-
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true, false);
-
-  // Orders
-  const [orderConfig, setOrderConfig] = useState({ }); // page: 1, per_page: 10
-  const [orders, setOrders] = useState<any[] | null>(null);
-  
-  const getOrders = async () => {
-    setOrders(null);
-
-    OrderService.Get(orderConfig, axiosInstanceWithLoader)
-      .then(response=> {
-        setOrders(response || []);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-  useEffect(() => {
-    getOrders();
-  }, [orderConfig]);
-
+export default function AccountLayout({ children }: { children: React.ReactElement; }) {
   const { user } = useAuth();
-  const router = useRouter();
-  const pathname = usePathname();
 
   return (
     <div className="pt-[98px] ">
@@ -75,14 +46,15 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
               </nav>
             </aside>
             <main className="flex-1 p-6">
-              {(() => {
+              {children}
+              {/* {(() => {
                 switch (pathname.split('/').filter(Boolean).pop()) {
                   case ClientRoutes.User.MyAccountOrders.split('/').filter(Boolean).pop():
                     return <OrdersPage orders={orders} refreshOrders={getOrders} />;
                   default:
                     return children;
                 }
-              })()}
+              })()} */}
             </main>
           </div>
         </div>

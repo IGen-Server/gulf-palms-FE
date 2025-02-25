@@ -13,7 +13,7 @@ import { ProductService } from "@/services/api/product.service";
 import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
-import { useAuth } from "@/providers/Authprovider";
+import { useAuth } from "@/providers/AuthProvider";
 
 const fertilizationData = [
   { size: "Small", details: "Apply 50g of organic fertilizer every 2 months." },
@@ -52,11 +52,7 @@ const waterRequirementData = [
   },
 ];
 
-export default function ProductPage({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ProductPage() {
 
   const { i18n } = useTranslation();
   const { slug } = useParams();

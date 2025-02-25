@@ -222,7 +222,7 @@ const categories = [
   },
 ];
 
-export default function Productcategories() {
+export default function ProductCategories() {
   return (
     <div className="space-y-4 pt-[30px]">
       <p className="uppercase font-semibold text-[16px]">Product categories</p>

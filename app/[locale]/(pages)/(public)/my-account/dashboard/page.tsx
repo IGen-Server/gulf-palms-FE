@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { FileText, Download, MapPin, User, LogOut } from "lucide-react"
-import { useAuth } from "@/providers/Authprovider";
+import { useAuth } from "@/providers/AuthProvider";
 import { onLogout } from "@/services/utility/utility.service";
 
 export default function Dashboard() {

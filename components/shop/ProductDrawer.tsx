@@ -32,6 +32,7 @@ interface ProductDrawerProps {
     image: string
     sku: string
     categories: ProductCategoryModel[]
+    quantity?: number;
   }
 }
 
@@ -117,7 +118,10 @@ export function ProductDrawer({ open, onOpenChange, product }: ProductDrawerProp
           <div className="flex gap-4 mb-8">
             <Button
               className="flex-1 bg-[#fdb777] hover:bg-[#fda757] text-white font-semibold"
-              onClick={()=>{addToCart(product)}}
+              onClick={()=> {
+                let cartProduct = { ...product, quantity: 1 };
+                addToCart(cartProduct)
+              }}
             >
               ADD TO CART
             </Button>

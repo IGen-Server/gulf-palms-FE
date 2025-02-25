@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useAuth } from "@/providers/Authprovider";
+import { useAuth } from "@/providers/AuthProvider";
 import { UserService } from "@/services/api/user.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { useEffect, useState } from "react";
@@ -82,6 +82,7 @@ export default function BillingAddressForm() {
     };
 
     getSettings();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

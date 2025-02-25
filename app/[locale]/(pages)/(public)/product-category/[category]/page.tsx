@@ -1,15 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { Suspense, useEffect, useRef, useState } from "react";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import ProductCard from "@/components/shop/ProductCard";
 import PriceSlider from "@/components/shop/PriceSlider";
-import Productcategories from "@/components/shop/Productcategories";
+import ProductCategories from "@/components/shop/Productcategories";
 import { ProductSortValues, SortingDropdown } from "@/components/shop/SortingDropdown";
 import { LayoutGrid, Grip, EllipsisVertical } from "lucide-react";
 import GetInTouch from "@/components/common/GetInTouch";
-import { useParams, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
@@ -17,21 +16,11 @@ import { showPerPage } from "@/constants/global-constants";
 import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
-import { useAuth } from "@/providers/Authprovider";
+import { useAuth } from "@/providers/AuthProvider";
 
-export default function CategoryPage({ children }: { children: any }) {
-  const pathname = usePathname().split("/");
+export default function CategoryPage() {
   const { setTranslation } = useAuth();
-  // const slug = pathname[pathname.length - 1].split("-").join(" ");
   const { category: categorySlug } = useParams();
-  // const breadcrumbLinks = [{ name: "Home", href: "/" }];
-
-  // pathname.slice(2).forEach((p) => {
-  //   breadcrumbLinks.push({
-  //     name: p.split("-").join(" "),
-  //     href: `/product-category/${p}`,
-  //   });
-  // });
 
   const [columns, setColumns] = useState(4)
   const { i18n } = useTranslation();
@@ -163,6 +152,7 @@ export default function CategoryPage({ children }: { children: any }) {
     };
 
     getProductCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -176,7 +166,7 @@ export default function CategoryPage({ children }: { children: any }) {
         <div className="flex items-start ">
           <div className="w-[276px] px-[15px]  divide-y-2">
             <PriceSlider setPriceSlider={updatePageConfig} />
-            <Productcategories />
+            <ProductCategories />
           </div>
           <div className=" flex-1 ">
             <div className="px-[15px] flex  justify-between">

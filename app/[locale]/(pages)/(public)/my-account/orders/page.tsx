@@ -4,23 +4,44 @@ import { Button } from "@/components/ui/button";
 import { OrderService } from "@/services/api/order.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { getTotalQuantity, orderStatusesToReadableSentence } from "@/services/utility/utility.service";
-import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import SkeletonType2 from "@/components/skeleton/skeleton-type2";
+import { useEffect, useState } from "react";
 
-export default function OrdersPage({ orders = null, refreshOrders }: { orders: any[] | null, refreshOrders: () => void; }) {
+export default function OrdersPage() {
 
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true, true);
+
+  // Orders
+  const [orderConfig, setOrderConfig] = useState({}); // page: 1, per_page: 10
+  const [orders, setOrders] = useState<any[] | null>(null);
+
+  const getOrders = async () => {
+    setOrders(null);
+
+    OrderService.Get(orderConfig, axiosInstanceWithLoader)
+      .then(response => {
+        setOrders(response || []);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   function onOrderCancel(orderId: number) {
     OrderService.Cancel(orderId, axiosInstanceWithLoader)
       .then(response => {
-        refreshOrders();
+        getOrders();
       })
       .catch(error => {
         console.error(error);
       });
   }
+
+  useEffect(() => {
+    getOrders();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderConfig]);
 
   return (
     <div>

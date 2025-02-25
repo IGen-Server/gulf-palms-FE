@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton";
 import { UserAsCustomer } from "@/models/user/user-as-customer";
-import { useAuth } from "@/providers/Authprovider";
+import { useAuth } from "@/providers/AuthProvider";
 import { UserService } from "@/services/api/user.service";
 import Link from "next/link"
 import { useEffect, useState } from "react";
@@ -27,6 +27,7 @@ export default function AddressesPage() {
     };
     
     getSettings();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
