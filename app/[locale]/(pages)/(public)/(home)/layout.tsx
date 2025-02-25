@@ -135,13 +135,22 @@ function PublicPageLayout({
           />
         )}
 
-        {/* <div
+        <div
           ref={playerRef}
           className={`inset-0 z-[1000] bg-black bg-opacity-50 transition-opacity duration-100 h-[582px] lg:h-[948px] ${
             iframeLoaded ? "opacity-100" : "opacity-0"
           }`}
-        ></div> */}
-
+        ></div>
+        
+{/* <div className="relative w-full h-0 pb-[56.25%]">
+      <iframe
+        src="https://player.vimeo.com/video/835241101?muted=1&autoplay=1&loop=1&background=1&app_id=122963"
+        title="Vimeo Video"
+        frameBorder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+        className="absolute top-0 left-0 w-full h-full"
+      />
+    </div> */}
       </div>
       <div className="content !overflow-x-hidden px-1 sm:px-4 xl:px-0 !max-w-[100vw] mx-auto">
         <PublicNavbar />
