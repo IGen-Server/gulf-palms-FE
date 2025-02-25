@@ -186,6 +186,7 @@ export default function RecentProducts() {
       <CustomCarousel
         slidesToShow={4}
         slidesToScroll={4}
+        MobileSlidesNumber={1}
         data={products.map((product) => ({
           component: (
             <RenderImageAndProducts

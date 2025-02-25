@@ -91,7 +91,7 @@ export default function CustomCarousel({
         },
       },
       {
-        breakpoint: 440,
+        breakpoint: 540,
         settings: {
           slidesToShow: MobileSlidesNumber,
           slidesToScroll: MobileSlidesNumber,
