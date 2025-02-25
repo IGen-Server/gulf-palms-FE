@@ -36,7 +36,7 @@ export default function CustomCarousel({
   
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className="absolute -right-[22px] top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
+      className="absolute right-[0px] md:-right-[22px] top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
       onClick={onClick}
     >
       <ChevronRight
@@ -48,7 +48,7 @@ export default function CustomCarousel({
 
   const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className="absolute -left-[35px] top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
+      className="absolute  md:-left-[35px] top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
       onClick={onClick}
     >
       <ChevronLeft
