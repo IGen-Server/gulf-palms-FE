@@ -204,9 +204,8 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           <div className="w-full h-full sm:h-[280px] duration-700 overflow-hidden relative">
             <img
               src={
-                imageFileOrUrl ||
                 images?.[0]?.src ||
-                images?.[0] ||
+                imageFileOrUrl ||
                 "/placeholder.svg"
               }
               alt={name}
@@ -219,9 +218,8 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             <img
               src={
                 images?.[1]?.src ||
-                images?.[1] ||
-                imageFileOrUrl ||
                 images?.[0]?.src ||
+                imageFileOrUrl ||
                 "/placeholder.svg"
               }
               alt={name}
