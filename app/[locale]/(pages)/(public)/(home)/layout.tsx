@@ -140,8 +140,12 @@ function PublicPageLayout({
           className={`inset-0 z-[1000] bg-black bg-opacity-50 transition-opacity duration-100 h-[582px] lg:h-[948px] ${
             iframeLoaded ? "opacity-100" : "opacity-0"
           }`}
-        ></div>
-        
+        >
+          
+        </div>
+   
+        <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div>
+
 {/* <div className="relative w-full h-0 pb-[56.25%]">
       <iframe
         src="https://player.vimeo.com/video/835241101?muted=1&autoplay=1&loop=1&background=1&app_id=122963"
