@@ -142,9 +142,9 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                     className={`text-xs sm:text-sm text-gray-500 overflow-hidden transition-all duration-300`}
                     style={{
                       height:
-                        expandedDescriptionId === product.productId
-                          ? "fit-content"
-                          : "48px sm:72px",
+                        expandedDescriptionId == product.productId
+                          ? " fit-content "
+                          : " 48px ",
                     }}
                   >
                     {product.description}
