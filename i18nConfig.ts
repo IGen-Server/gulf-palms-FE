@@ -10,9 +10,9 @@ export function normalizeLocale(locale: string) {
 export function refineLocalePrefixForRoute(locale: string) {
   locale = normalizeLocale(locale);
 
-  // if (locale === "ar") {
-  //   return ""; // No prefix for default locale
-  // }
+  if (locale === "ar") {
+    return `/ar`;
+  }
 
   return `/${locale}`;
 }
@@ -21,7 +21,7 @@ export function refineRoutePath(path: string, locale: string) {
   locale = normalizeLocale(locale);
 
   if (path === "/") {
-    return refineLocalePrefixForRoute(locale) || "/";
+    return refineLocalePrefixForRoute(locale) || "/ar";
   }
 
   return path;

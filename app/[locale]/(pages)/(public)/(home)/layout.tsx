@@ -1,14 +1,12 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import PublicNavbar from "@/components/navbar/public-navbar/public-navbar";
 import { ReactNode } from "react";
 import Image from "next/image";
 import homePageImage from "@/assets/images/homePageImage.jpg";
-import Player from "@vimeo/player";
 import './video-container.css'
-import Footer from "@/components/footer/footer";
 import Link from "next/link";
 
 function PublicPageLayout({
@@ -18,9 +16,8 @@ function PublicPageLayout({
   children: ReactNode;
   params: { locale: string };
 }) {
-  const [iframeLoaded, setIframeLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const playerRef = useRef<HTMLDivElement>(null);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const ChatIcon = () => (
     <svg
       style={{
@@ -73,46 +70,7 @@ function PublicPageLayout({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (playerRef.current) {
-      const player = new Player(playerRef.current, {
-        id: 835241101,
-        autoplay: true,
-        muted: true,
-        loop: true,
-        controls: false,
-        background: true,
-        height: 988,
-        responsive:false,
-        quality: "1080p",
-      });
 
-      // Set iframeLoaded to true when the video is loaded and ready
-      player
-        .ready()
-        .then(() => {
-          console.log("Player is ready!");
-          setTimeout(() => {
-            setIframeLoaded(true);
-          }, 4000);
-        })
-        .catch((error) => {
-          console.error("Error initializing player:", error);
-        });
-
-      // Debugging event listener for 'loaded'
-      player.on("loaded", () => {
-        console.log("Video fully loaded!");
-        setTimeout(() => {
-          setIframeLoaded(true);
-        }, 4000);
-      });
-
-      return () => {
-        player.destroy();
-      };
-    }
-  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -121,40 +79,48 @@ function PublicPageLayout({
     });
   };
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsVideoLoaded(true); 
+    }, 2000);
+
+    return () => clearTimeout(timeout); 
+  }, []);
+
   return (
     <div className="w-[100vw] mx-auto">
       <div className="relative overflow-hidden w-full inset-0 h-[582px] lg:h-[948px] mb-[90px]">
-        {!iframeLoaded && (
-          <Image
-            src={homePageImage}
-            alt="Home Page"
-            layout="fill"
-            objectFit="cover"
-            priority
-            className="absolute inset-0 z-0"
-          />
-        )}
+        {/* Fallback Image */}
+        <Image
+          src={homePageImage || "/placeholder.svg"}
+          alt="Home Page"
+          layout="fill"
+          objectFit="cover"
+          priority
+          className={`absolute inset-0 z-0 transition-opacity duration-500 ${
+            isVideoLoaded ? "opacity-0" : "opacity-100"
+          }`}
+        />
 
+        {/* Video background */}
         <div
-          ref={playerRef}
-          className={`inset-0 z-[1000] bg-black bg-opacity-50 transition-opacity duration-100 h-[582px] lg:h-[948px] ${
-            iframeLoaded ? "opacity-100" : "opacity-0"
+          className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${
+            isVideoLoaded ? "opacity-100" : "opacity-0"
           }`}
         >
-          
+          <video
+            className="object-cover w-full h-full"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src="/video/bgVideo.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
         </div>
-   
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div>
 
-{/* <div className="relative w-full h-0 pb-[56.25%]">
-      <iframe
-        src="https://player.vimeo.com/video/835241101?muted=1&autoplay=1&loop=1&background=1&app_id=122963"
-        title="Vimeo Video"
-        frameBorder="0"
-        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-        className="absolute top-0 left-0 w-full h-full"
-      />
-    </div> */}
+        <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div>
       </div>
       <div className="content !overflow-x-hidden px-1 sm:px-4 xl:px-0 !max-w-[100vw] mx-auto">
         <PublicNavbar />
