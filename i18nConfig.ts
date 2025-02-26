@@ -1,19 +1,14 @@
-import { Config } from "next-i18n-router/dist/types";
+import type { Config } from "next-i18n-router/dist/types";
 
 export const locales: string[] = ["ar", "en"];
 
-// Normalize locale: Convert "en-us" to "en"
 export function normalizeLocale(locale: string) {
-  return locale.toLowerCase() === "en-us" ? "en" : locale;
+  const normalizedLocale = locale.toLowerCase().split("-")[0];
+  return locales.includes(normalizedLocale) ? normalizedLocale : "ar";
 }
 
 export function refineLocalePrefixForRoute(locale: string) {
   locale = normalizeLocale(locale);
-
-  if (locale === "ar") {
-    return `/ar`;
-  }
-
   return `/${locale}`;
 }
 
@@ -21,15 +16,19 @@ export function refineRoutePath(path: string, locale: string) {
   locale = normalizeLocale(locale);
 
   if (path === "/") {
-    return refineLocalePrefixForRoute(locale) || "/ar";
+    return refineLocalePrefixForRoute(locale);
   }
 
-  return path;
+  return path.startsWith("/")
+    ? `${refineLocalePrefixForRoute(locale)}${path}`
+    : path;
 }
 
 const i18nConfig: Config = {
   locales,
   defaultLocale: "ar",
+  prefixDefault: true,
+  localeCookie: "NEXT_LOCALE",
 };
 
 export default i18nConfig;
