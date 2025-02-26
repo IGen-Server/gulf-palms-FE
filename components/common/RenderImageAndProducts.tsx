@@ -80,6 +80,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
 
   const { addToCart } = useCart();
 
+
   const handleAddToCart = () => {
     addToCart({
       id: productId,
@@ -280,7 +281,13 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   >
                     <ShoppingCart
                       className="w-4 h-4 sm:w-5 sm:h-5"
-                      onClick={handleAddToCart}
+                      onClick={()=>{
+                        const isSelected =  selectProductId === productId;
+                        const isSheetOpenTrue = isSheetOpen;
+                        if(isSelected && isSheetOpenTrue){
+                          handleAddToCart()
+                        }
+                      }}
                     />
                   </p>
                 </div>
@@ -356,7 +363,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               } `}
             >
               <ShoppingCart
-                onClick={handleAddToCart}
+                // onClick={handleAddToCart}
                 className="cursor-pointer w-full text-white"
               />
             </div>

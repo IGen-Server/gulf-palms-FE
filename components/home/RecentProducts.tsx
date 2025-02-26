@@ -20,7 +20,7 @@ const products = [
     slug: "",
     price_html: "",
     categories: [],
-    attributes: []
+    attributes: [{variation:true,visible:true,options:["10","20","30"],id:1,name:'test',slug:'test slug',position:1},]
   },
   {
     renderType: "product",
@@ -36,7 +36,7 @@ const products = [
     slug: "",
     price_html: "",
     categories: [],
-    attributes: []
+    attributes: [{variation:true,visible:true,options:["10","20","30"],id:2,name:'test',slug:'test slug',position:2}]
   },
   {
     renderType: "product",
@@ -52,7 +52,7 @@ const products = [
     slug: "",
     price_html: "",
     categories: [],
-    attributes: []
+    attributes: [{variation:true,visible:true,options:["10","20","30"],id:3,name:'test',slug:'test slug',position:3}]
   },
   {
     renderType: "product",
@@ -68,7 +68,7 @@ const products = [
     slug: "",
     price_html: "",
     categories: [],
-    attributes: []
+    attributes: [{variation:true,visible:true,options:["10","20","30"],id:4,name:'test',slug:'test slug',position:4}]
   },
   {
     renderType: "product",
@@ -84,7 +84,7 @@ const products = [
     slug: "",
     price_html: "",
     categories: [],
-    attributes: []
+    attributes: [{variation:true,visible:true,options:["10","20","30"],id:5,name:'test',slug:'test slug',position:5}]
   },
   {
     renderType: "product",
@@ -100,7 +100,7 @@ const products = [
     slug: "",
     price_html: "",
     categories: [],
-    attributes: []
+    attributes: [{variation:true,visible:true,options:["10","20","30"],id:6,name:'test',slug:'test slug',position:6}]
   },
   {
     renderType: "product",
@@ -116,7 +116,7 @@ const products = [
     slug: "",
     price_html: "",
     categories: [],
-    attributes: []
+    attributes: [{variation:true,visible:true,options:["10","20","30"],id:7,name:'test',slug:'test slug',position:7}]
   },
   {
     renderType: "product",
@@ -132,7 +132,7 @@ const products = [
     slug: "",
     price_html: "",
     categories: [],
-    attributes: []
+    attributes: [{variation:true,visible:true,options:["10","20","30"],id:8,name:'test',slug:'test slug',position:8}]
   },
   {
     renderType: "product",
@@ -148,7 +148,7 @@ const products = [
     slug: "",
     price_html: "",
     categories: [],
-    attributes: []
+    attributes: [{variation:true,visible:true,options:["10","20","30"],id:9,name:'test',slug:'test slug',position:9}]
   },
   {
     renderType: "product",
@@ -164,7 +164,7 @@ const products = [
     slug: "",
     price_html: "",
     categories: [],
-    attributes: []
+    attributes: [{variation:true,visible:true,options:["10","20","30"],id:10,name:'test',slug:'test slug',position:10}]
   },
 ];
 
@@ -201,7 +201,7 @@ export default function RecentProducts() {
               slug={product.slug} 
               currency={extractCurrency(product.price_html)} 
               currentCategories={product.categories} 
-              productAttribute={product.attributes ? product.attributes[0] : null}
+              productAttribute={product.attributes[0]}
             />
           ),
         }))}
