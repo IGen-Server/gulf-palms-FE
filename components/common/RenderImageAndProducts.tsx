@@ -358,12 +358,18 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                 setSelectProductId(productId);
                 setIsSheetOpen(true);
               }}
-              className={`lg:hidden absolute left-2 p-1 bottom-1 grid place-content-center bg-primary shadow-md h-[35px] ${
-                selectProductId === productId ? "w-full z-[20]" : "w-[35px]"
+              className={`lg:hidden absolute left-2 p-1 bottom-0 grid place-content-center bg-primary shadow-md h-[35px] ${
+                selectProductId === productId ? "w-full z-[20] h-[45px]" : "w-[35px]"
               } `}
             >
               <ShoppingCart
-                // onClick={handleAddToCart}
+                onClick={()=>{
+                  const isSelected =  selectProductId === productId;
+                  const isSheetOpenTrue = isSheetOpen;
+                  if(isSelected && isSheetOpenTrue){
+                    handleAddToCart()
+                  }
+                }}
                 className="cursor-pointer w-full text-white"
               />
             </div>
