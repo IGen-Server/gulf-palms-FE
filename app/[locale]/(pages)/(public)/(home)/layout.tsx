@@ -29,14 +29,27 @@ function PublicPageLayout({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
+
+  const smoothScrollToTop = () => {
+    const scrollStep = window.scrollY / 20;
+    const scrollAnimation = () => {
+      if (window.scrollY > 0) {
+        window.scrollBy(0, -scrollStep);
+        requestAnimationFrame(scrollAnimation);
+      }
+    };
+    requestAnimationFrame(scrollAnimation);
+  };
+
+  useEffect(() => {
+    smoothScrollToTop();
+  }, [locale]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
