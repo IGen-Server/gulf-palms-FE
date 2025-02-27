@@ -1,16 +1,50 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
-import Link from "next/link"
-import { ChevronDown, ChevronRight } from "lucide-react"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
-import { desktopMenuItems } from "./navData"
+"use client";
+import Link from "next/link";
+import { ChevronDown, ChevronRight } from "lucide-react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { useTranslation } from "react-i18next";
 
+interface Category {
+  title: string;
+  href?: string;
+  icon?: string;
+  submenu?: Category[] | [] | any;
+}
+
+interface MenuItem {
+  title: string;
+  href?: string;
+  submenu?: Category[];
+}
 
 export function DesktopNav() {
+  const { t } = useTranslation();
+
+  const desktopMenuItems: MenuItem[] =
+    (t("desktopMenuItems", {
+      returnObjects: true,
+    }) as MenuItem[]) || [];
+
+  const mobileCategoryItems: Category[] =
+    (t("mobileCategoryItems", {
+      returnObjects: true,
+    }) as MenuItem[]) || [];
+
+  const updatedMenuItems: MenuItem[] = [...desktopMenuItems];
+  updatedMenuItems[2] = {
+    ...updatedMenuItems[2],
+    submenu: [...mobileCategoryItems],
+  };
+
   return (
     <nav className="hidden lg:flex items-center justify-evenly flex-wrap w-full font-sans">
-      {desktopMenuItems.map((item) => {
-        if (item.title === "SHOP") {
+      {updatedMenuItems.map((item) => {
+        if (item.title === updatedMenuItems[2].title) {
           return (
             <HoverCard key={item.title} openDelay={100} closeDelay={100}>
               <HoverCardTrigger asChild>
@@ -25,10 +59,17 @@ export function DesktopNav() {
               <HoverCardContent className="!w-[100vw] !p-0 mt-[16px]">
                 <div className="max-w-[1100px] mx-auto p-8">
                   <div className="grid grid-cols-4 gap-x-8 gap-y-8">
-                    {item.submenu?.map((category) => (
-                      <HoverCard key={category.title} openDelay={100} closeDelay={100}>
+                    {item.submenu?.map((category: any) => (
+                      <HoverCard
+                        key={category.title}
+                        openDelay={100}
+                        closeDelay={100}
+                      >
                         <HoverCardTrigger asChild>
-                          <Link href={category.href || "#"} className="flex items-start gap-3 group">
+                          <Link
+                            href={category.href || "#"}
+                            className="flex items-start gap-3 group"
+                          >
                             {category.icon && (
                               <div className="w-6 h-6 mt-1 shrink-0">
                                 <img
@@ -44,9 +85,14 @@ export function DesktopNav() {
                           </Link>
                         </HoverCardTrigger>
                         {category.submenu && (
-                          <HoverCardContent className="w-[220px] p-4 shadow-none border-none" side="right" align="start" sideOffset={-50}>
+                          <HoverCardContent
+                            className="w-[220px] p-4 shadow-none border-none"
+                            side="right"
+                            align="start"
+                            sideOffset={-50}
+                          >
                             <nav className="flex flex-col space-y-2">
-                              {category.submenu.map((subItem) => (
+                              {category.submenu.map((subItem: any) => (
                                 <Link
                                   key={subItem.title}
                                   href={subItem.href || "#"}
@@ -64,7 +110,7 @@ export function DesktopNav() {
                 </div>
               </HoverCardContent>
             </HoverCard>
-          )
+          );
         }
 
         if (item.submenu) {
@@ -81,7 +127,7 @@ export function DesktopNav() {
               </HoverCardTrigger>
               <HoverCardContent className="w-[220px] p-4 mt-[16px]">
                 <nav className="flex flex-col space-y-2">
-                  {item.submenu.map((subItem) => (
+                  {item.submenu.map((subItem: any) => (
                     <Link
                       key={subItem.title}
                       href={subItem.href || "#"}
@@ -93,7 +139,7 @@ export function DesktopNav() {
                 </nav>
               </HoverCardContent>
             </HoverCard>
-          )
+          );
         }
 
         return (
@@ -104,9 +150,8 @@ export function DesktopNav() {
           >
             {item.title}
           </Link>
-        )
+        );
       })}
     </nav>
-  )
+  );
 }
-

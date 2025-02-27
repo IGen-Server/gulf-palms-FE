@@ -18,7 +18,6 @@ export default function Services() {
   const { t } = useTranslation();
 
   const servicesCarouselData = t("servicesCarouselData", { returnObjects: true }) as Service[] || [];
-  console.log({servicesCarouselData})
   const createSlide = (service: Service) => (
     <div
       key={service.id}

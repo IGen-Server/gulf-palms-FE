@@ -19,6 +19,20 @@ import {
 import { mobileCategoryItems, mobileMenuItems, NavItem } from "./navData";
 import Image from "next/image";
 
+
+interface Category {
+  title: string;
+  href?: string;
+  icon?: string;
+  submenu?: Category[] | [] | any;
+}
+
+interface MenuItem {
+  title: string;
+  href?: string;
+  submenu?: Category[];
+}
+
 function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -79,7 +93,7 @@ export default function MobileNav() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [products, setProducts] = React.useState<any[]>([]);
 
-  const { i18n } = useTranslation();
+  const { i18n,t } = useTranslation();
 
   const axiosInstanceWithLoader = React.useMemo(
     () => CreateAxiosInstanceWithLoader(),
@@ -115,6 +129,16 @@ export default function MobileNav() {
 
     if (searchQuery) getProducts();
   }, [axiosInstanceWithLoader, pageConfig]);
+
+  const mobileMenuItems: MenuItem[] =
+    (t("desktopMenuItems", {
+      returnObjects: true,
+    }) as MenuItem[]) || [];
+
+  const mobileCategoryItems: Category[] =
+    (t("mobileCategoryItems", {
+      returnObjects: true,
+    }) as MenuItem[]) || [];
 
   return (
     <div className="w-full max-w-md mx-auto bg-background font-sans text-sm">
@@ -165,13 +189,13 @@ export default function MobileNav() {
             value="menu"
             className="text-sm p-0 h-full rounded-none data-[state=active]:border-b-2 data-[state=active]:border-orange-500 data-[state=active]:font-semibold"
           >
-            MENU
+            {t('mobileNavTabs.tab1')}
           </TabsTrigger>
           <TabsTrigger
             value="categories"
             className="text-sm p-0 h-full rounded-none data-[state=active]:border-b-2 data-[state=active]:border-orange-500 data-[state=active]:font-semibold"
           >
-            CATEGORIES
+             {t('mobileNavTabs.tab2')}
           </TabsTrigger>
         </TabsList>
         <TabsContent value="menu">
