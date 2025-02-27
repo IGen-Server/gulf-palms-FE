@@ -101,12 +101,8 @@ const services: ServiceProps = [
 ];
 
 const Showroom = ({ slug }: { slug: string }) => {
-  const {
-    i18n: { language },
-  } = useTranslation();
-
+  const { i18n: { language } } = useTranslation();
   const nursery = services.find((service) => service.name === slug);
-
   const nurseryDetails = nursery && nursery[language as "en" | "ar"];
 
   const breadcrumbLinks = [
@@ -179,13 +175,14 @@ const Showroom = ({ slug }: { slug: string }) => {
           </div>
           <div className="w-full lg:max-w-[555.73px] h-[570px]">
             <iframe
-              loading="lazy"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.129963726799!2d47.9475056!3d29.3146052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9aee8dd72f25%3A0x13c1872301ebdf24!2sGulf%20Palms%20Center!5e0!3m2!1sen!2sus!4v1699302981981"
               width="100%"
               height="100%"
-              src="https://maps.google.com/maps?q=%D8%B4%D8%B1%D9%83%D8%A9%20%D8%A7%D9%84%D9%86%D8%AE%D9%8A%D9%84%20%D8%A7%D9%84%D9%86%D8%B3%D9%8A%D8%AC%D9%8A%20%D8%A7%D9%84%D8%B9%D8%A8%D8%AF%D9%84%D9%8A%202Q6Q%2BRVW%2C%20Yaqoub%20Jassim%20Alwazzan%20St%2C%20Abdali%2C%20Kuwait&amp;t=m&amp;z=15&amp;output=embed&amp;iwloc=near"
-              title="شركة النخيل النسيجي العبدلي 2Q6Q+RVW, Yaqoub Jassim Alwazzan St, Abdali, Kuwait"
-              aria-label="شركة النخيل النسيجي العبدلي 2Q6Q+RVW, Yaqoub Jassim Alwazzan St, Abdali, Kuwait"
-            ></iframe>
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
         <GetInTouch language={language} />
