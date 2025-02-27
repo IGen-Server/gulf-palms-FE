@@ -1,35 +1,4 @@
 {
-  "navigation": {
-    "HOME": "HOME",
-    "SHOP": "SHOP",
-    "SHOWROOMS": "SHOWROOMS",
-    "PROJECTS": "PROJECTS",
-    "OUR FARM": "OUR FARM",
-    "GALLERY": "GALLERY",
-    "CONTACT US": "CONTACT US",
-    "ABOUT US": "ABOUT US",
-    "SERVICES": "SERVICES",
-    "About": "About",
-    "Courses": "Courses",
-    "Resources": "Resources",
-    "Pricing": "Pricing",
-    "Shop": "Shop",
-    "Showrooms": "Showrooms",
-    "About Us": "About Us",
-    "Services": "Services",
-    "Projects": "Projects",
-    "Our Farms": "Our Farms",
-    "Gallery": "Gallery",
-    "Contact Us": "Contact Us",
-    "Dashboard": "Dashboard",
-    "Profile": "Profile",
-    "Service 1": "Service 1",
-    "Service 2": "Service 2",
-    "Farm 1": "Farm 1",
-    "Farm 2": "Farm 2",
-    "Showroom 1": "Showroom 1",
-    "Showroom 2": "Showroom 2"
-  },
   "home": {
     "heroSection": {
       "Slogan1": "YOUR ONE-STOP SOLUTION FOR",
@@ -158,6 +127,7 @@
     "description": "Gulf Palms provides you with a good experience. Check our customer reviews. We provide excellent quality and experience."
   },
   "productsShowcase": {
+    "heading": "GULF PALMS",
     "title": "PALMS PRODUCTS",
     "description": "Our team is constantly working to maintain leadership in the Kuwaiti market through establishing our vision and mission."
   },
