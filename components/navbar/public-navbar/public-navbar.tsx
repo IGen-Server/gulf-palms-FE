@@ -34,6 +34,7 @@ import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { ClientRoutes } from "@/services/utility/router.service";
 import { CookieStorageService } from "@/services/utility/storage.service";
 import { isJwtTokenExpired } from "@/services/utility/utility.service";
+import { ProductCategoryService } from "@/services/api/product-category.service";
 
 export default function PublicNavbar() {
 
@@ -58,6 +59,8 @@ export default function PublicNavbar() {
     } else {
       setIsTokenExpired(true);
     }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

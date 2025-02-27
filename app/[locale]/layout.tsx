@@ -57,7 +57,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <CartProvider>
-              <GlobalDataProvider>{children}</GlobalDataProvider>
+              {children}
             </CartProvider>
             <Toaster
               richColors
