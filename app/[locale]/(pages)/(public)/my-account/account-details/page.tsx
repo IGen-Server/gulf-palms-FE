@@ -4,7 +4,7 @@ import SkeletonType1 from "@/components/skeleton/skeleton-type1";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useAuth } from "@/providers/AuthProvider";
+import { useUserData } from "@/providers/UserDataProvider";
 import { UserService } from "@/services/api/user.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { Eye, EyeOff } from "lucide-react";
@@ -24,7 +24,7 @@ interface UserPasswordToEdit {
 export default function AccountDetails() {
 
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true);
-  const { user, setUser } = useAuth();
+  const { user, setUser } = useUserData();
   const [showPassword, setShowPassword] = useState(false);
   const [userProfileToEdit, setUserProfileToEdit] = useState<UserProfileToEdit>({
     first_name: "",
