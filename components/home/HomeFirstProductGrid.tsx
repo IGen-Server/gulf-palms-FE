@@ -17,9 +17,8 @@ export default function HomeFirstProductGrid() {
         className="relative h-full w-full lg:w-[576px]"
       >
         <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-30 p-[30px] text-white space-y-[10px]">
-          <p className="md:text-[30px]">{t("home.plantsDoctors")}</p>
-          <p className="md:text-[36px] font-arabic font-bold">{t("home.gulfPalm")}</p>
-          <p className="md:text-[16px] max-w-sm">{t("home.description")}</p>
+          <p className="md:text-[36px] font-arabic font-bold">{t("HomeFirstProductGrid.gulfPalm")}</p>
+          <p className="md:text-[16px] max-w-sm">{t("HomeFirstProductGrid.description")}</p>
         </div>
       </div>
       <div className="flex items-center gap-[17px] lg:gap-[40px] h-full">
