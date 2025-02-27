@@ -10,11 +10,13 @@ import Link from "next/link"
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service"
 import { AuthService } from "@/services/api/auth.service"
 import { CookieStorageService } from "@/services/utility/storage.service"
+import { useGlobalDataProvider } from "@/providers/GlobalDataProvider"
 
 export default function UserSigninFormForDrawer() {
 
+  const { setIsTokenExpired } = useGlobalDataProvider();
+  
   const [showPassword, setShowPassword] = useState(false);
-
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +31,7 @@ export default function UserSigninFormForDrawer() {
       .then(response => {
         console.log(response);
         CookieStorageService.setAccessToken(response.data.jwt);
+        setIsTokenExpired(false);
         window.location.reload();
       })
       .catch(error => {

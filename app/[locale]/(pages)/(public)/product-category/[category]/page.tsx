@@ -16,10 +16,10 @@ import { showPerPage } from "@/constants/global-constants";
 import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
-import { useAuth } from "@/providers/AuthProvider";
+import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 
 export default function CategoryPage() {
-  const { setTranslation } = useAuth();
+  const { setTranslation } = useGlobalDataProvider();
   const { category: categorySlug } = useParams();
 
   const [columns, setColumns] = useState(4)

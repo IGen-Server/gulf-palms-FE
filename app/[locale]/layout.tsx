@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/ThemeProvider/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import "./globals.css";
-import { AuthProvider } from "@/providers/AuthProvider";
+import { GlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
 import { CartProvider } from "@/providers/CartProvider";
 
@@ -57,7 +57,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <CartProvider>
-              <AuthProvider>{children}</AuthProvider>
+              <GlobalDataProvider>{children}</GlobalDataProvider>
             </CartProvider>
             <Toaster
               richColors

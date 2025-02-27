@@ -30,21 +30,35 @@ import { DesktopNav } from "./DesktopNav";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { useCart } from "@/providers/CartProvider";
 import SearchDrawer from "@/components/search/SearchDrawer";
-import { useAuth } from "@/providers/AuthProvider";
+import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { ClientRoutes } from "@/services/utility/router.service";
+import { CookieStorageService } from "@/services/utility/storage.service";
+import { isJwtTokenExpired } from "@/services/utility/utility.service";
 
 export default function PublicNavbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [showNavbar, setShowNavbar] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const cartRef = useRef<HTMLDivElement>(null);
+
+  const { isTokenExpired, setIsTokenExpired } = useGlobalDataProvider();
+  
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
   const pathname = usePathname();
+
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [isHomePage, setIsHomePage] = useState(false);
+
+  const cartRef = useRef<HTMLDivElement>(null);
   const { cartItems, subtotal } = useCart();
-  const router = useRouter();
-  const { user } = useAuth();
+
+  useEffect(() => {
+    const accessToken = CookieStorageService.getAccessToken();
+    if (accessToken) {
+      setIsTokenExpired(isJwtTokenExpired(accessToken));
+    } else {
+      setIsTokenExpired(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (
@@ -177,7 +191,7 @@ export default function PublicNavbar() {
             </div>
           </div>
 
-          {user && (
+          {!isTokenExpired && (
             <Link
               href={ClientRoutes.User.MyAccountDashboard}
               className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
@@ -187,7 +201,7 @@ export default function PublicNavbar() {
               </span>
             </Link>
           )}
-          {!user && (
+          {isTokenExpired && (
             <SideDrawer
               title={"Sign in"}
               triggerComponent={
