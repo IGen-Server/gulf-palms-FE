@@ -149,7 +149,7 @@ export default function PublicNavbar() {
             </Sheet>
 
             <div className="flex-1 flex justify-center">
-              <div className="w-[126px]">
+              <div className="w-[126px] pt-3 ">
                 <BrandFullLogo height={60} />
               </div>
             </div>
