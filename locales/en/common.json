@@ -152,7 +152,8 @@
     "servicesProvided": "SERVICES PROVIDED BY GULF PALM",
     "description": "Our experienced team provides customized solutions from design to execution based on our clients needs while keeping in mind the agricultural environment to ensure sustainable green spaces."
   },
-  "Customers": {
+  "customers": {
+    "ourServices": "OUR SERVICES",
     "title": "WHAT OUR CUSTOMERS SAY ABOUT US",
     "description": "Gulf Palms provides you with a good experience. Check our customer reviews. We provide excellent quality and experience."
   },
