@@ -7,7 +7,7 @@ const breadcrumbLinks = [
   { name: "Showrooms", href: "/showrooms" },
 ];
 
-const services = [
+export const services = [
   {
     id: "fe9a770",
     img: "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-palm-men.jpg",

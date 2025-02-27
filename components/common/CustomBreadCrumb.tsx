@@ -1,11 +1,13 @@
-'use client'
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 interface BreadcrumbLink {
   name: string;
+  arabicName?: string;
   href: string;
   value?: any;
 }
@@ -25,13 +27,23 @@ export function CustomBreadCrumb({
   activeLastLink = false,
   currentStyle = "",
 }: BreadcrumbProps) {
+  const {
+    i18n: { language },
+  } = useTranslation();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   return (
-    <nav className="flex items-center space-x-2 text-[14px]">
+    <nav className="flex items-center text-[14px]">
       {links.map((link, index) => {
         const isLast = index === links.length - 1;
-        const linkName = uppercase ? link.name.toUpperCase() : link.name;
+        const linkName =
+          language === "en"
+            ? uppercase
+              ? link.name.toUpperCase()
+              : link.name
+            : language === "ar"
+            ? link.arabicName
+            : "";
         const isSelected = index == selectedIndex;
 
         return (
