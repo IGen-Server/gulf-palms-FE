@@ -51,7 +51,7 @@ export function UserDataProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useUserData() {
+export function useUserDataProvider() {
   const context = useContext(UserDataContext);
   if (!context) {
     throw new Error("useUserDataProvider must be used within an UserDataProvider");

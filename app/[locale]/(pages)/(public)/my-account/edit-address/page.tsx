@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton";
-import { useUserData } from "@/providers/UserDataProvider";
+import { useUserDataProvider } from "@/providers/UserDataProvider";
 import { UserService } from "@/services/api/user.service";
 import Link from "next/link"
 import { useEffect, useState } from "react";
 
 export default function AddressesPage() {
 
-  const { userSettings, setUserSettings } = useUserData();
+  const { userSettings, setUserSettings } = useUserDataProvider();
 
   useEffect(() => {
     const getSettings = async () => {

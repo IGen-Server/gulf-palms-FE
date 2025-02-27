@@ -7,7 +7,7 @@ import React from "react";
 import GetInTouch from "@/components/common/GetInTouch";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import { onLogout } from "@/services/utility/utility.service";
-import { UserDataProvider, useUserData } from "@/providers/UserDataProvider";
+import { UserDataProvider, useUserDataProvider } from "@/providers/UserDataProvider";
 
 const breadcrumbLinks = [
   { name: "Home", href: "/" },
@@ -25,7 +25,7 @@ export default function AccountLayout({ children }: { children: React.ReactEleme
 }
 
 function AccountLayoutComponent({ children }: { children: React.ReactElement; }) {
-  const { user } = useUserData();
+  const { user } = useUserDataProvider();
 
   return (<div className="pt-[98px] ">
     {user ? (

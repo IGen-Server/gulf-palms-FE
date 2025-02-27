@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Eye, EyeOff } from "lucide-react"
-import { useUserData } from "@/providers/UserDataProvider"
+import { useUserDataProvider } from "@/providers/UserDataProvider"
 
 export default function AccountDetailsPage() {
 
-  const { userSettings } = useUserData();
+  const { userSettings } = useUserDataProvider();
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
   const [showNewPassword, setShowNewPassword] = useState(false)

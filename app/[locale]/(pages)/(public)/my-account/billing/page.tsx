@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useUserData } from "@/providers/UserDataProvider";
+import { useUserDataProvider } from "@/providers/UserDataProvider";
 import { UserService } from "@/services/api/user.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ interface BillingAddressToEdit {
 export default function BillingAddressForm() {
 
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true);
-  const { userSettings, setUserSettings } = useUserData();
+  const { userSettings, setUserSettings } = useUserDataProvider();
   const [billingAddress, setBillingAddress] = useState<BillingAddressToEdit>({
     first_name: "",
     last_name: "",
