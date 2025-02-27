@@ -2,79 +2,58 @@
 
 import { Button } from "@/components/ui/button";
 import CustomCarousel from "../common/CustomCarousel";
-import { useTranslation } from "react-i18next"; 
+import { useTranslation } from "react-i18next";
+
+interface Service {
+  id: string;
+  subtitle: string;
+  title: string;
+  content: string;
+  imageUrl: string;
+  link: string;
+}
 
 export default function Services() {
   const { t } = useTranslation();
 
-  const createSlide = (bgURL: string) => (
+  const servicesCarouselData = t("servicesCarouselData", { returnObjects: true }) as Service[];
+
+  const createSlide = (service: any,index: number) => (
     <div
+      key={service.id}
       style={{
         width: "440px",
         height: "440px",
-        backgroundImage: `url(${bgURL})`,
+        backgroundImage: `url(${service.imageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
       className="relative group/number !w-[98vw] md:!w-[48vw] lg:!w-[310px] xl:!w-[440px] overflow-hidden"
     >
       <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-50 p-5 text-white space-y-[10px]">
-        <p className="text-xl font-sans">PLANTS DOCTORS</p>
-        <p className="text-2xl font-bold font-arabic">GULF PALM</p>
-        <p className="font-sans">
-          Gulf Palms caters to a wide scope of clients ranging from
-          Governmental, Commercial, Industrial to Residential. Our experienced
-          team provides customized solutions from design to execution based on
-          our clients.
-        </p>
+        <p className="text-xl font-sans">{service.subtitle}</p>
+        <p className="text-2xl font-bold font-arabic">{service.title}</p>
+        <p className="font-sans">{service.content}</p>
         <div className="w-full h-[48px] overflow-hidden !mt-4 ">
           <Button
             className="translate-y-[48px] group-hover/number:translate-y-[0px] rounded-none bg-primary transition-transform duration-500 opacity-90 hover:bg-primary hover:opacity-100 w-[113px] h-[42px] grid place-content-center"
             variant={"default"}
+            onClick={() => window.location.href = service.link}
           >
-            READ MORE
+            {t("whoWeAre.buttons.readMore")}
           </Button>
         </div>
       </div>
     </div>
   );
 
-  const slidesData = [
-    {
-      component: createSlide(
-        "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_567716494.jpg"
-      ),
-    },
-    {
-      component: createSlide(
-        "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_106616339.jpg"
-      ),
-    },
-    {
-      component: createSlide(
-        "https://gulfpalms.com/wp-content/uploads/2023/10/indoor-services-thumb.jpg"
-      ),
-    },
-    {
-      component: createSlide(
-        "https://gulfpalms.com/wp-content/uploads/2023/10/DSC08580.jpg"
-      ),
-    },
-    {
-      component: createSlide(
-        "https://gulfpalms.com/wp-content/uploads/2023/10/DSC08580.jpg"
-      ),
-    },
-    {
-      component: createSlide(
-        "https://gulfpalms.com/wp-content/uploads/2023/10/DSC08580.jpg"
-      ),
-    },
-  ];
+  const slidesData = servicesCarouselData.map((service,index) => ({
+    component: createSlide(service,index),
+  }));
 
   return (
     <div className="container mx-auto px-4 max-w-[1458px]">
-        <div className="pb-[30px] space-y-2 md:space-y-6 max-w-[800px]">
+      <div className="pb-[30px] space-y-2 md:space-y-6 max-w-[800px]">
         <p className="text-[#777777] text-xl md:text-[30px] font-light font-sans">
           {t("services.ourServices")}
         </p>
@@ -89,7 +68,7 @@ export default function Services() {
         <CustomCarousel
           slidesToScroll={3}
           slidesToShow={3}
-          data={[...slidesData]}
+          data={slidesData}
           autoPlay={true}
           MobileSlidesNumber={1}
         />
