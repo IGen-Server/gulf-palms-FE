@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import CustomCarousel from "../common/CustomCarousel";
 import { useTranslation } from "react-i18next";
 
+// Define the type for a single service object
 interface Service {
   id: string;
   subtitle: string;
@@ -18,7 +19,7 @@ export default function Services() {
 
   const servicesCarouselData = t("servicesCarouselData", { returnObjects: true }) as Service[];
 
-  const createSlide = (service: any,index: number) => (
+  const createSlide = (service: Service, index: number) => (
     <div
       key={service.id}
       style={{
@@ -47,8 +48,8 @@ export default function Services() {
     </div>
   );
 
-  const slidesData = servicesCarouselData.map((service,index) => ({
-    component: createSlide(service,index),
+  const slidesData = servicesCarouselData.map((service, index) => ({
+    component: createSlide(service, index),
   }));
 
   return (
