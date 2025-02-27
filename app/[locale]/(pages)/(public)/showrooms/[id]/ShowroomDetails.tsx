@@ -6,7 +6,30 @@ import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-export const services = [
+type ServiceProps = {
+  name: string;
+  arabicName: string;
+  id: string;
+  img: string;
+  en: {
+    content: {
+      subheading: string;
+      title: string;
+      details: string;
+      url: string;
+    };
+  };
+  ar: {
+    content: {
+      subheading: string;
+      title: string;
+      details: string;
+      url: string;
+    };
+  };
+}[];
+
+const services: ServiceProps = [
   {
     name: "rai-nursery",
     arabicName: "معرض الري",
