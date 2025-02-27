@@ -31,7 +31,7 @@ export default function Services() {
       }}
       className="relative group/number !w-[98vw] md:!w-[48vw] lg:!w-[310px] xl:!w-[440px] overflow-hidden"
     >
-      <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-50 p-5 text-white space-y-[10px]">
+      <div className="absolute top-0 left-0 h-full w-full p-5 text-white space-y-[10px]">
         <p className="text-xl font-sans">{service.subtitle}</p>
         <p className="text-2xl font-bold font-arabic">{service.title}</p>
         <p className="font-sans">{service.content}</p>
