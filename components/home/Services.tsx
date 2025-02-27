@@ -3,8 +3,8 @@
 import { Button } from "@/components/ui/button";
 import CustomCarousel from "../common/CustomCarousel";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
-// Define the type for a single service object
 interface Service {
   id: string;
   subtitle: string;
@@ -17,9 +17,9 @@ interface Service {
 export default function Services() {
   const { t } = useTranslation();
 
-  const servicesCarouselData = t("servicesCarouselData", { returnObjects: true }) as Service[];
-
-  const createSlide = (service: Service, index: number) => (
+  const servicesCarouselData = t("servicesCarouselData", { returnObjects: true }) as Service[] || [];
+  console.log({servicesCarouselData})
+  const createSlide = (service: Service) => (
     <div
       key={service.id}
       style={{
@@ -36,20 +36,21 @@ export default function Services() {
         <p className="text-2xl font-bold font-arabic">{service.title}</p>
         <p className="font-sans">{service.content}</p>
         <div className="w-full h-[48px] overflow-hidden !mt-4 ">
+          <Link href={service.link}>
           <Button
             className="translate-y-[48px] group-hover/number:translate-y-[0px] rounded-none bg-primary transition-transform duration-500 opacity-90 hover:bg-primary hover:opacity-100 w-[113px] h-[42px] grid place-content-center"
             variant={"default"}
-            onClick={() => window.location.href = service.link}
           >
             {t("whoWeAre.buttons.readMore")}
           </Button>
+          </Link>
         </div>
       </div>
     </div>
   );
 
-  const slidesData = servicesCarouselData.map((service, index) => ({
-    component: createSlide(service, index),
+  const slidesData = servicesCarouselData?.map((service) => ({
+    component: createSlide(service),
   }));
 
   return (
