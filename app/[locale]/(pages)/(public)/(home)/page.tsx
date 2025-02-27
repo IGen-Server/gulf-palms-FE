@@ -38,7 +38,6 @@ async function HomePage({
         <ProductsShowCase />
       </div>
       <div className="w-full max-w-[1370px] mx-auto">
-        {" "}
         <HomeSecondProductGrid />
       </div>
       <WhoWeAre />

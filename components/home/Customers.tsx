@@ -4,6 +4,7 @@
 import { Button } from "@/components/ui/button";
 import CustomCarousel from "../common/CustomCarousel";
 import { Star } from 'lucide-react';
+import { useTranslation } from "react-i18next";
 
 interface Testimonial {
   name: string;
@@ -41,6 +42,8 @@ export default function Customers() {
     }
   ];
 
+  const { t } = useTranslation();
+
   const createTestimonialSlide = (testimonial: Testimonial) => (
     <div className="px-4 py-6 h-full">
       <div className="bg-white rounded-lg shadow-sm p-6 h-full flex flex-col">
@@ -76,15 +79,15 @@ export default function Customers() {
 
   return (
     <div className="container mx-auto px-4 max-w-[1458px]">
-        <div className="pb-[30px] space-y-2 md:space-y-6 max-w-[800px] ">
+       <div className="pb-[30px] space-y-2 md:space-y-6 max-w-[800px] ">
         <p className="text-[#777777] text-xl md:text-[30px] font-light font-sans">
-          OUR SERVICES
+          {t("customer.services")}
         </p>
         <p className="text-[#242424] font-bold text-2xl md:text-[36px] font-arabic">
-        WHAT OUR CUSTOMERS SAY ABOUT US
+          {t("customer.customerSays")}
         </p>
         <p className="text-[#777777] text-sm md:text-[16px] font-sans">
-        Gulf Palms provides you with a good experience. Check our customer reviews. We provide excellent quality and experience
+          {t("customer.gulfPalmsExperience")}
         </p>
       </div>
       <div className="pb-8 md:pb-[50px]">

@@ -4,6 +4,7 @@ import React from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import CustomCarousel from "../common/CustomCarousel";
 import { extractCurrency } from "@/services/utility/utility.service";
+import { useTranslation } from "react-i18next";
 
 const products = [
   {
@@ -169,18 +170,18 @@ const products = [
 ];
 
 export default function RecentProducts() {
+  const { t } = useTranslation();
   return (
     <div className="z-[50]">
-      <div className="pb-[50px] space-y-[10px]">
+       <div className="pb-[50px] space-y-[10px]">
         <p className="text-[#777777] md:text-[30px] font-sans font-light">
-          NEWLY ADDED
+          {t("recentProducts.newlyAdded")}
         </p>
         <p className="text-[#242424] font-bold md:text-[36px] font-arabic">
-          RECENT PRODUCTS
+          {t("recentProducts.title")}
         </p>
         <p className="text-[#777777] md:text-[16px] font-sans">
-          Providing outstanding agricultural products, services and solutions
-          for our clients both individuals and institutions.{" "}
+          {t("recentProducts.description")}
         </p>
       </div>
       <CustomCarousel

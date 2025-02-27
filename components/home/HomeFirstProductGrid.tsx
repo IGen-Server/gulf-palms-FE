@@ -1,7 +1,11 @@
+'use client'
+
 import React from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
+import { useTranslation } from "react-i18next";
 
 export default function HomeFirstProductGrid() {
+  const { t } = useTranslation();
   return (
     <div className="flex items-center gap-[40px] min-h-fit h-[100vh] flex-col lg:flex-row  lg:h-[839px] w-max font-sans">
       <div
@@ -13,14 +17,9 @@ export default function HomeFirstProductGrid() {
         className="relative h-full w-full lg:w-[576px]"
       >
         <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-30 p-[30px] text-white space-y-[10px]">
-          <p className="md:text-[30px]">PLANTS DOCTORS</p>
-          <p className="md:text-[36px] font-arabic font-bold">GULF PALM</p>
-          <p className="md:text-[16px] max-w-sm">
-            Gulf Palms caters to a wide scope of clients ranging from
-            Governmental, Commercial, Industrial to Residential. Our experienced
-            team provides customized solutions from design to execution based on
-            our clients.
-          </p>
+          <p className="md:text-[30px]">{t("home.plantsDoctors")}</p>
+          <p className="md:text-[36px] font-arabic font-bold">{t("home.gulfPalm")}</p>
+          <p className="md:text-[16px] max-w-sm">{t("home.description")}</p>
         </div>
       </div>
       <div className="flex items-center gap-[17px] lg:gap-[40px] h-full">

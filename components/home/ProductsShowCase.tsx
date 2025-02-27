@@ -1,7 +1,10 @@
+'use client'
+
 import React from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import CustomCarousel from "../common/CustomCarousel";
 import ImageTextCard from "../common/ImageTextCard";
+import { useTranslation } from "react-i18next"; 
 
 const products = [
   {
@@ -48,52 +51,56 @@ const products = [
   },
 ];
 
-const topLayer = (
-  <div className=" grid h-full w-full place-content-center">
-    <div className="max-lg:w-[85vw] lg:w-[576px] py-3 h-full flex flex-col justify-center items-center">
-      <div className="grid place-content-center w-full ">
-        <div className="pb-[20px] text-center w-[364px] ">
-          <p className="text-[#777777] text-[30px] font-sans font-light">
-            GULF PALMS
-          </p>
-          <p className="text-[#242424] font-bold text-[36px] font-arabic">
-            PALMS PRODUCTS
-          </p>
-          <p className="text-[#777777] text-[16px] font-sans">
-            Our Team are constantly working to keep the lead in the Kuwaiti
-            market through establishing our vision and missions
-          </p>
-        </div>
-      </div>
-      <CustomCarousel
-        slidesToShow={2}
-        slidesToScroll={2}
-        MobileSlidesNumber={1}
-        data={products.map((product) => ({
-          component: (
-            <RenderImageAndProducts
-              key={product.productId}
-              renderType="product"
-              imageFileOrUrl={product.imageFileOrUrl}
-              images={product.images}
-              name={product.name}
-              description={product.description}
-              price={product.price}
-              productId={product.productId} 
-              slug={""} 
-              currency={""} 
-              currentCategories={[]} 
-              productAttribute={null}            
-              />
-          ),
-          width: " !w-[218px] ",
-        }))}
-      />
-    </div>
-  </div>
-);
 
 export default function ProductsShowCase() {
+  const { t } = useTranslation();
+
+  const topLayer = (
+    <div className="grid h-full w-full place-content-center">
+      <div className="max-lg:w-[85vw] lg:w-[576px] py-3 h-full flex flex-col justify-center items-center">
+        <div className="grid place-content-center w-full">
+          <div className="pb-[20px] text-center w-[364px]">
+            <p className="text-[#777777] text-[30px] font-sans font-light">
+              GULF PALMS
+            </p>
+            <p className="text-[#242424] font-bold text-[36px] font-arabic">
+              {/* Translated Product Title */}
+              {t("productsShowcase.title")}
+            </p>
+            <p className="text-[#777777] text-[16px] font-sans">
+              {/* Translated Description */}
+              {t("productsShowcase.description")}
+            </p>
+          </div>
+        </div>
+        <CustomCarousel
+          slidesToShow={2}
+          slidesToScroll={2}
+          MobileSlidesNumber={1}
+          data={products.map((product) => ({
+            component: (
+              <RenderImageAndProducts
+                key={product.productId}
+                renderType="product"
+                imageFileOrUrl={product.imageFileOrUrl}
+                images={product.images}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                productId={product.productId}
+                slug={""}
+                currency={""}
+                currentCategories={[]}
+                productAttribute={null}
+              />
+            ),
+            width: " !w-[218px] ",
+          }))}
+        />
+      </div>
+    </div>
+  );
+
   return (
     <div className="grid place-content-center max-w-content mx-auto mt-[50px]">
       <div className="w-[1140px] space-y-[100px]">

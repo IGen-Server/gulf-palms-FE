@@ -126,5 +126,46 @@
     },
     "footerNote": "Copyright &copy; {{year}} Gulf Palms | All Rights Reserved | Designed by Go Google",
     "paymentMethods": "Payment Methods"
+  },
+  "HomeFirstProductGrid": {
+    "title": "NEWLY ADDED"
+  },
+  "recentProducts": {
+    "newlyAdded": "NEWLY ADDED",
+    "title": "RECENT PRODUCTS",
+    "description": "Providing outstanding agricultural products, services, and solutions for our clients, both individuals and institutions."
+  },
+  "showrooms": {
+    "abdali": "ABDALI ITTIHAD SHOWROOM FARM SHOWROOM",
+    "rai": "RAI MAIN BRANCH",
+    "wafrah": "WAFRAH CORPORATE SHOWROOM FARM SHOWROOM",
+    "getLocation": "Get Location"
+  },
+  "names": {
+    "abdali": "ABDALI",
+    "rai": "RAI",
+    "wafrah": "WAFRAH"
+  },
+  "services": {
+    "ourServices": "OUR SERVICES",
+    "servicesProvided": "SERVICES PROVIDED BY GULF PALM",
+    "description": "Our experienced team provides customized solutions from design to execution based on our clients needs while keeping in mind the agricultural environment to ensure sustainable green spaces."
+  },
+  "Customers": {
+    "title": "WHAT OUR CUSTOMERS SAY ABOUT US",
+    "description": "Gulf Palms provides you with a good experience. Check our customer reviews. We provide excellent quality and experience."
+  },
+  "productsShowcase": {
+    "title": "PALMS PRODUCTS",
+    "description": "Our team is constantly working to maintain leadership in the Kuwaiti market through establishing our vision and mission."
+  },
+  "whoWeAre": {
+    "heading": "GULF PALMS",
+    "subheading": "WHO WE ARE",
+    "description": "Gulf Palms General Trading & Contracting Company (Tissue Culture Palms Centre) was established in 1991 immediately after the invasion. The nursery was purchased in Ar Rai, and palm offshoots were imported from Saudi Arabia. Faced with challenges in importing offshoots of quality varieties, they decided to source from American tissue culture laboratories. Offshoots of the best and most popular palm varieties in the Gulf region were collected and sent to the States for micropropagation. Later, the agreement was terminated, and all the cultures were shifted to Jacques Marionnet, France, which appointed Gulf Palms as its agent in Kuwait & Saudi Arabia.",
+    "buttons": {
+      "shopNow": "SHOP NOW",
+      "readMore": "READ MORE"
+    }
   }
 }

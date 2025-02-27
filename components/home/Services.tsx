@@ -1,7 +1,12 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import CustomCarousel from "../common/CustomCarousel";
+import { useTranslation } from "react-i18next"; 
 
 export default function Services() {
+  const { t } = useTranslation();
+
   const createSlide = (bgURL: string) => (
     <div
       style={{
@@ -69,17 +74,15 @@ export default function Services() {
 
   return (
     <div className="container mx-auto px-4 max-w-[1458px]">
-        <div className="pb-[30px] space-y-2 md:space-y-6 max-w-[800px] ">
-      <p className="text-[#777777] text-xl md:text-[30px] font-light font-sans">
-          OUR SERVICES
+        <div className="pb-[30px] space-y-2 md:space-y-6 max-w-[800px]">
+        <p className="text-[#777777] text-xl md:text-[30px] font-light font-sans">
+          {t("services.ourServices")}
         </p>
         <p className="text-[#242424] font-bold text-2xl md:text-[36px] font-arabic">
-          SERVICES PROVIED BY GULF PALM
+          {t("services.servicesProvided")}
         </p>
         <p className="text-[#777777] text-sm md:text-[16px] font-sans">
-          Our experienced team provides customized solutions from design to
-          execution based on our clients needs while keeping in mind the
-          agricultural environment to ensure sustainable green spaces.
+          {t("services.description")}
         </p>
       </div>
       <div className="pb-[50px]">
