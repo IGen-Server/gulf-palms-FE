@@ -8,10 +8,10 @@
         "href": "/showrooms",
         "submenu": [
           { "title": "مشتل راي", "href": "/showrooms/rai-nursery" },
-          { "title": "معرض عبدالي فارم", "href": "/showrooms/abdali-farm" },
-          { "title": "معرض عبدالي اتحاد", "href": "/showrooms/abdali-ittihad" },
-          { "title": "معرض وافر كوربوري", "href": "/showrooms/wafrah-corporate" },
-          { "title": "معرض وافر فارم", "href": "/showrooms/wafrah-farm" }
+          { "title": "معرض عبدالي فارم", "href": "/showrooms/abdali-farm-showroom" },
+          { "title": "معرض عبدالي اتحاد", "href": "/showrooms/abdali-ittihad-showroom" },
+          { "title": "معرض وافر كوربوري", "href": "/showrooms/wafrah-corporate-showroom" },
+          { "title": "معرض وافر فارم", "href": "/showrooms/wafrah-farm-showroom" }
         ]
       },
       {
@@ -21,10 +21,10 @@
           { "title": "صيانة النخيل", "href": "/services/palms-maintenance" },
           { "title": "صيانة الحدائق", "href": "/services/garden-maintenance" },
           { "title": "تطوير المزارع", "href": "/services/farm-development" },
-          { "title": "التصميم والتنسيق", "href": "/services/landscaping" },
+          { "title": "التصميم والتنسيق", "href": "/services/designing-landscaping" },
           { "title": "تنفيذ المشاريع", "href": "/services/project-execution" },
-          { "title": "تركيب أنظمة الري", "href": "/services/irrigation" },
-          { "title": "صيانة النباتات الداخلية", "href": "/services/indoor-maintenance" },
+          { "title": "تركيب أنظمة الري", "href": "/services/irrigation-system-installation" },
+          { "title": "صيانة النباتات الداخلية", "href": "/services/indoor-plants-maintenance" },
           { "title": "استشارة", "href": "/services/consultation" }
         ]
       },

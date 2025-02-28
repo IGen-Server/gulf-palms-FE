@@ -8,10 +8,10 @@
       "href": "/showrooms",
       "submenu": [
         { "title": "Rai Nursery", "href": "/showrooms/rai-nursery" },
-        { "title": "Abdali Farm Showroom", "href": "/showrooms/abdali-farm" },
-        { "title": "Abdali Ittihad Showroom", "href": "/showrooms/abdali-ittihad" },
-        { "title": "Wafrah Corporate Showroom", "href": "/showrooms/wafrah-corporate" },
-        { "title": "Wafrah Farm Showroom", "href": "/showrooms/wafrah-farm" }
+        { "title": "Abdali Farm Showroom", "href": "/showrooms/abdali-farm-showroom" },
+        { "title": "Abdali Ittihad Showroom", "href": "/showrooms/abdali-ittihad-showroom" },
+        { "title": "Wafrah Corporate Showroom", "href": "/showrooms/wafrah-corporate-showroom" },
+        { "title": "Wafrah Farm Showroom", "href": "/showrooms/wafrah-farm-showroom" }
       ]
     },
     {
@@ -21,10 +21,10 @@
         { "title": "Palms Maintenance", "href": "/services/palms-maintenance" },
         { "title": "Garden Maintenance", "href": "/services/garden-maintenance" },
         { "title": "Farm Development", "href": "/services/farm-development" },
-        { "title": "Designing & Landscaping", "href": "/services/landscaping" },
+        { "title": "Designing & Landscaping", "href": "/services/designing-landscaping" },
         { "title": "Project Execution", "href": "/services/project-execution" },
-        { "title": "Irrigation System Installation", "href": "/services/irrigation" },
-        { "title": "Indoor Plants Maintenance", "href": "/services/indoor-maintenance" },
+        { "title": "Irrigation System Installation", "href": "/services/irrigation-system-installation" },
+        { "title": "Indoor Plants Maintenance", "href": "/services/indoor-plants-maintenance" },
         { "title": "Consultation", "href": "/services/consultation" }
       ]
     },
