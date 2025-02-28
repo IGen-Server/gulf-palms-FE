@@ -10,8 +10,12 @@ import Link from "next/link"
 import { AuthService } from "@/services/api/auth.service"
 import { CookieStorageService } from "@/services/utility/storage.service"
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service"
+import { useGlobalDataProvider } from "@/providers/GlobalDataProvider"
 
 export default function AuthComponent() {
+
+  const { setIsTokenExpired } = useGlobalDataProvider();
+
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignIn, setIsLogin] = useState(true);
@@ -31,6 +35,7 @@ export default function AuthComponent() {
         .then(response=> {
           console.log(response);
           CookieStorageService.setAccessToken(response.data.jwt);
+          setIsTokenExpired(false);
           window.location.reload();
         })
         .catch(error => {

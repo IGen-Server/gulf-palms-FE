@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import i18nConfig from "@/i18nConfig";
-import { useAuth } from "@/providers/AuthProvider";
+import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 
 const localeNames = {
   en: "English",
@@ -14,7 +14,7 @@ const localeNames = {
 
 export function LocaleToggler() {
   const { i18n } = useTranslation();
-  const { translations } = useAuth();
+  const { translations } = useGlobalDataProvider();
   const currentLocale = i18n.language;
   const router = useRouter();
   const currentPathname = usePathname();

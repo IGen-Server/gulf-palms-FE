@@ -46,6 +46,7 @@
     "i18next": "^23.10.1",
     "i18next-resources-to-backend": "^1.2.0",
     "leaflet": "^1.9.4",
+    "lru-cache": "^11.0.2",
     "lucide-react": "^0.451.0",
     "multi-range-slider-react": "^2.0.7",
     "next": "14.1.4",
@@ -65,6 +66,7 @@
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.3",
     "tailwindcss-animate": "^1.0.7",
+    "typescript-lru-cache": "^2.0.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

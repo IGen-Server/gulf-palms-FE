@@ -2,15 +2,14 @@
 
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton";
-import { UserAsCustomer } from "@/models/user/user-as-customer";
-import { useAuth } from "@/providers/AuthProvider";
+import { useUserDataProvider } from "@/providers/UserDataProvider";
 import { UserService } from "@/services/api/user.service";
 import Link from "next/link"
 import { useEffect, useState } from "react";
 
 export default function AddressesPage() {
 
-  const { userSettings, setUserSettings } = useAuth();
+  const { userSettings, setUserSettings } = useUserDataProvider();
 
   useEffect(() => {
     const getSettings = async () => {
