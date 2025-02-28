@@ -33,8 +33,8 @@
       "title": "OUR FARMS",
       "href": "/farms",
       "submenu": [
-        { "title": "Wafrah Farm", "href": "/farms/wafrah" },
-        { "title": "Abdali Farm", "href": "/farms/abdali" }
+        { "title": "Wafrah Farm", "href": "/our-farms/wafrah-farm" },
+        { "title": "Abdali Farm", "href": "/our-farms/abdali-farm" }
       ]
     },
     { "title": "GALLERY", "href": "/gallery" },
