@@ -5,7 +5,7 @@ import GetInTouch from "@/components/common/GetInTouch";
 import { ProductDetailsExtended } from "@/components/shop/ProductDetailsExtented";
 import RelatedProducts from "@/components/shop/RelatedProducts";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ProductDetails from "./product-details";
 import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
@@ -13,7 +13,7 @@ import { ProductService } from "@/services/api/product.service";
 import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
-import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
+import { SlugType, useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 
 const fertilizationData = [
   { size: "Small", details: "Apply 50g of organic fertilizer every 2 months." },
@@ -54,59 +54,45 @@ const waterRequirementData = [
 
 export default function ProductPage() {
 
-  const { i18n } = useTranslation();
-  const { slug } = useParams();
-  const { setTranslation } = useGlobalDataProvider();
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
-
-  const [pageConfig, setPageConfig] = useState({
-    lang: i18n.language,
-    slug: slug,
-  });
-
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+  const { categories, slugToTranslate, addSlugToTranslate } = useGlobalDataProvider();
+  const { i18n: { language: currentLocale } } = useTranslation();
+  const { slug } = useParams();
+  const [pageConfig, setPageConfig] = useState({ lang: currentLocale, slug: slug });
   const [product, setProduct] = useState<any | null>(null);
+  const hasMounted = useRef(false);
 
   useEffect(() => {
-    const getProducts = async () => {
+    if (hasMounted.current) return;
+    hasMounted.current = true;
+
+    const getProduct = async () => {
       try {
-        const response = await ProductService.Get(
+        const response = await ProductService.GetBySlug(
           pageConfig,
           axiosInstanceWithLoader
         );
 
-        setProduct(response[0]);
+        setProduct(response);
+        addSlugToTranslate(currentLocale,
+          decodeURIComponent(slug as string),
+          currentLocale === 'ar' ? response.translations.en : response.translations.ar,
+          SlugType.Product,
+          ''
+        );
 
-        if (response[0].related_ids) {
-          await getRelatedProducts(response[0].related_ids)
+        if (response.related_ids) {
+          await getRelatedProducts(response.related_ids);
         }
 
         await getSuggestedProducts();
-
-        const productTranslationIds = response[0]?.translations;
-        let productOtherLangId;
-
-        if (i18n.language === 'en') {
-          productOtherLangId = productTranslationIds?.ar;
-        } else {
-          productOtherLangId = productTranslationIds?.en;
-        }
-        
-        if (productOtherLangId) {
-          const productInOtherLang = await ProductService.GetById(
-            productOtherLangId,
-            axiosInstanceWithLoader
-          );
-
-          setTranslation(i18n.language, decodeURIComponent(response[0].slug), decodeURIComponent(productInOtherLang?.slug));
-          setTranslation(i18n.language === 'en' ? 'ar' : 'en', decodeURIComponent(productInOtherLang?.slug), decodeURIComponent(response[0].slug));
-        }
-
       } catch (error) {
         console.error(error);
       }
     };
 
-    getProducts();
+    getProduct();
   }, [pageConfig]);
 
   // Related products
@@ -115,11 +101,12 @@ export default function ProductPage() {
     try {
       const response = await ProductService.Get(
         {
-          lang: i18n.language,
+          lang: currentLocale,
           include: `[0,${relatedProductIds.join(',')}]`
         },
-        axiosInstanceWithLoader
+        axiosInstanceWithoutLoader
       );
+
       setRelatedProducts(response);
     } catch (error) {
       console.error(error);
@@ -132,14 +119,15 @@ export default function ProductPage() {
     try {
       const response = await ProductService.Get(
         {
-          lang: i18n.language,
+          lang: currentLocale,
           orderby: 'random',
           order: 'asc',
           page: 1,
           per_page: Math.floor(Math.random() * 4) + 2
         },
-        axiosInstanceWithLoader
+        axiosInstanceWithoutLoader
       );
+
       setSuggestedProducts(response);
     } catch (error) {
       console.error(error);
@@ -148,35 +136,11 @@ export default function ProductPage() {
 
   // Category
   const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<Record<number, ProductCategoryModel>>({});
-  useEffect(() => {
-    const getProductCategories = async () => {
-      try {
-        let response = await ProductCategoryService.Get(
-          {
-            lang: i18n.language,
-            page: 1,
-            per_page: 100
-          },
-          axiosInstanceWithLoader
-        );
-
-        if (i18n.language === 'ar') {
-          response = response?.map(item => ({
-            ...item,
-            slug: decodeURIComponent(item.slug)
-          }));
-        }
-
-        var currentSlugToCategoryRecord = generateIdToCategoryRecord(response);
-        setSlugToCategoryRecord(currentSlugToCategoryRecord);
-
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getProductCategories();
-  }, []);
+  useEffect( () => {
+    if (categories) {
+      setSlugToCategoryRecord(generateIdToCategoryRecord(categories));
+    }
+  }, [categories]);
 
   return (
     <div className="pt-[75px] lg:pt-[98px]">
@@ -189,7 +153,7 @@ export default function ProductPage() {
           waterRequirementData={waterRequirementData}
           recommendedProducts={suggestedProducts}
         />}
-        {relatedProducts.length > 0 && <RelatedProducts products={relatedProducts} />}
+        {relatedProducts.length > 0 && <RelatedProducts products={relatedProducts} slugToCategoryRecord={slugToCategoryRecord} />}
       </div>
       <GetInTouch />
     </div>

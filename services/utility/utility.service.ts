@@ -1,4 +1,4 @@
-import { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
 import AxiosInstanceWithInterceptor from "./api.service";
 import { CookieStorageService } from "./storage.service";
 import { CustomAxiosInstance } from "./axios-with-loader.service";
@@ -30,18 +30,25 @@ export function onLogout(e:any) {
 }
 
 export function updateAxiosInstanceLoaderAndJwtChecking(axiosInstance: CustomAxiosInstance, requiresJwt: boolean = false, enableLoader: boolean = true) {
-  if (requiresJwt === true) {
-    axiosInstance.setRequiresJwt(true);
+  if (requiresJwt === true || enableLoader === false) {
+    const newAxiosInstance = Object.assign({}, axiosInstance);
+
+    if (requiresJwt === true) {
+      newAxiosInstance.setRequiresJwt(true);
+    }
+    if (enableLoader === false) {
+      newAxiosInstance.setEnableLoader(false);
+    }
+
+    return newAxiosInstance;
   }
-  if (enableLoader === false) {
-    axiosInstance.setEnableLoader(false);
-  }
+
   return axiosInstance;
 }
 
 export function getProductCategoryLink(currentCategories: ProductCategoryModel[], index: number) {
   const path = currentCategories.slice(0, index + 1).map(category => category.slug).join('/');
-  return `product-category/${path}`;
+  return `/product-category/${path}`;
 }
 
 export function getCategoryNameAndLinksAsArray(currentCategories: ProductCategoryModel[]): { name: string; link: string }[] {

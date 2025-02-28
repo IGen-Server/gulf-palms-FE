@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import CustomCarousel from "../common/CustomCarousel";
 import { extractCurrency, getCategoryNameAndLinksAsArray } from "@/services/utility/utility.service";
+import { ProductCategoryModel } from "@/models/product/product";
 
 // const products = [
 //   {
@@ -130,9 +131,10 @@ import { extractCurrency, getCategoryNameAndLinksAsArray } from "@/services/util
 
 interface RelatedProductsProps {
   products: any[];
+  slugToCategoryRecord: Record<number, ProductCategoryModel>;
 }
 
-export default function RelatedProducts({ products }: RelatedProductsProps) {
+export default function RelatedProducts({ products, slugToCategoryRecord }: RelatedProductsProps) {
   return (
     <div className="z-[50]">
       <div className="pb-[50px] space-y-[10px]">
@@ -161,6 +163,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
                 productId={product.id}
                 currentCategories={product.categories}
                 productAttribute={product.attributes ? product.attributes[0] : {}}
+                slugToCategoryRecord={slugToCategoryRecord}
               />
             ),
           }))}

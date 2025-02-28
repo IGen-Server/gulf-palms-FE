@@ -21,6 +21,7 @@ export const ApiRoutes = {
   },
   Product: {
     GetById: 'products/getById',
+    GetBySlug: 'products/getBySlug',
     Get: 'products',
     GetSuggestedProducts: 'products/suggested',
   },
