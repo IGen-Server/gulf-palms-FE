@@ -1,4 +1,194 @@
 {
+    "mobileMenuItems": [
+      { "title": "الرئيسية", "href": "/" },
+      { "title": "من نحن", "href": "/about-us-arabic" },
+      { "title": "التسوق", "href": "/shop" },
+      {
+        "title": "المعارض",
+        "href": "/showrooms",
+        "submenu": [
+          { "title": "مشتل راي", "href": "/showrooms/rai-nursery" },
+          { "title": "معرض عبدالي فارم", "href": "/showrooms/abdali-farm-showroom" },
+          { "title": "معرض عبدالي اتحاد", "href": "/showrooms/abdali-ittihad-showroom" },
+          { "title": "معرض وافر كوربوري", "href": "/showrooms/wafrah-corporate-showroom" },
+          { "title": "معرض وافر فارم", "href": "/showrooms/wafrah-farm-showroom" }
+        ]
+      },
+      {
+        "title": "الخدمات",
+        "href": "/services",
+        "submenu": [
+          { "title": "صيانة النخيل", "href": "/services/palms-maintenance" },
+          { "title": "صيانة الحدائق", "href": "/services/garden-maintenance" },
+          { "title": "تطوير المزارع", "href": "/services/farm-development" },
+          { "title": "التصميم والتنسيق", "href": "/services/designing-landscaping" },
+          { "title": "تنفيذ المشاريع", "href": "/services/project-execution" },
+          { "title": "تركيب أنظمة الري", "href": "/services/irrigation-system-installation" },
+          { "title": "صيانة النباتات الداخلية", "href": "/services/indoor-plants-maintenance" },
+          { "title": "استشارة", "href": "/services/consultation" }
+        ]
+      },
+      { "title": "المشاريع", "href": "/projects" },
+      {
+        "title": "مزارعنا",
+        "href": "/farms",
+        "submenu": [
+          { "title": "مزرعة وافر", "href": "/our-farms/wafrah-farm" },
+          { "title": "مزرعة عبدالي", "href": "/our-farms/abdali-farm" }
+        ]
+      },
+      { "title": "المعرض", "href": "/gallery" },
+      { "title": "اتصل بنا", "href": "/contact-us" }
+    ],
+    "mobileCategoryItems": [
+      {
+        "title": "عروض يا هلا",
+        "icon": "https://gulfpalms.com/wp-content/uploads/2023/10/price-tag-1.png",
+        "href": "/product-category/ya-hala-offers"
+      },
+      {
+        "title": "نخيل زراعة الأنسجة",
+        "icon": "https://gulfpalms.com/wp-content/uploads/2023/10/palms.png",
+        "href": "/product-category/tissue-culture-palms",
+        "submenu": [
+          { "title": "نخيل ميداني", "href": "/product-category/tissue-culture-palms/field" },
+          { "title": "نخيل مزروع في أواني", "href": "/product-category/tissue-culture-palms/potted" },
+          { "title": "نخيل أم", "href": "/product-category/tissue-culture-palms/mother" },
+          { "title": "نخيل فرعي مزروع", "href": "/product-category/tissue-culture-palms/offshoots" }
+        ]
+      },
+      {
+        "title": "الجانب المطعّم",
+        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant-2.png",
+        "href": "/product-category/grafted-sider"
+      },
+      {
+        "title": "أشجار الفواكه",
+        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/orange.png",
+        "href": "/product-category/fruits",
+        "submenu": [
+          { "title": "التوت", "href": "/product-category/fruits/berries" },
+          { "title": "التين", "href": "/product-category/fruits/fig" },
+          { "title": "العنب", "href": "/product-category/fruits/grapes" },
+          { "title": "المانجو", "href": "/product-category/fruits/mango" },
+          { "title": "أخرى", "href": "/product-category/fruits/others" }
+        ]
+      },
+      {
+        "title": "أشجار الحمضيات",
+        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/lime.png",
+        "href": "/product-category/citrus",
+        "submenu": [
+          { "title": "كليمنتين", "href": "/product-category/citrus/clementine" },
+          { "title": "ليمون", "href": "/product-category/citrus/lemon" },
+          { "title": "برتقال", "href": "/product-category/citrus/orange" },
+          { "title": "أخرى", "href": "/product-category/citrus/others" }
+        ]
+      },
+      {
+        "title": "نباتات الزينة",
+        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/nature.png",
+        "href": "/product-category/ornamental",
+        "submenu": [
+          { "title": "بوغنفيليا", "href": "/product-category/ornamental/bougainvilleas" },
+          { "title": "الكَرامة والمتسلقات", "href": "/product-category/ornamental/climbers" },
+          { "title": "النباتات الصحراوية", "href": "/product-category/ornamental/desert" },
+          { "title": "النباتات المعمرة والموسمية", "href": "/product-category/ornamental/perennials" },
+          { "title": "الشجيرات", "href": "/product-category/ornamental/shrubs" },
+          { "title": "الأشجار", "href": "/product-category/ornamental/trees" }
+        ]
+      },
+      {
+        "title": "نباتات داخلية",
+        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/sansevieria.png",
+        "href": "/product-category/indoor",
+        "submenu": [
+          { "title": "النباتات الخضراء", "href": "/product-category/indoor/green" },
+          { "title": "النباتات المزهرة", "href": "/product-category/indoor/flowering" },
+          { "title": "الصبار والنباتات العصارية", "href": "/product-category/indoor/cactus" },
+          { "title": "النباتات المعلقة", "href": "/product-category/indoor/hanging" }
+        ]
+      },
+      {
+        "title": "الأعشاب",
+        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/tea.png",
+        "href": "/product-category/herbs"
+      },
+      {
+        "title": "نخيل الزينة وبونساي",
+        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/tea.png",
+        "href": "/product-category/palms-bonsai",
+        "submenu": [
+          { "title": "أشجار الزيتون", "href": "/product-category/palms-bonsai/olive-trees" },
+          { "title": "زيتون", "href": "/product-category/palms-bonsai/olives" },
+          { "title": "نخيل واشنطن", "href": "/product-category/palms-bonsai/washingtonian" },
+          { "title": "نخيل آخر", "href": "/product-category/palms-bonsai/other" }
+        ]
+      },
+      {
+        "title": "رعاية النباتات",
+        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/bonsai.png",
+        "href": "/product-category/plant-care",
+        "submenu": [
+          { "title": "مبيدات الفطريات", "href": "/product-category/plant-care/fungicides" },
+          { "title": "مبيدات الحشرات", "href": "/product-category/plant-care/insecticides" },
+          { "title": "أخرى", "href": "/product-category/plant-care/others" }
+        ]
+      },
+      {
+        "title": "وسائط النباتات",
+        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant.png",
+        "href": "/product-category/media",
+        "submenu": [
+          { "title": "خليط النباتات", "href": "/product-category/media/mixtures" },
+          { "title": "التربة", "href": "/product-category/media/soil" },
+          { "title": "محسن التربة", "href": "/product-category/media/improver" },
+          { "title": "طحلب الخث", "href": "/product-category/media/peat-moss" },
+          { "title": "أخرى", "href": "/product-category/media/others" }
+        ]
+      }
+    ],
+  "desktopMenuItems": [
+  { "title": "الرئيسية", "href": "/" },
+  { "title": "من نحن", "href": "/about-us-arabic" },
+  { "title": "المتجر", "href": "/shop", "submenu": [] },
+  {
+    "title": "المعارض",
+    "href": "/showrooms",
+    "submenu": [
+          { "title": "مشتل راي", "href": "/showrooms/rai-nursery" },
+          { "title": "معرض عبدالي فارم", "href": "/showrooms/abdali-farm-showroom" },
+          { "title": "معرض عبدالي اتحاد", "href": "/showrooms/abdali-ittihad-showroom" },
+          { "title": "معرض وافر كوربوري", "href": "/showrooms/wafrah-corporate-showroom" },
+          { "title": "معرض وافر فارم", "href": "/showrooms/wafrah-farm-showroom" }
+        ]
+  },
+  {
+    "title": "الخدمات",
+    "href": "/services",
+   "submenu": [
+          { "title": "صيانة النخيل", "href": "/services/palms-maintenance" },
+          { "title": "صيانة الحدائق", "href": "/services/garden-maintenance" },
+          { "title": "تطوير المزارع", "href": "/services/farm-development" },
+          { "title": "التصميم والتنسيق", "href": "/services/designing-landscaping" },
+          { "title": "تنفيذ المشاريع", "href": "/services/project-execution" },
+          { "title": "تركيب أنظمة الري", "href": "/services/irrigation-system-installation" },
+          { "title": "صيانة النباتات الداخلية", "href": "/services/indoor-plants-maintenance" },
+          { "title": "استشارة", "href": "/services/consultation" }
+        ]
+  },
+  { "title": "المشاريع", "href": "/projects" },
+  {
+    "title": "مزارعنا",
+    "href": "/farms",
+    "submenu": [
+          { "title": "مزرعة وافر", "href": "/our-farms/wafrah-farm" },
+          { "title": "مزرعة عبدالي", "href": "/our-farms/abdali-farm" }
+        ]
+  },
+  { "title": "المعرض", "href": "/gallery" },
+  { "title": "اتصل بنا", "href": "/contact" }
+],
   "home": {
     "heroSection": {
       "Slogan1": "الحل الشامل لـ",
@@ -139,5 +329,76 @@
       "shopNow": "تسوق الآن",
       "readMore": "اقرأ المزيد"
     }
+  },
+  "servicesCarouselData": [
+  {
+    "id": "irrigation-system-installation",
+    "subtitle": "خدمات جلف بالم",
+    "title": "تركيب أنظمة الري",
+    "content": "بصفتنا شركة رائدة في مجال تنسيق الحدائق في الكويت، نستخدم مواد وتقنيات عالية الجودة في حلول الري الآلي. تركيزنا الأساسي هو الحفاظ على نضارة حديقتك.",
+    "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/irrigation-services-thumb.jpg",
+    "link": "/services/irrigation-system-installation/"
+  },
+  {
+    "id": "indoor-plants-maintenance",
+    "subtitle": "خدمات جلف بالم",
+    "title": "صيانة النباتات الداخلية",
+    "content": "نحرص على أن يكون فريق العناية بالنباتات لدينا مجهزًا بالمعرفة اللازمة. كل فرق العناية بالنباتات لدينا مدعومة بمشرف لضمان تواصل فعال مع جميع العملاء.",
+    "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/indoor-services-thumb.jpg",
+    "link": "/services/indoor-plants-maintenance/"
+  },
+  {
+    "id": "consultation",
+    "subtitle": "خدمات جلف بالم",
+    "title": "الاستشارات",
+    "content": "خدمة الاستشارات في تنسيق الحدائق لدينا مثالية لأصحاب المنازل الذين يرغبون في القيام بذلك بأنفسهم ولكنهم بحاجة إلى توجيه في الاتجاه الصحيح. ستؤدي استشارتك مع جلف بالم إلى نتائج رائعة ومرضية وبتكلفة معقولة.",
+    "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/consultaion-services-thumb.jpg",
+    "link": "/services/consultation/"
+  },
+  {
+    "id": "palm-maintenance",
+    "subtitle": "خدمات جلف بالم",
+    "title": "صيانة النخيل",
+    "content": "تقدم جلف بالم أفضل الخدمات في توريد وزراعة ونقل وتنمية وإنتاج أشجار النخيل. لدينا أفضل الخبراء في مكافحة الأمراض وإدارة الآفات والتسميد ومتطلبات الري لنخيل التمر.",
+    "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/palms-services-thumb.jpg",
+    "link": "/services/palms-maintenance/"
+  },
+  {
+    "id": "garden-maintenance",
+    "subtitle": "خدمات جلف بالم",
+    "title": "صيانة الحدائق",
+    "content": "توفر جلف بالم مجموعة متكاملة من خدمات صيانة المناظر الطبيعية للحفاظ على الجمال الدائم للمساحات الخارجية الخاصة بك. نقدم عقودًا سنوية لصيانة المظهر الجمالي لمساحاتك الخارجية.",
+    "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/garden-services-thumb.jpg",
+    "link": "/services/garden-maintenance/"
+  },
+  {
+    "id": "farm-development",
+    "subtitle": "خدمات جلف بالم",
+    "title": "تطوير المزارع",
+    "content": "تمتلك جلف بالم وتدير أكبر مشاتل النباتات، حيث نوفر مجموعة واسعة من النباتات، بدءًا من الأنواع النادرة إلى الأنواع الأكثر شيوعًا والمجربة، بالإضافة إلى النباتات المحلية.",
+    "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/farm-development-services-thumb.jpg",
+    "link": "/services/farm-development/"
+  },
+  {
+    "id": "designing-landscaping",
+    "subtitle": "خدمات جلف بالم",
+    "title": "تصميم وتنسيق الحدائق",
+    "content": "في جلف بالم، يتمتع مهندسونا ومصممونا المحترفون بمعرفة واسعة بأنواع الأشجار والشجيرات والغطاء النباتي والزهور والأعشاب المناسبة للبيئة الصحراوية، مما يضفي لمسة من الأناقة.",
+    "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/landscaping-services-thumb.jpg",
+    "link": "/services/designing-landscaping/"
+  },
+  {
+    "id": "project-execution",
+    "subtitle": "خدمات جلف بالم",
+    "title": "تنفيذ المشاريع",
+    "content": "تصاميمنا مستدامة وفعالة من حيث التكلفة وتستخدم الموارد بكفاءة. نحافظ على الطبيعة والمياه والطاقة والبيئة، ونقلل بشكل كبير من تكاليف الصيانة.",
+    "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/project-services-thumb.jpg",
+    "link": "/services/project-execution/"
   }
+],
+"mobileNavTabs":{
+  "tab1":"الفئات",
+  "tab2":"القائمة"
+}
+
 }
