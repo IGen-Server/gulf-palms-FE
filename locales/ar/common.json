@@ -1,7 +1,7 @@
 {
     "mobileMenuItems": [
       { "title": "الرئيسية", "href": "/" },
-      { "title": "من نحن", "href": "/about" },
+      { "title": "من نحن", "href": "/about-us-arabic" },
       { "title": "التسوق", "href": "/shop" },
       {
         "title": "المعارض",
@@ -38,7 +38,7 @@
         ]
       },
       { "title": "المعرض", "href": "/gallery" },
-      { "title": "اتصل بنا", "href": "/contact" }
+      { "title": "اتصل بنا", "href": "/contact-us" }
     ],
     "mobileCategoryItems": [
       {
