@@ -2,7 +2,6 @@ import Footer from "@/components/footer/footer";
 import PublicNavbar from "@/components/navbar/public-navbar/public-navbar";
 import { ReactNode } from "react";
 
-
 function PublicPageLayout({
   children,
   params: { locale },
@@ -14,7 +13,7 @@ function PublicPageLayout({
     <div>
       <div className="content overflow-x-hidden px-0 bg-white min-h-fit ">
         <PublicNavbar />
-        <div className="">{children}</div>
+        <div className="w-screen overflow-x-hidden">{children}</div>
       </div>
       <Footer />
     </div>

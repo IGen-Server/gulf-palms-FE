@@ -24,7 +24,7 @@ interface ButtonsGroupProps {
 }
 
 interface ContentProps {
-  type: "image" | "text" | "component";
+  type: "image" | "text" | "component" | "video";
   src?: string; // Image source if the type is "image"
   heading?: string; // Heading if the type is "text"
   headingSize?: string; // Font size for the heading
@@ -72,12 +72,18 @@ export default function ImageTextCard({
     const alignClass = buttons.align && `justify-${buttons.align}`;
 
     return (
-      <div className={`flex w-full items-center ${alignClass} ${layoutClass} ${gapClass}`}>
+      <div
+        className={`flex w-full items-center ${alignClass} ${layoutClass} ${gapClass}`}
+      >
         {buttons.items.map((button, index) => (
           <button
             key={index}
-            className={`px-3 py-2 ${button.bgColor || "bg-primary"} ${button.textColor || "text-white"} 
-              ${button.fontWeight || "font-medium"} ${button.borderRadius || "rounded"} !cursor-pointer`}
+            className={`px-3 py-2 ${button.bgColor || "bg-primary"} ${
+              button.textColor || "text-white"
+            } 
+              ${button.fontWeight || "font-medium"} ${
+              button.borderRadius || "rounded"
+            } duration-300 !cursor-pointer hover:bg-primary hover:text-white`}
             style={{
               height: button.height || "auto",
               width: button.width || "auto",
@@ -101,20 +107,28 @@ export default function ImageTextCard({
   };
 
   const renderContent = (content: ContentProps) => {
-    const textAlignClass = content.textAlign ? `text-${content.textAlign}` : "text-left";
+    const textAlignClass = content.textAlign
+      ? `text-${content.textAlign}`
+      : "text-left";
 
     if (content.type === "text") {
       return (
-        <div className={`space-y-[20px] p-[30px] ${textAlignClass}`}>
+        <div className={`w-full space-y-[20px] p-[30px] ${textAlignClass}`}>
           {content.subheading && (
-            <h3 className={`${content.subheadingColor || "text-primary"} ${content.subheadingSize || "text-md"} 
+            <h3
+              className={`${content.subheadingColor || "text-primary"} ${
+                content.subheadingSize || "text-md"
+              } 
               ${content.subheadingWeight || "font-medium"} mb-2`}
             >
               {content.subheading}
             </h3>
           )}
           {content.heading && (
-            <h2 className={`${content.headingColor || "text-black"} ${content.headingSize || "text-[30px]"} 
+            <h2
+              className={`${content.headingColor || "text-black"} ${
+                content.headingSize || "text-[30px]"
+              } 
               ${content.headingWeight || "font-bold"} mb-2`}
             >
               {content.heading}
@@ -122,7 +136,10 @@ export default function ImageTextCard({
           )}
 
           {content.bullets && content.bullets.length === 1 ? (
-            <p className={`${content.textColor || "text-secondary"} ${content.textSize || "text-sm"} 
+            <p
+              className={`${content.textColor || "text-secondary"} ${
+                content.textSize || "text-sm"
+              } 
               ${content.fontWeight || "font-normal"} mb-1`}
             >
               {content.bullets[0]}
@@ -132,7 +149,11 @@ export default function ImageTextCard({
               <div className="w-full h-full pl-3">
                 <ul className="list-disc text-gray-600 space-y-3">
                   {content.bullets.map((bullet, index) => (
-                    <li key={index} className={`${content.textColor || "text-secondary"} ${content.textSize || "text-sm"} 
+                    <li
+                      key={index}
+                      className={`${content.textColor || "text-secondary"} ${
+                        content.textSize || "text-sm"
+                      } 
                       ${content.fontWeight || "font-normal"} mb-1`}
                     >
                       {bullet}
@@ -147,6 +168,28 @@ export default function ImageTextCard({
         </div>
       );
     }
+
+    if (content.type === "video" && content.src) {
+      return (
+        <div className="w-full h-[470px] overflow-hidden">
+          <iframe
+            src={`${content.src.replace(
+              "vimeo.com",
+              "player.vimeo.com/video"
+            )}?autoplay=1&background=1&loop=1&byline=0&title=0&portrait=0`}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+            className="absolute top-0 left-0 w-full h-full object-cover"
+            allow="autoplay; fullscreen"
+            frameBorder="0"
+          ></iframe>
+        </div>
+      );
+    }
+
     if (content.type === "image" && content.src) {
       return (
         <img
@@ -164,12 +207,14 @@ export default function ImageTextCard({
   };
 
   return (
-    <div className={`w-max mx-auto ${size.width} ${size.height} grid grid-cols-1 lg:grid-cols-2 ${className} justify-between`}>
+    <div
+      className={`w-full mx-auto ${size.width} ${size.height} gap-12 lg:gap-0 grid grid-cols-1 lg:grid-cols-2 gap-y-7 ${className} justify-between`}
+    >
       {/* Left Content */}
       <div
-        className={`flex flex-col items-start w-full text-justify
+        className={`relative flex flex-col items-start w-full text-justify
           ${leftContent.bgColor || ""}
-          ${colReversed ? "order-2 md:order-1" : "order-1"}
+          ${colReversed ? "order-1 lg:order-2" : "order-1"}
           ${leftContent.type === "text" && "grid place-content-center"}
         `}
       >
@@ -178,9 +223,9 @@ export default function ImageTextCard({
 
       {/* Right Content */}
       <div
-        className={`flex flex-col items-start w-full text-justify
+        className={`relative flex flex-col items-start w-full text-justify
           ${rightContent.bgColor || ""}
-          ${colReversed ? "order-1 md:order-2" : "order-2"}
+          ${colReversed ? "order-2 lg:order-1" : "order-2"}
           ${rightContent.type === "text" && "grid place-content-center"}
         `}
       >
@@ -189,4 +234,3 @@ export default function ImageTextCard({
     </div>
   );
 }
-
