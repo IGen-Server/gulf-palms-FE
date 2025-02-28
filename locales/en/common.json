@@ -456,5 +456,6 @@
     "mobileNavTabs":{
        "tab1":"MENU",
        "tab2":"CATEGORIES"
-    }
+    },
+    "Shop":"SHOP"
   }

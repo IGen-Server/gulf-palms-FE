@@ -8,6 +8,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { useTranslation } from "react-i18next";
+import useMobileCategoryItems from "./useMenuItems";
 
 interface Category {
   title: string;
@@ -25,21 +26,26 @@ interface MenuItem {
 export function DesktopNav() {
   const { t } = useTranslation();
 
+  const mobileCategoryItems = useMobileCategoryItems();
+  console.log({mobileCategoryItems})
+
   const desktopMenuItems: MenuItem[] =
     (t("desktopMenuItems", {
       returnObjects: true,
     }) as MenuItem[]) || [];
 
-  const mobileCategoryItems: Category[] =
-    (t("mobileCategoryItems", {
-      returnObjects: true,
-    }) as MenuItem[]) || [];
+  // const mobileCategoryItems: Category[] =
+  //   (t("mobileCategoryItems", {
+  //     returnObjects: true,
+  //   }) as MenuItem[]) || [];
 
   const updatedMenuItems: MenuItem[] = [...desktopMenuItems];
   updatedMenuItems[2] = {
     ...updatedMenuItems[2],
     submenu: [...mobileCategoryItems],
   };
+
+
 
   return (
     <nav className="hidden lg:flex items-center justify-evenly flex-wrap w-full font-sans">

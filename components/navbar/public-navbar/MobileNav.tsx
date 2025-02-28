@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/collapsible";
 import { NavItem } from "./navData";
 import Image from "next/image";
+import useMobileCategoryItems from "./useMenuItems";
 
 
 interface Category {
@@ -35,6 +36,7 @@ interface MenuItem {
 
 function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
   const [isOpen, setIsOpen] = React.useState(false);
+
 
   if (!item.submenu) {
     return (
@@ -130,13 +132,10 @@ export default function MobileNav() {
     if (searchQuery) getProducts();
   }, [axiosInstanceWithLoader, pageConfig]);
 
+  const mobileCategoryItems = useMobileCategoryItems();
+  
   const mobileMenuItems: MenuItem[] =
     (t("desktopMenuItems", {
-      returnObjects: true,
-    }) as MenuItem[]) || [];
-
-  const mobileCategoryItems: Category[] =
-    (t("mobileCategoryItems", {
       returnObjects: true,
     }) as MenuItem[]) || [];
 
