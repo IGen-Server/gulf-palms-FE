@@ -89,7 +89,7 @@ export default function PublicNavbar() {
       }
     }
   }, [cartItems.length]);
-  
+
   return (
     <div
       className={`w-full fixed duration-500 top-0 z-[49] left-0 transition-transform flex items-center

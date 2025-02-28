@@ -44,30 +44,26 @@ export function CustomBreadCrumb({
             : language === "ar"
             ? link.arabicName
             : "";
-        const isSelected = index == selectedIndex;
+        const isSelected = index === links.length - 1;
 
         return (
           <div key={index} className="flex items-center">
             {index !== 0 && <span className="mx-2 text-gray-800">/</span>}
-            {isLast && !activeLastLink ? (
+            {isLast ? (
               <span
-                onClick={() => {
-                  setSelectedIndex(index);
-                  updatePerPage && updatePerPage("per_page", link.value);
-                }}
                 className={cn(
-                  "text-gray-800 cursor-pointer",
-                  isSelected && " font-extrabold text-black ",
+                  "font-semibold text-[.6875rem] leading-4 text-[#242424]",
                   currentStyle
                 )}
               >
                 {linkName}
               </span>
             ) : (
-              <span
+              <Link
+                href={link.href}
                 className={cn(
-                  "hover:text-gray-500 cursor-pointer",
-                  isSelected && " font-extrabold text-black ",
+                  "font-semibold text-[.6875rem] leading-4 text-[#333] hover:text-gray-500 cursor-pointer",
+                  isSelected && "font-semibold text-[#333]",
                   currentStyle
                 )}
                 onClick={() => {
@@ -76,7 +72,7 @@ export function CustomBreadCrumb({
                 }}
               >
                 {linkName}
-              </span>
+              </Link>
             )}
           </div>
         );
