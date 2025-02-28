@@ -16,12 +16,12 @@ import { showPerPage } from "@/constants/global-constants";
 import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
-import { useAuth } from "@/providers/AuthProvider";
+import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 import Link from "next/link";
 
 export default function SubcategoryPage() {
   const { category: categorySlug, slug: subcategorySlug } = useParams();
-  const { setTranslation } = useAuth();
+  const { setTranslation } = useGlobalDataProvider();
   const [columns, setColumns] = useState(4)
   const { i18n } = useTranslation();
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();

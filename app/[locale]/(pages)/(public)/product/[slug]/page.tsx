@@ -13,7 +13,7 @@ import { ProductService } from "@/services/api/product.service";
 import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
-import { useAuth } from "@/providers/AuthProvider";
+import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 
 const fertilizationData = [
   { size: "Small", details: "Apply 50g of organic fertilizer every 2 months." },
@@ -56,7 +56,7 @@ export default function ProductPage() {
 
   const { i18n } = useTranslation();
   const { slug } = useParams();
-  const { setTranslation } = useAuth();
+  const { setTranslation } = useGlobalDataProvider();
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
 
   const [pageConfig, setPageConfig] = useState({

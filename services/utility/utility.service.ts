@@ -204,3 +204,21 @@ export function orderStatusesToReadableSentence(slug: string): string {
       .replace(/-/g, " ") // Replace hyphens with spaces
       .replace(/\b\w/g, char => char.toUpperCase()); // Capitalize first letter of each word
 }
+
+export function isJwtTokenExpired(token: string): boolean {
+  try {
+    const payloadBase64 = token.split(".")[1]; // Extract payload
+    const decodedPayload = JSON.parse(atob(payloadBase64)); // Decode Base64
+    const exp = decodedPayload.exp; // Get expiration timestamp
+
+    if (!exp) {
+      throw new Error("Invalid token: No expiration field.");
+    }
+
+    const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+    return currentTime >= exp; // Returns true if expired, false otherwise
+  } catch (error) {
+    console.error("Error decoding JWT:", error);
+    return true; // Consider expired if error occurs
+  }
+}

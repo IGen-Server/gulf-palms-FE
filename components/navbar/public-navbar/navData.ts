@@ -259,7 +259,7 @@ export const mobileCategoryItems: NavItem[] = [
 
 export const desktopMenuItems = [
   { title: "HOME", href: "/" },
-  { title: "ABOUT US", href: "/about" },
+  { title: "ABOUT US", href: "/about-us-arabic" },
   { title: "SHOP", href: "/shop", submenu: [...mobileCategoryItems] },
   {
     title: "SHOWROOMS",
@@ -302,5 +302,5 @@ export const desktopMenuItems = [
     ],
   },
   { title: "GALLERY", href: "/gallery" },
-  { title: "CONTACT US", href: "/contact" },
+  { title: "CONTACT US", href: "/contact-us" },
 ];

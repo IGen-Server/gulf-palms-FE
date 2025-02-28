@@ -15,19 +15,19 @@ export default function HeroSection() {
       <p className={`text-[28px] ${isArabic ? 'text-right' : 'text-left'} sm:text-[32px] lg:text-[46px] font-bold font-arabic pt-1`}>
         {t("home.heroSection.Slogan2")}
       </p>
-      <p className={`text-[14px] lg:text-[16px] pt-3 font-sans max-w-[600px] mx-auto lg:mx-0 ${isArabic ? 'text-right' : 'text-left'}`}>
+      <p className={`text-[14px] lg:text-[16px] pt-3 font-sans max-w-[600px] ${isArabic ? 'text-right' : 'text-left'}`}>
         {t("home.heroSection.Slogan3")}
       </p>
-      <div className="flex flex-col sm:flex-row items-center gap-4 pt-8 w-full max-sm:justify-center lg:justify-start">
+      <div className="flex flex-col lg:flex-row items-center gap-4 pt-8 w-[calc(100vw-85px)] justify-center lg:justify-start">
         <Button
-          className="rounded-none bg-primary opacity-90 hover:bg-primary hover:opacity-100 w-full sm:w-[137.8px] h-[48px] grid place-content-center font-semibold"
+          className="rounded-none bg-primary opacity-90 hover:bg-primary hover:opacity-100 w-full lg:w-[137.8px] h-[48px] grid place-content-center font-semibold"
           variant={"default"}
         >
           {t("home.heroSection.Button2")}
         </Button>
         <Button
           variant={"outline"}
-          className="rounded-none bg-transparent hover:bg-transparent hover:text-current w-full sm:w-[137.8px] h-[48px] grid place-content-center border-white lg:border-gray-400 hover:border-secondary font-semibold"
+          className="rounded-none bg-transparent hover:bg-transparent hover:text-current w-full lg:w-[137.8px] h-[48px] grid place-content-center border-white lg:border-gray-400 hover:border-secondary font-semibold"
         >
           {t("home.heroSection.Button1")}
         </Button>

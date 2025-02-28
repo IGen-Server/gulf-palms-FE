@@ -16,7 +16,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { mobileCategoryItems, mobileMenuItems, NavItem } from "./navData";
+import { NavItem } from "./navData";
 import Image from "next/image";
 
 

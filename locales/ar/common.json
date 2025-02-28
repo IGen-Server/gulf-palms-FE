@@ -1,17 +1,17 @@
 {
     "mobileMenuItems": [
       { "title": "الرئيسية", "href": "/" },
-      { "title": "من نحن", "href": "/about" },
+      { "title": "من نحن", "href": "/about-us-arabic" },
       { "title": "التسوق", "href": "/shop" },
       {
         "title": "المعارض",
         "href": "/showrooms",
         "submenu": [
           { "title": "مشتل راي", "href": "/showrooms/rai-nursery" },
-          { "title": "معرض عبدالي فارم", "href": "/showrooms/abdali-farm" },
-          { "title": "معرض عبدالي اتحاد", "href": "/showrooms/abdali-ittihad" },
-          { "title": "معرض وافر كوربوري", "href": "/showrooms/wafrah-corporate" },
-          { "title": "معرض وافر فارم", "href": "/showrooms/wafrah-farm" }
+          { "title": "معرض عبدالي فارم", "href": "/showrooms/abdali-farm-showroom" },
+          { "title": "معرض عبدالي اتحاد", "href": "/showrooms/abdali-ittihad-showroom" },
+          { "title": "معرض وافر كوربوري", "href": "/showrooms/wafrah-corporate-showroom" },
+          { "title": "معرض وافر فارم", "href": "/showrooms/wafrah-farm-showroom" }
         ]
       },
       {
@@ -21,10 +21,10 @@
           { "title": "صيانة النخيل", "href": "/services/palms-maintenance" },
           { "title": "صيانة الحدائق", "href": "/services/garden-maintenance" },
           { "title": "تطوير المزارع", "href": "/services/farm-development" },
-          { "title": "التصميم والتنسيق", "href": "/services/landscaping" },
+          { "title": "التصميم والتنسيق", "href": "/services/designing-landscaping" },
           { "title": "تنفيذ المشاريع", "href": "/services/project-execution" },
-          { "title": "تركيب أنظمة الري", "href": "/services/irrigation" },
-          { "title": "صيانة النباتات الداخلية", "href": "/services/indoor-maintenance" },
+          { "title": "تركيب أنظمة الري", "href": "/services/irrigation-system-installation" },
+          { "title": "صيانة النباتات الداخلية", "href": "/services/indoor-plants-maintenance" },
           { "title": "استشارة", "href": "/services/consultation" }
         ]
       },
@@ -33,12 +33,12 @@
         "title": "مزارعنا",
         "href": "/farms",
         "submenu": [
-          { "title": "مزرعة وافر", "href": "/farms/wafrah" },
-          { "title": "مزرعة عبدالي", "href": "/farms/abdali" }
+          { "title": "مزرعة وافر", "href": "/our-farms/wafrah-farm" },
+          { "title": "مزرعة عبدالي", "href": "/our-farms/abdali-farm" }
         ]
       },
       { "title": "المعرض", "href": "/gallery" },
-      { "title": "اتصل بنا", "href": "/contact" }
+      { "title": "اتصل بنا", "href": "/contact-us" }
     ],
     "mobileCategoryItems": [
       {
@@ -150,41 +150,41 @@
     ],
   "desktopMenuItems": [
   { "title": "الرئيسية", "href": "/" },
-  { "title": "من نحن", "href": "/about" },
+  { "title": "من نحن", "href": "/about-us-arabic" },
   { "title": "المتجر", "href": "/shop", "submenu": [] },
   {
     "title": "المعارض",
     "href": "/showrooms",
     "submenu": [
-      { "title": "مشاتل راي", "href": "/showrooms/rai-nursery" },
-      { "title": "معرض عبدلي فارم", "href": "/showrooms/abdali-farm" },
-      { "title": "معرض عبدلي الاتحاد", "href": "/showrooms/abdali-ittihad" },
-      { "title": "معرض الوفرة للشركات", "href": "/showrooms/wafrah-corporate" },
-      { "title": "معرض الوفرة فارم", "href": "/showrooms/wafrah-farm" }
-    ]
+          { "title": "مشتل راي", "href": "/showrooms/rai-nursery" },
+          { "title": "معرض عبدالي فارم", "href": "/showrooms/abdali-farm-showroom" },
+          { "title": "معرض عبدالي اتحاد", "href": "/showrooms/abdali-ittihad-showroom" },
+          { "title": "معرض وافر كوربوري", "href": "/showrooms/wafrah-corporate-showroom" },
+          { "title": "معرض وافر فارم", "href": "/showrooms/wafrah-farm-showroom" }
+        ]
   },
   {
     "title": "الخدمات",
     "href": "/services",
-    "submenu": [
-      { "title": "صيانة النخيل", "href": "/services/palms-maintenance" },
-      { "title": "صيانة الحدائق", "href": "/services/garden-maintenance" },
-      { "title": "تطوير المزارع", "href": "/services/farm-development" },
-      { "title": "التصميم والتنسيق", "href": "/services/landscaping" },
-      { "title": "تنفيذ المشاريع", "href": "/services/project-execution" },
-      { "title": "تركيب أنظمة الري", "href": "/services/irrigation" },
-      { "title": "صيانة النباتات الداخلية", "href": "/services/indoor-maintenance" },
-      { "title": "الاستشارات", "href": "/services/consultation" }
-    ]
+   "submenu": [
+          { "title": "صيانة النخيل", "href": "/services/palms-maintenance" },
+          { "title": "صيانة الحدائق", "href": "/services/garden-maintenance" },
+          { "title": "تطوير المزارع", "href": "/services/farm-development" },
+          { "title": "التصميم والتنسيق", "href": "/services/designing-landscaping" },
+          { "title": "تنفيذ المشاريع", "href": "/services/project-execution" },
+          { "title": "تركيب أنظمة الري", "href": "/services/irrigation-system-installation" },
+          { "title": "صيانة النباتات الداخلية", "href": "/services/indoor-plants-maintenance" },
+          { "title": "استشارة", "href": "/services/consultation" }
+        ]
   },
   { "title": "المشاريع", "href": "/projects" },
   {
     "title": "مزارعنا",
     "href": "/farms",
     "submenu": [
-      { "title": "مزرعة الوفرة", "href": "/farms/wafrah" },
-      { "title": "مزرعة عبدلي", "href": "/farms/abdali" }
-    ]
+          { "title": "مزرعة وافر", "href": "/our-farms/wafrah-farm" },
+          { "title": "مزرعة عبدالي", "href": "/our-farms/abdali-farm" }
+        ]
   },
   { "title": "المعرض", "href": "/gallery" },
   { "title": "اتصل بنا", "href": "/contact" }

@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useAuth } from "@/providers/AuthProvider";
+import { useUserDataProvider } from "@/providers/UserDataProvider";
 import { UserService } from "@/services/api/user.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ interface ShippingAddressToEdit {
 export default function ShippingAddressForm() {
 
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true);
-  const { userSettings, setUserSettings } = useAuth();
+  const { userSettings, setUserSettings } = useUserDataProvider();
   const [shippingAddress, setShippingAddress] = useState<ShippingAddressToEdit>({
     first_name: "",
     last_name: "",

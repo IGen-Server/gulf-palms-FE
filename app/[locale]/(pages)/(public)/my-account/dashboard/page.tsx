@@ -2,12 +2,12 @@
 
 import Link from "next/link"
 import { FileText, Download, MapPin, User, LogOut } from "lucide-react"
-import { useAuth } from "@/providers/AuthProvider";
 import { onLogout } from "@/services/utility/utility.service";
+import { useUserDataProvider } from "@/providers/UserDataProvider";
 
 export default function Dashboard() {
 
-  const { user } = useAuth();
+  const { user } = useUserDataProvider();
 
   return (
     <main className="flex-1 p-6">

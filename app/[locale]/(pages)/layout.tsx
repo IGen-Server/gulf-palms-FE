@@ -1,6 +1,7 @@
 import TranslationsProvider from "@/components/TranslationsProvider";
 import initializeTranslations from "@/app/i18n";
 import { ReactNode } from "react";
+import { GlobalDataProvider } from "@/providers/GlobalDataProvider";
 
 const i18nNamespaces = ["common"];
 
@@ -13,7 +14,7 @@ async function PagesLayout({ children, params: { locale } }: { children: ReactNo
       locale={locale}
       resources={resources}
     >
-      {children}
+      <GlobalDataProvider>{children}</GlobalDataProvider>
     </TranslationsProvider>
   );
 }
