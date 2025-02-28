@@ -51,7 +51,6 @@ const products = [
   },
 ];
 
-
 export default function ProductsShowCase() {
   const { t } = useTranslation();
 
@@ -61,7 +60,7 @@ export default function ProductsShowCase() {
         <div className="grid place-content-center w-full">
           <div className="pb-[20px] text-center w-[364px]">
             <p className="text-[#777777] text-[30px] font-sans font-light">
-              GULF PALMS
+            {t("productsShowcase.heading")}
             </p>
             <p className="text-[#242424] font-bold text-[36px] font-arabic">
               {/* Translated Product Title */}
