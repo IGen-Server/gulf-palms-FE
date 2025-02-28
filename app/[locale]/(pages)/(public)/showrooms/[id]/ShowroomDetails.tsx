@@ -119,7 +119,6 @@ const Showroom = ({ slug }: { slug: string }) => {
           </div>
           <div className="w-full lg:w-1/2 h-[570px]">
             <iframe
-              loading="lazy"
               width="100%"
               height="100%"
               src={nursery?.mapUrl}
