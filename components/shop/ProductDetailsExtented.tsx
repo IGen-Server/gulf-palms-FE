@@ -8,6 +8,7 @@ import { ChevronLeft, ChevronRight, Plus } from "lucide-react"
 import RenderImageAndProducts from "../common/RenderImageAndProducts"
 import { extractCurrency } from "@/services/utility/utility.service"
 import { useCart } from "@/providers/CartProvider"
+import { ProductCategoryModel } from "@/models/product/product"
 
 interface ProductDetailsProps {
   fertilizationData: {
@@ -18,13 +19,15 @@ interface ProductDetailsProps {
     size: string
     details: string
   }[]
-  recommendedProducts: any[]
+  recommendedProducts: any[],
+  slugToCategoryRecord: Record<number, ProductCategoryModel>;
 }
 
 export function ProductDetailsExtended({
   fertilizationData,
   waterRequirementData,
   recommendedProducts,
+  slugToCategoryRecord
 }: ProductDetailsProps) {
   const [selectedProducts, setSelectedProducts] = React.useState<any[]>([])
   const [currentSlide, setCurrentSlide] = React.useState(0)
@@ -99,6 +102,7 @@ export function ProductDetailsExtended({
                           productId={product.id}
                           currentCategories={product.categories}
                           productAttribute={product.attributes ? product.attributes[0] : {}}
+                          slugToCategoryRecord={slugToCategoryRecord}
                         />
                         {index > 0 && <Plus className="absolute top-1/2 -left-5 h-6 w-6 text-gray-400 z-[200]" />}
                       </div>

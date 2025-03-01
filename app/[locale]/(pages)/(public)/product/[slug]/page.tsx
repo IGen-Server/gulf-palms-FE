@@ -14,6 +14,7 @@ import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
 import { SlugType, useGlobalDataProvider } from "@/providers/GlobalDataProvider";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const fertilizationData = [
   { size: "Small", details: "Apply 50g of organic fertilizer every 2 months." },
@@ -97,8 +98,10 @@ export default function ProductPage() {
 
   // Related products
   const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
+  const [isRelatedProductLoading, setIsRelatedProductLoading] = useState<boolean>(false);
   const getRelatedProducts = async (relatedProductIds: number[]) => {
     try {
+      setIsRelatedProductLoading(true);
       const response = await ProductService.Get(
         {
           lang: currentLocale,
@@ -108,15 +111,19 @@ export default function ProductPage() {
       );
 
       setRelatedProducts(response);
+      setIsRelatedProductLoading(false);
     } catch (error) {
       console.error(error);
+      setIsRelatedProductLoading(false);
     }
   };
 
   // Suggested products
   const [suggestedProducts, setSuggestedProducts] = useState<any[]>([]);
+  const [isSuggestedProductsLoading, setIsSuggestedProductsLoading] = useState<boolean>(false);
   const getSuggestedProducts = async () => {
     try {
+      setIsSuggestedProductsLoading(true);
       const response = await ProductService.Get(
         {
           lang: currentLocale,
@@ -129,7 +136,9 @@ export default function ProductPage() {
       );
 
       setSuggestedProducts(response);
+      setIsSuggestedProductsLoading(false);
     } catch (error) {
+      setIsSuggestedProductsLoading(false);
       console.error(error);
     }
   };
@@ -145,14 +154,29 @@ export default function ProductPage() {
   return (
     <div className="pt-[75px] lg:pt-[98px]">
 
-      <ProductDetails product={product} slugToCategoryRecord={slugToCategoryRecord}/>
+      <ProductDetails product={product} slugToCategoryRecord={slugToCategoryRecord} relatedProducts={relatedProducts} />
       
       <div className="w-screen max-w-[1370px] mx-auto py-[100px]">
+      {
+          suggestedProducts.length === 0 && isSuggestedProductsLoading &&
+          <div className="flex flex-col mb-5">
+            <h2 className="text-xl font-semibold mb-6">Frequently bought together</h2>
+            <Skeleton className="h-[18rem] w-full rounded-xl bg-gray-100" />
+          </div>
+        }
         {suggestedProducts.length > 0  && <ProductDetailsExtended
           fertilizationData={fertilizationData}
           waterRequirementData={waterRequirementData}
           recommendedProducts={suggestedProducts}
+          slugToCategoryRecord={slugToCategoryRecord} 
         />}
+        {
+          relatedProducts.length === 0 && isRelatedProductLoading &&
+          <div className="flex flex-col">
+            <p className="text-[#242424] font-bold md:text-[36px] font-arabic">Related products</p>
+            <Skeleton className="h-[18rem] w-full rounded-xl bg-gray-100" />
+          </div>
+        }
         {relatedProducts.length > 0 && <RelatedProducts products={relatedProducts} slugToCategoryRecord={slugToCategoryRecord} />}
       </div>
       <GetInTouch />
