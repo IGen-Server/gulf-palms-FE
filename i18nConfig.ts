@@ -27,7 +27,7 @@ export function refineRoutePath(path: string, locale: string) {
 const i18nConfig: Config = {
   locales,
   defaultLocale: "ar",
-  prefixDefault: true,
+  prefixDefault: false,
   localeCookie: "NEXT_LOCALE",
 };
 
