@@ -250,7 +250,7 @@ export default function ContactUs() {
         referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
 
-      <GetInTouch />
+      <GetInTouch language={language} />
     </div>
   );
 }
