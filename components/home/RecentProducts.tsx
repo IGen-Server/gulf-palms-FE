@@ -5,6 +5,7 @@ import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import CustomCarousel from "../common/CustomCarousel";
 import { extractCurrency } from "@/services/utility/utility.service";
 import { useTranslation } from "react-i18next";
+import { ProductCategoryModel } from "@/models/product/product";
 
 const products = [
   {
@@ -169,7 +170,11 @@ const products = [
   },
 ];
 
-export default function RecentProducts() {
+interface RecentProductsProps {
+  slugToCategoryRecord: Record<number, ProductCategoryModel>;
+}
+
+export default function RecentProducts({ slugToCategoryRecord }: RecentProductsProps) {
   const { t } = useTranslation();
   return (
     <div className="z-[50]">
@@ -203,6 +208,7 @@ export default function RecentProducts() {
               currency={extractCurrency(product.price_html)} 
               currentCategories={product.categories} 
               productAttribute={product.attributes[0]}
+              slugToCategoryRecord={slugToCategoryRecord}
             />
           ),
         }))}

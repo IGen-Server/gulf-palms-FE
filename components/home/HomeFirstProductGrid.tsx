@@ -3,8 +3,13 @@
 import React from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import { useTranslation } from "react-i18next";
+import { ProductCategoryModel } from "@/models/product/product";
 
-export default function HomeFirstProductGrid() {
+interface HomeFirstProductGridProps {
+  slugToCategoryRecord: Record<number, ProductCategoryModel>;
+}
+
+export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirstProductGridProps) {
   const { t } = useTranslation();
   return (
     <div className="flex items-center gap-[40px] min-h-fit h-[100vh] flex-col lg:flex-row  lg:h-[839px] w-max font-sans">
@@ -63,6 +68,7 @@ export default function HomeFirstProductGrid() {
               currency={""}
               currentCategories={[]}
               productAttribute={null}
+              slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
           <div className="w-full flex-1 h-full">
@@ -138,6 +144,7 @@ export default function HomeFirstProductGrid() {
               currency={""}
               currentCategories={[]}
               productAttribute={null}
+              slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
         </div>
@@ -167,6 +174,7 @@ export default function HomeFirstProductGrid() {
               currency={""}
               currentCategories={[]}
               productAttribute={null}
+              slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
           <div className="w-full h-[325px]">
@@ -194,6 +202,7 @@ export default function HomeFirstProductGrid() {
               currency={""}
               currentCategories={[]}
               productAttribute={null}
+              slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
         </div>
