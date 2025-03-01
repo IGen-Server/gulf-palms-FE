@@ -16,19 +16,19 @@ import { showPerPage } from "@/constants/global-constants";
 import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
-import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
+import { SlugType, useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 
 export default function CategoryPage() {
-  const { setTranslation } = useGlobalDataProvider();
+  const { categories, addSlugToTranslate } = useGlobalDataProvider();
   const { category: categorySlug } = useParams();
 
   const [columns, setColumns] = useState(4)
-  const { i18n } = useTranslation();
+  const { i18n: { language: currentLocale } } = useTranslation();
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
 
   // Orders // page: 1, per_page: 10
   const [pageConfig, setPageConfig] = useState({
-    lang: i18n.language,
+    lang: currentLocale,
     order: 'asc',
     orderby: ProductSortValues[0],
     page: 1,
@@ -64,6 +64,7 @@ export default function CategoryPage() {
           cleanedPageConfig,
           axiosInstanceWithLoader
         );
+
         setProducts((prev) =>
           pageConfig.page === 1 ? response : [...prev, ...response]
         );
@@ -102,58 +103,28 @@ export default function CategoryPage() {
   
   useEffect(() => {
     const getProductCategories = async () => {
-      try {
-        let response = await ProductCategoryService.Get(
-          {
-            lang: i18n.language,
-            page: 1,
-            per_page: 100
-          },
-          axiosInstanceWithLoader
-        );
-
-        if (i18n.language === 'ar') {
-          response = response?.map(item => ({
-            ...item,
-            slug: decodeURIComponent(item.slug)
-          }));
-        }
-
-        const currentSlugToCategoryRecord = generateIdToCategoryRecord(response);
-        setSlugToCategoryRecord(currentSlugToCategoryRecord);
+      if (categories) {
+        setSlugToCategoryRecord(generateIdToCategoryRecord(categories));
 
         let currentCategorySlug = decodeURIComponent(categorySlug as string);
 
-        const selectedCategory = response?.find((x) => x.slug === currentCategorySlug) || null;
+        const selectedCategory = categories.find((x) => x.slug === currentCategorySlug) || null;
         setCurrentCategory(selectedCategory);
 
-        const categoryTranslationIds = selectedCategory?.translations;
-        let categoryOtherLangId;
-        
-        if (i18n.language === 'en') {
-          categoryOtherLangId = categoryTranslationIds?.ar;
-        } else {
-          categoryOtherLangId = categoryTranslationIds?.en;
-        }
-        
-        if (categoryOtherLangId) {
-          const categoryInOtherLang = await ProductCategoryService.GetById(
-            categoryOtherLangId,
-            axiosInstanceWithLoader
+        if (selectedCategory) {
+          addSlugToTranslate(currentLocale,
+            decodeURIComponent(currentCategorySlug as string),
+            currentLocale === 'ar' ? selectedCategory.translations.en : selectedCategory.translations.ar,
+            SlugType.Category,
+            ''
           );
-
-          setTranslation(i18n.language, selectedCategory.slug, decodeURIComponent(categoryInOtherLang?.slug));
-          setTranslation(i18n.language === 'en' ? 'ar' : 'en', decodeURIComponent(categoryInOtherLang?.slug), selectedCategory.slug);
         }
-
-      } catch (error) {
-        console.error(error);
       }
     };
 
     getProductCategories();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categories]);
 
   return (
     <div className="pt-[98px] ">
