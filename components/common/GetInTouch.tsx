@@ -52,7 +52,8 @@ export default function GetInTouch({ language }: { language?: string }) {
                 ? "GET IN TOUCH WITH US"
                 : "ابق على تواصل معنا"}
             </h2>
-            <div className="mt-4 text-[14px] leading-[1.375rem]">
+            <div className="w-10 h-[2px] bg-primary mx-auto my-3" />
+            <div className="text-[14px] leading-[1.375rem]">
               <div className="text-[#777]">
                 {language === "en"
                   ? "Nurseries 48 &amp; 49, 4th Ring Road, Ar Rai, Kuwait"

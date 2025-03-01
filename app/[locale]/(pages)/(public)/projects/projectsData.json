@@ -1,0 +1,125 @@
+[
+  {
+    "slug": ["khaldiya-project"],
+    "image": "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-8.jpeg",
+    "sub-images": [],
+    "link": "/projects/khaldiya-project/",
+    "en": {
+      "name": "Khaldiya Garden",
+      "stakeholder": "Noor Al Faris",
+      "projectType": "Landscape",
+      "location": "Khaldiya",
+      "design_by": "Gulf Palms",
+      "implementation_by": "Gulf Palms",
+      "area": "350 m²",
+      "duration": "25 Days"
+    },
+    "ar": {
+      "name": "مشروع الخالدية",
+      "stakeholder": "نور الفارس",
+      "projectType": "منظر جمالي",
+      "location": "الخالدية",
+      "design_by": "نخيل الخليج",
+      "implementation_by": "نخيل الخليج",
+      "area": "300 متر مربع",
+      "duration": "25 يوما"
+    }
+  },
+  {
+    "slug": ["jade-restaurant"],
+    "image": "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM.jpeg",
+    "link": "/projects/jade-restaurant/",
+    "en": {
+      "name": "Jade Restaurant",
+      "stakeholder": "Dana Al Haid",
+      "projectType": "Indoor Plants and Pots",
+      "location": "Khaled Complex, Salmiya Area",
+      "design_by": "Gulf Palms",
+      "implementation_by": "Gulf Palms",
+      "area": "100 m²",
+      "duration": "2 Days"
+    },
+    "ar": {
+      "name": "مطعم جايد",
+      "stakeholder": "دانة الهيد",
+      "projectType": "النباتات والأواني الداخلية",
+      "location": "مجمع الخالد، منطقة السالمية",
+      "design_by": "نخيل الخليج",
+      "implementation_by": "نخيل الخليج",
+      "area": "100 متر مربع",
+      "duration": "يومين"
+    }
+  },
+  {
+    "slug": ["finatees-garden"],
+    "image": "https://gulfpalms.com/wp-content/uploads/2023/10/5.jpg",
+    "link": "/projects/finatees-garden/",
+    "en": {
+      "name": "Finatees Garden",
+      "stakeholder": "Fatema Al Kandarei",
+      "projectType": "Landscape",
+      "location": "Finatees",
+      "design_by": "Gulf Palms",
+      "implementation_by": "Gulf Palms",
+      "area": "250 m²",
+      "duration": "2 Weeks"
+    },
+    "ar": {
+      "name": "الفنيطيس",
+      "stakeholder": "فاطمة الكندري",
+      "projectType": "منظر جمالي",
+      "location": "الفنيطيس",
+      "design_by": "نخيل الخليج",
+      "implementation_by": "نخيل الخليج",
+      "area": "250 متر مربع",
+      "duration": "أسبوعين"
+    }
+  },
+  {
+    "slug": ["khiran-garden"],
+    "image": "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9961-scaled.jpg",
+    "link": "/projects/khiran-garden/",
+    "en": {
+      "name": "Khiran Garden",
+      "stakeholder": "Faisal Al Usaimi",
+      "projectType": "Landscape - Chalet",
+      "location": "Khiran",
+      "design_by": "Gulf Palms",
+      "implementation_by": "Gulf Palms",
+      "area": "350 m²",
+      "duration": "14 Days"
+    },
+    "ar": {
+      "name": "الخيران حديقة",
+      "stakeholder": "فيصل العصيمي",
+      "projectType": "شاليه - منظر جمالي",
+      "location": "الخيران",
+      "design_by": "نخيل الخليج",
+      "implementation_by": "نخيل الخليج",
+      "area": "350 m²",
+      "duration": "14 يوما"
+    }
+  },
+  {
+    "name": "Al Raziq",
+    "image": "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0050-1-2048x2048.png",
+    "link": "/projects/al-raziq/"
+  },
+  {
+    "name": "Sunrise Hills",
+    "image": "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9891-2048x1428.jpg",
+    "link": "/projects/sunrise-hills/"
+  },
+  {
+    "name": "Jahra Oasis",
+    "link": "/projects/jahra-oasis/"
+  },
+  {
+    "name": "Green Park",
+    "link": "/projects/green-park/"
+  },
+  {
+    "name": "Crystal Bay",
+    "link": "/projects/crystal-bay/"
+  }
+]
