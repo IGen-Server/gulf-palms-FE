@@ -157,7 +157,7 @@ export default function ProductPage() {
       <ProductDetails product={product} slugToCategoryRecord={slugToCategoryRecord} relatedProducts={relatedProducts} />
       
       <div className="w-screen max-w-[1370px] mx-auto py-[100px]">
-      {
+        {
           suggestedProducts.length === 0 && isSuggestedProductsLoading &&
           <div className="flex flex-col mb-5">
             <h2 className="text-xl font-semibold mb-6">Frequently bought together</h2>

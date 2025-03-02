@@ -6,175 +6,15 @@ import CustomCarousel from "../common/CustomCarousel";
 import { extractCurrency } from "@/services/utility/utility.service";
 import { useTranslation } from "react-i18next";
 import { ProductCategoryModel } from "@/models/product/product";
-
-const products = [
-  {
-    renderType: "product",
-    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Kalanchoe-Height-25CM-2-300x300.jpg",
-    images: [
-      "https://gulfpalms.com/wp-content/uploads/2023/10/39-800x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/12/w600by800-thumb-1.jpg",
-    ],
-    name: "Red Sneakers",
-    description: "Stylish red sneakers for casual wear.",
-    price: 49.99,
-    productId: "P001",
-    slug: "",
-    price_html: "",
-    categories: [],
-    attributes: [{variation:true,visible:true,options:["10","20","30"],id:1,name:'test',slug:'test slug',position:1},]
-  },
-  {
-    renderType: "product",
-    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Hibiscus-300x300.jpg",
-    images: [
-      "https://gulfpalms.com/wp-content/uploads/2023/10/39-800x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/40-800x800.jpg",
-    ],
-    name: "Blue Denim Jacket",
-    description: "Classic denim jacket for all seasons.",
-    price: 79.99,
-    productId: "P003",
-    slug: "",
-    price_html: "",
-    categories: [],
-    attributes: [{variation:true,visible:true,options:["10","20","30"],id:2,name:'test',slug:'test slug',position:2}]
-  },
-  {
-    renderType: "product",
-    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Coleus-Pot-25CM-2-300x300.jpg",
-    images: [
-      "https://gulfpalms.com/wp-content/uploads/2023/10/39-800x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/40-800x800.jpg",
-    ],
-    name: "Blue Denim Jacket",
-    description: "Classic denim jacket for all seasons.",
-    price: 79.99,
-    productId: "P004",
-    slug: "",
-    price_html: "",
-    categories: [],
-    attributes: [{variation:true,visible:true,options:["10","20","30"],id:3,name:'test',slug:'test slug',position:3}]
-  },
-  {
-    renderType: "product",
-    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Monstera-Deliciosa-Height-150CM64-300x300.jpg",
-    images: [
-      "https://gulfpalms.com/wp-content/uploads/2023/10/39-800x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/40-800x800.jpg",
-    ],
-    name: "Blue Denim Jacket",
-    description: "Classic denim jacket for all seasons.",
-    price: 79.99,
-    productId: "P005",
-    slug: "",
-    price_html: "",
-    categories: [],
-    attributes: [{variation:true,visible:true,options:["10","20","30"],id:4,name:'test',slug:'test slug',position:4}]
-  },
-  {
-    renderType: "product",
-    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Ficus-Benjamina-Golden-King-Pot-30CM-2-300x300.jpg",
-    images: [
-      "https://gulfpalms.com/wp-content/uploads/2023/10/39-800x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/40-800x800.jpg",
-    ],
-    name: "Blue Denim Jacket",
-    description: "Classic denim jacket for all seasons.",
-    price: 79.99,
-    productId: "P006",
-    slug: "",
-    price_html: "",
-    categories: [],
-    attributes: [{variation:true,visible:true,options:["10","20","30"],id:5,name:'test',slug:'test slug',position:5}]
-  },
-  {
-    renderType: "product",
-    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Sansevieria-Green-Pot-18CM-1-300x300.jpg",
-    images: [
-      "https://gulfpalms.com/wp-content/uploads/2023/10/39-800x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/40-800x800.jpg",
-    ],
-    name: "Blue Denim Jacket",
-    description: "Classic denim jacket for all seasons.",
-    price: 79.99,
-    productId: "P007",
-    slug: "",
-    price_html: "",
-    categories: [],
-    attributes: [{variation:true,visible:true,options:["10","20","30"],id:6,name:'test',slug:'test slug',position:6}]
-  },
-  {
-    renderType: "product",
-    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/10/8-300x300.jpg",
-    images: [
-      "https://gulfpalms.com/wp-content/uploads/2023/10/39-800x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/40-800x800.jpg",
-    ],
-    name: "Blue Denim Jacket",
-    description: "Classic denim jacket for all seasons.",
-    price: 79.99,
-    productId: "P008",
-    slug: "",
-    price_html: "",
-    categories: [],
-    attributes: [{variation:true,visible:true,options:["10","20","30"],id:7,name:'test',slug:'test slug',position:7}]
-  },
-  {
-    renderType: "product",
-    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/10/40-300x300.jpg",
-    images: [
-      "https://gulfpalms.com/wp-content/uploads/2023/10/39-800x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/40-800x800.jpg",
-    ],
-    name: "Blue Denim Jacket",
-    description: "Classic denim jacket for all seasons.",
-    price: 79.99,
-    productId: "P008",
-    slug: "",
-    price_html: "",
-    categories: [],
-    attributes: [{variation:true,visible:true,options:["10","20","30"],id:8,name:'test',slug:'test slug',position:8}]
-  },
-  {
-    renderType: "product",
-    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/10/30-300x300.jpg",
-    images: [
-      "https://gulfpalms.com/wp-content/uploads/2023/10/39-800x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/40-800x800.jpg",
-    ],
-    name: "Blue Denim Jacket",
-    description: "Classic denim jacket for all seasons.",
-    price: 79.99,
-    productId: "P009",
-    slug: "",
-    price_html: "",
-    categories: [],
-    attributes: [{variation:true,visible:true,options:["10","20","30"],id:9,name:'test',slug:'test slug',position:9}]
-  },
-  {
-    renderType: "product",
-    imageFileOrUrl: "https://gulfpalms.com/wp-content/uploads/2023/10/18-300x300.jpg",
-    images: [
-      "https://gulfpalms.com/wp-content/uploads/2023/08/Coleus-Pot-25CM-2-300x300.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/08/Sansevieria-Green-Pot-18CM-1-300x300.jpg",
-    ],
-    name: "Blue Denim Jacket",
-    description: "Classic denim jacket for all seasons.",
-    price: 79.99,
-    productId: "P010",
-    slug: "",
-    price_html: "",
-    categories: [],
-    attributes: [{variation:true,visible:true,options:["10","20","30"],id:10,name:'test',slug:'test slug',position:10}]
-  },
-];
+import { Skeleton } from "../ui/skeleton";
 
 interface RecentProductsProps {
+  products: any[];
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
+  isLoading?: boolean;
 }
 
-export default function RecentProducts({ slugToCategoryRecord }: RecentProductsProps) {
+export default function RecentProducts({ products, slugToCategoryRecord, isLoading = false }: RecentProductsProps) {
   const { t } = useTranslation();
   return (
     <div className="z-[50]">
@@ -189,30 +29,39 @@ export default function RecentProducts({ slugToCategoryRecord }: RecentProductsP
           {t("recentProducts.description")}
         </p>
       </div>
-      <CustomCarousel
-        slidesToShow={4}
-        slidesToScroll={4}
-        MobileSlidesNumber={1}
-        data={products.map((product) => ({
-          component: (
-            <RenderImageAndProducts
-              key={product.productId}
-              renderType="product"
-              imageFileOrUrl={product.imageFileOrUrl}
-              images={product.images}
-              name={product.name}
-              description={product.description}
-              price={product.price}
-              productId={product.productId} 
-              slug={product.slug} 
-              currency={extractCurrency(product.price_html)} 
-              currentCategories={product.categories} 
-              productAttribute={product.attributes[0]}
-              slugToCategoryRecord={slugToCategoryRecord}
-            />
-          ),
-        }))}
-      />
+      {
+        isLoading &&
+        <div className="flex flex-col mb-5">
+          <Skeleton className="h-[18rem] w-full rounded-xl bg-gray-100" />
+        </div>
+      }
+      {
+        !isLoading &&
+        <CustomCarousel
+          slidesToShow={4}
+          slidesToScroll={4}
+          MobileSlidesNumber={1}
+          data={products.map((product) => ({
+            component: (
+              <RenderImageAndProducts
+                key={product.productId}
+                renderType="product"
+                imageFileOrUrl={product.imageFileOrUrl}
+                images={product.images}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                productId={product.productId} 
+                slug={product.slug} 
+                currency={extractCurrency(product.price_html)} 
+                currentCategories={product.categories} 
+                productAttribute={product.attributes[0]}
+                slugToCategoryRecord={slugToCategoryRecord}
+              />
+            ),
+          }))}
+        />
+      }
     </div>
   );
 }
