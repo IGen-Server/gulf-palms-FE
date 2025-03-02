@@ -46,10 +46,11 @@ const useMobileCategoryItems = (): NavItem[] => {
   const currentLanguage = i18n.language;
 
   const iconMapArabic = [
-    { title: "أثاث الحدائق والدوّات", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/shovel.png" }, // Garden Furniture
+    { title: "أثاث الحدائق والدوّات", icon: "https://clone.gulfpalms.com/wp-content/uploads/2021/11/table.png" }, // Garden Furniture
     { title: "أشجار الحمضيات", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/lime.png" }, // Citruses Trees
-    { title: "أشجار الزينة والبونساي", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/nature.png" }, // Ornamental Palms & Bonsai
+    { title: "أشجار الزينة والبونساي", icon: "https://clone.gulfpalms.com/wp-content/uploads/2021/11/bonsai.png" }, // Ornamental Palms & Bonsai
     { title: "أشجار الفاكهة", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/orange.png" }, // Fruits Trees
+    { title: "المبيدات", icon: "https://clone.gulfpalms.com/wp-content/uploads/2021/11/plant-1.png" }, // Plant care
     { title: "أعشاب", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/tea.png" }, // Herbs
     { title: "اكسسوارات الحدائق", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png" }, // Garden Accessories
     { title: "الأحواض", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png" }, // Pots & Bags
@@ -67,14 +68,14 @@ const useMobileCategoryItems = (): NavItem[] => {
     { title: "Citruses Trees", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/lime.png" },
     { title: "Fertilizers", icon: "https://gulfpalms.com/wp-content/uploads/2023/09/fertilizer.png" },
     { title: "Fruits Trees", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/orange.png" },
-    { title: "Ornamental Palms &amp; Bonsai", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/nature.png" },
+    { title: "Ornamental Palms &amp; Bonsai", icon: "https://clone.gulfpalms.com/wp-content/uploads/2021/11/bonsai.png" },
     { title: "Garden Accessories", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png" },
-    { title: "Garden Furniture", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/shovel.png" },
+    { title: "Garden Furniture", icon: "https://clone.gulfpalms.com/wp-content/uploads/2021/11/table.png" },
     { title: "Grafted Sider", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/plant-2.png" },
     { title: "Herbs", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/tea.png" },
     { title: "Indoor Plants", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/sansevieria.png" },
     { title: "Ornamental Plants", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/nature.png" },
-    { title: "Plant Care", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/bonsai.png" },
+    { title: "Plant Care", icon: "https://clone.gulfpalms.com/wp-content/uploads/2021/11/plant-1.png" },
     { title: "Pots &amp; Bags", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png" },
     { title: "Plant Media", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/plant.png" },
     { title: "Seeds", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/flax-seed.png" },

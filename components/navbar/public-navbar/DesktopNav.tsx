@@ -56,7 +56,7 @@ export function DesktopNav() {
               </HoverCardTrigger>
               <HoverCardContent className="!w-[100vw] !p-0 mt-[16px]">
                 <div className="max-w-[1100px] mx-auto p-8">
-                  <div className="grid grid-cols-3 gap-x-8 gap-y-10">
+                  <div className="grid grid-cols-3 gap-x-8 gap-y-5">
                     {item.submenu?.map((category: any) => (
                       <HoverCard
                         key={category.title}
