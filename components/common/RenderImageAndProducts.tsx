@@ -24,7 +24,7 @@ import {
   ProductAttribute,
   ProductCategoryModel,
 } from "@/models/product/product";
-import { getProductCategoryLink } from "@/services/utility/utility.service";
+import { getCategoryPathByIdFromRecord, getProductCategoryLink } from "@/services/utility/utility.service";
 
 import { useCart } from "@/providers/CartProvider";
 import { ProductDrawer } from "../shop/ProductDrawer";
@@ -53,6 +53,7 @@ interface RenderImageAndProductsProps {
   currentCategories: ProductCategoryModel[];
   productAttribute: ProductAttribute | null;
   quantity?: number;
+  slugToCategoryRecord: Record<number, ProductCategoryModel>;
 }
 
 const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
@@ -68,7 +69,8 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   productId,
   currentCategories = [],
   productAttribute,
-  quantity
+  quantity,
+  slugToCategoryRecord
 }) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
   const [selectProductId, setSelectProductId] = useState<string | null>(null);
@@ -79,7 +81,6 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   const { addToCart } = useCart();
-
 
   const handleAddToCart = () => {
     addToCart({
@@ -385,7 +386,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             {currentCategories.map((category, index) => (
               <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
                 <Link
-                  href={getProductCategoryLink(currentCategories, index)}
+                  href={getCategoryPathByIdFromRecord(category.id, slugToCategoryRecord)}
                   rel="tag"
                   className="hover:underline"
                 >

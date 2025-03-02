@@ -27,9 +27,10 @@ import { useCart } from "@/providers/CartProvider";
 interface ProductDetailsProps {
   product: any;
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
+  relatedProducts: any[];
 }
 
-export default function ProductDetails({ product, slugToCategoryRecord }: ProductDetailsProps) {
+export default function ProductDetails({ product, slugToCategoryRecord, relatedProducts }: ProductDetailsProps) {
   const [selectedImage, setSelectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
@@ -131,19 +132,22 @@ export default function ProductDetails({ product, slugToCategoryRecord }: Produc
               
               <span className="font-semibold">{product?.name}</span>
             </div>
-            <div className="flex gap-2">
-              <button className="p-2 hover:bg-muted rounded-sm">
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <Link href='/shop' title="Back to product">
-                <button className="p-2 hover:bg-muted rounded-sm">
-                  <Grid2x2 className="w-4 h-4" />
-                </button>
-              </Link>
-              <button className="p-2 hover:bg-muted rounded-sm">
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+            {
+              relatedProducts.length > 1 &&
+              <div className="flex gap-2">
+                <Link href={`/product/${relatedProducts[0].slug}`} className="p-2 hover:bg-muted rounded-sm">
+                  <ChevronLeft className="w-4 h-4" />
+                </Link>
+                <Link href='/shop' title="Back to product">
+                  <button className="p-2 hover:bg-muted rounded-sm">
+                    <Grid2x2 className="w-4 h-4" />
+                  </button>
+                </Link>
+                <Link href={`/product/${relatedProducts[1].slug}`} className="p-2 hover:bg-muted rounded-sm">
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              </div> 
+            }
           </div>
           <h1 className="text-3xl font-arabic text-gray-800">{product?.name}</h1>
           <div

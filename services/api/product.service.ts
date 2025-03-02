@@ -16,9 +16,20 @@ export const ProductService  = {
       throw error;
     }
   },
-  async Get(query: Record<string, any> = {}, axiosInstance: CustomAxiosInstance, requiresJwt: boolean = false, enableLoader: boolean = true): Promise<any[]> {
+  async GetBySlug(query: Record<string, any> = {}, axiosInstance: CustomAxiosInstance, requiresJwt: boolean = false, enableLoader: boolean = true): Promise<any> {
     axiosInstance = updateAxiosInstanceLoaderAndJwtChecking(axiosInstance, requiresJwt, enableLoader);
     
+    try {
+      const queryParams = Object.keys(query).length ? `?${new URLSearchParams(query).toString()}` : '';
+      const productsUrl = `${ApiRoutes.Product.GetBySlug}${queryParams}`;
+
+      const response = await axiosInstance.get<any>(productsUrl);
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
+  async Get(query: Record<string, any> = {}, axiosInstance: CustomAxiosInstance): Promise<any[]> {
     try {
       const queryParams = Object.keys(query).length ? `?${new URLSearchParams(query).toString()}` : '';
       const productsUrl = `${ApiRoutes.Product.Get}${queryParams}`;
@@ -29,9 +40,7 @@ export const ProductService  = {
       throw error;
     }
   },
-  async GetSuggestedProducts(query: Record<string, any> = {}, axiosInstance: CustomAxiosInstance, requiresJwt: boolean = false, enableLoader: boolean = true): Promise<any[]> {
-    axiosInstance = updateAxiosInstanceLoaderAndJwtChecking(axiosInstance, requiresJwt, enableLoader);
-    
+  async GetSuggestedProducts(query: Record<string, any> = {}, axiosInstance: CustomAxiosInstance): Promise<any[]> {
     try {
       const queryParams = Object.keys(query).length ? `?${new URLSearchParams(query).toString()}` : '';
       const productsUrl = `${ApiRoutes.Product.GetSuggestedProducts}${queryParams}`;

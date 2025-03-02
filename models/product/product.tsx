@@ -25,7 +25,11 @@ export interface ProductCategoryModel {
   parent: number; 
   name: string; 
   slug: string; 
-  children?: ProductCategoryModel[] 
+  children?: ProductCategoryModel[];
+  translations: {
+    ar: number;
+    en: number;
+  }
 }
 
 export interface ProductAttribute {

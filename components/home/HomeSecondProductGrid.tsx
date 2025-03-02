@@ -1,7 +1,12 @@
 import React from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
+import { ProductCategoryModel } from "@/models/product/product";
 
-export default function HomeSecondProductGrid() {
+interface HomeSecondProductGridProps {
+  slugToCategoryRecord: Record<number, ProductCategoryModel>;
+}
+
+export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSecondProductGridProps) {
   return (
     <div className="py-[90px]">
       <div className="grid grid-cols-2 lg:grid-cols-3 lg:gap-5">
@@ -31,6 +36,7 @@ export default function HomeSecondProductGrid() {
               currency={""}
               currentCategories={[]}
               productAttribute={null}
+              slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
           <div className="w-[45vw] lg:w-[446.65px] h-[446.6px]">
@@ -82,6 +88,7 @@ export default function HomeSecondProductGrid() {
               currency={""}
               currentCategories={[]}
               productAttribute={null}
+              slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
         </div>
@@ -111,6 +118,7 @@ export default function HomeSecondProductGrid() {
               currency={""}
               currentCategories={[]}
               productAttribute={null}
+              slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
           <div className="w-[45vw] lg:w-[446.65px] h-[595.5px]">
@@ -162,6 +170,7 @@ export default function HomeSecondProductGrid() {
               currency={""}
               currentCategories={[]}
               productAttribute={null}
+              slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
         </div>
@@ -215,6 +224,7 @@ export default function HomeSecondProductGrid() {
               currency={""}
               currentCategories={[]}
               productAttribute={null}
+              slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
           <div className="w-[100vw] lg:w-[446.65px] h-[595.5px]">
@@ -229,6 +239,7 @@ export default function HomeSecondProductGrid() {
               currency={""}
               currentCategories={[]}
               productAttribute={null}
+              slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
         </div>

@@ -5,6 +5,7 @@ import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import CustomCarousel from "../common/CustomCarousel";
 import ImageTextCard from "../common/ImageTextCard";
 import { useTranslation } from "react-i18next"; 
+import { ProductCategoryModel } from "@/models/product/product";
 
 const products = [
   {
@@ -51,7 +52,11 @@ const products = [
   },
 ];
 
-export default function ProductsShowCase() {
+interface ProductsShowCaseProps {
+  slugToCategoryRecord: Record<number, ProductCategoryModel>;
+}
+
+export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowCaseProps) {
   const { t } = useTranslation();
 
   const topLayer = (
@@ -91,6 +96,7 @@ export default function ProductsShowCase() {
                 currency={""}
                 currentCategories={[]}
                 productAttribute={null}
+                slugToCategoryRecord={slugToCategoryRecord}
               />
             ),
             width: " !w-[218px] ",

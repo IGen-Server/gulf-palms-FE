@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
+
 import { Suspense, useEffect, useState, useRef } from "react";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import ProductCard from "@/components/shop/ProductCard";
@@ -14,9 +15,9 @@ import GetInTouch from "@/components/common/GetInTouch";
 import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
-import { ProductCategoryModel, ProductModel } from "@/models/product/product";
-import { ProductCategoryService } from "@/services/api/product-category.service";
-import { buildCategoryTree, generateIdToCategoryRecord } from "@/services/utility/utility.service";
+import { ProductCategoryModel } from "@/models/product/product";
+import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
+import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 
 const breadcrumbLinks = [
   { name: "Home", href: "/" },
@@ -34,6 +35,7 @@ export default function Shop() {
   const [columns, setColumns] = useState(4);
   const { i18n } = useTranslation();
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+  const { categories } = useGlobalDataProvider();
 
   const [pageConfig, setPageConfig] = useState({
     lang: i18n.language,
@@ -106,26 +108,13 @@ export default function Shop() {
   
   useEffect(() => {
     const getProductCategories = async () => {
-      try {
-        const response = await ProductCategoryService.Get(
-          {
-            lang: i18n.language,
-            page: 1,
-            per_page: 100
-          },
-          axiosInstanceWithLoader
-        );
-
-        var currentSlugToCategoryRecord = generateIdToCategoryRecord(response);
-        setSlugToCategoryRecord(currentSlugToCategoryRecord);
-
-      } catch (error) {
-        console.error(error);
+      if (categories) {
+        setSlugToCategoryRecord(generateIdToCategoryRecord(categories));
       }
     };
 
     getProductCategories();
-  }, []);
+  }, [categories]);
   
   return (
     <div className="pt-[98px]">
