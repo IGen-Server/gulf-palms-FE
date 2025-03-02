@@ -2,7 +2,23 @@
   {
     "slug": ["khaldiya-project"],
     "image": "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-8.jpeg",
-    "sub-images": [],
+    "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-1.jpeg",
+    "sideVideo": "",
+    "sub-images": [
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-12.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-11.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-10.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-8.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-9.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-7.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-6.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-5.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-4.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-3.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-2.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-1.jpeg"
+    ],
     "link": "/projects/khaldiya-project/",
     "en": {
       "name": "Khaldiya Garden",
@@ -28,7 +44,23 @@
   {
     "slug": ["jade-restaurant"],
     "image": "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM.jpeg",
+    "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM-2.jpeg",
     "link": "/projects/jade-restaurant/",
+    "subImages": [
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM-1.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM-2.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.10-PM-1.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.10-PM-4.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.10-PM-5.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.10-PM-3.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.10-PM-2.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.11-PM-2.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.11-PM-3.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.11-PM-1.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.10-PM.jpeg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.11-PM.jpeg"
+    ],
     "en": {
       "name": "Jade Restaurant",
       "stakeholder": "Dana Al Haid",
@@ -54,6 +86,21 @@
     "slug": ["finatees-garden"],
     "image": "https://gulfpalms.com/wp-content/uploads/2023/10/5.jpg",
     "link": "/projects/finatees-garden/",
+    "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/10/5.jpg",
+    "subImages": [
+      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC07037.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC07032.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC07028.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC07021.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC06994.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC06977.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC06964.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC06960.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/6.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/5.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/4.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/3.jpg"
+    ],
     "en": {
       "name": "Finatees Garden",
       "stakeholder": "Fatema Al Kandarei",
@@ -101,25 +148,173 @@
     }
   },
   {
-    "name": "Al Raziq",
-    "image": "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0050-1-2048x2048.png",
-    "link": "/projects/al-raziq/"
+    "slug": ["pick-kaifan"],
+    "image": "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08629-1536x1024.jpg",
+    "link": "/projects/pick-kaifan/",
+    "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08638-scaled.jpg",
+    "subImages": [
+      "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08629-1-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08637-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08638-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08642-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08643-1-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08636-scaled.jpg"
+    ],
+    "en": {
+      "name": "Pick Kaifan",
+      "stakeholder": "Pick Kaifan",
+      "projectType": "Restaurant",
+      "location": "Kaifan",
+      "design_by": "Gulf Palms",
+      "implementation_by": "Gulf Palms",
+      "area": "N.A",
+      "duration": "1 Day"
+    },
+    "ar": {
+      "name": "بك كيفان",
+      "stakeholder": "بك كيفان",
+      "projectType": "مطعم",
+      "location": "كيفان",
+      "design_by": "نخيل الخليج",
+      "implementation_by": "نخيل الخليج",
+      "area": "",
+      "duration": "يوم 1"
+    }
   },
   {
-    "name": "Sunrise Hills",
-    "image": "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9891-2048x1428.jpg",
-    "link": "/projects/sunrise-hills/"
+    "slug": ["zahra-garden-2"],
+    "image": "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9891-1536x1071.jpg",
+    "link": "/projects/zahra-garden-2/",
+    "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9932-1-scaled.jpg",
+    "subImages": [
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9891-1-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9886-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9894-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9902-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9919-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9904-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9932-1-scaled.jpg"
+    ],
+    "en": {
+      "name": "Zahra Garden 2",
+      "stakeholder": "Bader Al Bader",
+      "projectType": "Landscape & Hardscape",
+      "location": "Zahra",
+      "design_by": "Gulf Palms",
+      "implementation_by": "Gulf Palms",
+      "area": "400 m²",
+      "duration": "25 Days"
+    },
+    "ar": {
+      "name": "بدر البدر",
+      "stakeholder": "المناظر الطبيعية وهاردسكيب",
+      "projectType": "الزهراء",
+      "location": "نخيل الخليج",
+      "design_by": "نخيل الخليج",
+      "implementation_by": "نخيل الخليج",
+      "area": "400 متر مربع",
+      "duration": "25 يوما"
+    }
   },
   {
-    "name": "Jahra Oasis",
-    "link": "/projects/jahra-oasis/"
+    "slug": ["zahra-garden"],
+    "image": "https://gulfpalms.com/wp-content/uploads/2023/10/Screenshot_408.png",
+    "link": "/projects/zahra-garden/",
+    "sideImage": "",
+    "sideVideo": "",
+    "subImages": [],
+    "en": {
+      "name": "Zahra Garden",
+      "stakeholder": "Ali Al Awadi",
+      "projectType": "Landscape",
+      "location": "Zahra",
+      "design_by": "Gulf Palms",
+      "implementation_by": "Gulf Palms",
+      "area": "500 m²",
+      "duration": "25 Days"
+    },
+    "ar": {
+      "name": "الزهراء",
+      "stakeholder": "علي العوضي",
+      "projectType": "منظر جمالي",
+      "location": "الزهراء",
+      "design_by": "نخيل الخليج",
+      "implementation_by": "نخيل الخليج",
+      "area": "500 متر مربع",
+      "duration": "25 يوم"
+    }
   },
   {
-    "name": "Green Park",
-    "link": "/projects/green-park/"
+    "slug": ["pick-murouj"],
+    "image": "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0050-1-1536x1536.png",
+    "link": "/projects/pick-murouj/",
+    "sideImage": "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0050-1.png",
+    "sideVideo": "",
+    "subImages": [
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0059.png",
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0055.png",
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0057-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0043-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0045-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0049-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0050-1.png",
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0044-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0052.png",
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0061-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0066.png",
+      "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0051.png"
+    ],
+    "en": {
+      "name": "Pick Murouj",
+      "stakeholder": "Pick Murouj",
+      "projectType": "Restaurant",
+      "location": "Murouj, Sabah Al Salem",
+      "design_by": "Gulf Palms",
+      "implementation_by": "Gulf Palms",
+      "area": "100 m²",
+      "duration": "2 Days"
+    },
+    "ar": {
+      "name": "بك المروج",
+      "stakeholder": "بك المروج",
+      "projectType": "مطعم",
+      "location": "مروج، صباح السالم",
+      "design_by": "نخيل الخليج",
+      "implementation_by": "نخيل الخليج",
+      "area": "100 m²",
+      "duration": "يومين"
+    }
   },
   {
-    "name": "Crystal Bay",
-    "link": "/projects/crystal-bay/"
+    "slug": ["kaifan-garden"],
+    "image": "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0050-1-1536x1536.png",
+    "link": "/projects/kaifan-garden/",
+    "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/10/DSC07732.jpg",
+    "sideVideo": "",
+    "subImages": [
+      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC07732.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC07742.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/ct.jpg"
+    ],
+    "en": {
+      "name": "Kaifan Garden",
+      "stakeholder": "Ajeel al Ajeel",
+      "projectType": "Landscape",
+      "location": "Kaifan",
+      "design_by": "Gulf Palms",
+      "implementation_by": "Gulf Palms",
+      "area": "45 m²",
+      "duration": "2 Days"
+    },
+    "ar": {
+      "name": "كيفان",
+      "stakeholder": "عجيل العجيل",
+      "projectType": "منظر جمالي",
+      "location": "كيفان",
+      "design_by": "نخيل الخليج",
+      "implementation_by": "نخيل الخليج",
+      "area": "45 متر مربع",
+      "duration": "يومين"
+    }
   }
 ]
