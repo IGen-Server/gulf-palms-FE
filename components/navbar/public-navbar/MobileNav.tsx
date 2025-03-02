@@ -20,7 +20,6 @@ import { NavItem } from "./navData";
 import Image from "next/image";
 import useMobileCategoryItems from "./useMenuItems";
 
-
 interface Category {
   title: string;
   href?: string;

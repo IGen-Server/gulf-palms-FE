@@ -27,17 +27,11 @@ export function DesktopNav() {
   const { t } = useTranslation();
 
   const mobileCategoryItems = useMobileCategoryItems();
-  console.log({mobileCategoryItems})
 
   const desktopMenuItems: MenuItem[] =
     (t("desktopMenuItems", {
       returnObjects: true,
     }) as MenuItem[]) || [];
-
-  // const mobileCategoryItems: Category[] =
-  //   (t("mobileCategoryItems", {
-  //     returnObjects: true,
-  //   }) as MenuItem[]) || [];
 
   const updatedMenuItems: MenuItem[] = [...desktopMenuItems];
   updatedMenuItems[2] = {
@@ -45,12 +39,10 @@ export function DesktopNav() {
     submenu: [...mobileCategoryItems],
   };
 
-
-
   return (
     <nav className="hidden lg:flex items-center justify-evenly flex-wrap w-full font-sans">
       {updatedMenuItems.map((item) => {
-        if (item.title === updatedMenuItems[2].title) {
+        if (item.title === t('Shop')) {
           return (
             <HoverCard key={item.title} openDelay={100} closeDelay={100}>
               <HoverCardTrigger asChild>
@@ -64,7 +56,7 @@ export function DesktopNav() {
               </HoverCardTrigger>
               <HoverCardContent className="!w-[100vw] !p-0 mt-[16px]">
                 <div className="max-w-[1100px] mx-auto p-8">
-                  <div className="grid grid-cols-4 gap-x-8 gap-y-8">
+                  <div className="grid grid-cols-3 gap-x-8 gap-y-10">
                     {item.submenu?.map((category: any) => (
                       <HoverCard
                         key={category.title}
@@ -74,10 +66,10 @@ export function DesktopNav() {
                         <HoverCardTrigger asChild>
                           <Link
                             href={category.href || "#"}
-                            className="flex items-start gap-3 group"
+                            className="flex items-start gap-4 group"
                           >
                             {category.icon && (
-                              <div className="w-6 h-6 mt-1 shrink-0">
+                              <div className="w-[28.5px] h-[28.5px] shrink-0">
                                 <img
                                   src={category.icon || "/placeholder.svg"}
                                   alt=""
@@ -85,7 +77,7 @@ export function DesktopNav() {
                                 />
                               </div>
                             )}
-                            <span className="text-gray-700 group-hover:text-primary text-[16px] font-medium flex items-center gap-1">
+                            <span className="text-gray-700 group-hover:text-primary text-[16px] font-medium flex items-center gap-1 font-arabic">
                               {category.title}
                             </span>
                           </Link>
