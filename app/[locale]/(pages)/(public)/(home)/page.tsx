@@ -56,7 +56,7 @@ function HomePage({
         <HomeSecondProductGrid slugToCategoryRecord={slugToCategoryRecord} />
       </div>
       <WhoWeAre />
-      <div className="w-full max-w-[1370px] mx-auto">
+      <div className="w-full max-w-[1370px] mx-auto ">
         <LocationMap />
       </div>
       <VideoShowCase/>
