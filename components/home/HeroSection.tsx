@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 export default function HeroSection() {
@@ -19,18 +20,22 @@ export default function HeroSection() {
         {t("home.heroSection.Slogan3")}
       </p>
       <div className="flex flex-col lg:flex-row items-center gap-4 pt-8 w-[calc(100vw-85px)] justify-center lg:justify-start">
-        <Button
+       <Link href='/about-us-arabic'>
+       <Button
           className="rounded-none bg-primary opacity-90 hover:bg-primary hover:opacity-100 w-full lg:w-[137.8px] h-[48px] grid place-content-center font-semibold"
           variant={"default"}
         >
           {t("home.heroSection.Button2")}
         </Button>
+        </Link>
+        <Link href='/shop'>
         <Button
           variant={"outline"}
           className="rounded-none bg-transparent hover:bg-transparent hover:text-current w-full lg:w-[137.8px] h-[48px] grid place-content-center border-white lg:border-gray-400 hover:border-secondary font-semibold"
         >
           {t("home.heroSection.Button1")}
         </Button>
+        </Link>
       </div>
     </>
   );
