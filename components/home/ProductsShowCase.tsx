@@ -138,7 +138,7 @@ console.log({products})
     </div>
   );
   return (
-    <div className="grid place-content-center lg:w-[1250px] mx-auto mt-[50px] ">
+    <div className="grid place-content-center lg:w-[1250px] max-w-[100vw] mx-auto mt-[50px] ">
       <div className="space-y-[100px] w-full lg:space-y-0 ">
         <ImageTextCard
           rightContent={{
