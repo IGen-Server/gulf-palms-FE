@@ -41,113 +41,169 @@
       { "title": "اتصل بنا", "href": "/contact-us" }
     ],
     "mobileCategoryItems": [
-      {
-        "title": "عروض يا هلا",
-        "icon": "https://gulfpalms.com/wp-content/uploads/2023/10/price-tag-1.png",
-        "href": "/product-category/ya-hala-offers"
-      },
-      {
-        "title": "نخيل زراعة الأنسجة",
-        "icon": "https://gulfpalms.com/wp-content/uploads/2023/10/palms.png",
-        "href": "/product-category/tissue-culture-palms",
-        "submenu": [
-          { "title": "نخيل ميداني", "href": "/product-category/tissue-culture-palms/field" },
-          { "title": "نخيل مزروع في أواني", "href": "/product-category/tissue-culture-palms/potted" },
-          { "title": "نخيل أم", "href": "/product-category/tissue-culture-palms/mother" },
-          { "title": "نخيل فرعي مزروع", "href": "/product-category/tissue-culture-palms/offshoots" }
-        ]
-      },
-      {
-        "title": "الجانب المطعّم",
-        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant-2.png",
-        "href": "/product-category/grafted-sider"
-      },
-      {
-        "title": "أشجار الفواكه",
-        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/orange.png",
-        "href": "/product-category/fruits",
-        "submenu": [
-          { "title": "التوت", "href": "/product-category/fruits/berries" },
-          { "title": "التين", "href": "/product-category/fruits/fig" },
-          { "title": "العنب", "href": "/product-category/fruits/grapes" },
-          { "title": "المانجو", "href": "/product-category/fruits/mango" },
-          { "title": "أخرى", "href": "/product-category/fruits/others" }
-        ]
-      },
-      {
-        "title": "أشجار الحمضيات",
-        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/lime.png",
-        "href": "/product-category/citrus",
-        "submenu": [
-          { "title": "كليمنتين", "href": "/product-category/citrus/clementine" },
-          { "title": "ليمون", "href": "/product-category/citrus/lemon" },
-          { "title": "برتقال", "href": "/product-category/citrus/orange" },
-          { "title": "أخرى", "href": "/product-category/citrus/others" }
-        ]
-      },
-      {
-        "title": "نباتات الزينة",
-        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/nature.png",
-        "href": "/product-category/ornamental",
-        "submenu": [
-          { "title": "بوغنفيليا", "href": "/product-category/ornamental/bougainvilleas" },
-          { "title": "الكَرامة والمتسلقات", "href": "/product-category/ornamental/climbers" },
-          { "title": "النباتات الصحراوية", "href": "/product-category/ornamental/desert" },
-          { "title": "النباتات المعمرة والموسمية", "href": "/product-category/ornamental/perennials" },
-          { "title": "الشجيرات", "href": "/product-category/ornamental/shrubs" },
-          { "title": "الأشجار", "href": "/product-category/ornamental/trees" }
-        ]
-      },
-      {
-        "title": "نباتات داخلية",
-        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/sansevieria.png",
-        "href": "/product-category/indoor",
-        "submenu": [
-          { "title": "النباتات الخضراء", "href": "/product-category/indoor/green" },
-          { "title": "النباتات المزهرة", "href": "/product-category/indoor/flowering" },
-          { "title": "الصبار والنباتات العصارية", "href": "/product-category/indoor/cactus" },
-          { "title": "النباتات المعلقة", "href": "/product-category/indoor/hanging" }
-        ]
-      },
-      {
-        "title": "الأعشاب",
-        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/tea.png",
-        "href": "/product-category/herbs"
-      },
-      {
-        "title": "نخيل الزينة وبونساي",
-        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/tea.png",
-        "href": "/product-category/palms-bonsai",
-        "submenu": [
-          { "title": "أشجار الزيتون", "href": "/product-category/palms-bonsai/olive-trees" },
-          { "title": "زيتون", "href": "/product-category/palms-bonsai/olives" },
-          { "title": "نخيل واشنطن", "href": "/product-category/palms-bonsai/washingtonian" },
-          { "title": "نخيل آخر", "href": "/product-category/palms-bonsai/other" }
-        ]
-      },
-      {
-        "title": "رعاية النباتات",
-        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/bonsai.png",
-        "href": "/product-category/plant-care",
-        "submenu": [
-          { "title": "مبيدات الفطريات", "href": "/product-category/plant-care/fungicides" },
-          { "title": "مبيدات الحشرات", "href": "/product-category/plant-care/insecticides" },
-          { "title": "أخرى", "href": "/product-category/plant-care/others" }
-        ]
-      },
-      {
-        "title": "وسائط النباتات",
-        "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant.png",
-        "href": "/product-category/media",
-        "submenu": [
-          { "title": "خليط النباتات", "href": "/product-category/media/mixtures" },
-          { "title": "التربة", "href": "/product-category/media/soil" },
-          { "title": "محسن التربة", "href": "/product-category/media/improver" },
-          { "title": "طحلب الخث", "href": "/product-category/media/peat-moss" },
-          { "title": "أخرى", "href": "/product-category/media/others" }
-        ]
-      }
-    ],
+    {
+      "title": "عروض يا هلا",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2023/10/price-tag-1.png",
+      "href": "/product-category/ya-hala-offers"
+    },
+    {
+      "title": "أشجار النخيل المزروعة بالأنسجة",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2023/10/palms.png",
+      "href": "/product-category/tissue-culture-palms",
+      "submenu": [
+        { "title": "أشجار النخيل الحقلية", "href": "/product-category/tissue-culture-palms/filed-palms" },
+        { "title": "الفروع الأم", "href": "/product-category/tissue-culture-palms/mother-offshoots" },
+        { "title": "الفصوص المزروعة في الأصص", "href": "/product-category/tissue-culture-palms/offshoots" },
+        { "title": "أشجار النخيل المزروعة في الأصص", "href": "/product-category/tissue-culture-palms/bags-offshoots" },
+        { "title": "أخرى", "href": "/product-category/tissue-culture-palms/others-tissue-culture-palms" }
+      ]
+    },
+    {
+      "title": "السدر المطعّم",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant-2.png",
+      "href": "/product-category/grafted-sider"
+    },
+    {
+      "title": "أشجار الفواكه",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/orange.png",
+      "href": "/product-category/fruits-trees",
+      "submenu": [
+        { "title": "التوت", "href": "/product-category/fruits-trees/berries" },
+        { "title": "التين", "href": "/product-category/fruits-trees/fig" },
+        { "title": "العنب", "href": "/product-category/fruits-trees/grapes" },
+        { "title": "المانجو", "href": "/product-category/fruits-trees/mango" },
+        { "title": "أخرى", "href": "/product-category/fruits-trees/others-fruits-trees" }
+      ]
+    },
+    {
+      "title": "أشجار الحمضيات",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/lime.png",
+      "href": "/product-category/citruses-trees",
+      "submenu": [
+        { "title": "الكلمنتين", "href": "/product-category/citruses-trees/clementine" },
+        { "title": "الليمون", "href": "/product-category/citruses-trees/lemon" },
+        { "title": "البرتقال", "href": "/product-category/citruses-trees/orange" },
+        { "title": "أخرى", "href": "/product-category/citruses-trees/others-citruses-trees" }
+      ]
+    },
+    {
+      "title": "النباتات الزينة",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/nature.png",
+      "href": "/product-category/ornamental-plants",
+      "submenu": [
+        { "title": "البوغانفيليا", "href": "/product-category/ornamental-plants/bougainvillea" },
+        { "title": "النباتات المتسلقة والزاحفة", "href": "/product-category/ornamental-plants/climbers-creepers" },
+        { "title": "الصبار", "href": "/product-category/ornamental-plants/cactus" },
+        { "title": "النباتات الصحراوية", "href": "/product-category/ornamental-plants/desert-Plants" },
+        { "title": "النباتات المعمرة والموسمية", "href": "/product-category/ornamental-plants/prennials-and-seasonal" },
+        { "title": "الشجيرات", "href": "/product-category/ornamental-plants/shrubs" },
+        { "title": "الأشجار", "href": "/product-category/ornamental-plants/trees" }
+      ]
+    },
+    {
+      "title": "النباتات الداخلية",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/sansevieria.png",
+      "href": "/product-category/indoor-plants",
+      "submenu": [
+        { "title": "الصبار والعصارة", "href": "/product-category/indoor-plants/cactus-succulents" },
+        { "title": "النباتات المزهرة", "href": "/product-category/indoor-plants/flowering-Plants" },
+        { "title": "النباتات الخضراء", "href": "/product-category/indoor-plants/green-Plants" },
+        { "title": "النباتات المعلقة", "href": "/product-category/indoor-plants/hanging-Plants" }
+      ]
+    },
+    {
+      "title": "الأعشاب",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/tea.png",
+      "href": "/product-category/herbs"
+    },
+    {
+      "title": "نخيل الزينة والبونساي",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/tea.png",
+      "href": "/product-category/ornamental-palms-bonsai",
+      "submenu": [
+        { "title": "أشجار الزيتون", "href": "/product-category/ornamental-palms-bonsai/olive-trees" },
+        { "title": "الزيتون", "href": "/product-category/ornamental-palms-bonsai/olives" },
+        { "title": "نخيل الواشنطونيا", "href": "/product-category/ornamental-palms-bonsai/washingtonian-Palms" },
+        { "title": "أنواع أخرى من النخيل", "href": "/product-category/ornamental-palms-bonsai/other-Palms" }
+      ]
+    },
+    {
+      "title": "العناية بالنباتات",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/bonsai.png",
+      "href": "/product-category/plant-care",
+      "submenu": [
+        { "title": "مبيدات الفطريات", "href": "/product-category/plant-care/fungicides" },
+        { "title": "مبيدات الحشرات", "href": "/product-category/plant-care/insecticides" },
+        { "title": "أخرى", "href": "/product-category/plant-care/others-plant-care" }
+      ]
+    },
+    {
+      "title": "التربة ومواد الزراعة",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant.png",
+      "href": "/product-category/plant-media",
+      "submenu": [
+        { "title": "البيت موس", "href": "/product-category/plant-media/peat-moss" },
+        { "title": "خليط التربة", "href": "/product-category/plant-media/plants-mixtures" },
+        { "title": "التربة", "href": "/product-category/plant-media/soil" },
+        { "title": "محسنات التربة", "href": "/product-category/plant-media/soil-improver" },
+        { "title": "أخرى", "href": "/product-category/plant-media/others" }
+      ]
+    },
+    {
+      "title": "الأسمدة",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2023/09/fertilizer.png",
+      "href": "/product-category/fertilizers",
+      "submenu": [
+        { "title": "الأسمدة الحبيبية", "href": "/product-category/fertilizers/granular-fertilizers" },
+        { "title": "الأسمدة السائلة", "href": "/product-category/fertilizers/liquid-fertilizers" },
+        { "title": "الأسمدة العضوية", "href": "/product-category/fertilizers/organic-fertilizers" },
+        { "title": "الأسمدة القابلة للذوبان", "href": "/product-category/fertilizers/soluble-fertilizers" }
+      ]
+    },
+    {
+      "title": "البذور",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/flax-seed.png",
+      "href": "/product-category/seeds",
+      "submenu": [
+        { "title": "الخضروات", "href": "/product-category/seeds/vegetables" },
+        { "title": "الزهور", "href": "/product-category/seeds/flowers" },
+        { "title": "الأعشاب", "href": "/product-category/seeds/herbs-seeds" }
+      ]
+    },
+    {
+      "title": "الأصص والأكياس",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png",
+      "href": "/product-category/pots",
+      "submenu": [
+        { "title": "أكياس الزراعة", "href": "/product-category/pots/planter-bags" },
+        { "title": "الأصص البلاستيكية", "href": "/product-category/pots/plastic-pots" },
+        { "title": "الأصص الخزفية", "href": "/product-category/pots/ceramic-pots" },
+        { "title": "الأصص الخرسانية", "href": "/product-category/pots/concrete-pots" },
+        { "title": "الأصص الليفية", "href": "/product-category/pots/fiber-pots" }
+      ]
+    },
+    {
+      "title": "اكسسوارات الحديقة",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png",
+      "href": "/product-category/garden-accessories",
+      "submenu": [
+        { "title": "أعواد الخيزران", "href": "/product-category/garden-accessories/bamboo-sticks" },
+        { "title": "أكياس التمر", "href": "/product-category/garden-accessories/date-bags" },
+        { "title": "الحصى والحجر", "href": "/product-category/garden-accessories/gravels" },
+        { "title": "شبكات التظليل", "href": "/product-category/accessories/shade-net" },
+        { "title": "الأدوات", "href": "/product-category/garden-accessories/tools" }
+      ]
+    },
+    {
+      "title": "أثاث الحديقة",
+      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/shovel.png",
+      "href": "/product-category/garden-furniture",
+      "submenu": [
+        { "title": "أماكن النار", "href": "/product-category/garden-furniture/firepits" },
+        { "title": "الأثاث الخارجي", "href": "/product-category/garden-furniture/outdoor-furniture" }
+      ]
+    }
+  ],
   "desktopMenuItems": [
   { "title": "الرئيسية", "href": "/" },
   { "title": "من نحن", "href": "/about-us-arabic" },
@@ -399,6 +455,7 @@
 "mobileNavTabs":{
   "tab1":"الفئات",
   "tab2":"القائمة"
-}
+},
+"Shop":"المتجر"
 
 }
