@@ -59,6 +59,7 @@ function HomePage({
       <div className="w-full max-w-[1370px] mx-auto">
         <LocationMap />
       </div>
+      <VideoShowCase/>
     </div>
   );
 }
