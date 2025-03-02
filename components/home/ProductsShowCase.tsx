@@ -44,7 +44,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
     getProducts();
   }, [axiosInstanceWithLoader, i18n.language]);
 
-console.log({products})
+// console.log({products})
   const bottomLayer = (
     <div className="grid h-full w-full place-content-center ">
       <div className="max-lg:w-[85vw] lg:w-[576px] py-3 h-full flex flex-col justify-center items-center">

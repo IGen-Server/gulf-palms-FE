@@ -73,7 +73,7 @@ export const ProductService = {
       const productArrays = await Promise.all(
         slugs.map((slug) => this.GetBySlug({ lang, slug }, axiosInstance))
       );
-      console.log({ productArrays }, productArrays.flat());
+
       // Flatten the results since each `GetBySlug` call returns an array
       return productArrays.flat();
     } catch (error: any) {

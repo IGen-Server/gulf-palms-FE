@@ -1,25 +1,82 @@
-'use client'
+"use client";
 
-import React from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import { useTranslation } from "react-i18next";
 import { ProductCategoryModel } from "@/models/product/product";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { ProductService } from "@/services/api/product.service";
 
 interface HomeFirstProductGridProps {
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
 }
 
+const productData = [
+  { id: 10171, position: { x: 10, y: 27 }, group: "hoverProducts1" ,buttonType:'add_to_cart'},
+  { id: 15601, position: { x: 52, y: 62 }, group: "hoverProducts1" ,buttonType:'read_more'},
+  { id: 15314, position: { x: 75, y: 72 }, group: "hoverProducts1" ,buttonType:'select_options'},
+  { id: 23317, position: { x: 24, y: 44 }, group: "hoverProducts2" ,buttonType:'select_options'},
+  { id: 23303, position: { x: 52, y: 52 }, group: "hoverProducts2" ,buttonType:'select_options'},
+  { id: 15278, position: { x: 65, y: 78 }, group: "hoverProducts2" ,buttonType:'select_options'},
+  { id: 14685, position: { x: 29, y: 73 }, group: "hoverProducts2" ,buttonType:'select_options'},
+  { id: 15300, position: { x: 73, y: 52 }, group: "hoverProducts2" ,buttonType:'select_options'},
+  { id: 21503, position: { x: 30, y: 70 }, group: "hoverProducts3" ,buttonType:'buy_now'},
+  { id: 24003, position: { x: 50, y: 70 }, group: "hoverProducts4" ,buttonType:'buy_now'},
+];
+
 export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirstProductGridProps) {
-  const { t } = useTranslation();
+  const { t,i18n: { language: currentLocale } } = useTranslation();
+  const [hoverProducts, setHoverProducts] = useState<{ [key: string]: any[] }>({});
+
+  const axiosInstanceWithLoader = useMemo(() => CreateAxiosInstanceWithLoader(false,false), []);
+
+  const fetchProducts = useCallback(async () => {
+    try {
+      const results = await Promise.allSettled(
+        productData.map(({ id, position, group ,buttonType}) =>
+          ProductService.GetById(id , axiosInstanceWithLoader).then(product => ({
+            position,
+            group, 
+            imgUrl: product?.images[0]?.src || "",
+            productId: product?.id?.toString(),
+            hoveredTitle: product?.name,
+            hoveredHref: product?.permalink,
+            price: product?.price,
+            description: product?.short_description?.replace(/<[^>]*>?/gm, ""),
+            buttonType
+          }))
+        )
+      );
+      const groupedProducts: { [key: string]: any[] } = {};
+      
+      results.forEach((result) => {
+        if (result.status === "fulfilled" && result.value) {
+          const { group, ...productData } = result.value;
+          if (!groupedProducts[group]) groupedProducts[group] = [];
+          groupedProducts[group].push(productData);
+        }
+      });
+
+      setHoverProducts(groupedProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  }, [axiosInstanceWithLoader]); 
+
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
   return (
-    <div className="flex items-center gap-[40px] min-h-fit h-[100vh] flex-col lg:flex-row  lg:h-[839px] w-max font-sans">
+    <div className="flex items-center gap-[40px] min-h-fit h-[100vh] flex-col lg:flex-row lg:h-[839px] w-max font-sans">
       <div
         style={{
           backgroundImage: `url(https://gulfpalms.com/wp-content/uploads/2023/10/DSC08580.jpg)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        className="relative h-full w-full lg:w-[576px]"
+        className="relative h-[350px] lg:h-full w-full lg:w-[576px]"
       >
         <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-30 p-[30px] text-white space-y-[10px]">
           <p className="md:text-[36px] font-arabic font-bold">{t("HomeFirstProductGrid.gulfPalm")}</p>
@@ -34,38 +91,10 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
               name="Flower"
               price={10}
               renderType="image"
-              imageFileOrUrl={`"https://gulfpalms.com/wp-content/uploads/2023/10/3123600by600-thumb-430x430.jpg"`}
-              hoverProducts={[
-                {
-                  position: { x: 10, y: 27 },
-                  imgUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
-                  productId: "1",
-                  hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref: "https://gulfpalms.com/en/product/cholorophytum/",
-                  price: "2000",
-                  description: "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
-                },
-                {
-                  position: { x: 52, y: 62 },
-                  imgUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
-                  productId: "2",
-                  hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref: "https://gulfpalms.com/en/product/cholorophytum/",
-                  price: "2000",
-                  description: "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
-                },
-                {
-                  position: { x: 75, y: 72 },
-                  imgUrl: "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
-                  productId: "3",
-                  hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref: "https://gulfpalms.com/en/product/cholorophytum/",
-                  price: "2000",
-                  description: "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
-                },
-              ]}
-              slug={""}
-              currency={""}
+              imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/3123600by600-thumb-430x430.jpg"
+              hoverProducts={hoverProducts.hoverProducts1 || []}
+              slug=""
+              currency=""
               currentCategories={[]}
               productAttribute={null}
               slugToCategoryRecord={slugToCategoryRecord}
@@ -74,74 +103,13 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
           <div className="w-full flex-1 h-full">
             <RenderImageAndProducts
               productId="2"
-              name= "Flower"
-              price = {10}
+              name="Flower"
+              price={10}
               renderType="image"
-              imageFileOrUrl={`https://gulfpalms.com/wp-content/uploads/2023/10/lkl600by800-thumb.jpg`}
-              hoverProducts={[
-                {
-                  position: { x: 24, y: 44 },
-                  imgUrl:
-                    "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
-                  productId: "1",
-                  hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref:
-                    "https://gulfpalms.com/en/product/cholorophytum/",
-                  price: "2000",
-                  description:
-                    "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
-                },
-                {
-                  position: { x: 52, y: 52 },
-                  imgUrl:
-                    "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
-                  productId: "2",
-                  hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref:
-                    "https://gulfpalms.com/en/product/cholorophytum/",
-                  price: "2000",
-                  description:
-                    "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
-                },
-                {
-                  position: { x: 65, y: 78 },
-                  imgUrl:
-                    "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
-                  productId: "3",
-                  hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref:
-                    "https://gulfpalms.com/en/product/cholorophytum/",
-                  price: "2000",
-                  description:
-                    "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
-                },
-                {
-                  position: { x: 29, y: 73 },
-                  imgUrl:
-                    "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
-                  productId: "4",
-                  hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref:
-                    "https://gulfpalms.com/en/product/cholorophytum/",
-                  price: "2000",
-                  description:
-                    "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
-                },
-                {
-                  position: { x: 73, y: 52 },
-                  imgUrl:
-                    "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
-                  productId: "5",
-                  hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref:
-                    "https://gulfpalms.com/en/product/cholorophytum/",
-                  price: "2000",
-                  description:
-                    "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
-                },
-              ]}
-              slug={""}
-              currency={""}
+              imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/lkl600by800-thumb.jpg"
+              hoverProducts={hoverProducts.hoverProducts2 || []}
+              slug=""
+              currency=""
               currentCategories={[]}
               productAttribute={null}
               slugToCategoryRecord={slugToCategoryRecord}
@@ -152,26 +120,13 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
           <div className="w-full h-full flex-1">
             <RenderImageAndProducts
               productId="3"
-              name= "Flower"
-              price = {10}
+              name="Flower"
+              price={10}
               renderType="image"
-              imageFileOrUrl={`https://gulfpalms.com/wp-content/uploads/2023/10/3-mian-img.jpg`}
-              hoverProducts={[
-                {
-                  position: { x: 30, y: 70 },
-                  imgUrl:
-                    "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
-                  productId: "1",
-                  hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref:
-                    "https://gulfpalms.com/en/product/cholorophytum/",
-                  price: "2000",
-                  description:
-                    "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
-                },
-              ]}
-              slug={""}
-              currency={""}
+              imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/3-mian-img.jpg"
+              hoverProducts={hoverProducts.hoverProducts3 || []}
+              slug=""
+              currency=""
               currentCategories={[]}
               productAttribute={null}
               slugToCategoryRecord={slugToCategoryRecord}
@@ -180,26 +135,13 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
           <div className="w-full h-[325px]">
             <RenderImageAndProducts
               productId="4"
-              name= "Flower"
-              price = {10}
+              name="Flower"
+              price={10}
               renderType="image"
-              imageFileOrUrl={`https://gulfpalms.com/wp-content/uploads/2023/10/kjkjkj600by600-thumb.jpg`}
-              hoverProducts={[
-                {
-                  position: { x: 50, y: 70 },
-                  imgUrl:
-                    "https://gulfpalms.com/wp-content/uploads/2023/08/Cholorophytum-2-300x300.jpg",
-                  productId: "1",
-                  hoveredTitle: "Cholorophytum (S-16 cm H-30 cm)",
-                  hoveredHref:
-                    "https://gulfpalms.com/en/product/cholorophytum/",
-                  price: "2000",
-                  description:
-                    "Called the lipstick plant and has about 150 species that live in tropical and semi-tropical areas. One of the best hanging plants and can flower all year long. The leaves are leathery, thick and oval shaped with dark green colours. The flowers can be either singular or complex and comes with red, orange and yellow colours.",
-                },
-              ]}
-              slug={""}
-              currency={""}
+              imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/kjkjkj600by600-thumb.jpg"
+              hoverProducts={hoverProducts.hoverProducts4 || []}
+              slug=""
+              currency=""
               currentCategories={[]}
               productAttribute={null}
               slugToCategoryRecord={slugToCategoryRecord}
