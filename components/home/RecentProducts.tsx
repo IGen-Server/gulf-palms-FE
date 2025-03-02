@@ -326,7 +326,7 @@ export default function RecentProducts({
     getProducts();
   }, [axiosInstanceWithLoader, pageConfig]);
 
-  console.log({ products });
+  // console.log({ products });
 
   return (
     <div className="z-[50]">

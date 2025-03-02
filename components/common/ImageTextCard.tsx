@@ -60,7 +60,7 @@ interface ImageTextCardProps {
 export default function ImageTextCard({
   leftContent,
   rightContent,
-  size = { width: "max-w-[1140px]", height: "h-fit" },
+  size = { width: "max-w-[1200px]", height: "h-fit" },
   className = "",
   colReversed = false,
 }: ImageTextCardProps) {
