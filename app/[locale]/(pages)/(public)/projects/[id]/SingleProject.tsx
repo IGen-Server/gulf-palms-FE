@@ -4,6 +4,7 @@ import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import GetInTouch from "@/components/common/GetInTouch";
 import { useTranslation } from "react-i18next";
 import projects from "../projectsData.json";
+import Image from "next/image";
 
 type ProjectDetails = {
   name: string; // Project name
@@ -46,29 +47,40 @@ const SingleProject = ({ slug }: { slug: string }) => {
     i18n: { language },
   } = useTranslation();
   const project = projects.find((project) => project.slug.includes(slug));
-  const projectDetails = project && project[language as "en" | "ar"];
+
+  if (!project) return null;
+
+  const projectDetails = project[language as "en" | "ar"];
 
   const breadcrumbLinks = [
-    { name: "Home", href: "/" },
-    { name: "Projects", href: "/projects" },
-    { name: `${slug}`, href: `/projects/${slug}` },
+    { name: "Home", arabicName: "الرئيسية", href: "/" },
+    { name: "Projects", arabicName: "مشاريعنا", href: "/projects" },
+    {
+      name: projectDetails.name ?? "",
+      arabicName: projectDetails.name,
+      href: `/projects/${slug}`,
+    },
   ];
 
   return (
-    <div className="pt-[98px]">
-      <div className="flex flex-col items-center pb-[200px] pt-[50px]">
-        <h1 className="text-[36px] font-bold text-black">Projects</h1>
+    <div className="flex flex-col gap-24 pt-[98px]">
+      <div className="flex flex-col items-center gap-2 pt-[50px]">
+        <h1 className="text-4xl lg:text-[4.25rem] lg:leading-[5.125rem] font-bold text-[#242424]">
+          {projectDetails.name}
+        </h1>
         <CustomBreadCrumb links={breadcrumbLinks} />
       </div>
-      <div className="lg:h-[850px] w-screen bg-gray-100 pb-[80px]">
-        <div className="w-full border h-full mx-auto flex items-center lg:flex-row flex-col">
-          <div className="h-full w-full p-[100px]">
-            <p className="pb-12">{slug}</p>
+      <div className="w-full h-auto lg:h-[850px] flex flex-col md:flex-row items-center bg-gray-100">
+        <div className="w-full md:w-[60%] p-5 lg:py-0 lg:px-28">
+          <div className="w-full">
+            <p className="pb-16 text-sm text-[#777] uppercase">
+              {projectDetails.name}
+            </p>
             {config.map((item, index) => {
               return (
                 <p
                   key={item.key}
-                  className="text-[24px] pl-[100px] py-5 border-t-2 border-black text-[#242424]"
+                  className="text-[1.1875rem] md:text-2xl pl-3 py-6 border-t-[1px] border-[#242424] text-[#242424]"
                 >
                   <span className="font-semibold pr-7">
                     {(index + 1).toString().padStart(2, "0")}
@@ -87,6 +99,31 @@ const SingleProject = ({ slug }: { slug: string }) => {
             })}
           </div>
         </div>
+        <div className="w-full md:w-[40%] h-[350px] md:h-full">
+          <Image
+            src={project?.sideImage ?? ""}
+            alt={project.en.name}
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+      <div className="w-full max-w-[1192px] mx-auto columns-2 md:columns-3 lg:columns-4 gap-2 px-5">
+        {project.subImages?.map((image, index) => {
+          return (
+            <Image
+              key={index}
+              src={image}
+              alt="image"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-auto mb-2"
+            />
+          );
+        })}
       </div>
       <GetInTouch language={language} />
     </div>

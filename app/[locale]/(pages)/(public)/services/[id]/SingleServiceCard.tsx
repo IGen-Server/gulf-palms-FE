@@ -11,11 +11,13 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
   const {
     i18n: { language },
   } = useTranslation();
-  const service = serviceData.find((s) => s.id === slug);
+  const service = serviceData.find((service) => service.slug.includes(slug));
 
   if (!service) {
     notFound();
   }
+
+  const serviceDetails = service[language as "en" | "ar"];
 
   const isEnglish = language === "en";
 
@@ -25,7 +27,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
         {/* Hero Section */}
         <div className="flex items-stretch gap-3 pt-[40px]">
           <Image
-            src={service.details.heroSection.images[0] || "/placeholder.svg"}
+            src={service.heroImages.large || "/placeholder.svg"}
             alt=""
             width={575}
             height={588}
@@ -47,45 +49,33 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
               {isEnglish ? "OUR PROFESSIONAL SERVICES" : "خدماتنا المهنية"}
             </p>
             <p className="text-2xl lg:text-[2.375rem] leading-[3.3125rem] font-semibold text-white">
-              {isEnglish
-                ? service.title.split(" ").slice(0, -1).join(" ")
-                : service.titleAr.split(" ").slice(0, -1).join(" ")}{" "}
+              {serviceDetails.title.split(" ").slice(0, -1).join(" ")}
+
               <span className="text-primary">
-                {isEnglish
-                  ? service.title.split(" ").slice(-1)
-                  : service.titleAr.split(" ").slice(-1)}
+                {serviceDetails.details.heroSection.title.split(" ").slice(-1)}
               </span>
             </p>
             <p
               className="text-[.9375rem] text-[rgba(255, 255, 255, 0.8)
 ] tracking-wide leading-6 py-3"
             >
-              {isEnglish
-                ? service.details.heroSection.summary
-                : service.details.heroSection.summaryAr}
+              {serviceDetails.details.heroSection.summary}
             </p>
             <Link
-              href={
-                isEnglish
-                  ? service.details.heroSection.contactLink
-                  : service.details.heroSection.contactLinkAr
-              }
+              href={language === "en" ? "/en/contact-us" : "/ar/contact-us"}
               className="underline font-semibold text-[.8125rem] text-white"
             >
               {isEnglish ? "GET IN TOUCH" : "اتصل بنا"}
             </Link>
           </div>
           <div className="hidden min-w-[322px] sm:flex flex-col gap-3">
-            {service.details.heroSection.images.slice(1).map((image, index) => (
-              <Image
-                key={index}
-                src={image || "/placeholder.svg"}
-                alt={`Palm service ${index + 2}`}
-                width={322}
-                height={280}
-                className="w-full h-full object-cover"
-              />
-            ))}
+            <Image
+              src={service.heroImages.large || "/placeholder.svg"}
+              alt={`Palm service`}
+              width={322}
+              height={280}
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 
@@ -97,48 +87,45 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
                 {isEnglish ? "OUR PROFESSIONAL SERVICES" : "خدماتنا المهنية"}
               </p>
               <h1 className="text-4xl font-bold text-gray-900">
-                {isEnglish ? service.title : service.titleAr}
+                {serviceDetails.details.content.sectionTitle}
               </h1>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               {/* Content Column */}
-              <div className="space-y-8">
-                <div className="prose max-w-none">
-                  <p className="text-[#777] leading-relaxed text-justify">
-                    {isEnglish
-                      ? service.details.content.overview
-                      : service.details.content.overviewAr}
-                  </p>
-                </div>
-
-                <div className="space-y-6">
-                  <h2 className="text-[1.3125rem] font-semibold text-[#242424]">
-                    {isEnglish
-                      ? service.details.content.serviceHighlightsTitle
-                      : service.details.content.serviceHighlightsTitleAr}
-                  </h2>
-                  <ul className="space-y-4">
-                    {(isEnglish
-                      ? service.details.content.serviceHighlights
-                      : service.details.content.serviceHighlightsAr
-                    ).map((highlight, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <span className="text-primary text-xl">
-                          <ChevronRight />
-                        </span>
-                        <span className="text-[#777]">{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="space-y-8 px-3">
+                {serviceDetails.details.content.overview.map((item, index) => (
+                  <div key={index} className="">
+                    {item.title && (
+                      <p className="pb-3 font-semibold text-[1.3125rem] text-[#242424]">
+                        {item.title}:
+                      </p>
+                    )}
+                    {Array.isArray(item.description) ? (
+                      <ul className="space-y-4">
+                        {item.description.map((highlight, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <span className="text-primary text-xl">
+                              <ChevronRight />
+                            </span>
+                            <span className="text-[#777]">{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-[#777] leading-relaxed text-justify">
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
+                ))}
               </div>
 
               {/* Image Column */}
               <div className="relative h-[600px] rounded-lg overflow-hidden">
                 <Image
                   src={
-                    service.details.heroSection.images[0] ||
+                    service.sectionImage ||
                     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9F2WinKvnGRw6HTYDoKOEAUgST4giB.png"
                   }
                   alt="Palm maintenance service"
@@ -153,21 +140,17 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
 
         {/* Gallery Grid */}
         <div className="px-3 lg:px-0 py-[80px]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px]">
-            {service.details.galleryImages.map((image, index) => {
-              // Determine if image should span multiple rows
-              const spanClass = index % 3 === 0 ? "row-span-1" : "row-span-2";
-
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-2 px-3">
+            {service.galleryImages.map((image, index) => {
               return (
-                <div
-                  key={index}
-                  className={`relative overflow-hidden ${spanClass}`}
-                >
+                <div key={index}>
                   <Image
                     src={image || "/placeholder.svg"}
                     alt={`Gallery image ${index + 1}`}
-                    fill
-                    className="object-cover"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className="w-full h-full object-cover mb-2"
                   />
                 </div>
               );

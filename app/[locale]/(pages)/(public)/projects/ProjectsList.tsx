@@ -18,22 +18,24 @@ const ProjectsList = () => {
   ];
 
   return (
-    <section className=" bg-gray-100 space-y-[80px] pt-[98px]">
-      <div className="flex flex-col items-center gap-2 pb-[125px] pt-[50px]">
+    <section className=" bg-white space-y-[80px] pt-16 lg:pt-[98px]">
+      <div className="flex flex-col items-center gap-2 lg:pb-[125px] pt-[50px]">
         <h1 className="text-4xl lg:text-[4.25rem] lg:leading-[5.125rem] font-bold text-[#242424]">
           {language === "en" ? "Projects" : "مشاريعنا"}
         </h1>
         <CustomBreadCrumb links={breadcrumbLinks} />
       </div>
-      <div className="max-w-[1192px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="w-full max-w-[1192px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-5">
         {projects.map((project, index) => (
           <div key={index} className="overflow-hidden">
             <div className="relative w-full h-64">
               <Image
                 src={project.image ?? ""}
                 alt="image"
-                layout="fill"
-                objectFit="cover"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-full object-cover"
               />
             </div>
             <div className="py-4 space-y-5">
@@ -42,7 +44,7 @@ const ProjectsList = () => {
               </h2>
               <Link
                 href={project.link}
-                className="bg-primary hover:bg-[#e59b62] px-3 py-3 font-semibold text-[.8125rem] text-white uppercase"
+                className="bg-primary hover:bg-[#e59b62] px-5 py-3 font-semibold text-[.8125rem] text-white uppercase"
               >
                 {language === "en" ? "Read more" : "اقرأ أكثر"}
               </Link>

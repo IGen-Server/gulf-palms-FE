@@ -4,7 +4,7 @@
     "image": "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-8.jpeg",
     "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-1.jpeg",
     "sideVideo": "",
-    "sub-images": [
+    "subImages": [
       "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM.jpeg",
       "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-12.jpeg",
       "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-11.jpeg",
@@ -45,6 +45,7 @@
     "slug": ["jade-restaurant"],
     "image": "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM.jpeg",
     "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM-2.jpeg",
+    "sideVideo": "",
     "link": "/projects/jade-restaurant/",
     "subImages": [
       "https://gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM-1.jpeg",
@@ -87,6 +88,7 @@
     "image": "https://gulfpalms.com/wp-content/uploads/2023/10/5.jpg",
     "link": "/projects/finatees-garden/",
     "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/10/5.jpg",
+    "sideVideo": "",
     "subImages": [
       "https://gulfpalms.com/wp-content/uploads/2023/10/DSC07037.jpg",
       "https://gulfpalms.com/wp-content/uploads/2023/10/DSC07032.jpg",
@@ -126,6 +128,20 @@
     "slug": ["khiran-garden"],
     "image": "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9961-scaled.jpg",
     "link": "/projects/khiran-garden/",
+    "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9949-scaled.jpg",
+    "sideVideo": "",
+    "subImages": [
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A0036-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9951-1-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9961-1-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9979-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9945-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9949-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9963-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9996-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9977-scaled.jpg",
+      "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A0013-scaled.jpg"
+    ],
     "en": {
       "name": "Khiran Garden",
       "stakeholder": "Faisal Al Usaimi",
@@ -152,6 +168,7 @@
     "image": "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08629-1536x1024.jpg",
     "link": "/projects/pick-kaifan/",
     "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08638-scaled.jpg",
+    "sideVideo": "",
     "subImages": [
       "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08629-1-scaled.jpg",
       "https://gulfpalms.com/wp-content/uploads/2023/12/DSC08637-scaled.jpg",
