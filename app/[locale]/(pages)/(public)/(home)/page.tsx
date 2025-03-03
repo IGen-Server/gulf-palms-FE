@@ -17,6 +17,7 @@ import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
 import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
+import VideoShowCase from "@/components/home/VideoShowCase";
 
 function HomePage({
   params: { locale },
