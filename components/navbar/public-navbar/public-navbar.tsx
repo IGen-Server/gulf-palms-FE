@@ -36,10 +36,14 @@ import { CookieStorageService } from "@/services/utility/storage.service";
 import { isJwtTokenExpired } from "@/services/utility/utility.service";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 
-export default function PublicNavbar() {
+interface MenuItem {
+  title: string;
+  href?: string;
+}
 
+export default function PublicNavbar() {
   const { isTokenExpired, setIsTokenExpired } = useGlobalDataProvider();
-  
+
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
   const pathname = usePathname();
@@ -60,7 +64,7 @@ export default function PublicNavbar() {
       setIsTokenExpired(true);
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -106,6 +110,13 @@ export default function PublicNavbar() {
       }
     }
   }, [cartItems.length]);
+
+  const myDashboard: MenuItem[] =
+    (t("my_account", {
+      returnObjects: true,
+    }) as MenuItem[]) || [];
+
+    console.log({myDashboard})
 
   return (
     <div
@@ -195,14 +206,30 @@ export default function PublicNavbar() {
           </div>
 
           {!isTokenExpired && (
-            <Link
-              href={ClientRoutes.User.MyAccountDashboard}
-              className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
-            >
-              <span className="w-[5.5rem] !text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
-                My Account
-              </span>
-            </Link>
+            <HoverCard openDelay={100} closeDelay={100}>
+              <HoverCardTrigger asChild>
+                <Link
+                  href={ClientRoutes.User.MyAccountDashboard}
+                  className="text-white hover:text-gray-200 transition-colors flex items-center gap-1 !text-[13px] font-semibold font-sans"
+                >
+                  My Account
+                  <ChevronDown className="w-3 text-secondary opacity-90" />
+                </Link>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-[220px] p-4 mt-[16px]">
+                <nav className="flex flex-col space-y-2">
+                  {myDashboard?.map((menu: any) => (
+                    <Link
+                      key={menu.title}
+                      href={menu.href || "#"}
+                      className="text-gray-600 hover:text-gray-900 text-sm px-3 py-2 rounded-md hover:bg-gray-100"
+                    >
+                      {menu.title}
+                    </Link>
+                  ))}
+                </nav>
+              </HoverCardContent>
+            </HoverCard>
           )}
           {isTokenExpired && (
             <SideDrawer

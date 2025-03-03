@@ -458,5 +458,14 @@
        "tab1":"MENU",
        "tab2":"CATEGORIES"
     },
-    "Shop":"SHOP"
+    "Shop":"SHOP",
+    "my_account": [
+  { "title": "Dashboard", "href": "/my-account/" },
+  { "title": "Orders", "href": "/my-account/orders/" },
+  { "title": "Address", "href": "/my-account/downloads/" },
+  { "title": "Downloads", "href": "/my-account/edit-address/" },
+  { "title": "Account", "href": "/my-account/edit-account/" },
+  { "title": "Logout", "href": "/my-account/customer-logout/" }
+]
+
   }

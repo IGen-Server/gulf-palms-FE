@@ -457,6 +457,14 @@
   "tab1":"الفئات",
   "tab2":"القائمة"
 },
-"Shop":"المتجر"
+"Shop":"المتجر",
+"my_account": [
+  { "title": "لوحة التحكم", "href": "/my-account/" },
+  { "title": "الطلبات", "href": "/my-account/orders/" },
+  { "title": "التنزيلات", "href": "/my-account/downloads/" },
+  { "title": "العناوين", "href": "/my-account/edit-address/" },
+  { "title": "تفاصيل الحساب", "href": "/my-account/edit-account/" },
+  { "title": "تسجيل الخروج", "href": "/my-account/customer-logout/" }
+]
 
 }
