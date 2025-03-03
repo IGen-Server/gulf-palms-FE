@@ -116,7 +116,6 @@ export default function PublicNavbar() {
       returnObjects: true,
     }) as MenuItem[]) || [];
 
-    console.log({myDashboard})
 
   return (
     <div
