@@ -1,5 +1,6 @@
 "use client";
 
+import CustomCarousel from "@/components/common/CustomCarousel";
 import { serviceData } from "@/data/serviceData";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -20,6 +21,8 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
   const serviceDetails = service[language as "en" | "ar"];
 
   const isEnglish = language === "en";
+
+  console.log(serviceData);
 
   return (
     <div className="pt-[98px] w-full overflow-x-hidden flex flex-col items-center !font-sans">
@@ -68,14 +71,22 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
               {isEnglish ? "GET IN TOUCH" : "اتصل بنا"}
             </Link>
           </div>
-          <div className="hidden min-w-[322px] sm:flex flex-col gap-3">
-            <Image
-              src={service.heroImages.large || "/placeholder.svg"}
-              alt={`Palm service`}
-              width={322}
-              height={280}
-              className="w-full h-full object-cover"
-            />
+          <div className="h-[588px] flex flex-col gap-3">
+            {service.heroImages.small.map((image, index) => (
+              <div
+                key={index}
+                className="hidden min-w-[322px] h-full sm:flex flex-col gap-3"
+              >
+                <Image
+                  src={image || "/placeholder.svg"}
+                  alt={`Palm service`}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
           </div>
         </div>
 
@@ -155,6 +166,133 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col self-start">
+        <div className="w-[1000px] flex flex-col gap-3 px-14">
+          <h2 className="font-light text-3xl text-[#777]">
+            {language === "en" ? "OUR SERVICES" : "خدماتنا"}
+          </h2>
+          <h2 className="font-semibold text-4xl text-[#242424]">
+            {language === "en"
+              ? "SERVICES PROVIED BY GULF PALM"
+              : "الخدمات التي نقدمها عبر نخيل الخليج"}
+          </h2>
+
+          {language === "en" ? (
+            <p className="text-base text-[#777] mt-4 px-1">
+              Our experienced team provides customized solutions from design to
+              execution based on our clients needs while keeping in mind the
+              agricultural environment to ensure sustainable green spaces.
+            </p>
+          ) : (
+            <p className="text-base text-[#777] mt-4 px-1">
+              يقدم فريقنا ذو الخبرة حلولاً مخصصة بدءًا من التصميم وحتى التنفيذ
+              بناءً على احتياجات عملائنا مع مراعاة البيئة الزراعية لضمان مساحات
+              خضراء مستدامة.
+            </p>
+          )}
+        </div>
+
+        <CustomCarousel
+          dots={true}
+          autoPlay={false}
+          withNavigation={true}
+          data={serviceData.map((service) => ({
+            component: (
+              <div key={service.slug[0]} className="h-[440px]">
+                <div className="relative overflow-hidden h-full">
+                  <Image
+                    src={service.coverImage}
+                    alt="Service Cover image"
+                    fill
+                    sizes="100vw"
+                    priority
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 flex flex-col gap-3 p-5 z-50">
+                    <p className="text-white/80">
+                      {language === "en"
+                        ? "Gulf Palm Services"
+                        : "خدمات نخيل الخليج"}
+                    </p>
+                    <h2 className="font-semibold text-4xl text-white">
+                      {language === "en" ? service.en.title : service.ar.title}
+                    </h2>
+                    <p className="text-white/80">
+                      {language === "en"
+                        ? service.en.description
+                        : service.ar.description}
+                    </p>
+                  </div>
+                  <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div>
+                </div>
+              </div>
+            ),
+          }))}
+        />
+      </div>
+
+      <div className="w-full max-w-[1140px] mx-auto flex flex-col lg:flex-row items-center">
+        <div className="flex flex-1 h-[678px]">
+          <Image
+            src="https://gulfpalms.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-30-at-4.00.09-PM.jpeg"
+            alt="Image"
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="flex flex-1 flex-col gap-3 px-14">
+          <h2 className="font-light text-3xl text-[#777]">
+            {language === "en" ? "WHO WE ARE" : "من نحن"}
+          </h2>
+          <h2 className="font-semibold text-4xl text-[#242424]">
+            {language === "en" ? "GULF PALMS" : "نخيل الخليج"}
+          </h2>
+
+          {language === "en" ? (
+            <p className="text-base text-[#777] mt-4 px-1">
+              <span className="font-semibold">
+                Gulf Palms General Trading & Contacting Company (Tissue Culture
+                Palms Centre)
+              </span>{" "}
+              has been established in 1991 immediately after the invasion. The
+              nursery had been purchased at Ar Rai and palm offshoots had been
+              imported from Saudi Arabia. They faced some difficulties in
+              importing offshoots of the good varieties so they decided to get
+              sources of American tissue culture laboratories, for supplying
+              Tissue Culture Palms. Offshoots of the excellent and most popular
+              palm varieties of Gulf region were collected and sent to States
+              for micro propagation. Later the agreement had been terminated and
+              all the cultures shifted to Jacques Marionnet, France who
+              appointed Gulf Palms its agent in Kuwait & Saudi Arabia.
+            </p>
+          ) : (
+            <p className="text-base text-[#777] mt-4 px-1">
+              تأسست شركة نخيل الخليج للتجارة العامة والمقاولات (مركز نخيل زراعة
+              الأنسجة) في عام ١٩٩١ مباشرة بعد الغزو. تم شراء المشتل في الري وتم
+              استيراد اغصان النخيل من المملكة العربية السعودية. مع مواجهة بعض
+              الصعوبات في استيراد فسائل من الأصناف الجيدة، قررنا الحصول على
+              مصادر من مختبرات زراعة الأنسجة الأمريكية لتوريد نخيل زراعة
+              الأنسجة. تم جمع أغصان أصناف النخيل الممتازة والأكثر شعبية في منطقة
+              الخليج وإرسالها إلى الدول من أجل مضاعفتها على نطاق صغير. في وقت
+              لاحق تم إنهاء الاتفاقية وانتقلت جميع الثقافات إلى جاك ماريونيت،
+              فرنسا الذي عين شركة نخيل الخليج وكيلاً لها في الكويت والمملكة
+              العربية السعودية.
+            </p>
+          )}
+
+          <div className="flex gap-5 pt-3">
+            <button className="font-semibold bg-[#242424] text-[.8125rem] text-white border border-[#242424] px-5 py-3 uppercase">
+              {language === "en" ? "Shop Now" : "تسوق الآن"}
+            </button>
+            <button className="font-semibold bg-white text-[.8125rem] hover:bg-gray-200 duration-300 text-[#333] border border-[#777]/25 px-5 py-3 uppercase">
+              {language === "en" ? "Read More" : "اقرأ أكثر"}
+            </button>
           </div>
         </div>
       </div>

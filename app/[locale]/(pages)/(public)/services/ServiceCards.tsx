@@ -61,6 +61,7 @@ const ServiceCards = () => {
               type: "image",
               src: service.coverImage,
               bgColor: "bg-white",
+              imgHeight: "h-[600px]",
             }}
           />
         </div>

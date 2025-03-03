@@ -124,28 +124,28 @@ export default function ContactUs() {
                   <a href="mailto:contact@gulfpalms.com">{texts.email}</a>
                 </p>
               </div>
-              <div className="flex space-x-4 w-full justify-start md:justify-end">
-                <Link
-                  href="https://twitter.com/gulfpalms"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:text-primary cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
-                >
-                  <i className="fab fa-twitter"></i>
-                </Link>
+              <div className="flex w-full justify-start gap-4">
                 <Link
                   href="https://www.instagram.com/gulfpalms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary hover:text-primary cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
+                  className="text-primary hover:bg-primary hover:text-white cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
                 >
                   <i className="fab fa-instagram"></i>
+                </Link>
+                <Link
+                  href="https://twitter.com/gulfpalms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:bg-primary hover:text-white cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
+                >
+                  <i className="fab fa-x-twitter"></i>
                 </Link>
                 <Link
                   href="https://www.linkedin.com/company/gulfpalms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary hover:text-primary cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
+                  className="text-primary hover:bg-primary hover:text-white cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
                 >
                   <i className="fab fa-linkedin"></i>
                 </Link>
@@ -170,7 +170,6 @@ export default function ContactUs() {
                       id="name"
                       name="name"
                       className="mt-1 border-black border-opacity-20 w-full"
-                      placeholder={texts.name}
                     />
                   </div>
 
@@ -183,7 +182,6 @@ export default function ContactUs() {
                       id="email"
                       name="email"
                       className="mt-1 border-black border-opacity-20"
-                      placeholder={texts.emailText}
                     />
                   </div>
 
@@ -196,7 +194,6 @@ export default function ContactUs() {
                       id="phone"
                       name="phone"
                       className="mt-1 border-black border-opacity-20"
-                      placeholder={texts.phoneText}
                     />
                   </div>
 
@@ -209,7 +206,6 @@ export default function ContactUs() {
                       id="company"
                       name="company"
                       className="mt-1 border-black border-opacity-20"
-                      placeholder={texts.companyText}
                     />
                   </div>
                 </div>
@@ -222,7 +218,6 @@ export default function ContactUs() {
                     id="message"
                     name="message"
                     className="mt-1 border-black border-opacity-20 bg-transparent border w-full"
-                    placeholder={texts.messageText}
                     rows={6}
                   />
                 </div>

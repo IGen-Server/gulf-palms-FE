@@ -250,13 +250,13 @@ export const serviceData: ServiceData = [
   {
     slug: ["farm-development"],
     coverImage:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-uYFiQ2rJ2d2H6JmrxvwOuPLq8A8fcf.png",
+      "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_567716494-1199x800.jpg",
     heroImages: {
       large:
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-uYFiQ2rJ2d2H6JmrxvwOuPLq8A8fcf.png",
+        "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_567716494-1199x800.jpg",
       small: [
-        "https://gulfpalms.com/wp-content/uploads/2023/06/pexels-vincent-gerbouin-1168764-700x466.jpg",
-        "https://gulfpalms.com/wp-content/uploads/2023/06/pexels-nextvoyage-1470403-700x449.jpg",
+        "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_1854326206-1173x800.jpg",
+        "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_626590571-1200x800.jpg",
       ],
     },
     sectionImage: "/images/services/farm_section_image.jpg",
