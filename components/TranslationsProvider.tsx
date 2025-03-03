@@ -16,7 +16,6 @@ export default function TranslationsProvider({
   resources: Resource;
 }) {
   const i18n = createInstance();
-
   initializeTranslations(locale, namespaces, i18n, resources);
 
   return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;
