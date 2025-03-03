@@ -5,7 +5,7 @@ export default function VideoShowCase() {
   const renderImage = (url: any) => {
     const rendredImage = (
       <div
-        className="w-full h-[400px] grid place-content-center cursor-pointer"
+        className="w-full h-[400px] grid place-content-center"
         style={{
           backgroundImage: `url(${url})`,
           backgroundSize: "cover",
@@ -37,7 +37,7 @@ export default function VideoShowCase() {
 
   return (
     <div className="w-screen mx-auto absolute left-0 h-[400px] !mt-[50px] ">
-      <div className="grid gap-3 grid-cols-3 lg:grid-cols-6">
+      <div className="flex gap-3">
         {renderImage(
           "https://gulfpalms.com/wp-content/uploads/sb-instagram-feed-images/448317886_1209369780235439_7245717242166709013_nfull.jpg"
         )}
