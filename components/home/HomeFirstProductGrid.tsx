@@ -55,9 +55,9 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
       const fetchedProducts = await getRelatedProducts(hoveresProductIds);
 
       // Map the fetched products to the desired format
-      const results = fetchedProducts.reverse().map((product,idx) => {
+      const results = fetchedProducts.map((product,idx) => {
         const productInfo = productData.find((p) => p.id == product.id);
-        console.log({productData,fetchedProducts})
+        // console.log({productData,fetchedProducts})
         return {
           position: productData[idx]?.position || { x: 0, y: 0 },
           group: productData[idx]?.group,
@@ -67,7 +67,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
           hoveredHref: product?.permalink,
           price: product?.price,
           description: product?.short_description?.replace(/<[^>]*>?/gm, ""),
-          buttonType: productInfo?.buttonType || "add_to_cart",
+          buttonType: productData[idx]?.buttonType,
         };
       });
 

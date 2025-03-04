@@ -68,7 +68,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
           hoveredHref: product?.permalink,
           price: product?.price,
           description: product?.short_description?.replace(/<[^>]*>?/gm, ""),
-          buttonType: productInfo?.buttonType || "add_to_cart",
+          buttonType: productData[idx]?.buttonType,
         };
       });
 
