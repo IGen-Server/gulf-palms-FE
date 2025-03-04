@@ -57,7 +57,7 @@ const Gallery = () => {
       <div className="max-w-[1192px] mx-auto">
         <div className="flex flex-col items-center gap-2 pb-28 lg:pb-[170px] pt-[50px]">
           <h1 className="text-4xl lg:text-[4.25rem] lg:leading-[5.125rem] font-bold text-black">
-            Gallery
+            {language === "en" ? "Gallery" : "معرض الصور"}
           </h1>
           <CustomBreadCrumb links={breadcrumbLinks} />
         </div>

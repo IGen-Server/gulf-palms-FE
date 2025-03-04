@@ -46,7 +46,7 @@ const SingleFarm = ({ slug }: { slug: string }) => {
                 <h2 className="max-lg:hidden text-[30px] font-light text-[#777] uppercase">
                   Farm
                 </h2>
-                <h2 className="text-xl lg:text-[30px] font-bold text-[#242424]">
+                <h2 className="text-xl lg:text-[30px] font-bold text-[#242424] uppercase">
                   {farmByLanguage?.title}
                 </h2>
                 <p className="text-[1.0625rem] text-[#7A7A7A]">
@@ -74,7 +74,7 @@ const SingleFarm = ({ slug }: { slug: string }) => {
         </div>
         <Video src={farm?.video ?? ""} />
       </div>
-      <GetInTouch />
+      <GetInTouch language={language} />
     </section>
   );
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import GetInTouch from "@/components/common/GetInTouch";
 import ImageTextCard from "@/components/common/ImageTextCard";
 import { serviceData } from "@/data/serviceData";
 import { useTranslation } from "react-i18next";
@@ -19,7 +20,7 @@ const ServiceCards = () => {
               type: "text",
               subheading: language === "en" ? "GULF PALMS" : "نخيل الخليج",
               headingColor: "text-[#242424]",
-              headingSize: "text-4xl",
+              headingSize: "text-4xl uppercase",
               heading: language === "en" ? service.en.title : service.ar.title,
               subheadingColor: "text-[#777]",
               subheadingSize: "text-3xl",
@@ -43,8 +44,9 @@ const ServiceCards = () => {
                   },
                   {
                     text: language === "en" ? "READ MORE" : "اقرأ أكثر",
-                    bgColor: "bg-white hover:bg-[#777777]/10",
-                    textColor: "text-black hover:text-black",
+                    bgColor: "bg-white hover:bg-[#777777] hover:bg-opacity-10",
+                    textColor: "text-black",
+                    textHoverColor: "hover:text-black",
                     href: `${
                       language === "en"
                         ? `/services/${service.slug[0]}`
@@ -67,6 +69,7 @@ const ServiceCards = () => {
           />
         </div>
       ))}
+      <GetInTouch language={language} />
     </div>
   );
 };

@@ -5,6 +5,8 @@ import GetInTouch from "@/components/common/GetInTouch";
 import { useTranslation } from "react-i18next";
 import projects from "../projectsData.json";
 import Image from "next/image";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 
 type ProjectDetails = {
   name: string; // Project name
@@ -73,7 +75,7 @@ const SingleProject = ({ slug }: { slug: string }) => {
       <div className="w-full h-auto lg:h-[850px] flex flex-col md:flex-row items-center bg-gray-100">
         <div className="w-full md:w-[60%] p-5 lg:py-0 lg:px-28">
           <div className="w-full">
-            <p className="pb-16 text-sm text-[#777] uppercase">
+            <p className="pb-16 text-sm text-[#777] uppercase tracking-wide">
               {projectDetails.name}
             </p>
             {config.map((item, index) => {
@@ -110,21 +112,46 @@ const SingleProject = ({ slug }: { slug: string }) => {
           />
         </div>
       </div>
-      <div className="w-full max-w-[1192px] mx-auto columns-2 md:columns-3 lg:columns-4 gap-2 px-5">
-        {project.subImages?.map((image, index) => {
+      <PhotoProvider
+        speed={() => 800}
+        easing={(type) =>
+          type === 2
+            ? "cubic-bezier(0.36, 0, 0.66, -0.56)"
+            : "cubic-bezier(0.34, 1.56, 0.64, 1)"
+        }
+        toolbarRender={({ onScale, scale }) => {
           return (
-            <Image
-              key={index}
-              src={image}
-              alt="image"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-auto mb-2"
-            />
+            <>
+              <svg
+                className="PhotoView-Slider__toolbarIcon"
+                onClick={() => onScale(scale + 1)}
+              />
+              <svg
+                className="PhotoView-Slider__toolbarIcon"
+                onClick={() => onScale(scale - 1)}
+              />
+            </>
           );
-        })}
-      </div>
+        }}
+      >
+        <div className="w-full max-w-[1192px] mx-auto columns-2 md:columns-3 lg:columns-4 gap-2 px-5">
+          {project.subImages?.map((image, index) => {
+            return (
+              <PhotoView key={index} src={image}>
+                <Image
+                  src={image}
+                  alt="image"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="w-full h-auto mb-2"
+                />
+              </PhotoView>
+            );
+          })}
+        </div>
+      </PhotoProvider>
+
       <GetInTouch language={language} />
     </div>
   );

@@ -53,8 +53,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
               {isEnglish ? "OUR PROFESSIONAL SERVICES" : "خدماتنا المهنية"}
             </p>
             <p className="text-2xl lg:text-[2.375rem] leading-[3.3125rem] font-semibold text-white">
-              {serviceDetails.title.split(" ").slice(0, -1).join(" ")}
-
+              {serviceDetails.title.split(" ").slice(0, -1).join(" ")}{" "}
               <span className="text-primary">
                 {serviceDetails.details.heroSection.title.split(" ").slice(-1)}
               </span>

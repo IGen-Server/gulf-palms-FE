@@ -16,8 +16,8 @@ const AboutUs = () => {
   const about = aboutData[language as "en" | "ar"];
 
   return (
-    <div className="flex flex-col gap-16 pt-36">
-      <section className="bg-gray-100">
+    <div className="flex flex-col gap-16 pt-24">
+      <section className="bg-gray-100 py-12">
         <div className="flex flex-col md:flex-row md:items-center max-w-[1239px] mx-auto px-7 md:px-0 py-[50px] gap-7 md:gap-28">
           <div className="space-y-[20px]">
             <p className="font-semibold text-[.9375rem] text-primary">
@@ -55,13 +55,13 @@ const AboutUs = () => {
         }}
         rightContent={{
           type: "text",
-          heading: about.about.title,
+          heading: about.about.heading,
           headingColor: "text-[#242424]",
           headingSize: `text-[2.375rem] ${
             language === "ar" ? "text-right" : ""
           }`,
           headingWeight: "font-semibold",
-          subheading: about.about.heading,
+          subheading: about.about.title,
           subheadingSize: `text-[1.0625rem] ${
             language === "ar" ? "text-right" : ""
           }`,

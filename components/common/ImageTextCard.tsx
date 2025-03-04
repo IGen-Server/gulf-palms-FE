@@ -12,6 +12,7 @@ interface ButtonProps {
   height?: string; // Height of the button
   width?: string; // Width of the button
   textColor?: string; // Text color for the button
+  textHoverColor?: string;
   fontWeight?: string; // Font weight for the button text
   borderRadius?: string; // Border radius of the button
   border?: string; // Border style (e.g., "1px solid")
@@ -95,12 +96,14 @@ export default function ImageTextCard({
         {buttons.items.map((button, index) => (
           <button
             key={index}
-            className={`px-3 py-2 ${button.bgColor || "bg-primary"} ${
+            className={`px-3 py-2 duration-300 !cursor-pointer hover:bg-primary ${
+              button.textHoverColor || "hover:text-white"
+            } ${button.bgColor || "bg-primary"} ${
               button.textColor || "text-white"
             } ${button.borderColor || "#777"}
               ${button.fontWeight || "font-medium"} ${
               button.borderRadius || "rounded"
-            } duration-300 !cursor-pointer hover:bg-primary hover:text-white`}
+            } `}
             style={{
               height: button.height || "auto",
               width: button.width || "auto",
@@ -251,17 +254,15 @@ export default function ImageTextCard({
       {/* Left Content */}
       <div
         className={`relative flex flex-col items-start w-full text-justify
-        ${leftContent.bgColor || ""}
-        ${colReversed ? "order-1 lg:order-2" : "order-1"}
-        ${leftContent.type === "text" && "grid place-content-center"}
-        ${
-          imageFirst
-            ? leftContent.type === "text"
-              ? "order-2 lg:order-1"
+          ${leftContent.bgColor || ""}
+          ${colReversed ? "order-1 lg:order-2" : "order-1"}
+          ${leftContent.type === "text" && "grid place-content-center"}
+          ${
+            imageFirst && leftContent.type === "text"
+              ? "max-lg:order-2"
               : "order-1"
-            : ""
-        }
-      `}
+          }
+        `}
       >
         {renderContent(leftContent)}
       </div>
@@ -269,17 +270,16 @@ export default function ImageTextCard({
       {/* Right Content */}
       <div
         className={`relative flex flex-col items-start w-full text-justify
-        ${rightContent.bgColor || ""}
-        ${colReversed ? "order-2 lg:order-1" : "order-2"}
-        ${rightContent.type === "text" && "grid place-content-center"}
-        ${
-          imageFirst
-            ? rightContent.type === "text"
-              ? "order-2 lg:order-2"
+          ${rightContent.bgColor || ""}
+          ${colReversed ? "order-2 lg:order-1" : "order-2"}
+          ${rightContent.type === "text" && "grid place-content-center"}
+          ${
+            imageFirst && rightContent.type === "text"
+              ? "max-lg:order-2"
               : "order-1"
-            : ""
-        }
-      `}
+          }
+
+        `}
       >
         {renderContent(rightContent)}
       </div>

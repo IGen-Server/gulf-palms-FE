@@ -57,7 +57,7 @@ const FarmDetails = () => {
                     <h2 className="font-light text-[30px] text-[#777]">
                       {farm[language as "en" | "ar"].name}
                     </h2>
-                    <h2 className="font-semibold text-xl lg:text-[2.375rem] lg:leading-[3.3125rem] text-[#6f803d]">
+                    <h2 className="font-semibold text-xl lg:text-[2.375rem] lg:leading-[3.3125rem] text-[#6f803d] uppercase">
                       {farm[language as "en" | "ar"].title}
                     </h2>
                     <p className="text-[1.0625rem] lg:text-[1.1875rem] text-[#6f803d] lg:leading-[1.875rem]">
@@ -91,7 +91,7 @@ const FarmDetails = () => {
           </div>
         ))}
       </div>
-      <GetInTouch />
+      <GetInTouch language={language} />
     </section>
   );
 };

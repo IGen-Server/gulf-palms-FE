@@ -7,6 +7,7 @@
     "img": "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-palm-men.jpg",
     "video": "/video/rai_branch_video.mp4",
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.129963726799!2d47.9475056!3d29.3146052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9aee8dd72f25%3A0x13c1872301ebdf24!2sGulf%20Palms%20Center!5e0!3m2!1sen!2sus!4v1699302981981",
+    "location": "https://www.google.com/maps/dir//Gulf+Palms+Center+Shuwaikh+Industrial+Kuwait/@29.3146052,47.9475056,15z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3fcf9aee8dd72f25:0x13c1872301ebdf24",
     "en": {
       "content": {
         "subheading": "RAI",
@@ -31,6 +32,7 @@
     "img": "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-palm-men.jpg",
     "video": "/video/wafra_showroom_video.mp4",
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.129963726799!2d47.9475056!3d29.3146052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9aee8dd72f25%3A0x13c1872301ebdf24!2sGulf%20Palms%20Center!5e0!3m2!1sen!2sus!4v1699302981981",
+    "location": "https://www.google.com/maps/dir//%D8%A7%D9%84%D9%86%D8%AE%D9%8A%D9%84+%D8%A7%D9%84%D9%86%D8%B3%D9%8A%D8%AC%D9%8A+%D8%A7%D9%84%D9%81%D8%B1%D8%B9+%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF+H3RJ%2B3R9+Unnamed+Road,+%D8%A7%D9%84%D9%88%D9%81%D8%B1%D8%A9%D8%8C+Al+Wafrah,+Kuwait%E2%80%AD/@28.590168,48.0821,15z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3fce8b4f2ed231f3:0x7e0d90065c197360",
     "en": {
       "content": {
         "subheading": "WAFRAH",
@@ -54,6 +56,7 @@
     "img": "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-palm-men.jpg",
     "video": "/video/abdali_farm_video.mp4",
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.129963726799!2d47.9475056!3d29.3146052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9aee8dd72f25%3A0x13c1872301ebdf24!2sGulf%20Palms%20Center!5e0!3m2!1sen!2sus!4v1699302981981",
+    "location": "https://www.google.com/maps/dir//%D8%B4%D8%B1%D9%83%D8%A9+%D8%A7%D9%84%D9%86%D8%AE%D9%8A%D9%84+%D8%A7%D9%84%D9%86%D8%B3%D9%8A%D8%AC%D9%8A+%D8%A7%D9%84%D8%B9%D8%A8%D8%AF%D9%84%D9%8A+2Q6Q%2BRVW+Yaqoub+Jassim+Alwazzan+St+Abdali,+Kuwait%E2%80%AD/@30.0121227,47.7897133,15z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3fc51fa66ff7c6ab:0xe87ba4031a8f0893",
     "en": {
       "content": {
         "subheading": "ABDALI",
@@ -78,6 +81,7 @@
     "img": "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-palm-men.jpg",
     "video": "",
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.129963726799!2d47.9475056!3d29.3146052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9aee8dd72f25%3A0x13c1872301ebdf24!2sGulf%20Palms%20Center!5e0!3m2!1sen!2sus!4v1699302981981",
+    "location": "https://www.google.com/maps/dir//House+Of+Development+For+Agricultural+Contracting+Company+(%D9%85%D8%B9%D8%B1%D8%B6+%D8%A7%D9%84%D8%B9%D8%A8%D8%AF%D9%84%D9%8A+)+2Q96%2BXH3+Abdali+Kuwait%E2%80%AD/@30.0198775,47.7614153,15z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3fc521bd2bd6ed4d:0xd4fbb4c5f5b8de14",
     "en": {
       "content": {
         "subheading": "ABDALI",
@@ -95,12 +99,13 @@
   },
   {
     "slug": ["wafrah-corporate-showroom"],
-    "name": "WAFRAH CORPORATE SHOWROOM",
+    "name": "Wafrah Corporate Showroom",
     "arabicName": "معرض الشركات – الوفرة",
     "id": "fe9a770",
     "img": "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-palm-men.jpg",
     "video": "",
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.129963726799!2d47.9475056!3d29.3146052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9aee8dd72f25%3A0x13c1872301ebdf24!2sGulf%20Palms%20Center!5e0!3m2!1sen!2sus!4v1699302981981",
+    "location": "https://www.google.com/maps/dir//Block+10+Al+Wafrah+Kuwait/@28.6218879,48.0902768,11z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3fce8aa1f8bc8297:0xaff66d8914fb4b80",
     "en": {
       "content": {
         "subheading": "WAFRAH",
