@@ -45,12 +45,12 @@ export type ServiceData = Service;
 
 export const serviceData: ServiceData[] = [
   {
-    slug: ["palms-maintenance"],
+    slug: ["palms-maintenance", "palms-maintenance-arabic"],
     coverImage:
       "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-palm-men-1200x800.jpg",
     heroImages: {
       large:
-        "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_106616339.jpg",
+        "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-palm-men-1200x800.jpg",
       small: [
         "https://gulfpalms.com/wp-content/uploads/2023/06/pexels-vincent-gerbouin-1168764-700x466.jpg",
         "https://gulfpalms.com/wp-content/uploads/2023/06/pexels-nextvoyage-1470403-700x449.jpg",
@@ -77,7 +77,7 @@ export const serviceData: ServiceData[] = [
         heroSection: {
           title: "Palms Maintenance",
           summary:
-            "With over 30 years of experience, we provide expert palm maintenance services, ensuring optimal growth and date production across Kuwait.",
+            "We have above 30 years of experience of growing and maintaining date palms and producing dates in all areas of Kuwait.",
         },
         content: {
           sectionTitle: "Keep Your Palms Happy and Healthy",
@@ -95,14 +95,15 @@ export const serviceData: ServiceData[] = [
             {
               title: "What our maintenance contracts include:",
               description: [
-                "Specialized preventative and corrective palm tree maintenance.",
-                "Protection against diseases and pests to maintain lush green leaves.",
-                "Regular trimming and pruning for healthy growth.",
-                "Cleaning surrounding areas and removing dried fronds.",
-                "Providing essential fertilizers and nutrients.",
-                "Optimizing irrigation to maintain soil moisture balance.",
-                "Monitoring growth and overall palm health.",
-                "Harvesting and processing premium-quality dates.",
+                "Pre-scheduled weekly visits by trained and skilled gardeners led by a professional supervisor",
+                "Pre-scheduled monthly visits of experienced and professional landscape/Irrigation Engineer",
+                "Making sure your unique selection of plants are precisely watered.",
+                "Fertilizing and feeding as required to encourage healthy growth.",
+                "Cleaning and shining of foliage as necessary.",
+                "Pruning & trimming to remove any undesirable foliage.",
+                "Repotting of plants, if necessary.",
+                "Regular inspections for pest and plant disease with appropriate treatment as necessary.",
+                "Replacement of any plants that show signs of decline.",
               ],
             },
           ],
@@ -117,7 +118,7 @@ export const serviceData: ServiceData[] = [
         heroSection: {
           title: "صيانة النخيل",
           summary:
-            "مع أكثر من 30 عامًا من الخبرة، نقدم خدمات صيانة النخيل المتخصصة، مما يضمن النمو الأمثل وإنتاج التمور في جميع أنحاء الكويت.",
+            "لدينا أكثر من 30 عامًا من الخبرة في زراعة وصيانة نخيل التمر وإنتاج التمور في جميع مناطق الكويت.",
         },
         content: {
           sectionTitle: "حافظ على نخيلك سعيدًا وصحيًا",
@@ -130,16 +131,15 @@ export const serviceData: ServiceData[] = [
             {
               title: "ماذا يشمل عقد الصيانة",
               description: [
-                "تقليم وتشذيب وتشكيل النباتات والأشجار",
-                "جز وتحديد حواف المروج",
-                "إزالة الأعشاب الضارة وتغطية أحواض الحديقة",
-                "التسميد ومكافحة الآفات",
-                "صيانة نظام الري",
-                "الزراعة الموسمية وإعادة الزراعة",
-                "تنظيف مناطق الحديقة",
-                "الفحوصات والتقارير المنتظمة",
-                "إزالة والتخلص من النفايات",
-                "خطط صيانة مخصصة بناءً على احتياجاتك",
+                "جدول زيارات أسبوعي لخبراء الحدائق مع اشراف خبير محترف.",
+                "جدول زيارات شهرية لمقاولين الحدائق و مهندسين الري.",
+                "التأكد من ري نباتاتك المختارة بالكمية الصحيحة.",
+                "التسميد والتغذية حسب الحاجة للحصول على نمو صحي.",
+                "تنظيف وتلميع أوراق الشجر حسب الحاجة.",
+                "التنسيق و التقليم لأوراق الأشجار الغير مرغوب بها.",
+                "إعادة زراعة الأحواض عند الحاجة.",
+                "فحص دوري الحشرات و الافات وامراض مع إعطاء العلاج المناسب عند الحاجة.",
+                "استبدال أي نباتات تعطي مؤشرات لتدهور حالتها الصحية.",
               ],
             },
           ],
@@ -148,15 +148,15 @@ export const serviceData: ServiceData[] = [
     },
   },
   {
-    slug: ["garden-maintenance"],
+    slug: ["garden-maintenance", "garden-maintenance-arabic"],
     coverImage:
       "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_106616339-1200x800.jpg",
     heroImages: {
       large:
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-gmDwJERedQsAjN16dxMqhzvgy5g4q3.png",
+        "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_106616339-1200x800.jpg",
       small: [
-        "https://gulfpalms.com/wp-content/uploads/2023/06/pexels-vincent-gerbouin-1168764-700x466.jpg",
-        "https://gulfpalms.com/wp-content/uploads/2023/06/pexels-nextvoyage-1470403-700x449.jpg",
+        "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-Untitled_1.2.1-450x800.jpg",
+        "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_667654081-1199x800.jpg",
       ],
     },
     sectionImage: "/images/services/garden_section_image.jpg",
@@ -191,16 +191,15 @@ export const serviceData: ServiceData[] = [
             {
               title: "What our maintenance contracts include:",
               description: [
-                "Pruning, trimming and shaping of plants and trees",
-                "Mowing and edging of lawns",
-                "Weeding and mulching of garden beds",
-                "Fertilizing and pest control",
-                "Irrigation system maintenance",
-                "Seasonal planting and replanting",
-                "Cleaning of garden areas",
-                "Regular inspections and reports",
-                "Waste removal and disposal",
-                "Customized maintenance plans based on your needs",
+                "Pre-scheduled weekly visits by trained and skilled gardeners led by a professional supervisor",
+                "Pre-scheduled monthly visits of experienced and professional landscape/Irrigation Engineer",
+                "Making sure your unique selection of plants are precisely watered.",
+                "Fertilizing and feeding as required to encourage healthy growth.",
+                "Cleaning and shining of foliage as necessary.",
+                "Pruning & trimming to remove any undesirable foliage.",
+                "Repotting of plants, if necessary.",
+                "Regular inspections for pest and plant disease with appropriate treatment as necessary.",
+                "Replacement of any plants that show signs of decline.",
               ],
             },
           ],
@@ -220,7 +219,7 @@ export const serviceData: ServiceData[] = [
             "تقدم نخيل الخليج مجموعة كاملة من خدمات صيانة المناظر الطبيعية للحفاظ على السحر الدائم لمساحات المعيشة الخارجية الخاصة بك.",
         },
         content: {
-          sectionTitle: "صيانة الحدائق المتميزة",
+          sectionTitle: "النخبة لدينا لصيانة الحدائق",
           overview: [
             {
               title: "",
@@ -228,7 +227,7 @@ export const serviceData: ServiceData[] = [
                 "تقدم نخيل الخليج مجموعة كاملة من خدمات صيانة المناظر الطبيعية للحفاظ على السحر الدائم لمساحات المعيشة الخارجية الخاصة بك. نوقع عقدًا سنويًا للصيانة الشاملة لجماليات المساحات الخارجية الخاصة بك. من خلال الصيانة والتنظيف المنتظمين، يسعى فنيونا جاهدين لمعالجة المشكلات قبل أن تخرج عن السيطرة.",
             },
             {
-              title: "",
+              title: "ماذا يشمل عقد الصيانة",
               description: [
                 "تقليم وتشذيب وتشكيل النباتات والأشجار",
                 "جز وتحديد حواف المروج",
@@ -277,31 +276,21 @@ export const serviceData: ServiceData[] = [
           title: "Farm Development",
 
           summary:
-            "Learn how we help lower risk for your project on-the-ground with our comprehensive farm development services.",
+            "We grow and supply assets with a core service centered around water green and sustainability",
         },
         content: {
-          sectionTitle: "Farm Development Services",
-
+          sectionTitle:
+            "Learn how we help lower risk for your project on-the-ground",
           overview: [
             {
               title: "",
               description:
-                "Gulf Palms provides comprehensive farm development services to help you transform your agricultural vision into reality. Our team of experts works with you from initial planning through implementation, ensuring your farm project succeeds with minimal risk. We combine traditional farming knowledge with modern agricultural techniques to create sustainable and productive farming operations.",
+                "Our services provide numerous environmental social, emotional and physical benefits. We design, build and manage a diverse portfolio of landscapes, golf courses, resorts and gated communities. We grow and supply assets with a core service centered around water green and sustainability",
             },
             {
               title: "Our Farm Development Services Include",
-              description: [
-                "Comprehensive site assessment and soil analysis",
-                "Farm layout and design planning",
-                "Irrigation system design and installation",
-                "Greenhouse and shade house construction",
-                "Crop selection and planting strategies",
-                "Implementation of sustainable farming practices",
-                "Farm infrastructure development",
-                "Agricultural equipment selection and setup",
-                "Training and operational support",
-                "Ongoing farm management services",
-              ],
+              description:
+                "Gulf Palm owns and manages the largest nurseries setup, we stock a wide selection of plants ranging from the exotic to the more familiar tried and tested ornamental species with a selection of native local plants We assist many of the landscape consultants and contractors to help select plants suitable for the project.",
             },
           ],
         },
@@ -315,31 +304,22 @@ export const serviceData: ServiceData[] = [
         heroSection: {
           title: "تطوير المزارع",
           summary:
-            "تعرف على كيفية مساعدتنا في تقليل المخاطر لمشروعك على أرض الواقع من خلال خدمات تطوير المزارع الشاملة.",
+            "نحن ننمو ونزود الأصول بخدمة أساسية تتمحور حول المياه الخضراء والاستدامة",
         },
         content: {
-          sectionTitle: "Farm Development Services",
+          sectionTitle:
+            "تعرف على كيف نساعد في تقليل المخاطر التي يتعرض لها مشروعك على أرض الواقع",
 
           overview: [
             {
               title: "",
               description:
-                "توفر نخيل الخليج خدمات شاملة لتطوير المزارع لمساعدتك على تحويل رؤيتك الزراعية إلى واقع. يعمل فريق الخبراء لدينا معك من التخطيط الأولي حتى التنفيذ، مما يضمن نجاح مشروع مزرعتك بأقل المخاطر. نحن نجمع بين المعرفة الزراعية التقليدية والتقنيات الزراعية الحديثة لإنشاء عمليات زراعية مستدامة ومنتجة.",
+                "توفر خدماتنا العديد من الفوائد الاجتماعية والعاطفية والجسدية البيئية. نقوم بتصميم وبناء وإدارة مجموعة متنوعة من المناظر الطبيعية وملاعب الجولف والمنتجعات والمجتمعات المسورة. نحن ننمو ونزود الأصول بخدمة أساسية تتمحور حول المياه الخضراء والاستدامة",
             },
             {
-              title: "Our Farm Development Services Include",
-              description: [
-                "تقييم شامل للموقع وتحليل التربة",
-                "تخطيط وتصميم المزرعة",
-                "تصميم وتركيب نظام الري",
-                "بناء البيوت المحمية وبيوت الظل",
-                "اختيار المحاصيل واستراتيجيات الزراعة",
-                "تنفيذ ممارسات الزراعة المستدامة",
-                "تطوير البنية التحتية للمزرعة",
-                "اختيار وإعداد المعدات الزراعية",
-                "التدريب والدعم التشغيلي",
-                "خدمات إدارة المزارع المستمرة",
-              ],
+              title: "",
+              description:
+                "تمتلك شركة جلف بالم وتدير أكبر مشاتل، حيث نقوم بتخزين مجموعة واسعة من النباتات التي تتراوح من الأنواع الغريبة إلى أنواع الزينة الأكثر شهرة والمجربة والمختبرة مع مجموعة مختارة من النباتات المحلية المحلية. نحن نساعد العديد من مستشاري ومقاولي المناظر الطبيعية للمساعدة في اختيار النباتات مناسبة للمشروع.",
             },
           ],
         },
@@ -347,7 +327,7 @@ export const serviceData: ServiceData[] = [
     },
   },
   {
-    slug: ["designing-landscaping"],
+    slug: ["designing-landscaping", "designing-landscaping-arabic"],
     coverImage:
       "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-008-1-1289x800.jpg",
     heroImages: {
@@ -432,7 +412,7 @@ export const serviceData: ServiceData[] = [
     },
   },
   {
-    slug: ["project-execution"],
+    slug: ["project-execution", "project-execution-arabic"],
     coverImage:
       "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_590308763-1067x800.jpg",
     heroImages: {
@@ -497,7 +477,10 @@ export const serviceData: ServiceData[] = [
     },
   },
   {
-    slug: ["irrigation - system - installation"],
+    slug: [
+      "irrigation-system-installation",
+      "irrigation-system-installation-arabic",
+    ],
     coverImage:
       "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_2177077673-1200x800.jpg",
     heroImages: {
@@ -519,23 +502,28 @@ export const serviceData: ServiceData[] = [
       "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_1862574064-1200x800.jpg",
     ],
     en: {
-      title: "Project Execution",
+      title: "Irrigation System Installation",
       description:
-        "Transform your dream designs for a cosy outdoors into reality with our customised design solutions. Whether you wish to install nature–inspired swimming pools, enchanting water features, picturesque plantings, or whatnot, our bespoke designs will sprinkle life in each of your outdoor elements. All our designs are sustainable, cost effective and resource efficient.",
+        "We never stay out of the league, especially when it’s about following the latest technologies for incorporating state-of-the-art irrigation systems that can utilize water efficiently and effectively and that ensure the right amount of water at the right time. Being a pioneer landscaping company across the Kuwait, we use superior quality materials and technologies in our automated irrigation solutions.",
       details: {
         heroSection: {
-          title: "Project Execution",
+          title: "Irrigation System Installation",
           summary:
-            "Transform your dream designs for a cosy outdoors into reality with our customised design solutions.",
+            "Being a pioneer landscaping company across the Kuwait, we use superior quality materials and technologies in our automated irrigation solutions.",
         },
         content: {
-          sectionTitle: "Creating A Project Plan For Your Garden",
+          sectionTitle: "IRRIGATION INSTALLATION & SERVICES",
 
           overview: [
             {
               title: "",
               description:
-                "Transform your dream designs for a cosy outdoors into reality with our customised design solutions. Whether you wish to install nature–inspired swimming pools, enchanting water features, picturesque plantings, or whatnot, our bespoke designs will sprinkle life in each of your outdoor elements. All our designs are sustainable, cost effective and resource efficient. They preserve nature, water, energy, environment and reduce the cost of maintenance significantly. They create value through significant economic, social and environmental benefits.",
+                "We never stay out of the league, especially when it’s about following the latest technologies for incorporating state-of-the-art irrigation systems that can utilize water efficiently and effectively and that ensure the right amount of water at the right time.",
+            },
+            {
+              title: "",
+              description:
+                "Being a pioneer landscaping company across the Kuwait, we use superior quality materials and technologies in our automated irrigation solutions. Our ultimate focus is to maintain the freshness of your garden, and to preserve maximum amount of water, with well-equipped irrigation facilities",
             },
           ],
         },

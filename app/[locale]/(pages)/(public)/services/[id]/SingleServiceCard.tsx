@@ -38,7 +38,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
             className="hidden lg:block max-w-[700px] h-[588px] object-cover"
           />
           <div
-            className="w-full h-max sm:h-auto bg-[#18191F] text-gray-300 grid place-content-center lg:space-y-2 px-[30px] py-8 lg:py-0"
+            className="relative w-full h-max sm:h-auto bg-[#18191F] text-gray-300 grid place-content-center lg:space-y-2 px-[30px] py-8 lg:py-0"
             style={{
               backgroundImage: "url('/images/texture-overlay.svg')",
               backgroundSize: "cover",
@@ -46,6 +46,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
               backgroundRepeat: "no-repeat",
             }}
           >
+            <i className="fa-solid fa-quote-left absolute text-[100px] text-white/50 z-10 top-5 left-5"></i>
             <p
               className="text-[.9375rem] text-[rgba(255, 255, 255, 0.8)
 ] tracking-wide leading-6"
@@ -66,7 +67,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
             </p>
             <Link
               href={language === "en" ? "/en/contact-us" : "/ar/contact-us"}
-              className="underline font-semibold text-[.8125rem] text-white"
+              className="w-max border-b-[2px] border-b-[#777] hover:border-b-white duration-300 font-semibold text-[.8125rem] text-white"
             >
               {isEnglish ? "GET IN TOUCH" : "اتصل بنا"}
             </Link>
