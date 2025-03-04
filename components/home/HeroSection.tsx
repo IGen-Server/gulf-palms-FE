@@ -25,7 +25,7 @@ export default function HeroSection() {
         {t("home.heroSection.Slogan2")}
       </p>
       <p
-        className={`text-[14px] lg:text-[16px] pt-3 font-sans max-w-[600px] ${
+        className={`text-[14px] lg:text-[16px] pt-3 font-sans max-w-[700px] ${
           isArabic ? "text-right" : "text-left"
         }`}
       >
@@ -49,7 +49,7 @@ export default function HeroSection() {
   );
 
   return (
-    <div className="w-full lg:max-w-[1000px] px-4 lg:text-left absolute top-[125px] lg:top-[150px] 2xl:top-[333px] lg:ml-[50px] 2xl:-ml-[25px]">
+    <div className="w-full lg:max-w-[1000px] px-4 lg:text-left absolute top-[125px] lg:top-[353px] 2xl:top-[360px] lg:ml-[30px] 2xl:-ml-[30px]">
       <div className="relative z-10 text-white lg:text-secondary">
         {content}
       </div>
