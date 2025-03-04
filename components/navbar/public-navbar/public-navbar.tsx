@@ -206,10 +206,10 @@ export default function PublicNavbar() {
 
           {!isTokenExpired && (
             <HoverCard openDelay={100} closeDelay={100}>
-              <HoverCardTrigger asChild>
+              <HoverCardTrigger asChild className="w-[120px] ">
                 <Link
                   href={ClientRoutes.User.MyAccountDashboard}
-                  className="text-white hover:text-gray-200 transition-colors flex items-center gap-1 !text-[13px] font-semibold font-sans"
+                  className="hidden lg:flex text-white hover:text-gray-200 transition-colors items-center gap-1 !text-[13px] font-semibold font-sans "
                 >
                   My Account
                   <ChevronDown className="w-3 text-secondary opacity-90" />
