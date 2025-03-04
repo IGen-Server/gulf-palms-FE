@@ -44,12 +44,13 @@ export default function ShowRoomsList() {
               subheadingSize: "text-[30px]",
               subheadingWeight: "font-light",
               bullets: [
-                `Address : ${
+                `${
                   language === "en"
                     ? service.en.content.details
                     : service.ar.content.details
                 }`,
               ],
+              bulletsSpan: language === "en" ? "Address: " : "العنوان: ",
               textAlign: "center",
               textSize: "text-[15px]",
               textColor: "text-primary",
@@ -99,16 +100,19 @@ export default function ShowRoomsList() {
                 ? showroom.en.content.subheading
                 : showroom.ar.content.subheading}
             </h2>
-            <h2 className="font-semibold text-4xl text-primary">
+            <h2 className="font-semibold text-4xl text-primary uppercase">
               {language === "en"
                 ? showroom.en.content.title
                 : showroom.ar.content.title}
             </h2>
-            <h2 className="font-normal text-[1.0625rem] text-primary">
+            <p className="font-normal text-[1.0625rem] text-primary">
+              <span className="font-semibold">
+                {language === "en" ? "Address: " : "العنوان: "}
+              </span>
               {language === "en"
                 ? showroom.en.content.details
                 : showroom.ar.content.details}
-            </h2>
+            </p>
             <div className="flex gap-7">
               <Link
                 href={language === "en" ? "/en/contact-us" : "/ar/contact-us"}

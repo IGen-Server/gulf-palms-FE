@@ -18,11 +18,11 @@ const ServiceCards = () => {
             leftContent={{
               type: "text",
               subheading: language === "en" ? "GULF PALMS" : "نخيل الخليج",
-              headingColor: "text-black",
-              headingSize: "text-[30px]",
+              headingColor: "text-[#242424]",
+              headingSize: "text-4xl",
               heading: language === "en" ? service.en.title : service.ar.title,
-              subheadingColor: "text-black",
-              subheadingSize: "text-[30px]",
+              subheadingColor: "text-[#777]",
+              subheadingSize: "text-3xl",
               subheadingWeight: "font-light",
               bullets:
                 language === "en"
@@ -30,27 +30,27 @@ const ServiceCards = () => {
                   : [service.ar.description],
               textAlign: "center",
               textSize: "text-[15px]",
-              textColor: "text-black/90",
+              textColor: "text-[#777]",
               fontWeight: "font-[400]",
               bgColor: "bg-white",
               buttons: {
                 items: [
                   {
                     text: language === "en" ? "GET IN TOUCH" : "ابقى على تواصل",
-                    bgColor: "bg-primary",
+                    bgColor: "bg-primary hover:bg-[#e59b78]",
                     borderRadius: "rounded-none",
                     href: "/contact",
                   },
                   {
                     text: language === "en" ? "READ MORE" : "اقرأ أكثر",
-                    bgColor: "bg-white",
-                    textColor: "text-black",
+                    bgColor: "bg-white hover:bg-[#777777]/10",
+                    textColor: "text-black hover:text-black",
                     href: `${
                       language === "en"
                         ? `/services/${service.slug[0]}`
                         : `/services/${service.slug[1]}`
                     }`,
-                    border: "1px solid lightgray",
+                    borderColor: "border border-[#777] hover:border-[#777]/10",
                     borderRadius: "none",
                   },
                 ],
@@ -61,8 +61,9 @@ const ServiceCards = () => {
               type: "image",
               src: service.coverImage,
               bgColor: "bg-white",
-              imgHeight: "h-[600px]",
+              imgHeight: "h-[300px] lg:h-[600px]",
             }}
+            imageFirst
           />
         </div>
       ))}

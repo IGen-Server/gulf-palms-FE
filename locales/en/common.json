@@ -423,7 +423,7 @@
     { "title": "PROJECTS", "href": "/projects" },
     {
       "title": "OUR FARMS",
-      "href": "/farms",
+      "href": "/our-farms",
       "submenu": [
         { "title": "Wafrah Farm", "href": "/our-farms/wafrah-farm" },
         { "title": "Abdali Farm", "href": "/our-farms/abdali-farm" }

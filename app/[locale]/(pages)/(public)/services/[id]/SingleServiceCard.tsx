@@ -1,12 +1,15 @@
 "use client";
 
 import CustomCarousel from "@/components/common/CustomCarousel";
-import { serviceData } from "@/data/serviceData";
+import { Button } from "@/components/ui/button";
+import { ServiceData, serviceData } from "@/data/serviceData";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useTranslation } from "react-i18next";
+import { ServiceProps } from "../../showrooms/[id]/ShowroomDetails";
+import Services from "@/components/home/Services";
 
 const SingleServiceCard = ({ slug }: { slug: string }) => {
   const {
@@ -22,10 +25,8 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
 
   const isEnglish = language === "en";
 
-  console.log(serviceData);
-
   return (
-    <div className="pt-[98px] w-full overflow-x-hidden flex flex-col items-center !font-sans">
+    <div className="pt-[98px] w-full flex flex-col items-center !font-sans">
       <div className="lg:max-w-content mx-auto">
         {/* Hero Section */}
         <div className="flex items-stretch gap-3 pt-[40px]">
@@ -170,70 +171,14 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
         </div>
       </div>
 
-      <div className="flex flex-col self-start">
-        <div className="w-[1000px] flex flex-col gap-3 px-14">
-          <h2 className="font-light text-3xl text-[#777]">
-            {language === "en" ? "OUR SERVICES" : "خدماتنا"}
-          </h2>
-          <h2 className="font-semibold text-4xl text-[#242424]">
-            {language === "en"
-              ? "SERVICES PROVIED BY GULF PALM"
-              : "الخدمات التي نقدمها عبر نخيل الخليج"}
-          </h2>
-
-          {language === "en" ? (
-            <p className="text-base text-[#777] mt-4 px-1">
-              Our experienced team provides customized solutions from design to
-              execution based on our clients needs while keeping in mind the
-              agricultural environment to ensure sustainable green spaces.
-            </p>
-          ) : (
-            <p className="text-base text-[#777] mt-4 px-1">
-              يقدم فريقنا ذو الخبرة حلولاً مخصصة بدءًا من التصميم وحتى التنفيذ
-              بناءً على احتياجات عملائنا مع مراعاة البيئة الزراعية لضمان مساحات
-              خضراء مستدامة.
-            </p>
-          )}
-        </div>
-
-        <CustomCarousel
-          dots={true}
-          autoPlay={false}
-          withNavigation={true}
-          data={serviceData.map((service) => ({
-            component: (
-              <div key={service.slug[0]} className="h-[440px]">
-                <div className="relative overflow-hidden h-full">
-                  <Image
-                    src={service.coverImage}
-                    alt="Service Cover image"
-                    fill
-                    sizes="100vw"
-                    priority
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 flex flex-col gap-3 p-5 z-50">
-                    <p className="text-white/80">
-                      {language === "en"
-                        ? "Gulf Palm Services"
-                        : "خدمات نخيل الخليج"}
-                    </p>
-                    <h2 className="font-semibold text-4xl text-white">
-                      {language === "en" ? service.en.title : service.ar.title}
-                    </h2>
-                    <p className="text-white/80">
-                      {language === "en"
-                        ? service.en.description
-                        : service.ar.description}
-                    </p>
-                  </div>
-                  <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div>
-                </div>
-              </div>
-            ),
-          }))}
-        />
-      </div>
+      {/* <CustomCarousel
+          slidesToScroll={3}
+          slidesToShow={3}
+          data={slidesData}
+          autoPlay={true}
+          MobileSlidesNumber={1}
+        /> */}
+      <Services />
 
       <div className="w-full max-w-[1140px] mx-auto flex flex-col lg:flex-row items-center">
         <div className="flex flex-1 h-[678px]">

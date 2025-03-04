@@ -17,8 +17,8 @@ const AboutUs = () => {
 
   return (
     <div className="flex flex-col gap-16 pt-36">
-      <section className="">
-        <div className="flex flex-col md:flex-row md:items-center max-w-[1140px] mx-auto px-7 md:px-0 py-[50px] gap-7 md:gap-28">
+      <section className="bg-gray-100">
+        <div className="flex flex-col md:flex-row md:items-center max-w-[1239px] mx-auto px-7 md:px-0 py-[50px] gap-7 md:gap-28">
           <div className="space-y-[20px]">
             <p className="font-semibold text-[.9375rem] text-primary">
               {about.top.main.title}
@@ -29,10 +29,10 @@ const AboutUs = () => {
           </div>
           {about.top.sub.map((item, index) => (
             <div key={index} className="space-y-[20px]">
-              <p className="text-[#242424] text-xl font-semibold">
+              <p className="text-[#242424] text-[1.4375rem] font-semibold">
                 {item.title}
               </p>
-              <p className="text-[#777] text-[.9375rem] pb-4">
+              <p className="text-[#777] text-[1.0625rem] pb-4">
                 {item.description}
               </p>
               <Link
@@ -57,10 +57,14 @@ const AboutUs = () => {
           type: "text",
           heading: about.about.title,
           headingColor: "text-[#242424]",
-          headingSize: "text-4xl",
+          headingSize: `text-[2.375rem] ${
+            language === "ar" ? "text-right" : ""
+          }`,
           headingWeight: "font-semibold",
           subheading: about.about.heading,
-          subheadingSize: "text-[.9375rem]",
+          subheadingSize: `text-[1.0625rem] ${
+            language === "ar" ? "text-right" : ""
+          }`,
           subheadingWeight: "font-semibold",
           bullets: [about.about.summary],
           textSize: "text-[.9375rem]",
@@ -122,7 +126,7 @@ const AboutUs = () => {
           bullets: about.vision.details,
           bgColor: "bg-white",
           textColor: "text-[#777]",
-          textSize: "text-[.9375rem]",
+          textSize: `text-[.9375rem] ${language === "ar" ? "text-right" : ""}`,
           fontWeight: "font-[400]",
         }}
         rightContent={{
@@ -130,8 +134,8 @@ const AboutUs = () => {
           heading: about.mission.title,
           bullets: about.mission.details,
           bgColor: "bg-white",
-          textColor: "text-[#777]]",
-          textSize: "text-[15px]",
+          textColor: "text-[#777]",
+          textSize: `text-[.9375rem] ${language === "ar" ? "text-right" : ""}`,
           fontWeight: "font-[400]",
         }}
         className="items-start"
@@ -141,10 +145,10 @@ const AboutUs = () => {
         leftContent={{
           type: "text",
           heading: about.who.title,
-          headingColor: "text-white",
+          headingColor: `text-white ${language === "ar" ? "text-right" : ""}`,
           bullets: [about.who.summary],
           textSize: "text-[15px]",
-          textColor: "text-white",
+          textColor: `text-white ${language === "ar" ? "text-right" : ""}`,
           fontWeight: "font-[400]",
           bgColor: "bg-primary",
         }}

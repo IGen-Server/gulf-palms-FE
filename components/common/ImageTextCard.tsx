@@ -39,6 +39,7 @@ interface ContentProps {
   subheadingColor?: string; // Font color for the subheading
   subheadingWeight?: string; // Font weight for the subheading
   bullets?: string[]; // Bullet points if the type is "text"
+  bulletsSpan?: string;
   textSize?: string; // Font size for bullets
   textColor?: string; // Text color for bullets
   fontWeight?: string; // Font weight for bullets
@@ -59,6 +60,7 @@ interface ImageTextCardProps {
   };
   className?: string;
   colReversed?: boolean;
+  imageFirst?: boolean;
 }
 
 export default function ImageTextCard({
@@ -67,6 +69,7 @@ export default function ImageTextCard({
   size = { width: "max-w-[1140px]", height: "h-fit" },
   className = "",
   colReversed = false,
+  imageFirst,
 }: ImageTextCardProps) {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
@@ -94,15 +97,15 @@ export default function ImageTextCard({
             key={index}
             className={`px-3 py-2 ${button.bgColor || "bg-primary"} ${
               button.textColor || "text-white"
-            } 
+            } ${button.borderColor || "#777"}
               ${button.fontWeight || "font-medium"} ${
               button.borderRadius || "rounded"
             } duration-300 !cursor-pointer hover:bg-primary hover:text-white`}
             style={{
               height: button.height || "auto",
               width: button.width || "auto",
-              border: button.border || "none",
-              borderColor: button.borderColor || "black",
+              border: button.border || "",
+
               cursor: "pointer",
             }}
             onClick={button.onClick}
@@ -156,6 +159,7 @@ export default function ImageTextCard({
               } 
               ${content.fontWeight || "font-normal"} mb-1`}
             >
+              <span className="font-semibold">{content.bulletsSpan}</span>
               {content.bullets[0]}
             </p>
           ) : (
@@ -167,9 +171,12 @@ export default function ImageTextCard({
                       key={index}
                       className={`${content.textColor || "text-secondary"} ${
                         content.textSize || "text-sm"
-                      } 
+                      }
                       ${content.fontWeight || "font-normal"} mb-1`}
                     >
+                      <span className="font-semibold">
+                        {content.bulletsSpan}
+                      </span>
                       {bullet}
                     </li>
                   ))}
@@ -211,7 +218,7 @@ export default function ImageTextCard({
               loop
               playsInline
             >
-              <source src="/video/bgVideo.webm" type="video/webm" />
+              <source src={content.src} type="video/webm" />
               Your browser does not support the video tag.
             </video>
           </div>
@@ -244,10 +251,17 @@ export default function ImageTextCard({
       {/* Left Content */}
       <div
         className={`relative flex flex-col items-start w-full text-justify
-          ${leftContent.bgColor || ""}
-          ${colReversed ? "order-1 lg:order-2" : "order-1"}
-          ${leftContent.type === "text" && "grid place-content-center"}
-        `}
+        ${leftContent.bgColor || ""}
+        ${colReversed ? "order-1 lg:order-2" : "order-1"}
+        ${leftContent.type === "text" && "grid place-content-center"}
+        ${
+          imageFirst
+            ? leftContent.type === "text"
+              ? "order-2 lg:order-1"
+              : "order-1"
+            : ""
+        }
+      `}
       >
         {renderContent(leftContent)}
       </div>
@@ -255,10 +269,17 @@ export default function ImageTextCard({
       {/* Right Content */}
       <div
         className={`relative flex flex-col items-start w-full text-justify
-          ${rightContent.bgColor || ""}
-          ${colReversed ? "order-2 lg:order-1" : "order-2"}
-          ${rightContent.type === "text" && "grid place-content-center"}
-        `}
+        ${rightContent.bgColor || ""}
+        ${colReversed ? "order-2 lg:order-1" : "order-2"}
+        ${rightContent.type === "text" && "grid place-content-center"}
+        ${
+          imageFirst
+            ? rightContent.type === "text"
+              ? "order-2 lg:order-2"
+              : "order-1"
+            : ""
+        }
+      `}
       >
         {renderContent(rightContent)}
       </div>

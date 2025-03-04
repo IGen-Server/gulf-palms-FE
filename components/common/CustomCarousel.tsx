@@ -103,7 +103,7 @@ export default function CustomCarousel({
   };
 
   return (
-    <div className="relative w-full min-h-[300px] md:min-h-[500px] h-fit group">
+    <div className="relative w-full min-h-[325px] h-fit group">
       <Slider autoplay={autoPlay} {...settings} className="w-full">
         {data.map((item, index) => (
           <div key={index} className="h-full">

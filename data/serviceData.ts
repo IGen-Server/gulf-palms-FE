@@ -41,9 +41,9 @@ interface Service {
   ar: LocalizedContent;
 }
 
-export type ServiceData = Service[];
+export type ServiceData = Service;
 
-export const serviceData: ServiceData = [
+export const serviceData: ServiceData[] = [
   {
     slug: ["palms-maintenance"],
     coverImage:
@@ -72,7 +72,7 @@ export const serviceData: ServiceData = [
     en: {
       title: "Palms Maintenance",
       description:
-        "Gulf Palms is the main grower and supplier of all the major varieties of date palms in Kuwait. With over 30 years of experience, we specialize in growing, maintaining, and producing high-quality date palms.",
+        "Gulf palms is the main grower and supplier of all the major verities of date Palms in Kuwait. We have above 30 years of experience of growing and maintaining date palms and producing dates in all areas of Kuwait. It’s Gulf Palms who have the honour of winning “the Sheikh Khalifa Award” for adopting its best practices in growing and maintaining of date palms and producing of dates in Kuwait.",
       details: {
         heroSection: {
           title: "Palms Maintenance",
@@ -112,7 +112,7 @@ export const serviceData: ServiceData = [
     ar: {
       title: "صيانة النخيل",
       description:
-        "نخيل الخليج هي المزارع والمورد الرئيسي لجميع أصناف نخيل التمر الرئيسية في الكويت. مع أكثر من 30 عامًا من الخبرة، نحن متخصصون في زراعة وصيانة وإنتاج نخيل التمر عالي الجودة.",
+        "تعتبر شركة نخيل الخليج الشركة الرئيسية لزراعة و توزيع النخيل بأنواعة المختلفة في الكويت. لدينا خبرة ٣٠ سنة في مجال زراعة و صيانة النخيل و انتاج التمر في جميع مناطق الكويت.  و تشرفت نخيل الخليج بالفوز بجائزة الشيخ خليفة لأفضل منتنج للنخيل و التمر مع الصيانة في الكويت. توفر شركتنا أفضل الخدمات لتوزيع و زراعة و نقل و انماء و انتاج النخيل المثمر. بالاضافة الى ذلك لدينا أفضل المختصين في مجال أمراض النبات و مقاومة الافات و الحشرات و التسميد و الري للنخيل.",
       details: {
         heroSection: {
           title: "صيانة النخيل",
@@ -171,7 +171,7 @@ export const serviceData: ServiceData = [
     en: {
       title: "Garden Maintenance",
       description:
-        "Gulf palms provides a complete range of landscaping maintenance services to maintain the forever charm of your outdoor living spaces.",
+        "Gulf palms provides a complete range of landscaping maintenance services to maintain the forever charm of your outdoor living spaces. We sign an annual contract for the overall maintenance of the aesthetics of your exterior spaces. Through regular maintenance and cleaning, our technicians strive to catch the problems before they go out of hand.",
       details: {
         heroSection: {
           title: "Garden Maintenance",
@@ -211,7 +211,7 @@ export const serviceData: ServiceData = [
       title: "صيانة الحدائق",
 
       description:
-        "تقدم نخيل الخليج مجموعة كاملة من خدمات صيانة المناظر الطبيعية للحفاظ على السحر الدائم لمساحات المعيشة الخارجية الخاصة بك.",
+        "توفر شركة نخيل الخليج نطاق متكامل لخدمات صيانة الحدائق لابقاء الرونق المميز لمساحاتك الخارجية بعقد سنوي يعمل فيه الفنيين على الصيانة الدورية و ابقاء مساحاتك نظيفة بالاضافة الى ضبط اي مشاكل قبل أن تكبر.",
       details: {
         heroSection: {
           title: "صيانة الحدائق",
@@ -248,7 +248,7 @@ export const serviceData: ServiceData = [
     },
   },
   {
-    slug: ["farm-development"],
+    slug: ["farm-development", "farm-development-arabic"],
     coverImage:
       "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_567716494-1199x800.jpg",
     heroImages: {
@@ -271,7 +271,7 @@ export const serviceData: ServiceData = [
     en: {
       title: "Farm Development",
       description:
-        "Gulf Palms helps lower risk for your project on-the-ground with comprehensive farm development services, from planning to implementation.",
+        "Our services provide numerous environmental social, emotional and physical benefits. We design, build and manage a diverse portfolio of landscapes, golf courses, resorts and gated communities. We grow and supply assets with a core service centered around water green and sustainability",
       details: {
         heroSection: {
           title: "Farm Development",
@@ -310,7 +310,7 @@ export const serviceData: ServiceData = [
     ar: {
       title: "تطوير المزارع",
       description:
-        "تساعد نخيل الخليج في تقليل المخاطر لمشروعك على أرض الواقع من خلال خدمات تطوير المزارع الشاملة، من التخطيط إلى التنفيذ.",
+        "نقوم بتصميم وبناء وإدارة مجموعة متنوعة من المناظر الطبيعية وملاعب الجولف والمنتجعات والمجتمعات المسورة. نحن ننمو ونزود الأصول بخدمة أساسية تتمحور حول المياه الخضراء والاستدامة",
       details: {
         heroSection: {
           title: "تطوير المزارع",
