@@ -93,7 +93,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
   }, [fetchProducts]);
 // console.log({hoverProducts})
   return (
-    <div className="flex items-center gap-[40px] min-h-fit h-[100vh] flex-col lg:flex-row lg:h-[839px] w-max font-sans">
+    <div className="flex items-center gap-[40px] min-h-fit flex-col lg:flex-row lg:h-[839px] w-max font-sans">
       <div
         style={{
           backgroundImage: `url(https://gulfpalms.com/wp-content/uploads/2023/10/DSC08580.jpg)`,
