@@ -14,6 +14,7 @@ import { CartProvider } from "@/providers/CartProvider";
 import localFont from "next/font/local";
 import Link from "next/link";
 import { ChatIcon } from "@/assets/images/icon/ChatIcon";
+import { getCookie, setCookie } from "cookies-next";
 
 const neoSansArabic = localFont({
   src: "../fonts/neo_arabic_font.woff2", // path to the local font file
@@ -43,6 +44,13 @@ export default function RootLayout({
   children: ReactNode;
   params: { locale: string };
 }) {
+  let currentLocale = getCookie("NEXT_LOCALE") || i18nConfig.defaultLocale;
+
+  // Set the cookie if it doesn't exist
+  if (!getCookie("NEXT_LOCALE")) {
+    setCookie("NEXT_LOCALE", currentLocale);
+  }
+
   return (
     <html lang={locale} dir={dir(locale)} suppressHydrationWarning>
       <head>
