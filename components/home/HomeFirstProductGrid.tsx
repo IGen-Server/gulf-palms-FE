@@ -109,7 +109,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
       </div>
       <div className="flex items-center gap-[17px] lg:gap-[40px] h-full">
         <div className="w-[calc(50vw-17px)] lg:w-[352px] flex flex-col h-full gap-[17px]">
-          <div className="w-full h-[325px]">
+          <div className="w-full h-[175px] lg:h-[325px]">
             <RenderImageAndProducts
               productId="1"
               name="Flower"
@@ -124,7 +124,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
               slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
-          <div className="w-full flex-1 h-full">
+          <div className="w-full flex-1 h-[233px] lg:h-[325px] ">
             <RenderImageAndProducts
               productId="2"
               name="Flower"
@@ -141,7 +141,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
           </div>
         </div>
         <div className="w-[calc(50vw-17px)] lg:w-[352px] flex flex-col h-full gap-[17px]">
-          <div className="w-full h-full flex-1">
+          <div className="w-full h-[175px] lg:h-[325px] flex-1 ">
             <RenderImageAndProducts
               productId="3"
               name="Flower"

@@ -58,6 +58,7 @@ interface RenderImageAndProductsProps {
   productAttribute: ProductAttribute | null;
   quantity?: number;
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
+  
 }
 
 const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
@@ -135,7 +136,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   if (renderType === "image") {
     return (
       <div
-        className="relative w-full h-full"
+        className={`relative w-full h-full`}
         style={{
           backgroundImage: `url(${imageFileOrUrl})`,
           backgroundSize: "cover",
