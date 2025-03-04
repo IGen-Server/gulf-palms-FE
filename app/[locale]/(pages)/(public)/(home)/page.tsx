@@ -17,7 +17,6 @@ import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
 import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
-import VideoShowCase from "@/components/home/VideoShowCase";
 
 function HomePage({
   params: { locale },
@@ -101,10 +100,9 @@ function HomePage({
         <HomeSecondProductGrid slugToCategoryRecord={slugToCategoryRecord} />
       </div>
       <WhoWeAre />
-      <div className="w-full max-w-[1370px] mx-auto ">
+      <div className="w-full max-w-[1370px] mx-auto">
         <LocationMap />
       </div>
-      <VideoShowCase/>
     </div>
   );
 }

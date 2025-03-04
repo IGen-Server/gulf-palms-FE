@@ -84,7 +84,7 @@ export function DesktopNav() {
                         </HoverCardTrigger>
                         {category.submenu && (
                           <HoverCardContent
-                            className="w-[220px] !p-0 shadow-none border-none"
+                            className="w-[220px] p-4 shadow-none border-none"
                             side="right"
                             align="start"
                             sideOffset={-50}

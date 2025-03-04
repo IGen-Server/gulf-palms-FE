@@ -16,7 +16,7 @@ const Footer: FC = () => {
     (t("footer.productCategories.items", { returnObjects: true }) as { label: string; link: string }[]) || []
 
   return (
-    <footer className="footer bg-primary text-secondary max-sm:h-[1300px] max-md:h-[900px] max-lg:overflow-y-auto max-lg:pt-[100px] lg:fixed">
+    <footer className="footer bg-primary text-secondary max-lg:h-[1300px] max-lg:overflow-y-auto max-lg:pt-[100px] lg:fixed">
       <div className="relative h-full max-w-[1222px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto pt-8 pb-24 sm:pb-32">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

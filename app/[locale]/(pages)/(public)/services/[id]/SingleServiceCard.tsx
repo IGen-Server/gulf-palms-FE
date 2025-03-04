@@ -1,5 +1,6 @@
 "use client";
 
+import CustomCarousel from "@/components/common/CustomCarousel";
 import { serviceData } from "@/data/serviceData";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -11,13 +12,17 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
   const {
     i18n: { language },
   } = useTranslation();
-  const service = serviceData.find((s) => s.id === slug);
+  const service = serviceData.find((service) => service.slug.includes(slug));
 
   if (!service) {
     notFound();
   }
 
+  const serviceDetails = service[language as "en" | "ar"];
+
   const isEnglish = language === "en";
+
+  console.log(serviceData);
 
   return (
     <div className="pt-[98px] w-full overflow-x-hidden flex flex-col items-center !font-sans">
@@ -25,7 +30,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
         {/* Hero Section */}
         <div className="flex items-stretch gap-3 pt-[40px]">
           <Image
-            src={service.details.heroSection.images[0] || "/placeholder.svg"}
+            src={service.heroImages.large || "/placeholder.svg"}
             alt=""
             width={575}
             height={588}
@@ -47,44 +52,40 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
               {isEnglish ? "OUR PROFESSIONAL SERVICES" : "خدماتنا المهنية"}
             </p>
             <p className="text-2xl lg:text-[2.375rem] leading-[3.3125rem] font-semibold text-white">
-              {isEnglish
-                ? service.title.split(" ").slice(0, -1).join(" ")
-                : service.titleAr.split(" ").slice(0, -1).join(" ")}{" "}
+              {serviceDetails.title.split(" ").slice(0, -1).join(" ")}
+
               <span className="text-primary">
-                {isEnglish
-                  ? service.title.split(" ").slice(-1)
-                  : service.titleAr.split(" ").slice(-1)}
+                {serviceDetails.details.heroSection.title.split(" ").slice(-1)}
               </span>
             </p>
             <p
               className="text-[.9375rem] text-[rgba(255, 255, 255, 0.8)
 ] tracking-wide leading-6 py-3"
             >
-              {isEnglish
-                ? service.details.heroSection.summary
-                : service.details.heroSection.summaryAr}
+              {serviceDetails.details.heroSection.summary}
             </p>
             <Link
-              href={
-                isEnglish
-                  ? service.details.heroSection.contactLink
-                  : service.details.heroSection.contactLinkAr
-              }
+              href={language === "en" ? "/en/contact-us" : "/ar/contact-us"}
               className="underline font-semibold text-[.8125rem] text-white"
             >
               {isEnglish ? "GET IN TOUCH" : "اتصل بنا"}
             </Link>
           </div>
-          <div className="hidden min-w-[322px] sm:flex flex-col gap-3">
-            {service.details.heroSection.images.slice(1).map((image, index) => (
-              <Image
+          <div className="h-[588px] flex flex-col gap-3">
+            {service.heroImages.small.map((image, index) => (
+              <div
                 key={index}
-                src={image || "/placeholder.svg"}
-                alt={`Palm service ${index + 2}`}
-                width={322}
-                height={280}
-                className="w-full h-full object-cover"
-              />
+                className="hidden min-w-[322px] h-full sm:flex flex-col gap-3"
+              >
+                <Image
+                  src={image || "/placeholder.svg"}
+                  alt={`Palm service`}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -97,48 +98,45 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
                 {isEnglish ? "OUR PROFESSIONAL SERVICES" : "خدماتنا المهنية"}
               </p>
               <h1 className="text-4xl font-bold text-gray-900">
-                {isEnglish ? service.title : service.titleAr}
+                {serviceDetails.details.content.sectionTitle}
               </h1>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               {/* Content Column */}
-              <div className="space-y-8">
-                <div className="prose max-w-none">
-                  <p className="text-[#777] leading-relaxed text-justify">
-                    {isEnglish
-                      ? service.details.content.overview
-                      : service.details.content.overviewAr}
-                  </p>
-                </div>
-
-                <div className="space-y-6">
-                  <h2 className="text-[1.3125rem] font-semibold text-[#242424]">
-                    {isEnglish
-                      ? service.details.content.serviceHighlightsTitle
-                      : service.details.content.serviceHighlightsTitleAr}
-                  </h2>
-                  <ul className="space-y-4">
-                    {(isEnglish
-                      ? service.details.content.serviceHighlights
-                      : service.details.content.serviceHighlightsAr
-                    ).map((highlight, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <span className="text-primary text-xl">
-                          <ChevronRight />
-                        </span>
-                        <span className="text-[#777]">{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="space-y-8 px-3">
+                {serviceDetails.details.content.overview.map((item, index) => (
+                  <div key={index} className="">
+                    {item.title && (
+                      <p className="pb-3 font-semibold text-[1.3125rem] text-[#242424]">
+                        {item.title}:
+                      </p>
+                    )}
+                    {Array.isArray(item.description) ? (
+                      <ul className="space-y-4">
+                        {item.description.map((highlight, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <span className="text-primary text-xl">
+                              <ChevronRight />
+                            </span>
+                            <span className="text-[#777]">{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-[#777] leading-relaxed text-justify">
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
+                ))}
               </div>
 
               {/* Image Column */}
               <div className="relative h-[600px] rounded-lg overflow-hidden">
                 <Image
                   src={
-                    service.details.heroSection.images[0] ||
+                    service.sectionImage ||
                     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9F2WinKvnGRw6HTYDoKOEAUgST4giB.png"
                   }
                   alt="Palm maintenance service"
@@ -153,25 +151,148 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
 
         {/* Gallery Grid */}
         <div className="px-3 lg:px-0 py-[80px]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px]">
-            {service.details.galleryImages.map((image, index) => {
-              // Determine if image should span multiple rows
-              const spanClass = index % 3 === 0 ? "row-span-1" : "row-span-2";
-
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-2 px-3">
+            {service.galleryImages.map((image, index) => {
               return (
-                <div
-                  key={index}
-                  className={`relative overflow-hidden ${spanClass}`}
-                >
+                <div key={index}>
                   <Image
                     src={image || "/placeholder.svg"}
                     alt={`Gallery image ${index + 1}`}
-                    fill
-                    className="object-cover"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className="w-full h-full object-cover mb-2"
                   />
                 </div>
               );
             })}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col self-start">
+        <div className="w-[1000px] flex flex-col gap-3 px-14">
+          <h2 className="font-light text-3xl text-[#777]">
+            {language === "en" ? "OUR SERVICES" : "خدماتنا"}
+          </h2>
+          <h2 className="font-semibold text-4xl text-[#242424]">
+            {language === "en"
+              ? "SERVICES PROVIED BY GULF PALM"
+              : "الخدمات التي نقدمها عبر نخيل الخليج"}
+          </h2>
+
+          {language === "en" ? (
+            <p className="text-base text-[#777] mt-4 px-1">
+              Our experienced team provides customized solutions from design to
+              execution based on our clients needs while keeping in mind the
+              agricultural environment to ensure sustainable green spaces.
+            </p>
+          ) : (
+            <p className="text-base text-[#777] mt-4 px-1">
+              يقدم فريقنا ذو الخبرة حلولاً مخصصة بدءًا من التصميم وحتى التنفيذ
+              بناءً على احتياجات عملائنا مع مراعاة البيئة الزراعية لضمان مساحات
+              خضراء مستدامة.
+            </p>
+          )}
+        </div>
+
+        <CustomCarousel
+          dots={true}
+          autoPlay={false}
+          withNavigation={true}
+          data={serviceData.map((service) => ({
+            component: (
+              <div key={service.slug[0]} className="h-[440px]">
+                <div className="relative overflow-hidden h-full">
+                  <Image
+                    src={service.coverImage}
+                    alt="Service Cover image"
+                    fill
+                    sizes="100vw"
+                    priority
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 flex flex-col gap-3 p-5 z-50">
+                    <p className="text-white/80">
+                      {language === "en"
+                        ? "Gulf Palm Services"
+                        : "خدمات نخيل الخليج"}
+                    </p>
+                    <h2 className="font-semibold text-4xl text-white">
+                      {language === "en" ? service.en.title : service.ar.title}
+                    </h2>
+                    <p className="text-white/80">
+                      {language === "en"
+                        ? service.en.description
+                        : service.ar.description}
+                    </p>
+                  </div>
+                  <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div>
+                </div>
+              </div>
+            ),
+          }))}
+        />
+      </div>
+
+      <div className="w-full max-w-[1140px] mx-auto flex flex-col lg:flex-row items-center">
+        <div className="flex flex-1 h-[678px]">
+          <Image
+            src="https://gulfpalms.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-30-at-4.00.09-PM.jpeg"
+            alt="Image"
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="flex flex-1 flex-col gap-3 px-14">
+          <h2 className="font-light text-3xl text-[#777]">
+            {language === "en" ? "WHO WE ARE" : "من نحن"}
+          </h2>
+          <h2 className="font-semibold text-4xl text-[#242424]">
+            {language === "en" ? "GULF PALMS" : "نخيل الخليج"}
+          </h2>
+
+          {language === "en" ? (
+            <p className="text-base text-[#777] mt-4 px-1">
+              <span className="font-semibold">
+                Gulf Palms General Trading & Contacting Company (Tissue Culture
+                Palms Centre)
+              </span>{" "}
+              has been established in 1991 immediately after the invasion. The
+              nursery had been purchased at Ar Rai and palm offshoots had been
+              imported from Saudi Arabia. They faced some difficulties in
+              importing offshoots of the good varieties so they decided to get
+              sources of American tissue culture laboratories, for supplying
+              Tissue Culture Palms. Offshoots of the excellent and most popular
+              palm varieties of Gulf region were collected and sent to States
+              for micro propagation. Later the agreement had been terminated and
+              all the cultures shifted to Jacques Marionnet, France who
+              appointed Gulf Palms its agent in Kuwait & Saudi Arabia.
+            </p>
+          ) : (
+            <p className="text-base text-[#777] mt-4 px-1">
+              تأسست شركة نخيل الخليج للتجارة العامة والمقاولات (مركز نخيل زراعة
+              الأنسجة) في عام ١٩٩١ مباشرة بعد الغزو. تم شراء المشتل في الري وتم
+              استيراد اغصان النخيل من المملكة العربية السعودية. مع مواجهة بعض
+              الصعوبات في استيراد فسائل من الأصناف الجيدة، قررنا الحصول على
+              مصادر من مختبرات زراعة الأنسجة الأمريكية لتوريد نخيل زراعة
+              الأنسجة. تم جمع أغصان أصناف النخيل الممتازة والأكثر شعبية في منطقة
+              الخليج وإرسالها إلى الدول من أجل مضاعفتها على نطاق صغير. في وقت
+              لاحق تم إنهاء الاتفاقية وانتقلت جميع الثقافات إلى جاك ماريونيت،
+              فرنسا الذي عين شركة نخيل الخليج وكيلاً لها في الكويت والمملكة
+              العربية السعودية.
+            </p>
+          )}
+
+          <div className="flex gap-5 pt-3">
+            <button className="font-semibold bg-[#242424] text-[.8125rem] text-white border border-[#242424] px-5 py-3 uppercase">
+              {language === "en" ? "Shop Now" : "تسوق الآن"}
+            </button>
+            <button className="font-semibold bg-white text-[.8125rem] hover:bg-gray-200 duration-300 text-[#333] border border-[#777]/25 px-5 py-3 uppercase">
+              {language === "en" ? "Read More" : "اقرأ أكثر"}
+            </button>
           </div>
         </div>
       </div>
