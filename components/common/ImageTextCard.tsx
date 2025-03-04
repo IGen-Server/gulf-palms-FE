@@ -1,10 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-
-"use client";
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 interface ButtonProps {
   text: string; // Button text
@@ -64,20 +60,10 @@ interface ImageTextCardProps {
 export default function ImageTextCard({
   leftContent,
   rightContent,
-  size = { width: "max-w-[1140px]", height: "h-fit" },
+  size = { width: "max-w-[1200px]", height: "h-fit" },
   className = "",
   colReversed = false,
 }: ImageTextCardProps) {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsVideoLoaded(true);
-    }, 2000);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
   const renderButtons = (buttons: ButtonsGroupProps | undefined) => {
     if (!buttons || buttons.items.length === 0) return null;
 
@@ -185,38 +171,21 @@ export default function ImageTextCard({
 
     if (content.type === "video" && content.src) {
       return (
-        <div className="relative overflow-hidden w-full inset-0 h-[470px]">
-          {/* Fallback Image */}
-          <Image
-            src="/images/showroom_fallback_image.png"
-            alt="Home Page"
-            layout="fill"
-            objectFit="cover"
-            priority
-            className={`absolute inset-0 z-0 transition-opacity duration-500 ${
-              isVideoLoaded ? "opacity-0" : "opacity-100"
-            }`}
-          />
-
-          {/* Video background */}
-          <div
-            className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${
-              isVideoLoaded ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <video
-              className="object-cover w-full h-full"
-              autoPlay
-              muted
-              loop
-              playsInline
-            >
-              <source src="/video/bgVideo.webm" type="video/webm" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-
-          {/* <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div> */}
+        <div className="w-full h-[470px] overflow-hidden">
+          <iframe
+            src={`${content.src.replace(
+              "vimeo.com",
+              "player.vimeo.com/video"
+            )}?autoplay=1&background=1&loop=1&byline=0&title=0&portrait=0`}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+            className="absolute top-0 left-0 w-full h-full object-cover"
+            allow="autoplay; fullscreen"
+            frameBorder="0"
+          ></iframe>
         </div>
       );
     }
@@ -245,7 +214,7 @@ export default function ImageTextCard({
       <div
         className={`relative flex flex-col items-start w-full text-justify
           ${leftContent.bgColor || ""}
-          ${colReversed ? "order-1 lg:order-2" : "order-1"}
+          ${colReversed ? "order-2 lg:order-1" : "order-1"}
           ${leftContent.type === "text" && "grid place-content-center"}
         `}
       >
@@ -256,7 +225,7 @@ export default function ImageTextCard({
       <div
         className={`relative flex flex-col items-start w-full text-justify
           ${rightContent.bgColor || ""}
-          ${colReversed ? "order-2 lg:order-1" : "order-2"}
+          ${colReversed ? "order-1 lg:order-2" : "order-2"}
           ${rightContent.type === "text" && "grid place-content-center"}
         `}
       >

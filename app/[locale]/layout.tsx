@@ -11,15 +11,6 @@ import "./globals.css";
 import { GlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
 import { CartProvider } from "@/providers/CartProvider";
-import localFont from "next/font/local";
-import { getCookie, setCookie } from "cookies-next";
-
-const neoSansArabic = localFont({
-  src: "../fonts/neo_arabic_font.woff2", // path to the local font file
-  weight: "400",
-  style: "normal",
-  variable: "--font-neo-arabic",
-});
 
 const lato = Lato({
   subsets: ["latin"],
@@ -42,13 +33,6 @@ export default function RootLayout({
   children: ReactNode;
   params: { locale: string };
 }) {
-  let currentLocale = getCookie("NEXT_LOCALE") || i18nConfig.defaultLocale;
-
-  // Set the cookie if it doesn't exist
-  if (!getCookie("NEXT_LOCALE")) {
-    setCookie("NEXT_LOCALE", currentLocale);
-  }
-
   return (
     <html lang={locale} dir={dir(locale)} suppressHydrationWarning>
       <head>
@@ -59,17 +43,12 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         ></link>
-
         <link
           href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap"
           rel="stylesheet"
         ></link>
       </head>
-      <body
-        className={`${
-          locale === "en" ? lato.className : neoSansArabic.className
-        } w-[100vw] mx-auto overflow-x-hidden`}
-      >
+      <body className={`${lato.className} w-[100vw] mx-auto overflow-x-hidden`}>
         <LoadingProvider>
           <ThemeProvider
             attribute="class"
@@ -77,7 +56,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <CartProvider>{children}</CartProvider>
+            <CartProvider>
+              {children}
+            </CartProvider>
             <Toaster
               richColors
               duration={3000}

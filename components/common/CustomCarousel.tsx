@@ -1,40 +1,39 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
+"use client"
 
-import type React from "react";
-import Slider from "react-slick";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import type React from "react"
+import Slider from "react-slick"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
 interface CarouselData {
-  component?: React.ReactNode;
-  imageSrc?: string;
-  content?: string;
-  width?: string;
-  height?: string;
+  component?: React.ReactNode
+  imageSrc?: string
+  content?: string
+  width?: string
+  height?: string
 }
 
 interface CustomCarouselProps {
-  data: CarouselData[];
-  dots?: boolean;
-  autoPlay?: boolean;
-  withNavigation?: boolean;
-  slidesToShow?: number;
-  slidesToScroll?: number;
-  MobileSlidesNumber?: number;
+  data: CarouselData[]
+  autoPlay?: boolean
+  withNavigation?: boolean
+  slidesToShow?: number
+  slidesToScroll?: number
+  MobileSlidesNumber?: number
 }
 
 export default function CustomCarousel({
   data,
-  dots = true,
   slidesToShow = 4,
   slidesToScroll = 4,
   autoPlay = false,
   withNavigation = false,
-  MobileSlidesNumber = 1,
+  MobileSlidesNumber = 2,
 }: CustomCarouselProps) {
+  
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
       className="absolute right-[0px] md:-right-[22px] top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
@@ -45,7 +44,7 @@ export default function CustomCarousel({
         className="translate-x-[-20px] lg:translate-x-[100px] text-gray-600 lg:group-hover:translate-x-0 transition-transform duration-1000"
       />
     </div>
-  );
+  )
 
   const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
@@ -57,12 +56,12 @@ export default function CustomCarousel({
         className="translate-x-[20px] lg:translate-x-[-100px] text-gray-600 lg:group-hover:translate-x-0 transition-transform duration-1000"
       />
     </div>
-  );
+  )
 
   const settings = {
-    dots: dots,
+    dots: true,
     infinite: true,
-    speed: 300,
+    speed: 500,
     slidesToShow,
     slidesToScroll,
     nextArrow: <NextArrow />,
@@ -100,27 +99,27 @@ export default function CustomCarousel({
         },
       },
     ],
-  };
+  }
 
   return (
-    <div className="relative w-full min-h-[300px] md:min-h-[500px] h-fit group">
+    <div className="relative w-full min-h-[300px] md:min-h-[420px] h-fit group">
       <Slider autoplay={autoPlay} {...settings} className="w-full">
         {data.map((item, index) => (
-          <div key={index} className="h-full">
-            {item.component
-              ? item.component
-              : item.imageSrc && (
-                  <img
-                    src={item.imageSrc || "/placeholder.svg"}
-                    alt="Carousel Item"
-                    className={`${item.height || "h-auto"} ${
-                      item.width || "w-[300px] md:w-full mx-auto"
-                    }`}
-                  />
-                )}
+          <div key={index} className="h-full ">
+            {/* <span>{item.imageSrc}</span> */}
+            {item.imageSrc ? (
+              <img
+                src={item.imageSrc || "/placeholder.svg"}
+                alt="Carousel Item"
+                className={`${item.height || "h-auto"} ${item.width || "w-full"}`}
+              />
+            ) : (
+              <div className="h-full">{item.component}</div>
+            )}
           </div>
         ))}
       </Slider>
     </div>
-  );
+  )
 }
+
