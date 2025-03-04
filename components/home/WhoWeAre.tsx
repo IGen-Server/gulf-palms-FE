@@ -28,7 +28,7 @@ export default function WhoWeAre() {
           bullets: [
             t("whoWeAre.description"),
           ],
-          textSize: "text-sm lg:text-[16px] text-left pr-[60%] sm:pr-[45%] lg:pr-0",
+          textSize: "text-sm lg:text-[16px] text-left  lg:pr-0",
           textColor: "text-[#777777]",
           fontWeight: "font-[400] font-sans",
           bgColor: "bg-white",

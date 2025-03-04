@@ -39,6 +39,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
         },
         axiosInstanceWithoutLoader
       );
+      console.log({response})
       return response; // Assuming the response contains an array of products
     } catch (error) {
       console.error(error);
@@ -55,9 +56,9 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
       const fetchedProducts = await getRelatedProducts(hoveresProductIds);
 
       // Map the fetched products to the desired format
-      const results = fetchedProducts.map((product,idx) => {
+      const results = fetchedProducts.reverse().map((product,idx) => {
         const productInfo = productData.find((p) => p.id == product.id);
-        // console.log({productData,fetchedProducts})
+        console.log({productData,fetchedProducts})
         return {
           position: productData[idx]?.position || { x: 0, y: 0 },
           group: productData[idx]?.group,

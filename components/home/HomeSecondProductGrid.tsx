@@ -50,15 +50,15 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
   const fetchProducts = useCallback(async () => {
     try {
       // Extract all product IDs from productData
-      const hoveresProductIds = productData.map((product) => product.id);
+      const hoveresProductIds = productData.map((product) => product.id).reverse();
 
       // Fetch related products using getRelatedProducts
       const fetchedProducts = await getRelatedProducts(hoveresProductIds);
 
       // Map the fetched products to the desired format
-      const results = fetchedProducts.reverse().map((product,idx) => {
+      const results = fetchedProducts.map((product,idx) => {
         const productInfo = productData.find((p) => p.id == product.id);
-        console.log({productData,fetchedProducts})
+        // console.log({productData,fetchedProducts})
         return {
           position: productData[idx+1]?.position || { x: 0, y: 0 },
           group: productData[idx+1]?.group,
