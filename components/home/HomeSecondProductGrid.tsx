@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import { ProductCategoryModel } from "@/models/product/product";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
+import { useTranslation } from "react-i18next";
 
 interface HomeSecondProductGridProps {
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
@@ -25,43 +27,66 @@ const productData = [
 
 
 export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSecondProductGridProps) {
+  const { t, i18n: { language: currentLocale } } = useTranslation();
   const [hoverProducts, setHoverProducts] = useState<{ [key: string]: any[] }>({});
+  const axiosInstanceWithoutLoader = useMemo(() => CreateAxiosInstanceWithLoader(false, false), []);
 
-  const axiosInstanceWithLoader = useMemo(() => CreateAxiosInstanceWithLoader(false,false), []);
+  const getRelatedProducts = async (hoveresProductIds: number[]) => {
+    try {
+      const response = await ProductService.Get(
+        {
+          lang: currentLocale,
+          include: `[10071,${hoveresProductIds.join(",")}]`,
+        },
+        axiosInstanceWithoutLoader
+      );
+      return response; // Assuming the response contains an array of products
+    } catch (error) {
+      console.error(error);
+      return []; // Return an empty array in case of error
+    }
+  };
 
   const fetchProducts = useCallback(async () => {
     try {
-      const results = await Promise.allSettled(
-        productData.map(({ id, position, group ,buttonType}) =>
-          ProductService.GetById(id , axiosInstanceWithLoader).then(product => ({
-            position,
-            group, 
-            imgUrl: product?.images[0]?.src || "",
-            productId: product?.id?.toString(),
-            hoveredTitle: product?.name,
-            hoveredHref: product?.permalink,
-            price: product?.price,
-            description: product?.short_description?.replace(/<[^>]*>?/gm, ""),
-            buttonType
-          }))
-        )
-      );
-      const groupedProducts: { [key: string]: any[] } = {};
-      
-      results.forEach((result) => {
-        if (result.status === "fulfilled" && result.value) {
-          const { group, ...productData } = result.value;
-          if (!groupedProducts[group]) groupedProducts[group] = [];
-          groupedProducts[group].push(productData);
-        }
+      // Extract all product IDs from productData
+      const hoveresProductIds = productData.map((product) => product.id);
+
+      // Fetch related products using getRelatedProducts
+      const fetchedProducts = await getRelatedProducts(hoveresProductIds);
+
+      // Map the fetched products to the desired format
+      const results = fetchedProducts.reverse().map((product,idx) => {
+        const productInfo = productData.find((p) => p.id == product.id);
+        console.log({productData,fetchedProducts})
+        return {
+          position: productData[idx+1]?.position || { x: 0, y: 0 },
+          group: productData[idx+1]?.group,
+          imgUrl: product?.images[0]?.src || "",
+          productId: product?.id?.toString(),
+          hoveredTitle: product?.name,
+          hoveredHref: product?.permalink,
+          price: product?.price,
+          description: product?.short_description?.replace(/<[^>]*>?/gm, ""),
+          buttonType: productInfo?.buttonType || "add_to_cart",
+        };
       });
 
+      // Group the products by their group
+      const groupedProducts: { [key: string]: any[] } = {};
+
+      results.forEach((product) => {
+        const { group, ...productData } = product;
+        if (!groupedProducts[group]) groupedProducts[group] = [];
+        groupedProducts[group].push(productData);
+      });
+
+      // Update the state with the grouped products
       setHoverProducts(groupedProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
-  }, [axiosInstanceWithLoader]); 
-
+  }, [getRelatedProducts]);
 
   useEffect(() => {
     fetchProducts();
