@@ -35,9 +35,16 @@ interface MenuItem {
 
 function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { t } = useTranslation();
+  
+  const desktopMenuItems: MenuItem[] =
+  (t("desktopMenuItems", {
+    returnObjects: true,
+  }) as MenuItem[]) || [];
 
+  const shop = desktopMenuItems[2].title;
 
-  if (!item.submenu) {
+  if (!item.submenu || item.title == shop) {
     return (
       <Link
         href={item.href || "#"}
@@ -51,43 +58,45 @@ function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
       </Link>
     );
   }
-
-  return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <div className="flex w-full hover:bg-muted border-t">
-        <Link
-          href={item.href || "#"}
-          className="flex-1 px-4 py-3 text-sm font-semibold border-r uppercase"
-        >
-          {item.title}
-        </Link>
-        <CollapsibleTrigger
-          className={cn("px-3 py-3", isOpen ? "bg-orange-500" : "")}
-        >
-          <ChevronDown
-            className={cn(
-              "h-4 w-4 transition-transform",
-              isOpen && "rotate-180",
-              isOpen ? "text-white rounded-sm" : "text-muted-foreground"
-            )}
-          />
-        </CollapsibleTrigger>
-      </div>
-      <CollapsibleContent>
-        <div className="space-y-1 bg-muted/50">
-          {item.submenu.map((subItem) => (
-            <Link
-              key={subItem.title}
-              href={subItem.href || "#"}
-              className="flex items-center px-8 py-2 text-sm text-muted-foreground hover:bg-muted"
-            >
-              {subItem.title}
-            </Link>
-          ))}
+  if(item.submenu && item.title != shop){
+    return (
+      <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+        <div className="flex w-full hover:bg-muted border-t">
+          <Link
+            href={item.href || "#"}
+            className="flex-1 px-4 py-3 text-sm font-semibold border-r uppercase"
+          >
+            {item.title}
+          </Link>
+          <CollapsibleTrigger
+            className={cn("px-3 py-3", isOpen ? "bg-orange-500" : "")}
+          >
+            <ChevronDown
+              className={cn(
+                "h-4 w-4 transition-transform",
+                isOpen && "rotate-180",
+                isOpen ? "text-white rounded-sm" : "text-muted-foreground"
+              )}
+            />
+          </CollapsibleTrigger>
         </div>
-      </CollapsibleContent>
-    </Collapsible>
-  );
+        <CollapsibleContent>
+          <div className="space-y-1 bg-muted/50">
+            {item.submenu.map((subItem) => (
+              <Link
+                key={subItem.title}
+                href={subItem.href || "#"}
+                className="flex items-center px-8 py-2 text-sm text-muted-foreground hover:bg-muted"
+              >
+                {subItem.title}
+              </Link>
+            ))}
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
+    );
+  }
+ 
 }
 
 export default function MobileNav() {

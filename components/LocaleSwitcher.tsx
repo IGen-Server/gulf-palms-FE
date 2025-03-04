@@ -21,7 +21,10 @@ export default function LocaleSwitcher() {
     document.cookie = `NEXT_LOCALE=${newLocale};expires=${date.toUTCString()};path=/`;
 
     // redirect to the new locale path
-    if (currentLocale === i18nConfig.defaultLocale && !i18nConfig.prefixDefault) {
+    if (
+      currentLocale === i18nConfig.defaultLocale &&
+      !i18nConfig.prefixDefault
+    ) {
       router.push("/" + newLocale + currentPathname);
     } else {
       router.push(
