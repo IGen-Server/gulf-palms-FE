@@ -83,6 +83,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
                 currentCategories={[]}
                 productAttribute={null}
                 slugToCategoryRecord={slugToCategoryRecord}
+
               />
             ),
             width: " !w-[218px] ",
@@ -151,7 +152,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
             type: "component",
             component: topLayer,
           }}
-          // colReversed = {true}
+          colReversed = {true}
         />
         <ImageTextCard
           leftContent={{

@@ -214,7 +214,7 @@ export default function ImageTextCard({
       <div
         className={`relative flex flex-col items-start w-full text-justify
           ${leftContent.bgColor || ""}
-          ${colReversed ? "order-1 lg:order-2" : "order-1"}
+          ${colReversed ? "order-2 lg:order-1" : "order-1"}
           ${leftContent.type === "text" && "grid place-content-center"}
         `}
       >
@@ -225,7 +225,7 @@ export default function ImageTextCard({
       <div
         className={`relative flex flex-col items-start w-full text-justify
           ${rightContent.bgColor || ""}
-          ${colReversed ? "order-2 lg:order-1" : "order-2"}
+          ${colReversed ? "order-1 lg:order-2" : "order-2"}
           ${rightContent.type === "text" && "grid place-content-center"}
         `}
       >
