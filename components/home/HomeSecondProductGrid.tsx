@@ -76,7 +76,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
       const groupedProducts: { [key: string]: any[] } = {};
 
       results.forEach((product) => {
-        const { group, ...productData } = product;
+        const { group = "ungrouped", ...productData } = product;
         if (!groupedProducts[group]) groupedProducts[group] = [];
         groupedProducts[group].push(productData);
       });
