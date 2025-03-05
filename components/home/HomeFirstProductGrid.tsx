@@ -140,7 +140,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
             />
           </div>
         </div>
-        <div className="w-[calc(50vw-17px)] lg:w-[352px] flex flex-col h-full gap-[17px]">
+        <div className="w-[calc(50vw-17px)] lg:w-[352px] flex flex-col h-full gap-[17px] ">
           <div className="w-full h-[233px] lg:h-[325px] lg:flex-1 ">
             <RenderImageAndProducts
               productId="3"

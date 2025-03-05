@@ -96,7 +96,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
     <div className="py-[90px]">
       <div className="grid grid-cols-2 lg:grid-cols-3 lg:gap-5">
         <div className="space-y-5">
-          <div className="w-[45vw] lg:w-[446.65px] h-[595.5px]">
+          <div className="w-[45vw] lg:w-[446.65px] h-[233px] lg:h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
               name= "Flower"
@@ -111,7 +111,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
               slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
-          <div className="w-[45vw] lg:w-[446.65px] h-[446.6px]">
+          <div className="w-[45vw] lg:w-[446.65px] h-[175px] lg:h-[446.6px]">
             <RenderImageAndProducts
               renderType="image"
               name= "Flower"
@@ -128,7 +128,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
           </div>
         </div>
         <div className="space-y-5">
-          <div className="w-[45vw] lg:w-[446.65px] h-[446.6px]">
+          <div className="w-[45vw] lg:w-[446.65px] h-[175px] lg:h-[446.6px]">
             <RenderImageAndProducts
               renderType="image"
               name= "Flower"
@@ -143,7 +143,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
               slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
-          <div className="w-[45vw] lg:w-[446.65px] h-[595.5px]">
+          <div className="w-[45vw] lg:w-[446.65px] h-[233px] lg:h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
               name= "Flower"
@@ -159,8 +159,8 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
             />
           </div>
         </div>
-        <div className="space-y-5">
-          <div className="w-[100vw] lg:w-[446.65px] h-[595.5px]">
+        <div className="space-y-5 lg:mt-0 mt-5">
+          <div className="w-[100vw] lg:w-[446.65px] h-[493px] lg:h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
               name= "Flower"
@@ -175,7 +175,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
               slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
-          <div className="w-[100vw] lg:w-[446.65px] h-[595.5px]">
+          <div className="w-[100vw] lg:w-[446.65px] h-[493px] lg:h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
               name= "Flower"
