@@ -35,12 +35,15 @@ interface MenuItem {
 
 function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const { t } = useTranslation();
-  
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
+
   const desktopMenuItems: MenuItem[] =
-  (t("desktopMenuItems", {
-    returnObjects: true,
-  }) as MenuItem[]) || [];
+    (t("desktopMenuItems", {
+      returnObjects: true,
+    }) as MenuItem[]) || [];
 
   const shop = desktopMenuItems[2].title;
 
@@ -51,17 +54,23 @@ function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
         className={cn(
           "flex items-center justify-between px-4 py-3 hover:bg-muted text-sm font-semibold uppercase",
           item.title === "pathname" && "text-orange-500",
-          index === 0 ? "border-none" : "border-t"
+          index === 0 ? "border-none" : "border-t",
+
+          language === "en" ? "" : "flex-row-reverse text-right"
         )}
       >
         {item.title}
       </Link>
     );
   }
-  if(item.submenu && item.title != shop){
+  if (item.submenu && item.title != shop) {
     return (
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-        <div className="flex w-full hover:bg-muted border-t">
+        <div
+          className={`flex ${
+            language === "en" ? "" : "flex-row-reverse text-right"
+          } w-full hover:bg-muted border-t`}
+        >
           <Link
             href={item.href || "#"}
             className="flex-1 px-4 py-3 text-sm font-semibold border-r uppercase"
@@ -81,12 +90,14 @@ function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
           </CollapsibleTrigger>
         </div>
         <CollapsibleContent>
-          <div className="space-y-1 bg-muted/50">
+          <div className={`w-full space-y-1 bg-muted/50 `}>
             {item.submenu.map((subItem) => (
               <Link
                 key={subItem.title}
                 href={subItem.href || "#"}
-                className="flex items-center px-8 py-2 text-sm text-muted-foreground hover:bg-muted"
+                className={`flex items-center px-8 py-2 text-sm text-muted-foreground hover:bg-muted ${
+                  language === "en" ? "" : "justify-end"
+                }`}
               >
                 {subItem.title}
               </Link>
@@ -96,14 +107,13 @@ function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
       </Collapsible>
     );
   }
- 
 }
 
 export default function MobileNav() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [products, setProducts] = React.useState<any[]>([]);
 
-  const { i18n,t } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const axiosInstanceWithLoader = React.useMemo(
     () => CreateAxiosInstanceWithLoader(),
@@ -141,7 +151,7 @@ export default function MobileNav() {
   }, [axiosInstanceWithLoader, pageConfig]);
 
   const mobileCategoryItems = useMobileCategoryItems();
-  
+
   const mobileMenuItems: MenuItem[] =
     (t("desktopMenuItems", {
       returnObjects: true,
@@ -196,13 +206,13 @@ export default function MobileNav() {
             value="menu"
             className="text-sm p-0 h-full rounded-none data-[state=active]:border-b-2 data-[state=active]:border-orange-500 data-[state=active]:font-semibold"
           >
-            {t('mobileNavTabs.tab1')}
+            {t("mobileNavTabs.tab1")}
           </TabsTrigger>
           <TabsTrigger
             value="categories"
             className="text-sm p-0 h-full rounded-none data-[state=active]:border-b-2 data-[state=active]:border-orange-500 data-[state=active]:font-semibold"
           >
-             {t('mobileNavTabs.tab2')}
+            {t("mobileNavTabs.tab2")}
           </TabsTrigger>
         </TabsList>
         <TabsContent value="menu">
