@@ -11,15 +11,7 @@ import "./globals.css";
 import { GlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
 import { CartProvider } from "@/providers/CartProvider";
-import localFont from "next/font/local";
 import { getCookie, setCookie } from "cookies-next";
-
-const neoSansArabic = localFont({
-  src: "../fonts/neo_arabic_font.woff2", // path to the local font file
-  weight: "400",
-  style: "normal",
-  variable: "--font-neo-arabic",
-});
 
 const lato = Lato({
   subsets: ["latin"],
