@@ -174,7 +174,6 @@ const AboutUs = () => {
           autoPlay={true}
           withNavigation={true}
           data={aboutData.logos}
-          MobileSlidesNumber={1}
         />
       </div>
       <GetInTouch language={language} />
