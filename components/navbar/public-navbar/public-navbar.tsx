@@ -209,7 +209,7 @@ export default function PublicNavbar() {
               <HoverCardTrigger asChild className="w-[120px] ">
                 <Link
                   href={ClientRoutes.User.MyAccountDashboard}
-                  className="hidden lg:flex text-white hover:text-gray-200 transition-colors items-center gap-1 !text-[13px] font-semibold font-sans "
+                  className="hidden lg:flex text-white hover:text-gray-200 transition-colors items-center gap-1 !text-[13px] font-semibold font-sans uppercase w-[140px]"
                 >
                   My Account
                   <ChevronDown className="w-3 text-secondary opacity-90" />
