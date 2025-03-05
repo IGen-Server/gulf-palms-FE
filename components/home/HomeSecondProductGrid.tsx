@@ -12,16 +12,16 @@ interface HomeSecondProductGridProps {
 
 const productData = [
   { id: 10071, position: { x: 41, y: 64 }, group: "hoverProducts1", buttonType: 'add_to_cart' },
-  { id: 22621, position: { x: 45, y: 75 }, group: "hoverProducts2", buttonType: 'select_options' },
-  { id: 11012, position: { x: 62, y: 73 }, group: "hoverProducts3", buttonType: 'select_options' },
-  { id: 21363, position: { x: 82, y: 50 }, group: "hoverProducts3", buttonType: 'select_options' },
-  { id: 21374, position: { x: 45, y: 72 }, group: "hoverProducts3", buttonType: 'add_to_cart' },
-  { id: 15194, position: { x: 32, y: 61 }, group: "hoverProducts4", buttonType: 'select_options' },
-  { id: 15342, position: { x: 52, y: 73 }, group: "hoverProducts4", buttonType: 'select_options' },
+  { id: 10086, position: { x: 45, y: 75 }, group: "hoverProducts2", buttonType: 'select_options' },
+  { id: 10985, position: { x: 62, y: 73 }, group: "hoverProducts3", buttonType: 'select_options' },
+  { id: 10853, position: { x: 82, y: 50 }, group: "hoverProducts3", buttonType: 'select_options' },
+  { id: 11012, position: { x: 45, y: 72 }, group: "hoverProducts3", buttonType: 'add_to_cart' },
+  { id: 9980, position: { x: 32, y: 61 }, group: "hoverProducts4", buttonType: 'select_options' }, 
+  { id: 10173, position: { x: 52, y: 73 }, group: "hoverProducts4", buttonType: 'select_options' },
   { id: 10165, position: { x: 70, y: 65 }, group: "hoverProducts4", buttonType: 'add_to_cart' },
-  { id: 15177, position: { x: 32, y: 61 }, group: "hoverProducts5", buttonType: 'select_options' },
-  { id: 15300, position: { x: 50, y: 73 }, group: "hoverProducts5", buttonType: 'select_options' },
-  { id: 15149, position: { x: 65, y: 65 }, group: "hoverProducts5", buttonType: 'select_options' },
+  { id: 9974, position: { x: 32, y: 61 }, group: "hoverProducts5", buttonType: 'select_options' },
+  { id: 10035, position: { x: 50, y: 73 }, group: "hoverProducts5", buttonType: 'select_options' },
+  { id: 9954, position: { x: 65, y: 65 }, group: "hoverProducts5", buttonType: 'select_options' },
 ];
 
 
@@ -36,21 +36,21 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
       const response = await ProductService.Get(
         {
           lang: currentLocale,
-          include: `[10071,${hoveresProductIds.join(",")}]`,
+          include: `[0,${hoveresProductIds.join(",")}]`,
         },
         axiosInstanceWithoutLoader
       );
-      return response; // Assuming the response contains an array of products
+      return response; 
     } catch (error) {
       console.error(error);
-      return []; // Return an empty array in case of error
+      return [];
     }
   };
 
   const fetchProducts = useCallback(async () => {
     try {
       // Extract all product IDs from productData
-      const hoveresProductIds = productData.map((product) => product.id).reverse();
+      const hoveresProductIds = productData.map((product) => product.id);
 
       // Fetch related products using getRelatedProducts
       const fetchedProducts = await getRelatedProducts(hoveresProductIds);
@@ -60,15 +60,15 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
         const productInfo = productData.find((p) => p.id == product.id);
         // console.log({productData,fetchedProducts})
         return {
-          position: productData[idx+1]?.position || { x: 0, y: 0 },
-          group: productData[idx+1]?.group,
-          imgUrl: product?.images[0]?.src || "",
+          position: productInfo?.position ,
+          group: productInfo?.group,
+          imgUrl: product?.images[0]?.src ,
           productId: product?.id?.toString(),
           hoveredTitle: product?.name,
           hoveredHref: product?.permalink,
           price: product?.price,
           description: product?.short_description?.replace(/<[^>]*>?/gm, ""),
-          buttonType: productData[idx]?.buttonType,
+          buttonType: productInfo?.buttonType,
         };
       });
 
@@ -94,7 +94,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
 
   return (
     <div className="py-[90px]">
-      <div className="grid grid-cols-2 lg:grid-cols-3 lg:gap-5">
+      <div className="grid grid-cols-2 xl:grid-cols-3 lg:gap-5">
         <div className="space-y-5">
           <div className="w-[45vw] lg:w-[446.65px] h-[233px] lg:h-[595.5px]">
             <RenderImageAndProducts
@@ -160,7 +160,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
           </div>
         </div>
         <div className="space-y-5 lg:mt-0 mt-5">
-          <div className="w-[100vw] lg:w-[446.65px] h-[493px] lg:h-[595.5px]">
+          <div className="w-[100vw] xl:w-[446.65px] h-[493px] lg:h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
               name= "Flower"
@@ -175,7 +175,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
               slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
-          <div className="w-[100vw] lg:w-[446.65px] h-[493px] lg:h-[595.5px]">
+          <div className="w-[100vw] xl:w-[446.65px] h-[493px] lg:h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
               name= "Flower"
