@@ -11,6 +11,9 @@ import "./globals.css";
 import { GlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
 import { CartProvider } from "@/providers/CartProvider";
+import localFont from "next/font/local";
+import Link from "next/link";
+import { ChatIcon } from "@/assets/images/icon/ChatIcon";
 import { getCookie, setCookie } from "cookies-next";
 
 const lato = Lato({
@@ -64,9 +67,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <CartProvider>
-              {children}
-            </CartProvider>
+            <CartProvider>{children}</CartProvider>
             <Toaster
               richColors
               duration={3000}
@@ -74,6 +75,12 @@ export default function RootLayout({
               expand={false}
               visibleToasts={5}
             />
+            <div className="fixed bottom-[75px] left-4 cursor-pointer z-[50]">
+              <Link href="https://api.whatsapp.com/send/?phone=96560660378&text&type=phone_number&app_absent=0">
+                {" "}
+                <ChatIcon />{" "}
+              </Link>
+            </div>
           </ThemeProvider>
         </LoadingProvider>
       </body>

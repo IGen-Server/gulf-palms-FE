@@ -70,7 +70,7 @@ const contactsData: ContactsData = {
 
 const breadcrumbLinks = [
   { name: "Home", arabicName: "الرئيسية", href: "/" },
-  { name: "Contact us", arabicName: " » اتصل بنا", href: "/contact-us" },
+  { name: "Contact us", arabicName: "اتصل بنا", href: "/contact-us" },
 ];
 
 export default function ContactUs() {
@@ -161,7 +161,11 @@ export default function ContactUs() {
               </h2>
               <form action="/api/contact" method="POST" className="w-full">
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                  <div>
+                  <div
+                    className={`${
+                      language === "ar" ? "flex flex-col items-end" : ""
+                    }`}
+                  >
                     <label htmlFor="name" className="block text-gray-700">
                       {texts.name}
                     </label>
@@ -174,7 +178,11 @@ export default function ContactUs() {
                     />
                   </div>
 
-                  <div>
+                  <div
+                    className={`${
+                      language === "ar" ? "flex flex-col items-end" : ""
+                    }`}
+                  >
                     <label htmlFor="email" className="block text-gray-700">
                       {texts.emailText}
                     </label>
@@ -187,7 +195,11 @@ export default function ContactUs() {
                     />
                   </div>
 
-                  <div>
+                  <div
+                    className={`${
+                      language === "ar" ? "flex flex-col items-end" : ""
+                    }`}
+                  >
                     <label htmlFor="phone" className="block text-gray-700">
                       {texts.phoneText}
                     </label>
@@ -200,7 +212,11 @@ export default function ContactUs() {
                     />
                   </div>
 
-                  <div>
+                  <div
+                    className={`${
+                      language === "ar" ? "flex flex-col items-end" : ""
+                    }`}
+                  >
                     <label htmlFor="company" className="block text-gray-700">
                       {texts.companyText}
                     </label>
@@ -214,7 +230,11 @@ export default function ContactUs() {
                   </div>
                 </div>
 
-                <div className="mt-6">
+                <div
+                  className={`mt-6 ${
+                    language === "ar" ? "flex flex-col items-end" : ""
+                  }`}
+                >
                   <label htmlFor="message" className="block text-gray-700">
                     {texts.messageText}
                   </label>
@@ -227,7 +247,11 @@ export default function ContactUs() {
                   />
                 </div>
 
-                <div className="mt-6 ">
+                <div
+                  className={`mt-6 ${
+                    language === "ar" ? "flex justify-self-end self-start" : ""
+                  }`}
+                >
                   <Button
                     type="submit"
                     className="w-auto text-[#3e3e3e] hover:bg-[#e0e0e0] bg-[#F3F3F3] font-semibold uppercase"

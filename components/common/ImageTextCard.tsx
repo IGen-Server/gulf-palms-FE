@@ -1,6 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ButtonProps {
   text: string; // Button text
@@ -8,6 +12,7 @@ interface ButtonProps {
   height?: string; // Height of the button
   width?: string; // Width of the button
   textColor?: string; // Text color for the button
+  textHoverColor?: string;
   fontWeight?: string; // Font weight for the button text
   borderRadius?: string; // Border radius of the button
   border?: string; // Border style (e.g., "1px solid")
@@ -35,6 +40,7 @@ interface ContentProps {
   subheadingColor?: string; // Font color for the subheading
   subheadingWeight?: string; // Font weight for the subheading
   bullets?: string[]; // Bullet points if the type is "text"
+  bulletsSpan?: string;
   textSize?: string; // Font size for bullets
   textColor?: string; // Text color for bullets
   fontWeight?: string; // Font weight for bullets
@@ -55,15 +61,27 @@ interface ImageTextCardProps {
   };
   className?: string;
   colReversed?: boolean;
+  imageFirst?: boolean;
 }
 
 export default function ImageTextCard({
   leftContent,
   rightContent,
-  size = { width: "max-w-[1200px]", height: "h-fit" },
+  size = { width: "max-w-[1140px]", height: "h-fit" },
   className = "",
   colReversed = false,
+  imageFirst,
 }: ImageTextCardProps) {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsVideoLoaded(true);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   const renderButtons = (buttons: ButtonsGroupProps | undefined) => {
     if (!buttons || buttons.items.length === 0) return null;
 
@@ -78,17 +96,19 @@ export default function ImageTextCard({
         {buttons.items.map((button, index) => (
           <button
             key={index}
-            className={`px-3 py-2 ${button.bgColor || "bg-primary"} ${
+            className={`px-3 py-2 duration-300 !cursor-pointer hover:bg-primary ${
+              button.textHoverColor || "hover:text-white"
+            } ${button.bgColor || "bg-primary"} ${
               button.textColor || "text-white"
-            } 
+            } ${button.borderColor || "#777"}
               ${button.fontWeight || "font-medium"} ${
               button.borderRadius || "rounded"
-            } duration-300 !cursor-pointer hover:bg-primary hover:text-white`}
+            } `}
             style={{
               height: button.height || "auto",
               width: button.width || "auto",
-              border: button.border || "none",
-              borderColor: button.borderColor || "black",
+              border: button.border || "",
+
               cursor: "pointer",
             }}
             onClick={button.onClick}
@@ -142,6 +162,7 @@ export default function ImageTextCard({
               } 
               ${content.fontWeight || "font-normal"} mb-1`}
             >
+              <span className="font-semibold">{content.bulletsSpan}</span>
               {content.bullets[0]}
             </p>
           ) : (
@@ -153,9 +174,12 @@ export default function ImageTextCard({
                       key={index}
                       className={`${content.textColor || "text-secondary"} ${
                         content.textSize || "text-sm"
-                      } 
+                      }
                       ${content.fontWeight || "font-normal"} mb-1`}
                     >
+                      <span className="font-semibold">
+                        {content.bulletsSpan}
+                      </span>
                       {bullet}
                     </li>
                   ))}
@@ -171,21 +195,38 @@ export default function ImageTextCard({
 
     if (content.type === "video" && content.src) {
       return (
-        <div className="w-full h-[470px] overflow-hidden">
-          <iframe
-            src={`${content.src.replace(
-              "vimeo.com",
-              "player.vimeo.com/video"
-            )}?autoplay=1&background=1&loop=1&byline=0&title=0&portrait=0`}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-            className="absolute top-0 left-0 w-full h-full object-cover"
-            allow="autoplay; fullscreen"
-            frameBorder="0"
-          ></iframe>
+        <div className="relative overflow-hidden w-full inset-0 h-[470px]">
+          {/* Fallback Image */}
+          <Image
+            src="/images/showroom_fallback_image.png"
+            alt="Home Page"
+            layout="fill"
+            objectFit="cover"
+            priority
+            className={`absolute inset-0 z-0 transition-opacity duration-500 ${
+              isVideoLoaded ? "opacity-0" : "opacity-100"
+            }`}
+          />
+
+          {/* Video background */}
+          <div
+            className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${
+              isVideoLoaded ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <video
+              className="object-cover w-full h-full"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src={content.src} type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          {/* <div className="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div> */}
         </div>
       );
     }
@@ -214,8 +255,13 @@ export default function ImageTextCard({
       <div
         className={`relative flex flex-col items-start w-full text-justify
           ${leftContent.bgColor || ""}
-          ${colReversed ? "order-2 lg:order-1" : "order-1"}
+          ${colReversed ? "order-1 lg:order-2" : "order-1"}
           ${leftContent.type === "text" && "grid place-content-center"}
+          ${
+            imageFirst && leftContent.type === "text"
+              ? "max-lg:order-2"
+              : "order-1"
+          }
         `}
       >
         {renderContent(leftContent)}
@@ -225,8 +271,14 @@ export default function ImageTextCard({
       <div
         className={`relative flex flex-col items-start w-full text-justify
           ${rightContent.bgColor || ""}
-          ${colReversed ? "order-1 lg:order-2" : "order-2"}
+          ${colReversed ? "order-2 lg:order-1" : "order-2"}
           ${rightContent.type === "text" && "grid place-content-center"}
+          ${
+            imageFirst && rightContent.type === "text"
+              ? "max-lg:order-2"
+              : "order-1"
+          }
+
         `}
       >
         {renderContent(rightContent)}

@@ -6,6 +6,7 @@ import GetInTouch from "@/components/common/GetInTouch";
 import farms from "./farmsData.json";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
+import Video from "@/components/common/Video";
 
 type FarmContent = {
   name: string;
@@ -39,24 +40,24 @@ const FarmDetails = () => {
         </h1>
         <CustomBreadCrumb links={breadcrumbLinks} />
       </div>
-      <div className="w-[100vw] flex flex-col lg:flex-row gap-10 mx-auto overflow-hidden">
+      <div className="w-[100vw] flex flex-col mx-auto gap-5 lg:gap-0 overflow-hidden">
         {farms.map((farm: FarmType, index) => (
           <div
             key={index}
-            className={`flex flex-col md:flex-row items-center justify-center gap-3 max-w-[100vw] h-full md:h-[520px] ${
+            className={`flex flex-col md:flex-row items-center justify-center gap-5 lg:gap-0 w-full h-full ${
               index % 2 === 0
                 ? "md:w-full"
                 : "md:w-[1192px] lg:!flex-row-reverse"
             } mx-auto rounded-lg `}
           >
-            <div className="w-full lg:h-full ">
+            <div className="flex flex-1">
               <div className="p-6 h-full w-full items-center text-center text-[#6F803D] grid place-content-center">
                 <div className="flex flex-col items-center gap-2">
                   <div className="flex flex-col gap-2">
                     <h2 className="font-light text-[30px] text-[#777]">
                       {farm[language as "en" | "ar"].name}
                     </h2>
-                    <h2 className="font-semibold text-xl lg:text-[2.375rem] lg:leading-[3.3125rem] text-[#6f803d]">
+                    <h2 className="font-semibold text-xl lg:text-[2.375rem] lg:leading-[3.3125rem] text-[#6f803d] uppercase">
                       {farm[language as "en" | "ar"].title}
                     </h2>
                     <p className="text-[1.0625rem] lg:text-[1.1875rem] text-[#6f803d] lg:leading-[1.875rem]">
@@ -68,7 +69,9 @@ const FarmDetails = () => {
                   </div>
                   <div className="flex gap-4 pt-4">
                     <Link
-                      href="/contact-us"
+                      href={
+                        language === "en" ? "/en/contact-us" : "/contact-us"
+                      }
                       className="font-semibold text-[.8125rem] text-white bg-[#6F803D] px-5 py-3 uppercase"
                     >
                       {language === "en" ? "Contact Us" : "اتصل بنا"}
@@ -84,28 +87,13 @@ const FarmDetails = () => {
                 </div>
               </div>
             </div>
-            <div
-              className="w-full h-full hidden lg:block"
-              style={{
-                backgroundImage: `url(${farm.video})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            ></div>
-            <div className="block lg:hidden w-full h-[300px] px-4 overflow-hidden">
-              <Image
-                src={farm.video}
-                alt="image"
-                width={0}
-                height={0}
-                sizes="100vw"
-                className="w-full h-full object-cover"
-              />
+            <div className="flex lg:flex-1 w-full h-[300px] lg:h-[520px]">
+              <Video src={farm.video} />
             </div>
           </div>
         ))}
       </div>
-      <GetInTouch />
+      <GetInTouch language={language} />
     </section>
   );
 };

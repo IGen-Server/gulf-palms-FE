@@ -6,7 +6,7 @@ import PublicNavbar from "@/components/navbar/public-navbar/public-navbar";
 import { ReactNode } from "react";
 import Image from "next/image";
 import homePageImage from "@/assets/images/homePageImage.jpg";
-import './video-container.css'
+import "./video-container.css";
 import Link from "next/link";
 import { ChatIcon } from "@/assets/images/icon/ChatIcon";
 
@@ -19,7 +19,7 @@ function PublicPageLayout({
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setIsVisible(window.scrollY > 300);
@@ -53,10 +53,10 @@ function PublicPageLayout({
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setIsVideoLoaded(true); 
+      setIsVideoLoaded(true);
     }, 2000);
 
-    return () => clearTimeout(timeout); 
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -110,9 +110,9 @@ function PublicPageLayout({
           }}
         ></a>
       )}
-      <div className="fixed bottom-[75px] left-4 cursor-pointer z-[50]">
+      {/* <div className="fixed bottom-[75px] left-4 cursor-pointer z-[50]">
        <Link href='https://api.whatsapp.com/send/?phone=96560660378&text&type=phone_number&app_absent=0'> <ChatIcon /> </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

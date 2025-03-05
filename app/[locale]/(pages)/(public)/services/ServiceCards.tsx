@@ -1,49 +1,9 @@
 "use client";
 
+import GetInTouch from "@/components/common/GetInTouch";
 import ImageTextCard from "@/components/common/ImageTextCard";
 import { serviceData } from "@/data/serviceData";
 import { useTranslation } from "react-i18next";
-
-export interface HeroSection {
-  images: string[];
-  title: string;
-  titleAr: string;
-  subtitle: string;
-  subtitleAr: string;
-  summary: string;
-  summaryAr: string;
-  contactLink: string;
-  contactLinkAr: string;
-}
-
-export interface Content {
-  sectionTitle: string;
-  sectionTitleAr: string;
-  sectionSubtitle: string;
-  sectionSubtitleAr: string;
-  overview: string;
-  overviewAr: string;
-  serviceHighlightsTitle: string;
-  serviceHighlightsTitleAr: string;
-  serviceHighlights: string[];
-  serviceHighlightsAr: string[];
-}
-
-export interface Details {
-  heroSection: HeroSection;
-  content: Content;
-  galleryImages: string[];
-}
-
-export interface Service {
-  id: string;
-  title: string;
-  titleAr: string;
-  description: string;
-  descriptionAr: string;
-  coverImage: string;
-  details: Details;
-}
 
 const ServiceCards = () => {
   const {
@@ -52,42 +12,47 @@ const ServiceCards = () => {
 
   return (
     <div className="">
-      {serviceData.map((service: Service, index: number) => (
+      {serviceData.map((service, index: number) => (
         <div key={service.id}>
           <ImageTextCard
             colReversed={index % 2 !== 0}
             leftContent={{
               type: "text",
               subheading: language === "en" ? "GULF PALMS" : "نخيل الخليج",
-              headingColor: "text-black",
-              headingSize: "text-[30px]",
-              heading: language === "en" ? service.title : service.titleAr,
-              subheadingColor: "text-black",
-              subheadingSize: "text-[30px]",
+              headingColor: "text-[#242424]",
+              headingSize: "text-4xl uppercase",
+              heading: language === "en" ? service.en.title : service.ar.title,
+              subheadingColor: "text-[#777]",
+              subheadingSize: "text-3xl",
               subheadingWeight: "font-light",
               bullets:
                 language === "en"
-                  ? [service.description]
-                  : [service.descriptionAr],
+                  ? [service.en.description]
+                  : [service.ar.description],
               textAlign: "center",
               textSize: "text-[15px]",
-              textColor: "text-black/90",
+              textColor: "text-[#777]",
               fontWeight: "font-[400]",
               bgColor: "bg-white",
               buttons: {
                 items: [
                   {
                     text: language === "en" ? "GET IN TOUCH" : "ابقى على تواصل",
-                    bgColor: "bg-primary",
+                    bgColor: "bg-primary hover:bg-[#e59b78]",
                     borderRadius: "rounded-none",
                     href: "/contact",
                   },
                   {
                     text: language === "en" ? "READ MORE" : "اقرأ أكثر",
-                    bgColor: "bg-white",
+                    bgColor: "bg-white hover:bg-[#777] hover:bg-opacity-10",
                     textColor: "text-black",
-                    href: `/services/${service.id}/`,
-                    border: "1px solid lightgray",
+                    textHoverColor: "hover:text-black",
+                    href: `${
+                      language === "en"
+                        ? `/services/${service.slug[0]}`
+                        : `/services/${service.slug[1]}`
+                    }`,
+                    borderColor: "border border-[#777] hover:border-[#777]/10",
                     borderRadius: "none",
                   },
                 ],
@@ -98,10 +63,13 @@ const ServiceCards = () => {
               type: "image",
               src: service.coverImage,
               bgColor: "bg-white",
+              imgHeight: "h-[300px] lg:h-[600px]",
             }}
+            imageFirst
           />
         </div>
       ))}
+      <GetInTouch language={language} />
     </div>
   );
 };

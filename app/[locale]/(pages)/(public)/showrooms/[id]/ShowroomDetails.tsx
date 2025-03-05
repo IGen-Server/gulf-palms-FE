@@ -6,6 +6,8 @@ import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import showrooms from "../showroomsData.json";
+import Video from "@/components/common/Video";
+import Link from "next/link";
 
 export type ServiceProps = {
   slug: string[];
@@ -13,8 +15,9 @@ export type ServiceProps = {
   arabicName: string;
   id: string;
   img: string;
-  video: string;
+  video?: string;
   mapUrl: string;
+  location: string;
   en: {
     content: {
       subheading: string;
@@ -61,31 +64,27 @@ const Showroom = ({ slug }: { slug: string }) => {
           </h1>
           <CustomBreadCrumb links={breadcrumbLinks} />
         </div>
-        <div className="w-full max-w-[1200px] mx-auto flex flex-col-reverse lg:flex-row lg:items-stretch lg:justify-center gap-0 bg-primary overflow-hidden">
-          <div className="w-full lg:w-1/2 h-[570px] py-5">
+        <div
+          className={`w-full max-w-[1200px] mx-auto flex flex-col-reverse lg:flex-row lg:items-stretch lg:justify-center gap-0 ${
+            nursery?.video ? "bg-primary" : "bg-[#6F803D]"
+          } overflow-hidden`}
+        >
+          <div
+            className={`w-full lg:w-1/2 h-[570px] ${
+              nursery?.video ? "bg-primary" : "bg-[#6F803D]"
+            } py-5`}
+          >
             <div className="relative w-full h-full flex flex-col items-center justify-center text-center px-8">
-              <div className="absolute inset-0 w-full h-full">
-                <iframe
-                  src={`${nursery?.video.replace(
-                    "vimeo.com",
-                    "player.vimeo.com/video"
-                  )}?autoplay=1&background=1&loop=1&byline=0&title=0&portrain=0`}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    border: "none",
-                  }}
-                  allow="autoplay; fullscreen"
-                  allowFullScreen
-                  frameBorder="0"
-                ></iframe>
-              </div>
+              {nursery?.video && (
+                <div className="absolute inset-0 w-full h-full">
+                  <Video src={nursery?.video} overlay />
+                </div>
+              )}
               <div className="relative z-10 text-white space-y-4">
                 <h2 className="font-light text-3xl leading-[3rem] mb-4 max-lg:hidden">
                   {nurseryDetails?.content.subheading}
                 </h2>
-                <h3 className="text-xl lg:text-4xl font-semibold mb-8">
+                <h3 className="w-[50%] mx-auto text-xl lg:text-4xl font-semibold mb-8 uppercase">
                   {nurseryDetails?.content.title}
                 </h3>
                 <p className="text-base mb-12">
@@ -93,28 +92,28 @@ const Showroom = ({ slug }: { slug: string }) => {
                   {nurseryDetails?.content.details}
                 </p>
                 <div className="flex flex-col lg:flex-row items-center gap-4 justify-center mx-auto">
-                  <Button
-                    variant="outline"
-                    className="bg-[#F3F3F3] font-semibold text-[.8125rem] leading-4 text-[#3e3e3e] px-5 py-2 duration-300 hover:bg-[#e9e6e6]"
+                  <Link
+                    href={language === "en" ? "/en/contact-us" : "/contact-us"}
+                    className="bg-[#F3F3F3] font-semibold text-[.8125rem] leading-4 text-[#3e3e3e] px-5 py-3 duration-300 hover:bg-[#e9e6e6]"
                   >
                     {language === "en" ? "CONTACT US" : "اتصل بنا"}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="bg-[#F3F3F3] font-semibold text-[.8125rem] leading-4 text-[#3e3e3e] px-5 py-2 duration-300 hover:bg-[#e9e6e6]"
+                  </Link>
+                  <Link
+                    href={nursery?.location ?? ""}
+                    className="bg-[#F3F3F3] font-semibold text-[.8125rem] leading-4 text-[#3e3e3e] px-5 py-3 duration-300 hover:bg-[#e9e6e6]"
                   >
                     {language === "en" ? "OUR LOCATION" : "موقعنا"}
-                  </Button>
+                  </Link>
                 </div>
               </div>
-              <Image
+              {/* <Image
                 src="https://gulfpalms.com/wp-content/uploads/2023/06/logo-white.png"
                 alt="Gulf Palms Logo"
                 width={0}
                 height={0}
                 sizes="100vw"
                 className="absolute bottom-8 w-32"
-              />
+              /> */}
             </div>
           </div>
           <div className="w-full lg:w-1/2 h-[570px]">
