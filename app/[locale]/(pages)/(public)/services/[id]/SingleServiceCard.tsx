@@ -26,7 +26,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
   const isEnglish = language === "en";
 
   return (
-    <div className="pt-[98px] w-full flex flex-col items-center !font-sans">
+    <div className="pt-[98px] w-full flex flex-col items-center">
       <div className="lg:max-w-content mx-auto">
         {/* Hero Section */}
         <div className="flex items-stretch gap-3 pt-[40px]">
@@ -76,7 +76,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
             {service.heroImages.small.map((image, index) => (
               <div
                 key={index}
-                className="hidden min-w-[322px] h-full sm:flex flex-col gap-3"
+                className="hidden min-w-[322px] h-1/2 sm:flex flex-col gap-3"
               >
                 <Image
                   src={image || "/placeholder.svg"}
@@ -98,7 +98,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
               <p className="text-sm uppercase tracking-wider text-gray-600 mb-2">
                 {isEnglish ? "OUR PROFESSIONAL SERVICES" : "خدماتنا المهنية"}
               </p>
-              <h1 className="text-4xl font-bold text-gray-900">
+              <h1 className="text-4xl font-bold text-gray-900 uppercase">
                 {serviceDetails.details.content.sectionTitle}
               </h1>
             </div>

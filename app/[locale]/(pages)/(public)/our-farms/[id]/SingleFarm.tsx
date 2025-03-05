@@ -56,7 +56,7 @@ const SingleFarm = ({ slug }: { slug: string }) => {
               </div>
               <div className="flex gap-5 pt-4">
                 <Link
-                  href="/contact-us"
+                  href={language === "en" ? "/en/contact-us" : "/contact-us"}
                   className="text-white bg-primary hover:bg-[#e59b62] duration-300 px-5 py-3 uppercase"
                 >
                   {language === "en" ? "Contact Us" : "اتصل بنا"}

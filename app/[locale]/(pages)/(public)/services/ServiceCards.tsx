@@ -44,7 +44,7 @@ const ServiceCards = () => {
                   },
                   {
                     text: language === "en" ? "READ MORE" : "اقرأ أكثر",
-                    bgColor: "bg-white hover:bg-[#777777] hover:bg-opacity-10",
+                    bgColor: "bg-white hover:bg-[#777] hover:bg-opacity-10",
                     textColor: "text-black",
                     textHoverColor: "hover:text-black",
                     href: `${

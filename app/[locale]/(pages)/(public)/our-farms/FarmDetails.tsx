@@ -69,7 +69,9 @@ const FarmDetails = () => {
                   </div>
                   <div className="flex gap-4 pt-4">
                     <Link
-                      href="/contact-us"
+                      href={
+                        language === "en" ? "/en/contact-us" : "/contact-us"
+                      }
                       className="font-semibold text-[.8125rem] text-white bg-[#6F803D] px-5 py-3 uppercase"
                     >
                       {language === "en" ? "Contact Us" : "اتصل بنا"}
