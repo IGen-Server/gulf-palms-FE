@@ -84,7 +84,7 @@
     }
   },
   {
-    "slug": ["finatees-garden"],
+    "slug": ["finatees"],
     "image": "https://gulfpalms.com/wp-content/uploads/2023/10/5.jpg",
     "link": "/projects/finatees-garden/",
     "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/10/5.jpg",
@@ -199,7 +199,7 @@
     }
   },
   {
-    "slug": ["zahra-garden-2"],
+    "slug": ["zahra-garden-2", "zahra-garden-2-arabic"],
     "image": "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9891-1536x1071.jpg",
     "link": "/projects/zahra-garden-2/",
     "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/12/9F5A9932-1-scaled.jpg",
@@ -234,7 +234,7 @@
     }
   },
   {
-    "slug": ["zahra-garden"],
+    "slug": ["zahra", "zahra-arabic"],
     "image": "https://gulfpalms.com/wp-content/uploads/2023/10/Screenshot_408.png",
     "link": "/projects/zahra-garden/",
     "sideImage": "",
@@ -262,7 +262,7 @@
     }
   },
   {
-    "slug": ["pick-murouj"],
+    "slug": ["pick-murouj", "pick-murouj-arabic"],
     "image": "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0050-1-1536x1536.png",
     "link": "/projects/pick-murouj/",
     "sideImage": "https://gulfpalms.com/wp-content/uploads/2024/01/9F5A0050-1.png",
@@ -303,7 +303,7 @@
     }
   },
   {
-    "slug": ["kaifan-garden"],
+    "slug": ["kaifan", "kaifan-arabic"],
     "image": "https://gulfpalms.com/wp-content/uploads/2023/10/DSC07732.jpg",
     "link": "/projects/kaifan-garden/",
     "sideImage": "https://gulfpalms.com/wp-content/uploads/2023/10/DSC07732.jpg",

@@ -33,7 +33,7 @@ export default function CustomCarousel({
   slidesToScroll = 4,
   autoPlay = false,
   withNavigation = false,
-  MobileSlidesNumber = 1,
+  MobileSlidesNumber = 2,
 }: CustomCarouselProps) {
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div

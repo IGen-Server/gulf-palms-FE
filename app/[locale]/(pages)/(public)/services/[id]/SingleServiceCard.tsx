@@ -46,7 +46,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
               backgroundRepeat: "no-repeat",
             }}
           >
-            <i className="fa-solid fa-quote-left absolute text-[100px] text-white/50 z-10 top-5 left-5"></i>
+            <i className="fa-solid fa-quote-right absolute font-light text-[225px] text-gray-100/50 opacity-10 z-10 top-[57%] -translate-y-1/2 right-5"></i>
             <p
               className="text-[.9375rem] text-[rgba(255, 255, 255, 0.8)
 ] tracking-wide leading-6"
