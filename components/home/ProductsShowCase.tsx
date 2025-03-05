@@ -17,25 +17,31 @@ interface ProductsShowCaseProps {
 export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowCaseProps) {
   const [products, setProducts] = useState<any[]>([]);
   const { t, i18n } = useTranslation();
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(false,false);
+  const axiosInstanceWithOutLoader = CreateAxiosInstanceWithLoader(false,false);
+
+  const getRelatedProducts = async (hoveresProductIds: number[]) => {
+    try {
+      const response = await ProductService.Get(
+        {
+          lang: i18n.language,
+          include: `[0,${hoveresProductIds.join(",")}]`,
+        },
+        axiosInstanceWithOutLoader
+      );
+    
+      return response;
+    } catch (error) {
+      console.error(error);
+      return []; 
+    }
+  };
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const response = await ProductService.GetBySlugs(
-          i18n.language,
-          ['spring-bladglans-plant-polish',
-            'palms-pollen-powder',
-            'sukkari-75-litre',
-            'bougainvillea',
-            'aceplan',
-            'temprid-sc',
-            // 'sultana-potted-palm-arabic',
-            'bougainvillea-net'],
-          axiosInstanceWithLoader
-        );
-        
-        setProducts([...response]);
+        const response = await getRelatedProducts([10171,10169,10061,23312,23298,9997,9940,10035]);
+        console.log({response})
+        setProducts([...response.flat()]);
       } catch (error) {
         console.error(error);
       } finally {
