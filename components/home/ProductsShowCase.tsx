@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
 import React, { useState, useEffect } from "react";
@@ -42,7 +43,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
     };
 
     getProducts();
-  }, [axiosInstanceWithLoader, i18n.language]);
+  }, []);
 
 // console.log({products})
   const bottomLayer = (
