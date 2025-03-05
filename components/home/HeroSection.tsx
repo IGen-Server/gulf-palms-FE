@@ -31,7 +31,7 @@ export default function HeroSection() {
       >
         {t("home.heroSection.Slogan3")}
       </p>
-      <div className="flex flex-col lg:flex-row items-center gap-4 pt-8 w-[calc(100vw-85px)] justify-center lg:justify-start lg:max-w-[1000px]">
+      <div className="flex flex-col lg:flex-row items-center gap-4 pt-8 w-[calc(100vw-50px)] sm:w-[calc(100vw-55px)] md:w-[calc(100vw-85px)] justify-center lg:justify-start lg:max-w-[1000px]">
         <Link
           href="/about-us-arabic"
           className="rounded-none bg-primary opacity-90 hover:bg-primary hover:opacity-100 w-full lg:w-[137.8px] h-[48px] grid place-content-center font-semibold"

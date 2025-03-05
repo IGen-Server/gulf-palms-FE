@@ -14,14 +14,14 @@ interface HomeFirstProductGridProps {
 
 const productData = [
   { id: 10171, position: { x: 10, y: 27 }, group: "hoverProducts1", buttonType: "add_to_cart" },
-  { id: 15601, position: { x: 52, y: 62 }, group: "hoverProducts1", buttonType: "read_more" },
-  { id: 15314, position: { x: 75, y: 72 }, group: "hoverProducts1", buttonType: "select_options" },
-  { id: 23317, position: { x: 24, y: 44 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 23303, position: { x: 52, y: 52 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 15278, position: { x: 65, y: 78 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 14685, position: { x: 29, y: 73 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 15300, position: { x: 73, y: 52 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 21503, position: { x: 30, y: 70 }, group: "hoverProducts3", buttonType: "buy_now" },
+  { id: 10169, position: { x: 52, y: 62 }, group: "hoverProducts1", buttonType: "read_more" },
+  { id: 10061, position: { x: 75, y: 72 }, group: "hoverProducts1", buttonType: "select_options" },
+  { id: 23312, position: { x: 24, y: 44 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 23298, position: { x: 52, y: 52 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 9997, position: { x: 65, y: 78 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 9940, position: { x: 29, y: 73 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 10035, position: { x: 73, y: 52 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 11846, position: { x: 30, y: 70 }, group: "hoverProducts3", buttonType: "buy_now" },
   { id: 24003, position: { x: 50, y: 70 }, group: "hoverProducts4", buttonType: "buy_now" },
 ];
 
@@ -56,19 +56,19 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
       const fetchedProducts = await getRelatedProducts(hoveresProductIds);
 
       // Map the fetched products to the desired format
-      const results = fetchedProducts.reverse().map((product,idx) => {
+      const results = fetchedProducts.map((product) => {
         const productInfo = productData.find((p) => p.id == product.id);
-        console.log({productData,fetchedProducts})
+        
         return {
-          position: productData[idx]?.position || { x: 0, y: 0 },
-          group: productData[idx]?.group,
+          position: productInfo?.position || { x: 0, y: 0 },
+          group: productInfo?.group,
           imgUrl: product?.images[0]?.src || "",
           productId: product?.id?.toString(),
           hoveredTitle: product?.name,
           hoveredHref: product?.permalink,
           price: product?.price,
           description: product?.short_description?.replace(/<[^>]*>?/gm, ""),
-          buttonType: productData[idx]?.buttonType,
+          buttonType: productInfo?.buttonType,
         };
       });
 
@@ -76,7 +76,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
       const groupedProducts: { [key: string]: any[] } = {};
 
       results.forEach((product) => {
-        const { group, ...productData } = product;
+        const { group = "ungrouped", ...productData } = product;
         if (!groupedProducts[group]) groupedProducts[group] = [];
         groupedProducts[group].push(productData);
       });
@@ -140,7 +140,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
             />
           </div>
         </div>
-        <div className="w-[calc(50vw-17px)] lg:w-[352px] flex flex-col h-full gap-[17px]">
+        <div className="w-[calc(50vw-17px)] lg:w-[352px] flex flex-col h-full gap-[17px] ">
           <div className="w-full h-[233px] lg:h-[325px] lg:flex-1 ">
             <RenderImageAndProducts
               productId="3"
@@ -148,7 +148,18 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
               price={10}
               renderType="image"
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/3-mian-img.jpg"
-              hoverProducts={hoverProducts.hoverProducts3 || []}
+              hoverProducts={[
+                {
+                  position: { x: 30, y: 70 },
+                  imgUrl: "https://clone.gulfpalms.com/wp-content/uploads/2023/10/3-mian-img.jpg",
+                  productId: "washingtonian-palms",
+                  hoveredTitle: "Washingtonian Palms",
+                  hoveredHref: 'https://clone.gulfpalms.com/en/product-category/ornamental-palms-bonsai/washingtonian-palms/',
+                  price: '',
+                  description: '',
+                  buttonType: 'buy_now',
+                }
+              ]}
               slug=""
               currency=""
               currentCategories={[]}
@@ -163,7 +174,18 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
               price={10}
               renderType="image"
               imageFileOrUrl="https://gulfpalms.com/wp-content/uploads/2023/10/kjkjkj600by600-thumb.jpg"
-              hoverProducts={hoverProducts.hoverProducts4 || []}
+              hoverProducts={[
+                {
+                  position: { x: 50, y: 70 },
+                  imgUrl: "https://clone.gulfpalms.com/wp-content/uploads/2023/10/600by600-thumb5.jpg",
+                  productId: "plant-medium",
+                  hoveredTitle: "Plant Medium",
+                  hoveredHref: 'https://clone.gulfpalms.com/en/product-category/plant-media/',
+                  price: '',
+                  description: '',
+                  buttonType: 'buy_now',
+                }
+              ]}
               slug=""
               currency=""
               currentCategories={[]}

@@ -58,7 +58,6 @@ interface RenderImageAndProductsProps {
   productAttribute: ProductAttribute | null;
   quantity?: number;
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
-  
 }
 
 const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
@@ -98,38 +97,46 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
     setIsSheetOpen(false);
   };
 
-  const renderHoveredButton = (product:HoverProduct) => {
+  const renderHoveredButton = (product: HoverProduct) => {
     if (product.buttonType === "add_to_cart") {
-      return <div
-        className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
-        onClick={() => handleAddToCart()}
-      >
-        ADD TO CART
-      </div>;
+      return (
+        <div
+          className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
+          onClick={() => handleAddToCart()}
+        >
+          ADD TO CART
+        </div>
+      );
     }
     if (product.buttonType === "read_more") {
-      return <Link
-      href={product.hoveredHref}
-      className="bg-gray-200 text-black text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
-      >
-         READ MORE
-      </Link>
+      return (
+        <Link
+          href={product.hoveredHref}
+          className="bg-gray-200 text-black text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
+        >
+          READ MORE
+        </Link>
+      );
     }
     if (product.buttonType === "select_options") {
-      return <Link
-      href={product.hoveredHref}
-      className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
-      >
-         SELECT OPTIONS
-      </Link>
+      return (
+        <Link
+          href={product.hoveredHref}
+          className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
+        >
+          SELECT OPTIONS
+        </Link>
+      );
     }
     if (product.buttonType === "buy_now") {
-      return <Link
-      href={product.hoveredHref}
-      className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
-      >
-        BUY NOW
-      </Link>
+      return (
+        <Link
+          href={product.hoveredHref}
+          className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
+        >
+          BUY NOW
+        </Link>
+      );
     }
   };
 
@@ -192,23 +199,28 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   </div>
 
                   <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100 relative mt-2">
-                    {!expandedDescriptionId && (
-                      <div className="absolute h-[15px] blur-sm bg-white/80 w-full -top-3 left-0"></div>
+                    {product.description && (
+                      <>
+                        {!expandedDescriptionId && (
+                          <div className="absolute h-[15px] blur-sm bg-white/80 w-full -top-3 left-0"></div>
+                        )}
+                        <Ellipsis
+                          className={
+                            expandedDescriptionId === product.productId
+                              ? "opacity-0"
+                              : "cursor-pointer"
+                          }
+                          onClick={() =>
+                            setExpandedDescriptionId((prevId) =>
+                              prevId === product.productId
+                                ? null
+                                : product.productId
+                            )
+                          }
+                        />
+                      </>
                     )}
-                    <Ellipsis
-                      className={
-                        expandedDescriptionId === product.productId
-                          ? "opacity-0"
-                          : "cursor-pointer"
-                      }
-                      onClick={() =>
-                        setExpandedDescriptionId((prevId) =>
-                          prevId === product.productId
-                            ? null
-                            : product.productId
-                        )
-                      }
-                    />
+
                     {renderHoveredButton(product)}
                   </div>
                 </HoverCardContent>
