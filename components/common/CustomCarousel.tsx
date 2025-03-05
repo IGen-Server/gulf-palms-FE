@@ -17,8 +17,8 @@ interface CarouselData {
 }
 
 interface CustomCarouselProps {
-  data: CarouselData[];
   dots?: boolean;
+  data: CarouselData[];
   autoPlay?: boolean;
   withNavigation?: boolean;
   slidesToShow?: number;
@@ -62,7 +62,7 @@ export default function CustomCarousel({
   const settings = {
     dots: dots,
     infinite: true,
-    speed: 300,
+    speed: 500,
     slidesToShow,
     slidesToScroll,
     nextArrow: <NextArrow />,
@@ -103,21 +103,22 @@ export default function CustomCarousel({
   };
 
   return (
-    <div className="relative w-full min-h-[325px] h-fit group">
+    <div className="relative w-full min-h-[300px] md:min-h-[420px] h-fit group">
       <Slider autoplay={autoPlay} {...settings} className="w-full">
         {data.map((item, index) => (
-          <div key={index} className="h-full">
-            {item.component
-              ? item.component
-              : item.imageSrc && (
-                  <img
-                    src={item.imageSrc || "/placeholder.svg"}
-                    alt="Carousel Item"
-                    className={`${item.height || "h-auto"} ${
-                      item.width || "w-[300px] md:w-full mx-auto"
-                    }`}
-                  />
-                )}
+          <div key={index} className="h-full ">
+            {/* <span>{item.imageSrc}</span> */}
+            {item.imageSrc ? (
+              <img
+                src={item.imageSrc || "/placeholder.svg"}
+                alt="Carousel Item"
+                className={`${item.height || "h-auto"} ${
+                  item.width || "w-full"
+                }`}
+              />
+            ) : (
+              <div className="h-full">{item.component}</div>
+            )}
           </div>
         ))}
       </Slider>

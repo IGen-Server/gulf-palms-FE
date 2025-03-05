@@ -24,7 +24,10 @@ import {
   ProductAttribute,
   ProductCategoryModel,
 } from "@/models/product/product";
-import { getCategoryPathByIdFromRecord, getProductCategoryLink } from "@/services/utility/utility.service";
+import {
+  getCategoryPathByIdFromRecord,
+  getProductCategoryLink,
+} from "@/services/utility/utility.service";
 
 import { useCart } from "@/providers/CartProvider";
 import { ProductDrawer } from "../shop/ProductDrawer";
@@ -37,6 +40,7 @@ interface HoverProduct {
   productId: string;
   price: string;
   description: string;
+  buttonType?: string;
 }
 
 interface RenderImageAndProductsProps {
@@ -70,7 +74,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   currentCategories = [],
   productAttribute,
   quantity,
-  slugToCategoryRecord
+  slugToCategoryRecord,
 }) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
   const [selectProductId, setSelectProductId] = useState<string | null>(null);
@@ -93,10 +97,53 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
     setIsSheetOpen(false);
   };
 
+  const renderHoveredButton = (product: HoverProduct) => {
+    if (product.buttonType === "add_to_cart") {
+      return (
+        <div
+          className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
+          onClick={() => handleAddToCart()}
+        >
+          ADD TO CART
+        </div>
+      );
+    }
+    if (product.buttonType === "read_more") {
+      return (
+        <Link
+          href={product.hoveredHref}
+          className="bg-gray-200 text-black text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
+        >
+          READ MORE
+        </Link>
+      );
+    }
+    if (product.buttonType === "select_options") {
+      return (
+        <Link
+          href={product.hoveredHref}
+          className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
+        >
+          SELECT OPTIONS
+        </Link>
+      );
+    }
+    if (product.buttonType === "buy_now") {
+      return (
+        <Link
+          href={product.hoveredHref}
+          className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
+        >
+          BUY NOW
+        </Link>
+      );
+    }
+  };
+
   if (renderType === "image") {
     return (
       <div
-        className="relative w-full h-full"
+        className={`relative w-full h-full`}
         style={{
           backgroundImage: `url(${imageFileOrUrl})`,
           backgroundSize: "cover",
@@ -152,29 +199,29 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   </div>
 
                   <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100 relative mt-2">
-                    {!expandedDescriptionId && (
-                      <div className="absolute h-[15px] blur-sm bg-white/80 w-full -top-3 left-0"></div>
+                    {product.description && (
+                      <>
+                        {!expandedDescriptionId && (
+                          <div className="absolute h-[15px] blur-sm bg-white/80 w-full -top-3 left-0"></div>
+                        )}
+                        <Ellipsis
+                          className={
+                            expandedDescriptionId === product.productId
+                              ? "opacity-0"
+                              : "cursor-pointer"
+                          }
+                          onClick={() =>
+                            setExpandedDescriptionId((prevId) =>
+                              prevId === product.productId
+                                ? null
+                                : product.productId
+                            )
+                          }
+                        />
+                      </>
                     )}
-                    <Ellipsis
-                      className={
-                        expandedDescriptionId === product.productId
-                          ? "opacity-0"
-                          : "cursor-pointer"
-                      }
-                      onClick={() =>
-                        setExpandedDescriptionId((prevId) =>
-                          prevId === product.productId
-                            ? null
-                            : product.productId
-                        )
-                      }
-                    />
-                    <div
-                      className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-full cursor-pointer"
-                      onClick={() => handleAddToCart()}
-                    >
-                      ADD TO CART
-                    </div>
+
+                    {renderHoveredButton(product)}
                   </div>
                 </HoverCardContent>
               )}
@@ -188,11 +235,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   if (renderType === "product") {
     const productData = {
       id: productId,
-      name: name || '',
+      name: name || "",
       price: Number(price),
       description: description || "Product description not available",
       image: imageFileOrUrl || (images && (images[0]?.src || images[0])),
-      sku: productId || 'N/A',
+      sku: productId || "N/A",
       categories: currentCategories,
       quantity: quantity,
     };
@@ -205,11 +252,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
         >
           <div className="w-full h-full sm:h-[280px] duration-700 overflow-hidden relative">
             <img
-              src={
-                images?.[0]?.src ||
-                imageFileOrUrl ||
-                "/placeholder.svg"
-              }
+              src={images?.[0]?.src || imageFileOrUrl || "/placeholder.svg"}
               alt={name}
               className={`absolute inset-0 w-full h-full object-cover ${
                 hoveredProductId === productId
@@ -282,11 +325,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   >
                     <ShoppingCart
                       className="w-4 h-4 sm:w-5 sm:h-5"
-                      onClick={()=>{
-                        const isSelected =  selectProductId === productId;
+                      onClick={() => {
+                        const isSelected = selectProductId === productId;
                         const isSheetOpenTrue = isSheetOpen;
-                        if(isSelected && isSheetOpenTrue){
-                          handleAddToCart()
+                        if (isSelected && isSheetOpenTrue) {
+                          handleAddToCart();
                         }
                       }}
                     />
@@ -360,15 +403,17 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                 setIsSheetOpen(true);
               }}
               className={`lg:hidden absolute left-2 p-1 bottom-0 grid place-content-center bg-primary shadow-md h-[35px] ${
-                selectProductId === productId ? "w-full z-[20] h-[45px]" : "w-[35px]"
+                selectProductId === productId
+                  ? "w-full z-[20] h-[45px]"
+                  : "w-[35px]"
               } `}
             >
               <ShoppingCart
-                onClick={()=>{
-                  const isSelected =  selectProductId === productId;
+                onClick={() => {
+                  const isSelected = selectProductId === productId;
                   const isSheetOpenTrue = isSheetOpen;
-                  if(isSelected && isSheetOpenTrue){
-                    handleAddToCart()
+                  if (isSelected && isSheetOpenTrue) {
+                    handleAddToCart();
                   }
                 }}
                 className="cursor-pointer w-full text-white"
@@ -386,7 +431,10 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             {currentCategories.map((category, index) => (
               <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
                 <Link
-                  href={getCategoryPathByIdFromRecord(category.id, slugToCategoryRecord)}
+                  href={getCategoryPathByIdFromRecord(
+                    category.id,
+                    slugToCategoryRecord
+                  )}
                   rel="tag"
                   className="hover:underline"
                 >

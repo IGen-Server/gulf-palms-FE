@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import CustomCarousel from "../common/CustomCarousel";
 import { extractCurrency } from "@/services/utility/utility.service";
@@ -18,7 +18,7 @@ export default function RecentProducts({ products, slugToCategoryRecord, isLoadi
   const { t } = useTranslation();
   return (
     <div className="z-[50]">
-       <div className="pb-[50px] space-y-[10px]">
+      <div className="pb-[50px] space-y-[10px]">
         <p className="text-[#777777] md:text-[30px] font-sans font-light">
           {t("recentProducts.newlyAdded")}
         </p>

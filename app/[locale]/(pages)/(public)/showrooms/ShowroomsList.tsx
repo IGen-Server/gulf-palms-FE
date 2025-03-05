@@ -24,7 +24,7 @@ export default function ShowRoomsList() {
         <h1 className="text-[68px] font-bold text-black">Showrooms</h1>
         <CustomBreadCrumb links={breadcrumbLinks} />
       </div>
-      {showrooms.slice(0, 3).map((service: ServiceProps, index: number) => (
+      {showrooms.map((service: ServiceProps, index: number) => (
         <div key={index} className="flex flex-col gap-12">
           <ImageTextCard
             colReversed={index % 2 !== 0}

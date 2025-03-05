@@ -1,8 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-
-"use client";
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -67,21 +64,11 @@ interface ImageTextCardProps {
 export default function ImageTextCard({
   leftContent,
   rightContent,
-  size = { width: "max-w-[1140px]", height: "h-fit" },
+  size = { width: "max-w-[1200px]", height: "h-fit" },
   className = "",
   colReversed = false,
   imageFirst,
 }: ImageTextCardProps) {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsVideoLoaded(true);
-    }, 2000);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
   const renderButtons = (buttons: ButtonsGroupProps | undefined) => {
     if (!buttons || buttons.items.length === 0) return null;
 
@@ -255,7 +242,7 @@ export default function ImageTextCard({
       <div
         className={`relative flex flex-col items-start w-full text-justify
           ${leftContent.bgColor || ""}
-          ${colReversed ? "order-1 lg:order-2" : "order-1"}
+          ${colReversed ? "order-2 lg:order-1" : "order-1"}
           ${leftContent.type === "text" && "grid place-content-center"}
           ${
             imageFirst && leftContent.type === "text"
@@ -271,7 +258,7 @@ export default function ImageTextCard({
       <div
         className={`relative flex flex-col items-start w-full text-justify
           ${rightContent.bgColor || ""}
-          ${colReversed ? "order-2 lg:order-1" : "order-2"}
+          ${colReversed ? "order-1 lg:order-2" : "order-2"}
           ${rightContent.type === "text" && "grid place-content-center"}
           ${
             imageFirst && rightContent.type === "text"

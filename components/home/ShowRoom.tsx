@@ -27,9 +27,9 @@ export default function ShowRoom() {
             {t("showrooms.getLocation")}
           </button>
         </div>
-        <div className="text-white space-y-3 bg-[#6F803D] p-[50px] text-center w-full h-fit flex flex-col items-center justify-center">
+        <div className="text-white space-y-3 bg-[#6F803D] p-[50px] text-center w-full h-fit flex flex-col items-center justify-between">
           <p className="text-[30px] font-sans font-light">{t("names.wafrah")}</p>
-          <p className="text-[29px] font-bold font-arabic h-[150px] md:h-[200px] 2xl:h-[150px]">
+          <p className="text-[29px] font-bold font-arabic md:h-[200px] 2xl:h-[150px]">
             {t("showrooms.wafrah")}
           </p>
           <button className="w-[132px] h-[42px] grid place-content-center uppercase rounded-none bg-[#f3f3f3] text-gray-700 text-[13px] font-sans hover:bg-gray-200 font-semibold">

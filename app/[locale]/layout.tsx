@@ -16,13 +16,6 @@ import Link from "next/link";
 import { ChatIcon } from "@/assets/images/icon/ChatIcon";
 import { getCookie, setCookie } from "cookies-next";
 
-const neoSansArabic = localFont({
-  src: "../fonts/neo_arabic_font.woff2", // path to the local font file
-  weight: "400",
-  style: "normal",
-  variable: "--font-neo-arabic",
-});
-
 const lato = Lato({
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
@@ -61,17 +54,12 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         ></link>
-
         <link
           href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap"
           rel="stylesheet"
         ></link>
       </head>
-      <body
-        className={`${
-          locale === "en" ? lato.className : neoSansArabic.className
-        } w-[100vw] mx-auto overflow-x-hidden`}
-      >
+      <body className={`${lato.className} w-[100vw] mx-auto overflow-x-hidden`}>
         <LoadingProvider>
           <ThemeProvider
             attribute="class"

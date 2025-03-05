@@ -23,7 +23,6 @@
       }
     }
   },
-
   {
     "slug": ["wafrah-farm-showroom"],
     "name": "Wafrah Farm Showroom",
@@ -49,7 +48,7 @@
     }
   },
   {
-    "slug": ["abdali-farm-showroom"],
+    "slug": ["abdali-farm"],
     "name": "Abdali Farm",
     "arabicName": "معرض المزرعة – العبدلي",
     "id": "fe9a770",
@@ -74,7 +73,7 @@
   },
 
   {
-    "slug": ["abdali-ittihad-showroom"],
+    "slug": ["abdali-ittihad"],
     "name": "Abdali Ittihad Showroom",
     "arabicName": "معرض الاتحاد – العبدلي",
     "id": "fe9a770",
