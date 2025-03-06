@@ -39,32 +39,34 @@ const SingleFarm = ({ slug }: { slug: string }) => {
       <div
         className={`flex flex-col md:flex-row items-center justify-center max-w-[100vw] md:h-[520px] md:w-[1192px] mx-auto rounded-lg `}
       >
-        <div className="w-full h-full ">
+        <div className="w-full md:h-full ">
           <div className="p-6 h-full w-full items-center text-center grid place-content-center">
             <div className="flex flex-col items-center gap-2">
               <div className="space-y-2">
                 <h2 className="max-lg:hidden text-[30px] font-light text-[#777] uppercase">
-                  Farm
+                  {language === "en" ? "Farm" : "مزرعة"}
                 </h2>
                 <h2 className="text-xl lg:text-[30px] font-bold text-[#242424] uppercase">
                   {farmByLanguage?.title}
                 </h2>
                 <p className="text-[1.0625rem] text-[#7A7A7A]">
-                  <span className="font-bold">Address : </span>
+                  <span className="font-bold">
+                    {language === "en" ? "Address : " : "العنوان: "}
+                  </span>
                   {farmByLanguage?.address}
                 </p>
               </div>
               <div className="flex gap-5 pt-4">
                 <Link
                   href={language === "en" ? "/en/contact-us" : "/contact-us"}
-                  className="text-white bg-primary hover:bg-[#e59b62] duration-300 px-5 py-3 uppercase"
+                  className="font-semibold text-white bg-primary hover:bg-[#e59b62] duration-300 px-5 py-3 uppercase"
                 >
                   {language === "en" ? "Contact Us" : "اتصل بنا"}
                 </Link>
                 <Link
                   href={farm?.link ?? ""}
                   target="_blank"
-                  className="text-white bg-primary hover:bg-[#e59b62] duration-300 px-5 py-3 uppercase"
+                  className="font-semibold text-white bg-primary hover:bg-[#e59b62] duration-300 px-5 py-3 uppercase"
                 >
                   {language === "en" ? "OUR LOCATION" : "موقعنا"}
                 </Link>
@@ -72,7 +74,9 @@ const SingleFarm = ({ slug }: { slug: string }) => {
             </div>
           </div>
         </div>
-        <Video src={farm?.video ?? ""} />
+        <div className="w-full h-[325px] lg:h-full">
+          <Video src={farm?.video ?? ""} />
+        </div>
       </div>
       <GetInTouch language={language} />
     </section>

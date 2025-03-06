@@ -52,7 +52,7 @@ export default function GetInTouch({ language }: { language?: string }) {
                 ? "GET IN TOUCH WITH US"
                 : "ابق على تواصل معنا"}
             </h2>
-            <div className="hidden lg:block w-10 h-[2px] bg-primary mx-auto my-3" />
+            <div className="block w-10 h-[2px] bg-primary mx-auto my-3" />
             <div className="text-[14px] leading-[1.375rem]">
               <div className="text-[#777]">
                 {language === "en"

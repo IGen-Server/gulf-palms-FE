@@ -116,7 +116,6 @@ export default function PublicNavbar() {
       returnObjects: true,
     }) as MenuItem[]) || [];
 
-
   return (
     <div
       className={`w-full fixed duration-500 top-0 z-[49] left-0 transition-transform flex items-center
@@ -240,7 +239,9 @@ export default function PublicNavbar() {
                   className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
                 >
                   <p className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
-                    Login / Register
+                    {currentLanguage === "en"
+                      ? "Login / Register"
+                      : "دخول / تسجيل"}
                   </p>
                 </Button>
               }

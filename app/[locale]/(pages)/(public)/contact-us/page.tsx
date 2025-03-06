@@ -88,7 +88,11 @@ export default function ContactUs() {
     >
       <div className="w-full max-w-[1192px] mx-auto mb-10">
         <div className="flex flex-col items-center pb-16 lg:pb-[6.25rem] pt-[50px]">
-          <h1 className="mb-3 font-arabic text-4xl lg:text-[4.25rem] lg:leading-[5.125rem] font-bold text-black">
+          <h1
+            className={`mb-3 ${
+              language === "en" ? "font-arabic" : "font-arabic"
+            } font-arabic text-4xl lg:text-[4.25rem] lg:leading-[5.125rem] font-bold text-black`}
+          >
             {language === "en" ? "Contact us" : "اتصل بنا"}
           </h1>
           <CustomBreadCrumb links={breadcrumbLinks} />

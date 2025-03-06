@@ -487,32 +487,68 @@
       "title": "فئات المنتجات",
       "items": [
         {
-          "link": "https://gulfpalms.com/ar/product-category/tissue-culture-palms/",
-          "label": "نخيل الأنسجة"
+          "link": "https://gulfpalms.com/en/product-category/ya-hala-offers/",
+          "label": "Ya Hala Offers"
         },
         {
-          "link": "https://gulfpalms.com/ar/product-category/ornamental-plants/",
-          "label": "نباتات الزينة"
+          "link": "https://gulfpalms.com/en/product-category/tissue-culture-palms/",
+          "label": "عروض يا هلا"
         },
         {
-          "link": "https://gulfpalms.com/ar/product-category/citruses-trees/",
-          "label": "أشجار الحمضيات"
+          "link": "https://gulfpalms.com/en/product-category/grafted-sider/",
+          "label": "النخيل النسيجي"
         },
         {
-          "link": "https://gulfpalms.com/ar/product-category/fertilizers/",
-          "label": "الأسمدة"
+          "link": "https://gulfpalms.com/en/product-category/fruits-trees/",
+          "label": "السـّـدر"
         },
         {
-          "link": "https://gulfpalms.com/ar/product-category/fruits-trees/",
+          "link": "https://gulfpalms.com/en/product-category/citruses-trees/",
           "label": "أشجار الفاكهة"
         },
         {
-          "link": "https://gulfpalms.com/ar/product-category/indoor-plants/",
-          "label": "نباتات داخلية"
+          "link": "https://gulfpalms.com/en/product-category/ornamental-plants/",
+          "label": "أشجار الحمضيات"
         },
         {
-          "link": "https://gulfpalms.com/ar/product-category/pots/",
-          "label": "الأواني والحقائب"
+          "link": "https://gulfpalms.com/en/product-category/indoor-plants/",
+          "label": "نباتات الزينة"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/herbs/",
+          "label": "النباتات الداخلية"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/ornamental-palms-bonsai/",
+          "label": "الأعشاب"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/plant-care/",
+          "label": "المبيدات"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/plant-media/",
+          "label": "البيتموس ومحسنات التربة"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/fertilizers/",
+          "label": "الأسمدة"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/seeds/",
+          "label": "البذور"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/pots/",
+          "label": "الأحواض"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/garden-accessories/",
+          "label": "اكسسوارات الحدائق"
+        },
+        {
+          "link": "https://gulfpalms.com/en/product-category/garden-furniture/",
+          "label": "أثاث الحدائق والدوّات"
         }
       ]
     },

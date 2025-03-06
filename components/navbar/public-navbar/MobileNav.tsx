@@ -158,16 +158,26 @@ export default function MobileNav() {
     }) as MenuItem[]) || [];
 
   return (
-    <div className="w-full max-w-md mx-auto bg-background font-sans text-sm">
+    <div className="w-full max-w-md mx-auto bg-background text-sm">
       {/* Search Bar */}
       <div className="relative p-4">
-        <Search className="absolute right-6 top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground cursor-pointer" />
+        <Search
+          className={`absolute ${
+            pageConfig.lang === "en" ? "right-4" : "left-7"
+          } top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground cursor-pointer`}
+        />
         <Input
           type="search"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search for products"
-          className="w-full pr-10 border-none shadow-none outline-none ring-0"
+          placeholder={`${
+            pageConfig.lang === "en"
+              ? "Search for products"
+              : "البحث عن المنتجات"
+          }`}
+          className={`w-full ${
+            pageConfig.lang === "en" ? "pr-10" : ""
+          } border-none shadow-none outline-none ring-0`}
         />
       </div>
 
