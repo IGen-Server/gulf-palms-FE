@@ -454,7 +454,6 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           open={isQuickViewOpen}
           onOpenChange={setIsQuickViewOpen}
           product={productData}
-          slug={slug}
           options={
             productAttribute?.visible && productAttribute?.variation
               ? productAttribute.options

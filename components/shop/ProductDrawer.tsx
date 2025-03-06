@@ -94,7 +94,7 @@ export function ProductDrawer({ open, onOpenChange, product , options=[] }: Prod
 
       {/* View Details Button - Appears on Hover */}
       <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
-        <Link href={`/product/${slug}/`} className="w-full">
+        <Link href={`/product/${product?.slug}/`} className="w-full">
         <Button className=" bg-[#fdb777] text-white hover:bg-[#fda757] font-semibold uppercase">
           View Details
         </Button>
