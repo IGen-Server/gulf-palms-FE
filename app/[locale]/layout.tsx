@@ -21,6 +21,12 @@ const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
 });
 
+const neo_arabic_font = localFont({
+  src: "../fonts/neo_arabic_font.woff2",
+  weight: "400",
+  variable: "--neo-arabic-font",
+});
+
 export const metadata: Metadata = {
   title: "Gulf Palms - The OG of Agricalture",
   description: "Brand Description",
@@ -59,7 +65,11 @@ export default function RootLayout({
           rel="stylesheet"
         ></link>
       </head>
-      <body className={`${lato.className} w-[100vw] mx-auto overflow-x-hidden`}>
+      <body
+        className={`${
+          locale === "en" ? lato.className : neo_arabic_font.className
+        } w-[100vw] mx-auto overflow-x-hidden`}
+      >
         <LoadingProvider>
           <ThemeProvider
             attribute="class"

@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const breadcrumbLinks = [
   { name: "Home", arabicName: "الرئيسية", href: "/" },
-  { name: "Showrooms", arabicName: "» معارضنا", href: "/showrooms" },
+  { name: "Showrooms", arabicName: "معارضنا", href: "/showrooms" },
 ];
 
 export default function ShowRoomsList() {
@@ -21,10 +21,12 @@ export default function ShowRoomsList() {
   return (
     <div className="pt-[98px] ">
       <div className="flex flex-col items-center py-[50px]">
-        <h1 className="text-[68px] font-bold text-black">Showrooms</h1>
+        <h1 className="text-[68px] font-bold text-black">
+          {language === "en" ? "Showrooms" : "معارضنا"}
+        </h1>
         <CustomBreadCrumb links={breadcrumbLinks} />
       </div>
-      {showrooms.map((service: ServiceProps, index: number) => (
+      {showrooms.slice(0, 3).map((service: ServiceProps, index: number) => (
         <div key={index} className="flex flex-col gap-12">
           <ImageTextCard
             colReversed={index % 2 !== 0}
@@ -61,6 +63,7 @@ export default function ShowRoomsList() {
                   {
                     text: language === "en" ? "CONTACT US" : "اتصل بنا",
                     textColor: "text-primary",
+                    textHoverColor: "hover:text-white",
                     bgColor: "bg-white",
                     borderRadius: "rounded-none",
                     border: "2px solid",
@@ -116,13 +119,13 @@ export default function ShowRoomsList() {
             <div className="flex gap-7">
               <Link
                 href={language === "en" ? "/en/contact-us" : "/contact-us"}
-                className="bg-white border-[2px] border-primary px-5 py-2 hover:bg-primary font-semibold text-[.8125rem] text-primary duration-300 cursor-pointer"
+                className="bg-white border-[2px] border-primary px-5 py-2 hover:bg-primary font-semibold text-[.8125rem] text-primary hover:text-white duration-300 cursor-pointer"
               >
                 {language === "en" ? "CONTACT US" : "اتصل بنا"}
               </Link>
               <Link
                 href={showroom.location}
-                className="bg-white border-[2px] border-primary px-5 py-2 hover:bg-primary font-semibold text-[13px] text-primary duration-300 cursor-pointer"
+                className="bg-white border-[2px] border-primary px-5 py-2 hover:bg-primary font-semibold text-[13px] text-primary hover:text-white duration-300 cursor-pointer"
               >
                 {language === "en" ? "OUR LOCATION" : "موقعنا"}
               </Link>
