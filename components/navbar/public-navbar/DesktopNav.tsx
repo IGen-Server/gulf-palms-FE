@@ -40,15 +40,15 @@ export function DesktopNav() {
   };
 
   return (
-    <nav className="hidden lg:flex items-center justify-evenly flex-wrap w-full font-sans">
+    <nav className="hidden lg:flex items-center justify-evenly flex-wrap w-full">
       {updatedMenuItems.map((item) => {
-        if (item.title === t('Shop')) {
+        if (item.title === t("Shop")) {
           return (
             <HoverCard key={item.title} openDelay={100} closeDelay={100}>
               <HoverCardTrigger asChild>
                 <Link
                   href={item.href || "#"}
-                  className="text-white hover:text-gray-200 transition-colors flex items-center gap-1 !text-[13px] font-semibold font-sans"
+                  className="text-white hover:text-gray-200 transition-colors flex items-center gap-1 !text-[13px] font-semibold"
                 >
                   {item.title}
                   <ChevronDown className="w-3 text-secondary opacity-90" />
@@ -94,7 +94,7 @@ export function DesktopNav() {
                                 <Link
                                   key={subItem.title}
                                   href={subItem.href || "#"}
-                                  className="text-gray-600 hover:text-white text-[15px] px-3 py-2 rounded-md hover:bg-primary font-sans"
+                                  className="text-gray-600 hover:text-white text-[15px] px-3 py-2 rounded-md hover:bg-primary"
                                 >
                                   {subItem.title}
                                 </Link>
@@ -117,7 +117,7 @@ export function DesktopNav() {
               <HoverCardTrigger asChild>
                 <Link
                   href={item.href || "#"}
-                  className="text-white hover:text-gray-200 transition-colors flex items-center gap-1 !text-[13px] font-semibold font-sans"
+                  className="text-white hover:text-gray-200 transition-colors flex items-center gap-1 !text-[13px] font-semibold"
                 >
                   {item.title}
                   <ChevronDown className="w-3 text-secondary opacity-90" />

@@ -102,14 +102,29 @@ const SingleProject = ({ slug }: { slug: string }) => {
           </div>
         </div>
         <div className="w-full md:w-[40%] h-[350px] md:h-full">
-          <Image
-            src={project?.sideImage ?? ""}
-            alt={project.en.name}
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="w-full h-full object-cover"
-          />
+          {project.sideImage ? (
+            <Image
+              src={project?.sideImage ?? ""}
+              alt={project.en.name}
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-full object-cover"
+            />
+          ) : project.sideVideo ? (
+            <video
+              className="object-cover w-full h-full"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src={project.sideVideo} type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <PhotoProvider

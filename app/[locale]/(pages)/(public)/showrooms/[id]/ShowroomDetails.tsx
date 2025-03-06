@@ -88,10 +88,12 @@ const Showroom = ({ slug }: { slug: string }) => {
                   {nurseryDetails?.content.title}
                 </h3>
                 <p className="text-base mb-12">
-                  <span className="font-semibold">Address: </span>
+                  <span className="font-semibold">
+                    {language === "en" ? "Address: " : "العنوان"}
+                  </span>
                   {nurseryDetails?.content.details}
                 </p>
-                <div className="flex flex-col lg:flex-row items-center gap-4 justify-center mx-auto">
+                <div className="flex flex-row items-center gap-4 justify-center mx-auto">
                   <Link
                     href={language === "en" ? "/en/contact-us" : "/contact-us"}
                     className="bg-[#F3F3F3] font-semibold text-[.8125rem] leading-4 text-[#3e3e3e] px-5 py-3 duration-300 hover:bg-[#e9e6e6]"
