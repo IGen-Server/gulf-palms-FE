@@ -239,9 +239,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
       price: Number(price),
       description: description || "Product description not available",
       image: imageFileOrUrl || (images && (images[0]?.src || images[0])),
+      images:images ,
       sku: productId || "N/A",
       categories: currentCategories,
       quantity: quantity,
+      slug:slug,
     };
     return (
       <>
@@ -452,6 +454,12 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           open={isQuickViewOpen}
           onOpenChange={setIsQuickViewOpen}
           product={productData}
+          slug={slug}
+          options={
+            productAttribute?.visible && productAttribute?.variation
+              ? productAttribute.options
+              : []
+          }
         />
       </>
     );

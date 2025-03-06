@@ -85,7 +85,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
                 description={product.description}
                 price={product.price}
                 productId={product.productId}
-                slug={""}
+                slug={product.slug}
                 currency={""}
                 currentCategories={[]}
                 productAttribute={null}
