@@ -86,11 +86,11 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
     } catch (error) {
       console.error("Error fetching products:", error);
     }
-  }, [getRelatedProducts]);
+  }, []);
 
   useEffect(() => {
     fetchProducts();
-  }, [fetchProducts]);
+  }, []);
 // console.log({hoverProducts})
   return (
     <div className="flex items-center gap-[40px] min-h-fit flex-col lg:flex-row lg:h-[839px] w-max font-sans">
