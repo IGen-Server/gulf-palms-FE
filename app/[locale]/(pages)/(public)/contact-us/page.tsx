@@ -70,7 +70,7 @@ const contactsData: ContactsData = {
 
 const breadcrumbLinks = [
   { name: "Home", arabicName: "الرئيسية", href: "/" },
-  { name: "Contact us", arabicName: " » اتصل بنا", href: "/contact-us" },
+  { name: "Contact us", arabicName: "اتصل بنا", href: "/contact-us" },
 ];
 
 export default function ContactUs() {
@@ -88,7 +88,11 @@ export default function ContactUs() {
     >
       <div className="w-full max-w-[1192px] mx-auto mb-10">
         <div className="flex flex-col items-center pb-16 lg:pb-[6.25rem] pt-[50px]">
-          <h1 className="mb-3 font-arabic text-4xl lg:text-[4.25rem] lg:leading-[5.125rem] font-bold text-black">
+          <h1
+            className={`mb-3 ${
+              language === "en" ? "font-arabic" : "font-arabic"
+            } font-arabic text-4xl lg:text-[4.25rem] lg:leading-[5.125rem] font-bold text-black`}
+          >
             {language === "en" ? "Contact us" : "اتصل بنا"}
           </h1>
           <CustomBreadCrumb links={breadcrumbLinks} />
@@ -124,28 +128,28 @@ export default function ContactUs() {
                   <a href="mailto:contact@gulfpalms.com">{texts.email}</a>
                 </p>
               </div>
-              <div className="flex space-x-4 w-full justify-start md:justify-end">
-                <Link
-                  href="https://twitter.com/gulfpalms"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:text-primary cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
-                >
-                  <i className="fab fa-twitter"></i>
-                </Link>
+              <div className="flex w-full justify-start gap-4">
                 <Link
                   href="https://www.instagram.com/gulfpalms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary hover:text-primary cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
+                  className="text-primary hover:bg-primary hover:text-white cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
                 >
                   <i className="fab fa-instagram"></i>
+                </Link>
+                <Link
+                  href="https://twitter.com/gulfpalms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:bg-primary hover:text-white cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
+                >
+                  <i className="fab fa-x-twitter"></i>
                 </Link>
                 <Link
                   href="https://www.linkedin.com/company/gulfpalms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary hover:text-primary cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
+                  className="text-primary hover:bg-primary hover:text-white cursor-pointer h-[30px] w-[30px] p-2 border border-primary rounded-full grid place-content-center"
                 >
                   <i className="fab fa-linkedin"></i>
                 </Link>
@@ -161,7 +165,11 @@ export default function ContactUs() {
               </h2>
               <form action="/api/contact" method="POST" className="w-full">
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                  <div>
+                  <div
+                    className={`${
+                      language === "ar" ? "flex flex-col items-end" : ""
+                    }`}
+                  >
                     <label htmlFor="name" className="block text-gray-700">
                       {texts.name}
                     </label>
@@ -170,11 +178,14 @@ export default function ContactUs() {
                       id="name"
                       name="name"
                       className="mt-1 border-black border-opacity-20 w-full"
-                      placeholder={texts.name}
                     />
                   </div>
 
-                  <div>
+                  <div
+                    className={`${
+                      language === "ar" ? "flex flex-col items-end" : ""
+                    }`}
+                  >
                     <label htmlFor="email" className="block text-gray-700">
                       {texts.emailText}
                     </label>
@@ -183,11 +194,14 @@ export default function ContactUs() {
                       id="email"
                       name="email"
                       className="mt-1 border-black border-opacity-20"
-                      placeholder={texts.emailText}
                     />
                   </div>
 
-                  <div>
+                  <div
+                    className={`${
+                      language === "ar" ? "flex flex-col items-end" : ""
+                    }`}
+                  >
                     <label htmlFor="phone" className="block text-gray-700">
                       {texts.phoneText}
                     </label>
@@ -196,11 +210,14 @@ export default function ContactUs() {
                       id="phone"
                       name="phone"
                       className="mt-1 border-black border-opacity-20"
-                      placeholder={texts.phoneText}
                     />
                   </div>
 
-                  <div>
+                  <div
+                    className={`${
+                      language === "ar" ? "flex flex-col items-end" : ""
+                    }`}
+                  >
                     <label htmlFor="company" className="block text-gray-700">
                       {texts.companyText}
                     </label>
@@ -209,12 +226,15 @@ export default function ContactUs() {
                       id="company"
                       name="company"
                       className="mt-1 border-black border-opacity-20"
-                      placeholder={texts.companyText}
                     />
                   </div>
                 </div>
 
-                <div className="mt-6">
+                <div
+                  className={`mt-6 ${
+                    language === "ar" ? "flex flex-col items-end" : ""
+                  }`}
+                >
                   <label htmlFor="message" className="block text-gray-700">
                     {texts.messageText}
                   </label>
@@ -222,12 +242,15 @@ export default function ContactUs() {
                     id="message"
                     name="message"
                     className="mt-1 border-black border-opacity-20 bg-transparent border w-full"
-                    placeholder={texts.messageText}
                     rows={6}
                   />
                 </div>
 
-                <div className="mt-6 ">
+                <div
+                  className={`mt-6 ${
+                    language === "ar" ? "flex justify-self-end self-start" : ""
+                  }`}
+                >
                   <Button
                     type="submit"
                     className="w-auto text-[#3e3e3e] hover:bg-[#e0e0e0] bg-[#F3F3F3] font-semibold uppercase"

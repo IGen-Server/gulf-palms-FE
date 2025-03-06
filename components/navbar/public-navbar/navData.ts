@@ -43,10 +43,10 @@ export const mobileMenuItems: NavItem[] = [
   { title: "PROJECTS", href: "/projects" },
   {
     title: "OUR FARMS",
-    href: "/farms",
+    href: "/our-farms",
     submenu: [
-      { title: "Wafrah Farm", href: "/farms/wafrah" },
-      { title: "Abdali Farm", href: "/farms/abdali" },
+      { title: "Wafrah Farm", href: "/our-farms/wafrah" },
+      { title: "Abdali Farm", href: "/our-farms/abdali" },
     ],
   },
   { title: "GALLERY", href: "/gallery" },
@@ -295,10 +295,10 @@ export const desktopMenuItems = [
   { title: "PROJECTS", href: "/projects" },
   {
     title: "OUR FARMS",
-    href: "/farms",
+    href: "/our-farms",
     submenu: [
-      { title: "Wafrah Farm", href: "/farms/wafrah" },
-      { title: "Abdali Farm", href: "/farms/abdali" },
+      { title: "Wafrah Farm", href: "/our-farms/wafrah" },
+      { title: "Abdali Farm", href: "/our-farms/abdali" },
     ],
   },
   { title: "GALLERY", href: "/gallery" },

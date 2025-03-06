@@ -50,8 +50,8 @@ export function GlobalDataProvider({ children }: { children: React.ReactNode }) 
     ar: { }
   });
   const [slugToTranslate, setSlugToTranslate] = useState<Record<string, Record<string, { id: number, slugType: SlugType, otherLangSlug: string }>>>({
-    en: { slug1: { id: 1, slugType: SlugType.Product, otherLangSlug: '' } },
-    ar: { slug2: { id: 2, slugType: SlugType.Category, otherLangSlug: '' } }
+    en: { },
+    ar: { }
   });
 
   const hasMounted = useRef(false);

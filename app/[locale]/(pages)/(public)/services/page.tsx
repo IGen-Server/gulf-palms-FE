@@ -5,7 +5,6 @@ export default function AllServices() {
   return (
     <div className="pt-[98px]">
       <ServiceCards />
-      <GetInTouch />
     </div>
   );
 }
