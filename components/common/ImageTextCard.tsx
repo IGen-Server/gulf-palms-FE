@@ -9,6 +9,7 @@ import Image from "next/image";
 interface ButtonProps {
   text: string; // Button text
   bgColor?: string; // Background color for the button
+  bgHoverColor?: string;
   height?: string; // Height of the button
   width?: string; // Width of the button
   textColor?: string; // Text color for the button
@@ -96,11 +97,13 @@ export default function ImageTextCard({
         {buttons.items.map((button, index) => (
           <button
             key={index}
-            className={`px-3 py-2 duration-300 !cursor-pointer hover:bg-primary ${
+            className={`px-3 py-2 duration-300 !cursor-pointer ${
               button.textHoverColor || "hover:text-white"
             } ${button.bgColor || "bg-primary"} ${
-              button.textColor || "text-white"
-            } ${button.borderColor || "#777"}
+              button.bgHoverColor || "hover:bg-primary"
+            } ${button.textColor || "text-white"} ${
+              button.borderColor || "#777"
+            }
               ${button.fontWeight || "font-medium"} ${
               button.borderRadius || "rounded"
             } `}

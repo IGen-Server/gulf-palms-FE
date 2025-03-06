@@ -38,13 +38,15 @@ const ServiceCards = () => {
                 items: [
                   {
                     text: language === "en" ? "GET IN TOUCH" : "ابقى على تواصل",
-                    bgColor: "bg-primary hover:bg-[#e59b78]",
+                    bgColor: "bg-primary",
+                    bgHoverColor: "hover:bg-[#e59b78]",
                     borderRadius: "rounded-none",
                     href: "/contact",
                   },
                   {
                     text: language === "en" ? "READ MORE" : "اقرأ أكثر",
-                    bgColor: "bg-white hover:bg-[#777] hover:bg-opacity-10",
+                    bgColor: "bg-white",
+                    bgHoverColor: "hover:bg-[#777]/10",
                     textColor: "text-black",
                     textHoverColor: "hover:text-black",
                     href: `${
