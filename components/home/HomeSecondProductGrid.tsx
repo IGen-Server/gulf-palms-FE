@@ -86,11 +86,11 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
     } catch (error) {
       console.error("Error fetching products:", error);
     }
-  }, [getRelatedProducts]);
+  }, []);
 
   useEffect(() => {
     fetchProducts();
-  }, [fetchProducts]);
+  }, []);
 
   return (
     <div className="py-[90px]">
