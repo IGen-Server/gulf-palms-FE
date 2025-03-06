@@ -68,9 +68,9 @@ export default function SearchDrawer() {
         )}
       </div>
 
-      {searchQuery && products.length === 0 && <div className="text-left mt-5 font-bold text-xl">No items found !</div>}
+      {/* {searchQuery && products.length === 0 && <div className="text-left mt-5 font-bold text-xl">No items found !</div>} */}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 h-[calc(100vh-300px)] overflow-y-auto w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols- gap-6 h-[calc(100vh-300px)] overflow-y-auto w-full  px-4">
         {products.map((product, index) => (
           <div key={index} className="group cursor-pointer w-[180px] h-[280px] flex flex-col items-start justify-start overflow-hidden">
             <Image
@@ -84,10 +84,11 @@ export default function SearchDrawer() {
             <p className="text-primary">{product?.price} Kd</p>
           </div>
         ))}
+       
       </div>
-      {/* <div className="border-t text-center w-full pt-5 uppercase font-semibold">
-         <Link href={`/?s=${searchQuery}/&post_type=product`}> View all results </Link>
-        </div> */}
+     {searchQuery && products.length &&  <Link href={`/shop/?s=${searchQuery}&post_type=product`} className="w-screen overflow-hidden pt-5 cursor-pointer  border-t place-content-end font-semibold text-center">
+        VIEW ALL RESULTS
+        </Link>}
     </div>
   );
 }
