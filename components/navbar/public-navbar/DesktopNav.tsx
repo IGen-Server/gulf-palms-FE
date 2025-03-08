@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/hover-card";
 import { useTranslation } from "react-i18next";
 import useMobileCategoryItems from "./useMenuItems";
+import i18nConfig from "@/i18nConfig";
 
 interface Category {
   title: string;
@@ -24,7 +25,10 @@ interface MenuItem {
 }
 
 export function DesktopNav() {
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
 
   const mobileCategoryItems = useMobileCategoryItems();
 
@@ -85,11 +89,11 @@ export function DesktopNav() {
                         {category.submenu && (
                           <HoverCardContent
                             className="w-[220px] !p-0 shadow-none border-none"
-                            side="right"
+                            side={language === "en" ? "right" : "left"}
                             align="start"
-                            sideOffset={-50}
+                            sideOffset={-125}
                           >
-                            <nav className="flex flex-col space-y-2">
+                            <nav className="w-full flex flex-col space-y-2">
                               {category.submenu.map((subItem: any) => (
                                 <Link
                                   key={subItem.title}
