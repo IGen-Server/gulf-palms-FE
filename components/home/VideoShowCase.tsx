@@ -5,7 +5,7 @@ export default function VideoShowCase() {
   const renderImage = (url: any) => {
     const rendredImage = (
       <div
-        className="w-full h-[400px] grid place-content-center cursor-pointer"
+        className="w-full h-[200px] lg:h-[400px] grid place-content-center cursor-pointer"
         style={{
           backgroundImage: `url(${url})`,
           backgroundSize: "cover",

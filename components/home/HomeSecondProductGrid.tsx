@@ -36,6 +36,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
       const response = await ProductService.Get(
         {
           lang: currentLocale,
+          per_page: 11,
           include: `[0,${hoveresProductIds.join(",")}]`,
         },
         axiosInstanceWithoutLoader
