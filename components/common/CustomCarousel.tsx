@@ -42,7 +42,7 @@ export default function CustomCarousel({
     >
       <ChevronRight
         size={34}
-        className="translate-x-[-20px] lg:translate-x-[100px] text-gray-600 lg:group-hover:translate-x-0 transition-transform duration-1000"
+        className="translate-x-[-20px] lg:translate-x-[100px] text-gray-600 lg:group-hover:translate-x-[-10px] transition-transform duration-1000"
       />
     </div>
   );
@@ -54,7 +54,7 @@ export default function CustomCarousel({
     >
       <ChevronLeft
         size={34}
-        className="translate-x-[20px] lg:translate-x-[-100px] text-gray-600 lg:group-hover:translate-x-0 transition-transform duration-1000"
+        className="translate-x-[20px] lg:translate-x-[-100px] text-gray-600 lg:group-hover:translate-x-[10px] transition-transform duration-1000"
       />
     </div>
   );
@@ -117,7 +117,9 @@ export default function CustomCarousel({
                 }`}
               />
             ) : (
-              <div className="h-full">{item.component}</div>
+              <div className={` h-full ${
+                item.width || "w-full"
+              }`}>{item.component}</div>
             )}
           </div>
         ))}

@@ -93,7 +93,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
 
               />
             ),
-            width: " !w-[218px] ",
+            width: " !w-[218px]",
           }))}
         />
       </div>
