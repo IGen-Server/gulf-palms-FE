@@ -1,12 +1,12 @@
 "use client";
 
-import CustomCarousel from "@/components/common/CustomCarousel";
-import ImageTextCard from "@/components/common/ImageTextCard";
 import Image from "next/image";
 import Link from "next/link";
 import GetInTouch from "@/components/common/GetInTouch";
 import { useTranslation } from "react-i18next";
 import aboutData from "./aboutData.json";
+import CustomCarouselCopy from "@/components/common/CustomCarouselCopy";
+import ImageTextCardCopy from "@/components/common/ImageTextCArdCopy";
 
 const AboutUs = () => {
   const {
@@ -46,7 +46,7 @@ const AboutUs = () => {
         </div>
       </section>
 
-      <ImageTextCard
+      <ImageTextCardCopy
         leftContent={{
           type: "image",
           src: aboutData.aboutImage,
@@ -119,7 +119,7 @@ const AboutUs = () => {
         </div>
       </div>
 
-      <ImageTextCard
+      <ImageTextCardCopy
         leftContent={{
           type: "text",
           heading: about.vision.title,
@@ -141,7 +141,7 @@ const AboutUs = () => {
         className="items-start"
       />
 
-      <ImageTextCard
+      <ImageTextCardCopy
         leftContent={{
           type: "text",
           heading: about.who.title,
@@ -169,7 +169,7 @@ const AboutUs = () => {
           </p>
           <p className="text-[#777] text-[.9375rem]">{about.clients.summary}</p>
         </div>
-        <CustomCarousel
+        <CustomCarouselCopy
           dots={false}
           autoPlay={true}
           withNavigation={true}
