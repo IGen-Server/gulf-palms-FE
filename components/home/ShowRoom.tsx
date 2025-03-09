@@ -31,12 +31,12 @@ const showrooms = [
 export default function ShowRoom() {
   const { t } = useTranslation();
   return (
-    <div className="w-screen mx-auto min-h-[306px]">
+    <div className="w-screen mx-auto lg:h-[306px]">
       <div className="flex flex-col lg:flex-row h-fit">
         {showrooms.map(({ id, nameKey, showroomKey, link, bgColor }) => (
           <div key={id} className={`text-white space-y-3 ${bgColor} p-[50px] text-center w-full flex flex-col items-center justify-center min-h-[206px]`}>
             <p className="text-[30px] font-sans font-light">{t(nameKey)}</p>
-            <p className="text-[29px] font-bold font-arabic h-[100px]">
+            <p className="text-[29px] font-bold font-arabic min-h-fit h-[100px]">
               {t(showroomKey)}
             </p>
             <Link
