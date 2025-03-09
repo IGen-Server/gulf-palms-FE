@@ -52,7 +52,7 @@ export default function ShowRoomsList() {
                     : service.ar.content.details
                 }`,
               ],
-              bulletsSpan: language === "en" ? "Address: " : "العنوان: ",
+              // bulletsSpan: language === "en" ? "Address: " : "العنوان: ",
               textAlign: "center",
               textSize: "text-[15px]",
               textColor: "text-primary",
@@ -63,7 +63,7 @@ export default function ShowRoomsList() {
                   {
                     text: language === "en" ? "CONTACT US" : "اتصل بنا",
                     textColor: "text-primary",
-                    textHoverColor: "hover:text-white",
+                    // textHoverColor: "hover:text-white",
                     bgColor: "bg-white",
                     borderRadius: "rounded-none",
                     border: "2px solid",

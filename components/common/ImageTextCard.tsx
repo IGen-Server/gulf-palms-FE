@@ -21,6 +21,7 @@ interface ButtonsGroupProps {
   type?: "row" | "col"; // Layout type: row or column
   gap?: string; // Gap between buttons
   align?: string; // Gap between buttons
+  bgHoverColor?: any;
 }
 
 interface ContentProps {
@@ -70,7 +71,7 @@ export default function ImageTextCard({
     const layoutClass = buttons.type === "col" ? "flex-col" : "flex-row";
     const gapClass = buttons.gap || "gap-3";
     const alignClass = buttons.align && `justify-${buttons.align}`;
-
+    const hoverColor = buttons.bgHoverColor && `justify-${buttons.align}`;
     return (
       <div
         className={`flex w-full items-center ${alignClass} ${layoutClass} ${gapClass}`}
@@ -234,4 +235,3 @@ export default function ImageTextCard({
     </div>
   );
 }
- 

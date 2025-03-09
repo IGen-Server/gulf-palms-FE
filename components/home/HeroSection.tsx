@@ -49,7 +49,7 @@ export default function HeroSection() {
   );
 
   return (
-    <div className="max-w-screen max-md:w-full pr-[30px] sm:pr-[60px] lg:max-w-[1000px] px-[22px] lg:text-left absolute top-[125px] lg:top-[353px] 2xl:top-[360px] lg:ml-[30px] 2xl:-ml-[30px] overflow-hidden">
+    <div className="!max-w-[99vw] max-md:w-full pr-[30px] sm:pr-[60px] lg:max-w-[1000px] px-[22px] lg:text-left absolute top-[125px] lg:top-[353px] 2xl:top-[360px] lg:ml-[30px] 2xl:-ml-[30px] !overflow-x-hidden">
       <div className="relative z-10 text-white lg:text-secondary">
         {content}
       </div>
