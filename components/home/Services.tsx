@@ -23,7 +23,7 @@ export default function Services() {
       key={service.id}
       style={{
         minWidth: "310px",
-        minHeight: "310px",
+        minHeight: "440px",
         backgroundImage: `url(${service.imageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
