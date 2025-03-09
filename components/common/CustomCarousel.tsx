@@ -78,16 +78,16 @@ export default function CustomCarousel({
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: Math.min(3, slidesToShow),
-          slidesToScroll: Math.min(3, slidesToScroll),
+          slidesToShow: Math.min(data[0]?.imageSrc ? 3:2, slidesToShow),
+          slidesToScroll: Math.min(data[0]?.imageSrc ? 3:2, slidesToScroll),
           dots: false,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: Math.min(2, slidesToShow),
-          slidesToScroll: Math.min(2, slidesToScroll),
+          slidesToShow: Math.min(data[0]?.imageSrc ? 2:1, slidesToShow),
+          slidesToScroll: Math.min(data[0]?.imageSrc ? 2:1, slidesToScroll),
           dots: false,
         },
       },

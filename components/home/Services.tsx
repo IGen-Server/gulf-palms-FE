@@ -22,13 +22,13 @@ export default function Services() {
     <div
       key={service.id}
       style={{
-        width: "440px",
-        height: "440px",
+        minWidth: "310px",
+        minHeight: "310px",
         backgroundImage: `url(${service.imageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className="relative group/number !w-[98vw] md:!w-[48vw] lg:!w-[310px] xl:!w-[440px] overflow-hidden"
+      className="relative group/number !w-[98vw] md:!w-[42vw] lg:!w-[310px] xl:!w-[420px] overflow-hidden"
     >
       <div className="absolute top-0 left-0 h-full w-full p-5 text-white space-y-[10px]">
         <p className="text-xl font-sans">{service.subtitle}</p>
@@ -37,7 +37,7 @@ export default function Services() {
         <div className="w-full h-[48px] overflow-hidden !mt-4 ">
           <Link href={service.link}>
           <Button
-            className="translate-y-[48px] group-hover/number:translate-y-[0px] rounded-none bg-primary transition-transform duration-500 opacity-90 hover:bg-primary hover:opacity-100 w-[113px] h-[42px] grid place-content-center"
+            className="lg:translate-y-[48px] group-hover/number:translate-y-[0px] rounded-none bg-primary transition-transform duration-500 opacity-90 hover:bg-primary hover:opacity-100 w-[113px] h-[42px] grid place-content-center"
             variant={"default"}
           >
             {t("whoWeAre.buttons.readMore")}
