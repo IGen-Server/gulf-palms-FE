@@ -27,6 +27,7 @@ export default function SearchDrawer() {
 
   const [pageConfig, setPageConfig] = useState({
     search: searchQuery,
+    per_page:30,
     lang: i18n.language,
   });
 
@@ -52,7 +53,7 @@ export default function SearchDrawer() {
   if (!isOpen) return null;
 
   return (
-    <div className="overflow-y-auto h-[calc(100vh-200px)] max-w-[1370px] mx-auto w-full flex flex-col items-center justify-start">
+    <div className="overflow-y-auto h-[calc(100vh-200px)] max-w-[1370px] mx-auto w-full flex flex-col items-center justify-start overflow-x-hidden ">
       <div className="mb-8 space-y-5 flex flex-col justify-center items-center">
         <Input
           type="text"
@@ -70,7 +71,7 @@ export default function SearchDrawer() {
 
       {/* {searchQuery && products.length === 0 && <div className="text-left mt-5 font-bold text-xl">No items found !</div>} */}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols- gap-6 h-[calc(100vh-300px)] overflow-y-auto w-full  px-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols- gap-6 h-[calc(100vh-300px)] overflow-y-auto w-full overflow-x-hidden  px-4">
         {products.map((product, index) => (
           <div key={index} className="group cursor-pointer w-[180px] h-[280px] flex flex-col items-start justify-start overflow-hidden">
             <Image
