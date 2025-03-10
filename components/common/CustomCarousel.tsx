@@ -21,6 +21,7 @@ interface CustomCarouselProps {
   data: CarouselData[];
   autoPlay?: boolean;
   withNavigation?: boolean;
+  compactArrow?: boolean;
   slidesToShow?: number;
   slidesToScroll?: number;
   MobileSlidesNumber?: number;
@@ -34,27 +35,28 @@ export default function CustomCarousel({
   autoPlay = false,
   withNavigation = false,
   MobileSlidesNumber = 2,
+  compactArrow = false,
 }: CustomCarouselProps) {
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className="absolute right-[0px] md:-right-[22px] top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
+      className={`absolute  top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000   ${compactArrow ? ' right-[0px] md:-right-[22px] ' : ' right-[10px] md:-right-[50px] '}`}
       onClick={onClick}
     >
       <ChevronRight
         size={34}
-        className="translate-x-[-20px] lg:translate-x-[100px] text-gray-600 lg:group-hover:translate-x-[-10px] transition-transform duration-1000"
+        className={`text-gray-600 transition-transform duration-1000  ${compactArrow ? ' translate-x-[-20px] lg:translate-x-[100px]  lg:group-hover:translate-x-[-10px] ' : ' translate-x-[-20px] lg:translate-x-[100px]  lg:group-hover:translate-x-[0px]'}`}
       />
     </div>
   );
 
   const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className="absolute  md:-left-[35px] top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
+      className={`absolute  top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000 ${compactArrow ? 'md:-left-[35px]' : 'md:-left-[50px]'}`}
       onClick={onClick}
     >
       <ChevronLeft
         size={34}
-        className="translate-x-[20px] lg:translate-x-[-100px] text-gray-600 lg:group-hover:translate-x-[10px] transition-transform duration-1000"
+        className={`text-gray-600 transition-transform duration-1000  ${compactArrow ? ' translate-x-[20px] lg:translate-x-[-100px]  lg:group-hover:translate-x-[10px]  ' : ' translate-x-[20px] lg:translate-x-[-100px]  lg:group-hover:translate-x-[0px] '}`}
       />
     </div>
   );
@@ -78,16 +80,16 @@ export default function CustomCarousel({
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: Math.min(data[0]?.imageSrc ? 3:2, slidesToShow),
-          slidesToScroll: Math.min(data[0]?.imageSrc ? 3:2, slidesToScroll),
+          slidesToShow: Math.min(!!data[0]?.component ? 3:2, slidesToShow),
+          slidesToScroll: Math.min(!!data[0]?.component ? 3:2, slidesToScroll),
           dots: false,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: Math.min(data[0]?.imageSrc ? 2:1, slidesToShow),
-          slidesToScroll: Math.min(data[0]?.imageSrc ? 2:1, slidesToScroll),
+          slidesToShow: Math.min(!!data[0]?.component ? 2:1, slidesToShow),
+          slidesToScroll: Math.min(!!data[0]?.component ? 2:1, slidesToScroll),
           dots: false,
         },
       },
