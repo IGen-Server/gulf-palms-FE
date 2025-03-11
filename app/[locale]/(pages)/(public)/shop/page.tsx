@@ -24,6 +24,7 @@ import { ProductService } from "@/services/api/product.service";
 import { ProductCategoryModel } from "@/models/product/product";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
 import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
+import { CustomBreadCrumb2 } from "@/components/common/CustomBreadCrumb2";
 
 const breadcrumbLinks = [
   { name: "Home", href: "/" },
@@ -132,14 +133,17 @@ export default function Shop() {
         <div className="flex flex-col items-center pb-[100px] lg:pb-[200px] pt-[50px]">
           <h1 className="text-[36px] font-bold text-black">Shop</h1>
           <div className="lg:hidden w-full mx-auto min-h-10 px-6 text-center">
-            
-              <p
-                className="flex items-center gap-3 justify-center pt-4 cursor-pointer"
-                onClick={() => setShowMobileScreenCategory(!showMobileScreenCategory)}
-              >
-                Categories <ChevronDown className={`${showMobileScreenCategory ? ' rotate-180 ':' '}`}/>
-              </p>
-            
+            <p
+              className="flex items-center gap-3 justify-center pt-4 cursor-pointer"
+              onClick={() =>
+                setShowMobileScreenCategory(!showMobileScreenCategory)
+              }
+            >
+              Categories{" "}
+              <ChevronDown
+                className={`${showMobileScreenCategory ? " rotate-180 " : " "}`}
+              />
+            </p>
 
             {/* Smooth height transition container */}
             <div
@@ -165,16 +169,19 @@ export default function Shop() {
                 uppercase={false}
                 currentStyle="font-semibold"
               />
+              
               <div className="flex items-center gap-4 ">
                 <div className="hidden lg:flex items-center gap-3">
                   <p className="text-sm font-semibold">Show :</p>
-                  <CustomBreadCrumb
-                    links={showPerPage}
-                    activeLastLink={true}
-                    updatePerPage={updatePageConfig}
-                    uppercase={false}
-                    currentStyle="font-extrabold text-black"
-                  />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <CustomBreadCrumb2
+                      links={showPerPage}
+                      activeLastLink={true}
+                      updatePerPage={updatePageConfig}
+                      uppercase={false}
+                      currentStyle="font-extrabold text-black"
+                    />
+                  </Suspense>
                 </div>
                 <div className="hidden lg:flex items-center gap-2">
                   <LayoutGrid
@@ -226,7 +233,7 @@ export default function Shop() {
             </div>
             <div className="flex items-center justify-center">
               <div
-                className={`w-full grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-${columns} max-lg:px-8 mx-auto`}
+                className={`w-full grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-${columns} max-lg:px-8 mx-auto`}
               >
                 {products.map((product) => (
                   <ProductCard
