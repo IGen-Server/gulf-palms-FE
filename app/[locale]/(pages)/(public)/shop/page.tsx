@@ -226,7 +226,7 @@ export default function Shop() {
             </div>
             <div className="flex items-center justify-center">
               <div
-                className={`w-full grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-${columns}`}
+                className={`w-full grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-${columns} max-lg:px-8 mx-auto`}
               >
                 {products.map((product) => (
                   <ProductCard
