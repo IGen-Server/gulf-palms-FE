@@ -39,6 +39,7 @@ export default function PriceSlider({ setPriceSlider }: PriceSliderProps) {
         step={1}
         minValue={minValue}
         maxValue={maxValue}
+        className="-ml-3"
         onInput={(e) => {
           handleInput(e);
         }}

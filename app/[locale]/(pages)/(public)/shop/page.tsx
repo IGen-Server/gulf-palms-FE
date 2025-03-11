@@ -34,7 +34,7 @@ const showPerPage = [
 export default function Shop() {
   const [columns, setColumns] = useState(4);
   const { i18n } = useTranslation();
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(false,false);
   const { categories } = useGlobalDataProvider();
 
   const [pageConfig, setPageConfig] = useState({
@@ -135,7 +135,7 @@ export default function Shop() {
                 uppercase={false}
                 currentStyle="font-semibold"
               />
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4"> 
                 <div className="flex items-center gap-3">
                   <p className="text-sm font-semibold">Show :</p>
                   <CustomBreadCrumb
@@ -143,20 +143,20 @@ export default function Shop() {
                     activeLastLink={true}
                     updatePerPage={updatePageConfig}
                     uppercase={false}
-                    currentStyle="font-semibold"
+                    currentStyle="font-extrabold text-black"
                   />
                 </div>
                 <div className="flex items-center gap-2">
                   <LayoutGrid
-                    className="cursor-pointer h-[22px]"
+                    className={`cursor-pointer h-[22px] ${columns === 2 ? 'font-extrabold text-black' : ' text-gray-300'}`}
                     onClick={() => setColumns(2)}
                   />
                   <Grip
-                    className="cursor-pointer"
+                  className={`cursor-pointer ${columns === 3 ? 'font-extrabold text-black' : ' text-gray-300'}`}
                     onClick={() => setColumns(3)}
                   />
                   <div
-                    className="flex items-center justify-center cursor-pointer -ml-[10px]"
+                  className={`flex items-center justify-center cursor-pointer -ml-[10px] ${columns === 4 ? 'font-extrabold text-black' : ' text-gray-300'}`}
                     onClick={() => setColumns(4)}
                   >
                     <EllipsisVertical className="-mr-[10px]" />
@@ -170,7 +170,7 @@ export default function Shop() {
             </div>
             <div className="flex items-center justify-center">
               <div
-                className={`grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-${columns}`}
+                className={`w-full grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-${columns}`}
               >
                 {products.map((product) => (
                   <ProductCard

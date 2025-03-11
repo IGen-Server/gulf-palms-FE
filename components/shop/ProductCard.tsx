@@ -57,7 +57,7 @@ export default function ProductCard({
   };
 
   return (
-    <div className="relative group max-w-[390px] grid place-content-center mb-[70px] custom-shadow pb-4 pt-7">
+    <div className="relative group w-full grid place-content-center mb-[70px] custom-shadow pb-4 pt-7">
       <SelectProductVariant
         isOpen={isSheetOpen}
         setIsOpen={setIsSheetOpen}
@@ -78,7 +78,7 @@ export default function ProductCard({
       />
 
       {/* Product Image Section */}
-      <div className="grid place-content-center w-full overflow-hidden h-[280px]">
+      <div className="grid place-content-center w-full overflow-hidden h-[280px] ">
         <Link href={`/product/${slug}`} className="block">
           <img
             loading="lazy"
