@@ -59,7 +59,7 @@ export default function Customers() {
   
     return (
       <div className="px-4 py-6 h-full relative">
-        <div className="bg-white rounded-lg shadow-sm p-6 min-h-[300px] h-full flex flex-col border border-gray-200">
+        <div className="bg-white rounded-lg shadow-sm p-6 min-h-[300px] h-full flex flex-col border border-gray-400">
           <div className="flex flex-col justify-center items-center gap-4 mb-4">
             <div className="absolute top-0">
               <div className="relative">

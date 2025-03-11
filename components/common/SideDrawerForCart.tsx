@@ -16,19 +16,30 @@ import Link from "next/link";
 
 interface SideDrawerProps {
   title: string;
-  open?: boolean;
   side?: "top" | "bottom" | "left" | "right" | null | undefined;
   triggerComponent: ReactNode;
   bodyComponent: ReactNode;
+  open?: boolean; // Add open prop
+  onOpenChange?: (open: boolean) => void; // Add onOpenChange prop
 }
 
-export function SideDrawer({ title, triggerComponent, bodyComponent, side="right" ,open}: SideDrawerProps) {
+export function SideDrawerForCart({
+  title,
+  triggerComponent,
+  bodyComponent,
+  side = "right",
+  open,
+  onOpenChange,
+}: SideDrawerProps) {
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        {triggerComponent}
-      </SheetTrigger>
-      <SheetContent side={side} className={`!z-[51] overflow-y-auto px-0 drawer ${side === 'bottom' ? " " : " w-[283px] xl:w-[340px]"}`}>
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetTrigger asChild>{triggerComponent}</SheetTrigger>
+      <SheetContent
+        side={side}
+        className={`!z-[51] overflow-x-hidden px-0 drawer ${
+          side === "bottom" ? " " : " w-[283px] xl:w-[340px]"
+        }`}
+      >
         <div className="grid gap-6">
           <div className="flex items-center justify-between !px-[20px] border-b pb-4">
             <h2 className="text-xl font-semibold ">{title}</h2>
@@ -39,8 +50,9 @@ export function SideDrawer({ title, triggerComponent, bodyComponent, side="right
               </p>
             </SheetClose>
           </div>
-
+          <div>
           {bodyComponent}
+          </div>
         </div>
       </SheetContent>
     </Sheet>
