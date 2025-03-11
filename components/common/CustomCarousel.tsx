@@ -41,7 +41,7 @@ export default function CustomCarousel({
 }: CustomCarouselProps) {
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className={`absolute  top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000   ${compactArrow ? ' right-[0px] md:-right-[22px] ' : ' right-[10px] md:-right-[50px] '}`}
+      className={`absolute  top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000   ${compactArrow ? ' right-[0px] md:-right-[22px] ' : ' right-[10px] md:-right-[30px] '}`}
       onClick={onClick}
     >
       <ChevronRight
