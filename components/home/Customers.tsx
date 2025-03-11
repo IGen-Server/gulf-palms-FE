@@ -117,6 +117,7 @@ export default function Customers() {
       <div className="pb-8 md:pb-[50px]">
         <CustomCarousel
           slidesToScroll={1}
+          MobileSlidesNumber={1}
           slidesToShow={3}
           data={testimonials.map(testimonial => ({
             component: CreateTestimonialSlide(testimonial)

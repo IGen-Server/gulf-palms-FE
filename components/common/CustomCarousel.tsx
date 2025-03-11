@@ -22,6 +22,7 @@ interface CustomCarouselProps {
   autoPlay?: boolean;
   withNavigation?: boolean;
   compactArrow?: boolean;
+  serviceComponent?: boolean;
   slidesToShow?: number;
   slidesToScroll?: number;
   MobileSlidesNumber?: number;
@@ -36,6 +37,7 @@ export default function CustomCarousel({
   withNavigation = false,
   MobileSlidesNumber = 2,
   compactArrow = false,
+  serviceComponent = false,
 }: CustomCarouselProps) {
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
@@ -44,7 +46,7 @@ export default function CustomCarousel({
     >
       <ChevronRight
         size={34}
-        className={`text-gray-600 transition-transform duration-1000  ${compactArrow ? ' translate-x-[-20px] lg:translate-x-[100px]  lg:group-hover:translate-x-[-10px] ' : ' translate-x-[-20px] lg:translate-x-[100px]  lg:group-hover:translate-x-[0px]'}`}
+        className={`text-gray-600 transition-transform duration-1000  ${compactArrow ? ' translate-x-[-20px] lg:translate-x-[100px]  lg:group-hover:translate-x-[-10px] ' : ' translate-x-[-20px] lg:translate-x-[100px]  lg:group-hover:translate-x-[-10px]'}`}
       />
     </div>
   );
@@ -80,16 +82,16 @@ export default function CustomCarousel({
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: Math.min(!!data[0]?.component ? 3:2, slidesToShow),
-          slidesToScroll: Math.min(!!data[0]?.component ? 3:2, slidesToScroll),
+          slidesToShow: Math.min(serviceComponent ? 2:3, slidesToShow),
+          slidesToScroll: Math.min(serviceComponent ? 2:3, slidesToScroll),
           dots: false,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: Math.min(!!data[0]?.component ? 2:1, slidesToShow),
-          slidesToScroll: Math.min(!!data[0]?.component ? 2:1, slidesToScroll),
+          slidesToShow: Math.min(serviceComponent ? 1:2, slidesToShow),
+          slidesToScroll: Math.min(serviceComponent ? 1:2, slidesToScroll),
           dots: false,
         },
       },

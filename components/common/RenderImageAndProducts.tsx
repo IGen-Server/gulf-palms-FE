@@ -430,7 +430,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               </h2>
             </Link>
             {/* <p className="text-[11px] sm:text-[13.3px] text-gray-500 overflow-ellipsis">{description}</p> */}
-            {currentCategories.map((category, index) => (
+            {currentCategories?.slice(0,2)?.map((category, index) => (
               <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
                 <Link
                   href={getCategoryPathByIdFromRecord(

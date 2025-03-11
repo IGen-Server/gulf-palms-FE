@@ -72,6 +72,7 @@ export default function Services() {
           data={slidesData}
           autoPlay={true}
           MobileSlidesNumber={1}
+          serviceComponent={true}
         />
       </div>
     </div>
