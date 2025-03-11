@@ -6,7 +6,7 @@ import GetInTouch from "@/components/common/GetInTouch";
 import { useTranslation } from "react-i18next";
 import aboutData from "./aboutData.json";
 import CustomCarouselCopy from "@/components/common/CustomCarouselCopy";
-import ImageTextCardCopy from "@/components/common/ImageTextCArdCopy";
+import ImageTextCardCopy from "@/components/common/ImageTextCardCopy";
 
 const AboutUs = () => {
   const {
