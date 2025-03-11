@@ -58,7 +58,17 @@ export function SortingDropdown({ setSorting }: SortingDropdownProps) {
               : "Default Sorting"}
           </span>
         </SelectTrigger>
-        <SelectTrigger className="lg:hidden sorting_mobile " aria-label="Shop order">
+        <SelectContent>
+          <SelectItem value="menu_order">Default sorting</SelectItem>
+          <SelectItem value="popularity">Sort by popularity</SelectItem>
+          <SelectItem value="rating">Sort by average rating</SelectItem>
+          <SelectItem value="date">Sort by latest</SelectItem>
+          <SelectItem value="price">Sort by price: low to high</SelectItem>
+          <SelectItem value="price-desc">Sort by price: high to low</SelectItem>
+        </SelectContent>
+      </Select>
+      <Select onValueChange={handleChange} defaultValue={currentOrderby} >
+        <SelectTrigger className="lg:hidden sorting_mobile">
           <ArrowUpDown />
         </SelectTrigger>
         <SelectContent>
