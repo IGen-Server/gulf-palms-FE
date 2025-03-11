@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
-const BlogPostCard = () => {
+const BlogPostCard = ({ slug }: { slug: string }) => {
   const [hovered, setHovered] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
 
@@ -22,14 +23,12 @@ const BlogPostCard = () => {
 
   return (
     <div
-      className="relative w-[388px] h-[273px] overflow-hidden mt-24"
+      className="w-full mt-24"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className={`${
-          hovered ? "scale-105" : "scale-100"
-        } duration-700 cursor-pointer`}
+        className={`relative w-full h-[273px] overflow-hidden duration-700 cursor-pointer`}
       >
         <Image
           src="https://gulfpalms.com/wp-content/uploads/2021/08/wd-blog-1.jpg"
@@ -37,7 +36,9 @@ const BlogPostCard = () => {
           width={0}
           height={0}
           sizes="100vw"
-          className="w-full h-full object-cover rounded-lg"
+          className={`w-full h-full object-cover rounded-lg ${
+            hovered ? "scale-105" : "scale-100"
+          } duration-700`}
         />
 
         <div
@@ -68,10 +69,30 @@ const BlogPostCard = () => {
           ))}
         </div>
       </div>
-      <div className="">
+
+      <div className="relative flex flex-col gap-2 p-6 text-center">
+        <p className="absolute left-1/2 -translate-x-1/2 -top-3 bg-primary px-3 py-1 font-semibold text-xs text-white uppercase z-20">
+          {slug}
+        </p>
         <h2 className="font-medium text-2xl text-[#333] opacity-65">
           Exploring Atlanta’s modern homes
         </h2>
+        <div className="flex items-center gap-3">
+          <p className="">By</p>
+          <Image
+            src="/images/users/avatar.jpg"
+            alt="Avatar"
+            width={24}
+            height={24}
+            className="rounded-full"
+          />
+        </div>
+        <Link
+          href={`/${slug}`}
+          className="font-semibold text-[.8125rem] text-primary uppercase"
+        >
+          Continue Reading
+        </Link>
       </div>
     </div>
   );
