@@ -54,7 +54,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
 // console.log({products})
   const bottomLayer = (
     <div className="grid h-full w-full place-content-center ">
-      <div className="max-lg:w-[85vw] lg:w-[576px] py-3 h-full flex flex-col justify-center items-center">
+      <div className="max-lg:w-[85vw] lg:w-[550px] py-3 h-full flex flex-col justify-center items-center ">
         <div className="grid place-content-center w-full">
           <div className="pb-[20px] text-center w-[364px]">
             <p className="text-[#777777] text-[30px] font-sans font-light">
@@ -74,6 +74,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
           slidesToShow={2}
           slidesToScroll={2}
           MobileSlidesNumber={1}
+          compactArrow={true}
           data={products?.slice(4)?.map((product) => ({
             component: (
               <RenderImageAndProducts
@@ -85,7 +86,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
                 description={product.description}
                 price={product.price}
                 productId={product.productId}
-                slug={""}
+                slug={product.slug}
                 currency={""}
                 currentCategories={[]}
                 productAttribute={null}
@@ -93,7 +94,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
 
               />
             ),
-            width: " !w-[218px] ",
+            width: " w-full lg:max-w-[218px]  ",
           }))}
         />
       </div>
@@ -101,7 +102,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
   );
   const topLayer = (
     <div className="grid h-full w-full place-content-center ">
-      <div className="max-lg:w-[85vw] lg:w-[576px] py-3 h-full flex flex-col justify-center items-center">
+      <div className="max-lg:w-[85vw] lg:w-[550px] py-3 h-full flex flex-col justify-center items-center">
         <div className="grid place-content-center w-full">
           <div className="pb-[20px] text-center w-[364px]">
             <p className="text-[#777777] text-[30px] font-sans font-light">
@@ -121,6 +122,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
           slidesToShow={2}
           slidesToScroll={2}
           MobileSlidesNumber={1}
+          compactArrow={true}
           data={products?.slice(0,4)?.map((product) => ({
             component: (
               <RenderImageAndProducts
@@ -132,14 +134,14 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
                 description={product.description}
                 price={product.price}
                 productId={product.productId}
-                slug={""}
+                slug={product?.slug}
                 currency={""}
                 currentCategories={[]}
                 productAttribute={null}
                 slugToCategoryRecord={slugToCategoryRecord}
               />
             ),
-            width: " !w-[218px] ",
+            width: " w-full lg:max-w-[218px] ",
           }))}
         />
       </div>

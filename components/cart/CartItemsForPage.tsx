@@ -15,7 +15,7 @@ export function CartItemsForPage({ item }:{item:any}) {
       {/* Product */}
       <div className="col-span-5 flex gap-4 items-center pl-8">
         <div className="w-[70px] h-[70px] relative">
-          <Image src={item.image || "/placeholder.svg"} alt={item.name} fill className="object-cover rounded" />
+          <Image src={item.image?.src || item?.image ||  "/placeholder.svg"} alt={item.name} fill className="object-cover rounded" />
         </div>
         <span className="font-medium">{item.name}</span>
       </div>

@@ -46,6 +46,7 @@ export default function WhoWeAre() {
                 textColor: "text-[#242424] hover:bg-[#F3F3F3]",
                 borderRadius: "none",
                 border: "1px solid #F3F3F3",
+                href:'/about-us-arabic'
               },
             ],
           },

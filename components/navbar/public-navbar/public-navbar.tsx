@@ -35,6 +35,7 @@ import { ClientRoutes } from "@/services/utility/router.service";
 import { CookieStorageService } from "@/services/utility/storage.service";
 import { isJwtTokenExpired } from "@/services/utility/utility.service";
 import { ProductCategoryService } from "@/services/api/product-category.service";
+import { SideDrawerForCart } from "@/components/common/SideDrawerForCart";
 
 interface MenuItem {
   title: string;
@@ -52,6 +53,7 @@ export default function PublicNavbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isHomePage, setIsHomePage] = useState(false);
+  const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
 
   const cartRef = useRef<HTMLDivElement>(null);
   const { cartItems, subtotal } = useCart();
@@ -102,14 +104,13 @@ export default function PublicNavbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  useEffect(() => {
-    if (cartItems.length > 0 && cartRef.current) {
-      if (!cartRef.current.classList.contains("opened")) {
-        cartRef.current.click();
-        cartRef.current.classList.add("opened");
-      }
+ useEffect(() => {
+    const currentTotalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+    if (currentTotalQuantity > 0) {
+      setIsCartDrawerOpen(true);
     }
-  }, [cartItems.length]);
+  }, [cartItems]);
 
   const myDashboard: MenuItem[] =
     (t("my_account", {
@@ -252,24 +253,25 @@ export default function PublicNavbar() {
           {/* {pathname.includes('my-account') || <AuthSheet />} */}
 
           <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary ">
-            <SideDrawer
-              title={"Cart"}
-              triggerComponent={
-                <Button
-                  asChild
-                  variant="ghost"
-                  className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn hover:text-white text-white"
-                >
-                  <div className="relative cursor-pointer">
-                    <ShoppingCart className="w-5 h-5 " />
-                    <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
-                      {cartItems?.length || 0}
-                    </p>
-                  </div>
-                </Button>
-              }
-              bodyComponent={<CartDrawer />}
-            />
+          <SideDrawerForCart
+                title="Cart"
+                open={isCartDrawerOpen}
+                onOpenChange={setIsCartDrawerOpen}
+                triggerComponent={
+                  <Button
+                    variant="ghost"
+                    className="hover:bg-transparent w-fit p-0 flex items-center text-white"
+                  >
+                    <div className="relative cursor-pointer">
+                      <ShoppingCart className="w-5 h-5" />
+                      <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 w-4 grid place-content-center">
+                        {cartItems.length || 0}
+                      </p>
+                    </div>
+                  </Button>
+                }
+                bodyComponent={<CartDrawer />}
+              />
 
             <div className="hidden lg:block">
               <HeartIcon className="w-5 h-5" />
@@ -288,7 +290,7 @@ export default function PublicNavbar() {
           {/* Right Actions */}
           <div className="ml-auto hidden lg:flex items-center gap-4 min-w-fit ">
             <p className="!text-[13px] font-semibold text-secondary">
-              {subtotal} KD
+              {subtotal.toFixed(2)} KD
             </p>
             <LocaleToggler />
           </div>

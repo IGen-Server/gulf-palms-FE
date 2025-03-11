@@ -4,6 +4,7 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import { Currency, Ellipsis, ShoppingCart } from "lucide-react";
+import { ClipLoader } from "react-spinners";
 
 import {
   HoverCard,
@@ -83,18 +84,26 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   >(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { addToCart } = useCart();
 
-  const handleAddToCart = () => {
-    addToCart({
-      id: productId,
-      name: name as string,
-      price: Number(price) as number,
-      quantity: 1,
-      image: images?.[0] || imageFileOrUrl,
-    });
-    setIsSheetOpen(false);
+   const handleAddToCart = async () => {
+    setLoading(true); // Set loading to true
+    try {
+      await addToCart({
+        id: productId,
+        name: name as string,
+        price: Number(price) as number,
+        quantity: 1,
+        image: images?.[0] || imageFileOrUrl,
+      });
+      setIsSheetOpen(false);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    } finally {
+      setLoading(false); // Set loading to false
+    }
   };
 
   const renderHoveredButton = (product: HoverProduct) => {
@@ -104,7 +113,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
           onClick={() => handleAddToCart()}
         >
-          ADD TO CART
+          {loading ? <ClipLoader/> : "ADD TO CART"}
         </div>
       );
     }
@@ -239,9 +248,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
       price: Number(price),
       description: description || "Product description not available",
       image: imageFileOrUrl || (images && (images[0]?.src || images[0])),
+      images:images ,
       sku: productId || "N/A",
       categories: currentCategories,
       quantity: quantity,
+      slug:slug,
     };
     return (
       <>
@@ -323,16 +334,20 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                       setIsSheetOpen(true);
                     }}
                   >
-                    <ShoppingCart
-                      className="w-4 h-4 sm:w-5 sm:h-5"
-                      onClick={() => {
-                        const isSelected = selectProductId === productId;
-                        const isSheetOpenTrue = isSheetOpen;
-                        if (isSelected && isSheetOpenTrue) {
-                          handleAddToCart();
-                        }
-                      }}
-                    />
+                    {loading && isSheetOpen ? (
+                      <ClipLoader />
+                    ) : (
+                      <ShoppingCart
+                        className="w-4 h-4 sm:w-5 sm:h-5"
+                        onClick={() => {
+                          const isSelected = selectProductId === productId;
+                          const isSheetOpenTrue = isSheetOpen;
+                          if (isSelected && isSheetOpenTrue) {
+                            handleAddToCart();
+                          }
+                        }}
+                      />
+                    )}
                   </p>
                 </div>
               </div>
@@ -408,16 +423,20 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   : "w-[35px]"
               } `}
             >
-              <ShoppingCart
-                onClick={() => {
-                  const isSelected = selectProductId === productId;
-                  const isSheetOpenTrue = isSheetOpen;
-                  if (isSelected && isSheetOpenTrue) {
-                    handleAddToCart();
-                  }
-                }}
-                className="cursor-pointer w-full text-white"
-              />
+              {loading && isSheetOpen ? (
+                <ClipLoader />
+              ) : (
+                <ShoppingCart
+                  onClick={() => {
+                    const isSelected = selectProductId === productId;
+                    const isSheetOpenTrue = isSheetOpen;
+                    if (isSelected && isSheetOpenTrue) {
+                      handleAddToCart();
+                    }
+                  }}
+                  className="cursor-pointer w-full text-white"
+                />
+              )}
             </div>
           </div>
 
@@ -428,7 +447,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               </h2>
             </Link>
             {/* <p className="text-[11px] sm:text-[13.3px] text-gray-500 overflow-ellipsis">{description}</p> */}
-            {currentCategories.map((category, index) => (
+            {currentCategories?.slice(0, 2)?.map((category, index) => (
               <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
                 <Link
                   href={getCategoryPathByIdFromRecord(
@@ -452,6 +471,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           open={isQuickViewOpen}
           onOpenChange={setIsQuickViewOpen}
           product={productData}
+          options={
+            productAttribute?.visible && productAttribute?.variation
+              ? productAttribute.options
+              : []
+          }
         />
       </>
     );

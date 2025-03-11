@@ -39,16 +39,13 @@ const ServiceCards = () => {
                   {
                     text: language === "en" ? "GET IN TOUCH" : "ابقى على تواصل",
                     bgColor: "bg-primary",
-                    bgHoverColor: "hover:bg-[#e59b78]",
                     borderRadius: "rounded-none",
                     href: "/contact",
                   },
                   {
                     text: language === "en" ? "READ MORE" : "اقرأ أكثر",
                     bgColor: "bg-white",
-                    bgHoverColor: "hover:bg-[#777]/10",
                     textColor: "text-black",
-                    textHoverColor: "hover:text-black",
                     href: `${
                       language === "en"
                         ? `/services/${service.slug[0]}`
@@ -67,7 +64,6 @@ const ServiceCards = () => {
               bgColor: "bg-white",
               imgHeight: "h-[300px] lg:h-[600px]",
             }}
-            imageFirst
           />
         </div>
       ))}

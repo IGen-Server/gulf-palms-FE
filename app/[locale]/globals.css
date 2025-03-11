@@ -112,9 +112,16 @@
   border: none !important;
   box-shadow: none !important;
   font-weight: 700 !important;
-  border-bottom: 1px solid lightgray !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+
+#sort_button {
+  border-bottom: 1px solid lightgray !important;
+}
+
+.sorting_mobile svg:last-of-type {
+  display: none !important;
 }
 
 .content {
