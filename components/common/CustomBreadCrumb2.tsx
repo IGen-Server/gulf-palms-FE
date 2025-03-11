@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
@@ -20,7 +20,7 @@ interface BreadcrumbProps {
   currentStyle?: string;
 }
 
-export function CustomBreadCrumb({
+export function CustomBreadCrumb2({
   links,
   updatePerPage,
   uppercase = true,
@@ -30,7 +30,8 @@ export function CustomBreadCrumb({
   const {
     i18n: { language },
   } = useTranslation();
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const searchParams = useSearchParams();
+  const perPage = searchParams.get("per_page");
 
   return (
     <nav className="flex items-center text-[14px]">
@@ -44,18 +45,13 @@ export function CustomBreadCrumb({
             : language === "ar"
             ? link.arabicName
             : "";
-        const isSelected = index === links.length - 1;
+        const isCurrent = perPage ? perPage === String(link.value) : isLast;
 
         return (
           <div key={index} className="flex items-center">
             {index !== 0 && <span className="mx-2 text-gray-800">/</span>}
             {isLast ? (
-              <span
-                className={cn(
-                  "font-semibold text-[.6875rem] leading-4 text-[#242424]",
-                  currentStyle
-                )}
-              >
+              <span className={cn("font-semibold text-[.6875rem] leading-4 text-[#242424]", isCurrent && currentStyle)}>
                 {linkName}
               </span>
             ) : (
@@ -63,13 +59,9 @@ export function CustomBreadCrumb({
                 href={link.href}
                 className={cn(
                   "font-semibold text-[.6875rem] leading-4 text-[#333] hover:text-gray-500 cursor-pointer",
-                  isSelected && "font-semibold text-[#333]",
-                  currentStyle
+                  isCurrent && currentStyle
                 )}
-                onClick={() => {
-                  setSelectedIndex(index);
-                  updatePerPage && updatePerPage("per_page", link.value);
-                }}
+                onClick={() => updatePerPage && updatePerPage("per_page", link.value)}
               >
                 {linkName}
               </Link>
