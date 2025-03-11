@@ -231,7 +231,7 @@ export default function Shop() {
                 <SortingDropdown setSorting={updatePageConfig} />
               </Suspense>
             </div>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center min-h-screen">
               <div
                 className={`w-full grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-${columns} max-lg:px-8 mx-auto`}
               >
