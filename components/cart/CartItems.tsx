@@ -16,10 +16,11 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
     <div className="flex gap-4 py-4">
       <div className="relative w-20 h-20">
         <Image
-          src={item.image || "/placeholder.svg"}
+          src={item.image?.src || item?.image ||  "/placeholder.svg"}
           alt={item.name}
-          fill
-          className="object-cover rounded"
+          height={80}
+          width={80}
+          className="object-cover rounded h-[80px] w-[80px]"
         />
       </div>
       <div className="flex-1 min-w-0">

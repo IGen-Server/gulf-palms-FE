@@ -87,6 +87,13 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
+    // console.log({
+    //   id: productId,
+    //   name: name as string,
+    //   price: Number(price) as number,
+    //   quantity: 1,
+    //   image: images?.[0] || imageFileOrUrl,
+    // })
     addToCart({
       id: productId,
       name: name as string,
