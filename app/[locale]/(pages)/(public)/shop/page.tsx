@@ -43,7 +43,7 @@ export default function Shop() {
   const [showMobileScreenCategory, setShowMobileScreenCategory] =
     useState(false);
   const { i18n } = useTranslation();
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(false, false);
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true, true);
   const { categories } = useGlobalDataProvider();
 
   const [pageConfig, setPageConfig] = useState({
@@ -160,7 +160,9 @@ export default function Shop() {
         <div className="flex items-start gap-3">
           <div className="w-[276px] px-[15px] divide-y-2 hidden lg:block">
             <PriceSlider setPriceSlider={updatePageConfig} />
-            <ProductCategories />
+            <Suspense fallback={<div>Loading...</div>}>
+              <ProductCategories />
+            </Suspense>
           </div>
           <div className="flex-1 ">
             <div className="px-[15px] flex justify-between max-lg:border-b">
@@ -169,7 +171,7 @@ export default function Shop() {
                 uppercase={false}
                 currentStyle="font-semibold"
               />
-              
+
               <div className="flex items-center gap-4 ">
                 <div className="hidden lg:flex items-center gap-3">
                   <p className="text-sm font-semibold">Show :</p>
