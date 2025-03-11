@@ -43,7 +43,7 @@ export default function Shop() {
   const [showMobileScreenCategory, setShowMobileScreenCategory] =
     useState(false);
   const { i18n } = useTranslation();
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true, true);
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const { categories } = useGlobalDataProvider();
 
   const [pageConfig, setPageConfig] = useState({
