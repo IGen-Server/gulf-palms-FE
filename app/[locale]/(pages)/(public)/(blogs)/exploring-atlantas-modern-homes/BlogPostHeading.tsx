@@ -3,7 +3,7 @@ import Image from "next/image";
 const BlogPostHeading = () => {
   return (
     <div className="w-full">
-      <div className="relative flex flex-col items-center gap-2 p-6 text-center">
+      <div className="relative flex flex-col items-center gap-2 py-6 text-center">
         <p className="self-center bg-primary px-3 py-1 font-semibold text-xs text-white uppercase z-20">
           Decoration
         </p>
@@ -21,7 +21,7 @@ const BlogPostHeading = () => {
           />
           <p className="text-sm text-[#bbb]">Admin</p>
         </div>
-        <div className="relative w-full h-[623px]">
+        <div className="relative w-full h-[623px] mt-3">
           <Image
             src="https://gulfpalms.com/wp-content/uploads/2021/08/wd-blog-1.jpg"
             alt="Blog image"

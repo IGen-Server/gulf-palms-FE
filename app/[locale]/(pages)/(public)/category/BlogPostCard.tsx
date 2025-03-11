@@ -4,9 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const BlogPostCard = ({ slug }: { slug: string }) => {
+const BlogPostCard = ({
+  post,
+  slug,
+}: {
+  post: { title: string; image: string; description: string };
+  slug: string;
+}) => {
   const [hovered, setHovered] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
+  const text =
+    "Vivamus enim sagittis aptent hac mi dui a per aptent suspendisse cras odio bibendum augue rhoncus laoreet dui praesent sodales sodales. Dignissim fusce ullamcorper volutpat habitasse tincidunt parturient enim tempor facilisi nostra lobortis proin primis litora";
 
   const handleMouseEnter = () => {
     setIsLeaving(false);
@@ -23,7 +31,7 @@ const BlogPostCard = ({ slug }: { slug: string }) => {
 
   return (
     <div
-      className="w-full mt-24"
+      className="w-full mt-24 group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -31,7 +39,7 @@ const BlogPostCard = ({ slug }: { slug: string }) => {
         className={`relative w-full h-[273px] overflow-hidden duration-700 cursor-pointer`}
       >
         <Image
-          src="https://gulfpalms.com/wp-content/uploads/2021/08/wd-blog-1.jpg"
+          src={post.image}
           alt="Blog image"
           width={0}
           height={0}
@@ -70,15 +78,15 @@ const BlogPostCard = ({ slug }: { slug: string }) => {
         </div>
       </div>
 
-      <div className="relative flex flex-col gap-2 p-6 text-center">
+      <div className="relative flex flex-col items-center gap-2 shadow-sm group-hover:hadow-lg p-6 text-center">
         <p className="absolute left-1/2 -translate-x-1/2 -top-3 bg-primary px-3 py-1 font-semibold text-xs text-white uppercase z-20">
           {slug}
         </p>
         <h2 className="font-medium text-2xl text-[#333] opacity-65">
-          Exploring Atlanta’s modern homes
+          {post.title}
         </h2>
-        <div className="flex items-center gap-3">
-          <p className="">By</p>
+        <div className="flex items-center gap-4">
+          <p className="text-sm text-[#bbb]">By</p>
           <Image
             src="/images/users/avatar.jpg"
             alt="Avatar"
@@ -86,7 +94,19 @@ const BlogPostCard = ({ slug }: { slug: string }) => {
             height={24}
             className="rounded-full"
           />
+          <p className="text-sm text-[#bbb]">Admin</p>
+          <i className="relative fa-regular fa-message text-[#bbb]">
+            <p className="absolute -right-1 -top-2 bg-[#bbb] rounded-full p-1 text-[.525rem] text-white">
+              0
+            </p>
+          </i>{" "}
+          <i className="fa-solid fa-share-nodes text-[#bbb]"></i>
         </div>
+        <p className="text-sm text-lightGray">
+          {post.description.length > 130
+            ? post.description.slice(0, 130) + "..."
+            : post.description}
+        </p>
         <Link
           href={`/${slug}`}
           className="font-semibold text-[.8125rem] text-primary uppercase"
