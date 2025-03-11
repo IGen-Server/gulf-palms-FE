@@ -23,7 +23,7 @@ export default function SubcategoryPage() {
   const { category: categorySlug, slug: subcategorySlug } = useParams();
   const [columns, setColumns] = useState(4)
   const { i18n: { language: currentLocale } } = useTranslation();
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(false,false);
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
 
   // Orders // page: 1, per_page: 10
   const [pageConfig, setPageConfig] = useState({
@@ -165,28 +165,27 @@ export default function SubcategoryPage() {
                   <span className=" font-semibold">{currentSubCategory?.name ? decodeURIComponent(currentSubCategory?.name) : ''}</span>
                 </span>
               </div>
-              <div className="flex items-center gap-4"> 
+              <div className="flex items-center gap-4">
                 <div className="flex items-center gap-3">
-                  <p className="text-sm font-semibold">Show :</p>
+                  <p className="text-sm font-semibold ">Show :</p>
                   <CustomBreadCrumb
                     links={showPerPage}
-                    activeLastLink={true}
                     updatePerPage={updatePageConfig}
                     uppercase={false}
-                    currentStyle="font-extrabold text-black"
+                    currentStyle="font-semibold"
                   />
                 </div>
                 <div className="flex items-center gap-2">
                   <LayoutGrid
-                    className={`cursor-pointer h-[22px] ${columns === 2 ? 'font-extrabold text-black' : ' text-gray-300'}`}
+                    className="cursor-pointer"
                     onClick={() => setColumns(2)}
                   />
                   <Grip
-                  className={`cursor-pointer ${columns === 3 ? 'font-extrabold text-black' : ' text-gray-300'}`}
+                    className="cursor-pointer"
                     onClick={() => setColumns(3)}
                   />
                   <div
-                  className={`flex items-center justify-center cursor-pointer -ml-[10px] ${columns === 4 ? 'font-extrabold text-black' : ' text-gray-300'}`}
+                    className="flex items-center justify-center cursor-pointer -ml-[10px]"
                     onClick={() => setColumns(4)}
                   >
                     <EllipsisVertical className="-mr-[10px]" />
@@ -198,10 +197,9 @@ export default function SubcategoryPage() {
                 </Suspense>
               </div>
             </div>
-            <div className="flex items-center justify-center">
             <div
-                className={`w-full grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-${columns}`}
-              >
+              className={`grid pt-16 grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-${columns}`}
+            >
               {products?.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -218,8 +216,6 @@ export default function SubcategoryPage() {
                 />
               ))}
             </div>
-            </div>
-            
             <div ref={loaderRef} className="text-center my-6 grid place-content-center w-full">
               {loading && (
                 <div className="flex items-center gap-2 bg-gray-100 w-fit px-3 py-2 border border-gray-400 rounded-lg">
