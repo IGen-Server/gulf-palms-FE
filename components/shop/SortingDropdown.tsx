@@ -8,6 +8,7 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { useState } from "react";
+import { ArrowUpDown } from 'lucide-react';
 
 export const ProductSortValues = [
   "menu_order",
@@ -44,10 +45,21 @@ export function SortingDropdown({ setSorting }: SortingDropdownProps) {
   };
 
   return (
-    <form className="sorting" method="get">
-      <Select onValueChange={handleChange} defaultValue={currentOrderby}>
-        <SelectTrigger className="orderby" aria-label="Shop order">
-          <span>{currentOrderby != 'menu_order' ? currentOrderby : "Default Sorting"}</span>
+    <form className="sorting lg:w-[178px] mr-4" method="get">
+      <Select onValueChange={handleChange} defaultValue={currentOrderby} >
+        <SelectTrigger
+          className="orderby lg:flex hidden"
+          aria-label="Shop order"
+          id='sort_button'
+        >
+          <span>
+            {currentOrderby != "menu_order"
+              ? currentOrderby
+              : "Default Sorting"}
+          </span>
+        </SelectTrigger>
+        <SelectTrigger className="lg:hidden sorting_mobile " aria-label="Shop order">
+          <ArrowUpDown />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="menu_order">Default sorting</SelectItem>
