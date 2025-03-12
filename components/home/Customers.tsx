@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import CustomCarousel from "../common/CustomCarousel";
 import { Star } from 'lucide-react';
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 interface Testimonial {
   name: string;
@@ -29,7 +30,7 @@ export default function Customers() {
       date: "2024-08-21",
       rating: 5,
       review: "معرض منظور راقي يبدا من الشتلات و النباتات مرورا بمستلزمات الحدائق الخارجيه و كل ما يظهر جماليه الطبيعه الخضراء او الزهور اضافه الى رقي تعامل القائمين على المعرض و الموظفين 🌸",
-      image: "https://lh3.googleusercontent.com/a-/ALV-UjUS50zhBgtsB-uSL0m3MqgYJw6T2yKarGAAtDR5uH5Op_GKZKtU=w128-h128-c-rp-mo-ba4-br100",
+      image: "https://lh3.googleusercontent.com/a-/ALV-UjWwekG4mPPUUGeKmJzwcM0dcfTakl71qG_UwE-v5x42zW-HJJw=w64-h64-c-rp-mo-br100",
       isRTL: true
     },
     {
@@ -37,45 +38,68 @@ export default function Customers() {
       date: "2024-06-04",
       rating: 5,
       review: "يمشاءه اشكثر زرع وطاحي اكثر شي",
-      image: "https://lh3.googleusercontent.com/a-/ALV-UjUS50zhBgtsB-uSL0m3MqgYJw6T2yKarGAAtDR5uH5Op_GKZKtU=w128-h128-c-rp-mo-ba4-br100",
+      image: "https://lh3.googleusercontent.com/a-/ALV-UjUI2wH4WB55Y9Q_8NkG5ymBm3SIKttzSAM8Cbm5rWgfBWEzliYv=w64-h64-c-rp-mo-ba5-br100",
       isRTL: true
+    },
+    {
+      name: "Dr Naser",
+      date: "2024-06-01",
+      rating: 5,
+      review: "Good to buy date palms , trees and flowers",
+      image: "https://lh3.googleusercontent.com/a-/ALV-UjVFAOWNlsVJSlmLiT62e2MnwEMwKq9-B5taJt_wx2f0sqcn4b7d=w64-h64-c-rp-mo-ba4-br100",
     }
   ];
 
   const { t } = useTranslation();
 
-  const createTestimonialSlide = (testimonial: Testimonial) => (
-    <div className="px-4 py-6 h-full">
-      <div className="bg-white rounded-lg shadow-sm p-6 h-full flex flex-col">
-        <div className="flex flex-col justify-center items-center gap-4 mb-4">
-          <div className="relative">
-            <img 
-              src={testimonial.image || "/placeholder.svg"} 
-              alt={testimonial.name}
-              className="w-12 h-12 rounded-full"
-            />
-            <img 
-              src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"
-              alt="Google"
-              className="absolute -bottom-1 -right-1 w-5 h-5"
-            />
+  const CreateTestimonialSlide = (testimonial:any) => {
+    const [expanded, setExpanded] = useState(false);
+    const reviewPreview = testimonial.review.slice(0, 100);
+    const isLongReview = testimonial.review.length > 100;
+  
+    return (
+      <div className="px-4 py-6 h-full relative">
+        <div className="bg-white rounded-lg shadow-sm p-6 min-h-[300px] h-full flex flex-col border border-gray-400">
+          <div className="flex flex-col justify-center items-center gap-4 mb-4">
+            <div className="absolute top-0">
+              <div className="relative">
+                <img 
+                  src={testimonial.image || "/placeholder.svg"} 
+                  alt={testimonial.name}
+                  className="w-12 h-12 rounded-full"
+                />
+                <img 
+                  src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"
+                  alt="Google"
+                  className="absolute -bottom-1 -right-1 w-5 h-5"
+                />
+              </div>
+            </div>
+            <div className="text-center">
+              <h3 className="font-semibold text-gray-900 pt-3">{testimonial.name}</h3>
+              <p className="text-sm text-gray-500">{testimonial.date}</p>
+            </div>
           </div>
-          <div>
-            <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
-            <p className="text-sm text-gray-500">{testimonial.date}</p>
+          <div className="flex mb-3 w-full justify-center">
+            {Array.from({ length: testimonial.rating }).map((_, i) => (
+              <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+            ))}
           </div>
+          <p className={`text-gray-600 text-center ${testimonial.isRTL ? 'rtl' : ''}`}>
+            {expanded ? testimonial.review : `${reviewPreview}...`}
+          </p>
+          {isLongReview && (
+            <button
+              className="text-gray-400 hover:underline mt-2 text-sm"
+              onClick={() => setExpanded(!expanded)}
+            >
+              {expanded ? "Hide" : "Read more"}
+            </button>
+          )}
         </div>
-        <div className="flex mb-3 w-full justify-center">
-          {Array.from({ length: testimonial.rating }).map((_, i) => (
-            <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-          ))}
-        </div>
-        <p className={`text-gray-600  ${testimonial.isRTL ? 'text-center' : 'text-center'}`}>
-          {testimonial.review}
-        </p>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="container mx-auto px-4 max-w-[1458px]">
@@ -93,9 +117,10 @@ export default function Customers() {
       <div className="pb-8 md:pb-[50px]">
         <CustomCarousel
           slidesToScroll={1}
+          MobileSlidesNumber={1}
           slidesToShow={3}
           data={testimonials.map(testimonial => ({
-            component: createTestimonialSlide(testimonial)
+            component: CreateTestimonialSlide(testimonial)
           }))}
           autoPlay={true}
         />

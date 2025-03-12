@@ -51,7 +51,7 @@ export default function RecentProducts({ products, slugToCategoryRecord, isLoadi
                 name={product.name}
                 description={product.description}
                 price={product.price}
-                productId={product.productId} 
+                productId={product?.productId || product?.id} 
                 slug={product.slug} 
                 currency={extractCurrency(product.price_html)} 
                 currentCategories={product.categories} 

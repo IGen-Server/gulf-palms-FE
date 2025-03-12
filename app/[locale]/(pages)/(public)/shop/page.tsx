@@ -10,7 +10,13 @@ import {
   ProductSortValues,
   SortingDropdown,
 } from "@/components/shop/SortingDropdown";
-import { LayoutGrid, Grip, EllipsisVertical } from "lucide-react";
+import {
+  LayoutGrid,
+  Grip,
+  EllipsisVertical,
+  Menu,
+  ChevronDown,
+} from "lucide-react";
 import GetInTouch from "@/components/common/GetInTouch";
 import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
@@ -18,6 +24,7 @@ import { ProductService } from "@/services/api/product.service";
 import { ProductCategoryModel } from "@/models/product/product";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
 import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
+import { CustomBreadCrumb2 } from "@/components/common/CustomBreadCrumb2";
 
 const breadcrumbLinks = [
   { name: "Home", href: "/" },
@@ -33,8 +40,10 @@ const showPerPage = [
 
 export default function Shop() {
   const [columns, setColumns] = useState(4);
+  const [showMobileScreenCategory, setShowMobileScreenCategory] =
+    useState(false);
   const { i18n } = useTranslation();
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(false, false);
   const { categories } = useGlobalDataProvider();
 
   const [pageConfig, setPageConfig] = useState({
@@ -104,8 +113,10 @@ export default function Shop() {
   }, [loading]);
 
   // Category
-  const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<Record<number, ProductCategoryModel>>({});
-  
+  const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<
+    Record<number, ProductCategoryModel>
+  >({});
+
   useEffect(() => {
     const getProductCategories = async () => {
       if (categories) {
@@ -115,62 +126,114 @@ export default function Shop() {
 
     getProductCategories();
   }, [categories]);
-  
-  return (
-    <div className="pt-[98px]">
-      <div className="max-w-content mx-auto">
-        <div className="flex flex-col items-center pb-[200px] pt-[50px]">
-          <h1 className="text-[36px] font-bold text-black">Shop</h1>
-        </div>
 
+  return (
+    <div className="pt-10 lg:pt-[98px]">
+      <div className="max-w-content mx-auto">
+        <div className="flex flex-col items-center pb-[100px] lg:pb-[200px] pt-[50px]">
+          <h1 className="text-[36px] font-bold text-black">Shop</h1>
+          <div className="lg:hidden w-full mx-auto min-h-10 px-6 text-center">
+            <p
+              className="flex items-center gap-3 justify-center pt-4 cursor-pointer"
+              onClick={() =>
+                setShowMobileScreenCategory(!showMobileScreenCategory)
+              }
+            >
+              Categories{" "}
+              <ChevronDown
+                className={`${showMobileScreenCategory ? " rotate-180 " : " "}`}
+              />
+            </p>
+
+            {/* Smooth height transition container */}
+            <div
+              className={`overflow-hidden transition-all duration-500 ${
+                showMobileScreenCategory
+                  ? "max-h-[500px] opacity-100"
+                  : "max-h-0 opacity-0"
+              }`}
+            >
+              {showMobileScreenCategory && <ProductCategories />}
+            </div>
+          </div>
+        </div>
         <div className="flex items-start gap-3">
           <div className="w-[276px] px-[15px] divide-y-2 hidden lg:block">
             <PriceSlider setPriceSlider={updatePageConfig} />
             <ProductCategories />
           </div>
-          <div className="flex-1">
-            <div className="px-[15px] flex justify-between">
+          <div className="flex-1 ">
+            <div className="px-[15px] flex justify-between max-lg:border-b">
               <CustomBreadCrumb
                 links={breadcrumbLinks}
                 uppercase={false}
                 currentStyle="font-semibold"
               />
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-3">
+              
+              <div className="flex items-center gap-4 ">
+                <div className="hidden lg:flex items-center gap-3">
                   <p className="text-sm font-semibold">Show :</p>
-                  <CustomBreadCrumb
-                    links={showPerPage}
-                    activeLastLink={true}
-                    updatePerPage={updatePageConfig}
-                    uppercase={false}
-                    currentStyle="font-semibold"
-                  />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <CustomBreadCrumb2
+                      links={showPerPage}
+                      activeLastLink={true}
+                      updatePerPage={updatePageConfig}
+                      uppercase={false}
+                      currentStyle="font-extrabold text-black"
+                    />
+                  </Suspense>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="hidden lg:flex items-center gap-2">
                   <LayoutGrid
-                    className="cursor-pointer h-[22px]"
+                    className={`cursor-pointer h-[22px] ${
+                      columns === 2
+                        ? "font-extrabold text-black"
+                        : " text-gray-300"
+                    }`}
                     onClick={() => setColumns(2)}
                   />
                   <Grip
-                    className="cursor-pointer"
+                    className={`cursor-pointer ${
+                      columns === 3
+                        ? "font-extrabold text-black"
+                        : " text-gray-300"
+                    }`}
                     onClick={() => setColumns(3)}
                   />
                   <div
-                    className="flex items-center justify-center cursor-pointer -ml-[10px]"
+                    className={`flex items-center justify-center cursor-pointer -ml-[10px] ${
+                      columns === 4
+                        ? "font-extrabold text-black"
+                        : " text-gray-300"
+                    }`}
                     onClick={() => setColumns(4)}
                   >
                     <EllipsisVertical className="-mr-[10px]" />
                     <Grip />
                   </div>
                 </div>
-                <Suspense fallback={<div>Loading...</div>}>
-                  <SortingDropdown setSorting={updatePageConfig} />
-                </Suspense>
+                <div className="px-4 pb-1 text-sm text-gray-700 font-sans lg:hidden">
+                  Showing 1–24 of 545 results
+                </div>
+                <div className="max-lg:hidden">
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <SortingDropdown setSorting={updatePageConfig} />
+                  </Suspense>
+                </div>
               </div>
+            </div>
+            <div className="lg:hidden flex w-full justify-between px-3">
+              <div className="flex items-center gap-3 text-sm cursor-pointer">
+                {" "}
+                <Menu /> <span>Show sidebar</span>
+              </div>
+              <Suspense fallback={<div>Loading...</div>}>
+                <SortingDropdown setSorting={updatePageConfig} />
+              </Suspense>
             </div>
             <div className="flex items-center justify-center">
               <div
-                className={`grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-${columns}`}
+                className={`w-full grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-${columns} max-lg:px-8 mx-auto`}
               >
                 {products.map((product) => (
                   <ProductCard
@@ -189,7 +252,10 @@ export default function Shop() {
                 ))}
               </div>
             </div>
-            <div ref={loaderRef} className="text-center my-6 grid place-content-center w-full">
+            <div
+              ref={loaderRef}
+              className="text-center my-6 grid place-content-center w-full"
+            >
               {loading && (
                 <div className="flex items-center gap-2 bg-gray-100 w-fit px-3 py-2 border border-gray-400 rounded-lg">
                   LOADING{" "}

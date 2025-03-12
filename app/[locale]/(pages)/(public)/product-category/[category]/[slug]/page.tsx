@@ -241,7 +241,7 @@ export default function SubcategoryPage() {
               </div>
             </div>
             <div
-              className={`grid pt-16 grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-${columns}`}
+              className={`grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2  md:grid-cols-3 xl:grid-cols-${columns}`}
             >
               {products?.map((product) => (
                 <ProductCard

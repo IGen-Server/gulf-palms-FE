@@ -36,6 +36,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
       const response = await ProductService.Get(
         {
           lang: currentLocale,
+          per_page: 11,
           include: `[0,${hoveresProductIds.join(",")}]`,
         },
         axiosInstanceWithoutLoader
@@ -58,14 +59,14 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
       // Map the fetched products to the desired format
       const results = fetchedProducts.map((product,idx) => {
         const productInfo = productData.find((p) => p.id == product.id);
-        // console.log({productData,fetchedProducts})
+        // console.log(product?.permalink)
         return {
           position: productInfo?.position ,
           group: productInfo?.group,
           imgUrl: product?.images[0]?.src ,
           productId: product?.id?.toString(),
           hoveredTitle: product?.name,
-          hoveredHref: product?.permalink,
+          hoveredHref: product?.permalink?.replace(/\/(en|ar)\//, "/").replace(/^https?:\/\/[^/]+/, `/${currentLocale}`),
           price: product?.price,
           description: product?.short_description?.replace(/<[^>]*>?/gm, ""),
           buttonType: productInfo?.buttonType,

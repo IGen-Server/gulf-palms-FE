@@ -65,7 +65,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
           imgUrl: product?.images[0]?.src || "",
           productId: product?.id?.toString(),
           hoveredTitle: product?.name,
-          hoveredHref: product?.permalink,
+          hoveredHref: product?.permalink?.replace(/\/(en|ar)\//, "/").replace(/^https?:\/\/[^/]+/, `/${currentLocale}`),
           price: product?.price,
           description: product?.short_description?.replace(/<[^>]*>?/gm, ""),
           buttonType: productInfo?.buttonType,
