@@ -32,6 +32,7 @@ import {
 
 import { useCart } from "@/providers/CartProvider";
 import { ProductDrawer } from "../shop/ProductDrawer";
+import { useTranslation } from "react-i18next";
 
 interface HoverProduct {
   position: { x: number; y: number };
@@ -58,6 +59,7 @@ interface RenderImageAndProductsProps {
   currentCategories: ProductCategoryModel[];
   productAttribute: ProductAttribute | null;
   quantity?: number;
+  stock?:any,
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
 }
 
@@ -67,6 +69,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   hoverProducts,
   images,
   name,
+  stock='instock',
   description,
   slug,
   price,
@@ -78,6 +81,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   slugToCategoryRecord,
 }) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
+  const [wishList, setWishList] = useState<any[]>([])
   const [selectProductId, setSelectProductId] = useState<string | null>(null);
   const [expandedDescriptionId, setExpandedDescriptionId] = useState<
     string | null
@@ -85,10 +89,12 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const { t } = useTranslation();
   const { addToCart } = useCart();
 
-   const handleAddToCart = async () => {
+  console.log({wishList})
+
+  const handleAddToCart = async () => {
     setLoading(true); // Set loading to true
     try {
       await addToCart({
@@ -113,7 +119,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
           onClick={() => handleAddToCart()}
         >
-          {loading ? <ClipLoader/> : "ADD TO CART"}
+          {loading ? <ClipLoader /> : t("AddToCart")}
         </div>
       );
     }
@@ -123,7 +129,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           href={product.hoveredHref}
           className="bg-gray-200 text-black text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
         >
-          READ MORE
+         {t("ReadMore")}
         </Link>
       );
     }
@@ -133,7 +139,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           href={product.hoveredHref}
           className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
         >
-          SELECT OPTIONS
+          {t("SelectOptions")}
         </Link>
       );
     }
@@ -143,7 +149,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           href={product.hoveredHref}
           className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
         >
-          BUY NOW
+         {t("BuyNow")}
         </Link>
       );
     }
@@ -171,6 +177,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               <HoverCardTrigger
                 onMouseEnter={() => setHoveredProductId(product.productId)}
                 onMouseLeave={() => setHoveredProductId(null)}
+                onClick={() => setHoveredProductId(product.productId)}
               >
                 <div className="relative w-[30px] sm:w-[50px] h-[30px] sm:h-[50px] grid place-content-center">
                   <div className="w-[15px] sm:w-[20px] h-[15px] sm:h-[20px] bg-primary rounded-full cursor-pointer grid place-content-center hotspot-btn">
@@ -180,12 +187,13 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   </div>
                 </div>
               </HoverCardTrigger>
-
+                
               {hoveredProductId === product.productId && (
                 <HoverCardContent
                   className="p-4 bg-white shadow-lg border rounded-md text-center font-arabic w-[280px] sm:w-[320px]"
                   onMouseEnter={() => setHoveredProductId(product.productId)}
                   onMouseLeave={() => setHoveredProductId(null)}
+                  // onClick={() => setHoveredProductId(product.productId)}
                 >
                   <img
                     src={product.imgUrl || "/placeholder.svg"}
@@ -195,7 +203,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   <p className="text-[14px] sm:text-[16px] font-semibold text-gray-500">
                     {product.hoveredTitle}
                   </p>
-                  <p className="text-center !px-0 py-2 text-primary text-[16px] font-semibold">From {product?.price} KD</p>
+                  {product?.price && (
+                    <p className="text-center !px-0 py-2 text-primary text-[16px] font-semibold">
+                      From {product?.price} KD
+                    </p>
+                  )}
                   <div
                     className={`text-xs sm:text-sm text-gray-500 overflow-hidden transition-all duration-300`}
                     style={{
@@ -207,7 +219,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   >
                     {product.description}
                   </div>
-                  
+
                   <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100 relative mt-2">
                     {product.description && (
                       <>
@@ -249,16 +261,16 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
       price: Number(price),
       description: description || "Product description not available",
       image: imageFileOrUrl || (images && (images[0]?.src || images[0])),
-      images:images ,
+      images: images,
       sku: productId || "N/A",
       categories: currentCategories,
       quantity: quantity,
-      slug:slug,
+      slug: slug,
     };
     return (
       <>
         <div
-          className="relative overflow-hidden max-w-full sm:max-w-[260px] h-[380px] sm:h-[357px] cursor-pointer z-[10]"
+          className="relative overflow-hidden max-w-full sm:max-w-[260px] h-[380px] sm:h-[375px] cursor-pointer z-[10]"
           onMouseEnter={() => setHoveredProductId(productId)}
           onMouseLeave={() => setHoveredProductId(null)}
         >
@@ -286,7 +298,17 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   : "opacity-0 scale-100"
               }`}
             />
-
+            <div className="absolute top-4 ">
+              {stock === "instock" ? (
+                <p className="font-bold text-[11px] rounded-full shadow flex items-center justify-center h-[46px] w-[46px] !font-arabic text-black bg-white text-center leading-none">
+                  IN STOCK
+                </p>
+              ) : (
+                <p className="font-bold text-xs rounded-full shadow flex items-center justify-center h-[46px] w-[46px] !font-arabic text-black bg-white text-center leading-none">
+                  {t("SoldOut")}
+                </p>
+              )}
+            </div>
             {productAttribute &&
               productAttribute.visible &&
               productAttribute.variation && (
@@ -310,7 +332,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                 className={`h-full bg-primary w-full text-center font-arabic text-white duration-500 ${
                   hoveredProductId === productId ||
                   selectProductId === productId
-                    ? " cursor-pointer opacity-90"
+                    ? " cursor-pointer opacity-90 hover:opacity-100 hover:bg-[#f0864a]"
                     : " opacity-0 pointer-events-none "
                 }`}
               >
@@ -353,6 +375,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                 </div>
               </div>
             </div>
+
             <div className="hidden lg:grid absolute top-2 right-2 rounded-lg  place-content-center">
               <div
                 className={`h-[100px] sm:h-[135px] w-[35px] sm:w-[45px] text-center font-arabic text-gray-700 duration-500 ${
@@ -394,7 +417,16 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                       </Tooltip>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Heart className="cursor-pointer w-[15px] sm:w-[20px]" />
+                        {wishList.includes(productId) ? (
+                              <p className="w-[15px] sm:w-[20px]">✔</p>
+                            ) : (
+                              <Heart
+                                className="cursor-pointer w-[15px] sm:w-[20px]"
+                                onClick={() => {
+                                  setWishList((prev) => [...prev, productId]);
+                                }}
+                              />
+                            )}
                         </TooltipTrigger>
                         <TooltipContent
                           sideOffset={15}
@@ -411,8 +443,22 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             </div>
             {/* mobile */}
             <div className="lg:hidden absolute right-6 grid place-content-center rounded-full shadow-md h-[30px] w-[30px]">
-              <Heart className="cursor-pointer w-[15px]" />
+              {wishList.includes(productId) ? (
+                "✔"
+              ) : (
+                <Heart
+                  className="cursor-pointer w-[15px]"
+                  onClick={() => {
+                    setWishList((prev) =>
+                      prev.includes(productId)
+                        ? prev.filter((p) => p !== productId)
+                        : [...prev, productId]
+                    );
+                  }}
+                />
+              )}
             </div>
+
             <div
               onClick={() => {
                 setSelectProductId(productId);
@@ -448,7 +494,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               </h2>
             </Link>
             {/* <p className="text-[11px] sm:text-[13.3px] text-gray-500 overflow-ellipsis">{description}</p> */}
-            {currentCategories?.slice(0, 2)?.map((category, index) => (
+            {currentCategories?.map((category, index) => (
               <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
                 <Link
                   href={getCategoryPathByIdFromRecord(
@@ -464,6 +510,9 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               </span>
             ))}
             <p className="text-[12px] sm:text-[14px] text-primary font-bold">
+              {(productAttribute?.options?.length || 0) > 1 && (
+                <span>From</span>
+              )}{" "}
               {price} {currency}
             </p>
           </div>

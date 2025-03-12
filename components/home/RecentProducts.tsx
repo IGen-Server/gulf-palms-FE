@@ -22,7 +22,7 @@ export default function RecentProducts({ products, slugToCategoryRecord, isLoadi
         <p className="text-[#777777] md:text-[30px] font-sans font-light">
           {t("recentProducts.newlyAdded")}
         </p>
-        <p className="text-[#242424] font-bold md:text-[36px] font-arabic">
+        <p className="text-[#242424] font-bold md:text-[36px] !font-arabic">
           {t("recentProducts.title")}
         </p>
         <p className="text-[#777777] md:text-[16px] font-sans">
@@ -46,10 +46,11 @@ export default function RecentProducts({ products, slugToCategoryRecord, isLoadi
               <RenderImageAndProducts
                 key={product.productId}
                 renderType="product"
+                stock={product.stock_status}
                 imageFileOrUrl={product.imageFileOrUrl}
                 images={product.images}
                 name={product.name}
-                description={product.description}
+                description={product?.short_description}
                 price={product.price}
                 productId={product?.productId || product?.id} 
                 slug={product.slug} 

@@ -18,9 +18,9 @@ const productData = [
   { id: 10061, position: { x: 75, y: 72 }, group: "hoverProducts1", buttonType: "select_options" },
   { id: 23312, position: { x: 24, y: 44 }, group: "hoverProducts2", buttonType: "select_options" },
   { id: 23298, position: { x: 52, y: 52 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 9997, position: { x: 65, y: 78 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 10035, position: { x: 65, y: 78 }, group: "hoverProducts2", buttonType: "select_options" },
   { id: 9940, position: { x: 29, y: 73 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 10035, position: { x: 73, y: 52 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 9997, position: { x: 73, y: 52 }, group: "hoverProducts2", buttonType: "select_options" },
   { id: 11846, position: { x: 30, y: 70 }, group: "hoverProducts3", buttonType: "buy_now" },
   { id: 24003, position: { x: 50, y: 70 }, group: "hoverProducts4", buttonType: "buy_now" },
 ];
@@ -39,11 +39,11 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
         },
         axiosInstanceWithoutLoader
       );
-      console.log({response})
-      return response; // Assuming the response contains an array of products
+      // console.log({response})
+      return response; 
     } catch (error) {
       console.error(error);
-      return []; // Return an empty array in case of error
+      return [];
     }
   };
 
@@ -93,7 +93,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
   }, []);
 // console.log({hoverProducts})
   return (
-    <div className="flex items-center gap-[40px] min-h-fit flex-col lg:flex-row lg:h-[839px] w-max font-sans">
+    <div className="flex items-center gap-[40px] min-h-fit flex-col lg:flex-row lg:h-[839px] w-max ">
       <div
         style={{
           backgroundImage: `url(https://gulfpalms.com/wp-content/uploads/2023/10/DSC08580.jpg)`,
@@ -103,13 +103,13 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
         className="relative h-[350px] lg:h-full w-full lg:w-[576px]"
       >
         <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-30 p-[30px] text-white space-y-[10px]">
-          <p className="md:text-[36px] font-arabic font-bold">{t("HomeFirstProductGrid.gulfPalm")}</p>
-          <p className="md:text-[16px] max-w-sm">{t("HomeFirstProductGrid.description")}</p>
+          <p className="md:text-[36px] !font-arabic font-bold">{t("HomeFirstProductGrid.gulfPalm")}</p>
+          <p className="md:text-[16px] !font-arabic max-w-sm">{t("HomeFirstProductGrid.description")}</p>
         </div>
       </div>
       <div className="flex items-center gap-[17px] lg:gap-[40px] h-full">
         <div className="w-[calc(50vw-17px)] lg:w-[352px] flex flex-col h-full gap-[17px]">
-          <div className="w-full h-[175px] lg:h-[325px]">
+          <div className="w-full h-[175px] lg:h-[325px] font-sans">
             <RenderImageAndProducts
               productId="1"
               name="Flower"

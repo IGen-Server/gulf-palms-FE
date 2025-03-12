@@ -75,6 +75,16 @@ export function ProductDrawer({
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  const shareLinks = {
+    whatsapp:
+      "https://api.whatsapp.com/send?text=https%3A%2F%2Fgulfpalms.com%2Fen%2Fproduct%2Fbougainvillea-net%2F",
+    linkedin:
+      "https://www.linkedin.com/shareArticle?mini=true&url=https://gulfpalms.com/en/product/bougainvillea-net/",
+    mail: "mailto:?subject=Check%20this%20https://clone.gulfpalms.com/en/product/sansevieria-green/",
+    facebook:
+      "https://www.facebook.com/sharer/sharer.php?u=https://clone.gulfpalms.com/en/product/sansevieria-green/",
+  };
+
   const Content = (
     <div className="relative">
       <div className="flex flex-col md:flex-row gap-8 p-6">
@@ -109,7 +119,9 @@ export function ProductDrawer({
               href={`/product/${product?.slug}/`}
               className=" w-full h-full"
             >
-              <Button className="w-full bg-[#fdb777] text-white hover:bg-[#fda757] font-semibold uppercase">View Details</Button>
+              <Button className="w-full bg-[#fdb777] text-white hover:bg-[#fda757] font-semibold uppercase">
+                View Details
+              </Button>
             </Link>
           </div>
         </div>
@@ -119,29 +131,33 @@ export function ProductDrawer({
           <div className="text-right">
             <h2 className="text-[26px] font-semibold mb-2">{product.name}</h2>
             <p className="text-[21.7px] font-bold mb-6 text-primary">
-              {product.price.toFixed(3)} <span className="">KD</span>
+              {(options?.length || 0) > 1 && <span>From</span>}{" "}
+              {product.price.toFixed(3)} <span className="">KD</span>{" "}
             </p>
           </div>
 
-          <p className="text-gray-600 mb-8 text-sm leading-relaxed">
-            {product.description}
-          </p>
+          <div
+            className="text-gray-600 mb-8 text-sm leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: product.description }}
+          />
 
-          <div className="space-y-2 pb-4">
-            <label className="text-sm font-medium text-gray-700">Size:</label>
-            <Select>
-              <SelectTrigger className="w-full bg-white border-gray-300">
-                <SelectValue placeholder="Choose an option" />
-              </SelectTrigger>
-              <SelectContent>
-                {options?.map((option: any) => (
-                  <SelectItem key={option} value={option}>
-                    {option}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          {options?.length > 0 && (
+            <div className="space-y-2 pb-4">
+              <label className="text-sm font-medium text-gray-700">Size:</label>
+              <Select>
+                <SelectTrigger className="w-full bg-white border-gray-300">
+                  <SelectValue placeholder="Choose an option" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.map((option: any) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
 
           {/* Action Buttons */}
           <div className="flex gap-4 mb-8">
@@ -170,7 +186,7 @@ export function ProductDrawer({
               </button>
             </div>
             <Button
-              className="flex-1 bg-[#fdb777] hover:bg-[#fda757] text-white font-semibold"
+              className="flex-1 bg-primary hover:bg-[#fda757] text-white font-semibold"
               onClick={() => {
                 let cartProduct = { ...product, quantity: quantity || 1 };
                 addToCart(cartProduct);
@@ -179,7 +195,7 @@ export function ProductDrawer({
               ADD TO CART
             </Button>
             <Button
-              className="flex-1 bg-[#fdb777] hover:bg-[#fda757] text-white font-semibold"
+              className="flex-1 bg-primary hover:bg-[#fda757] text-white font-semibold"
               onClick={() => console.log("Buy now")}
             >
               BUY NOW
@@ -196,7 +212,11 @@ export function ProductDrawer({
               <span className="font-semibold">Categories:</span>{" "}
               <span className="text-gray-600">
                 {product.categories.map((cat, i) => (
-                  <Link href={`/product-category/ornamental-plants/${cat.name}`} key={i} className="hover:text-[#fdb777] cursor-pointer">
+                  <Link
+                    href={`/product-category/ornamental-plants/${cat.name}`}
+                    key={i}
+                    className="hover:text-[#fdb777] cursor-pointer"
+                  >
                     {cat.name}
                     {i < product.categories.length - 1 ? ", " : ""}
                   </Link>
@@ -209,34 +229,42 @@ export function ProductDrawer({
           <div className="flex items-center gap-4">
             <span className="text-sm font-semibold">Share:</span>
             <div className="flex gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hover:text-[#fdb777]"
-              >
-                <Facebook className="h-5 w-5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hover:text-[#fdb777]"
-              >
-                <Mail className="h-5 w-5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hover:text-[#fdb777]"
-              >
-                <Linkedin className="h-5 w-5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hover:text-[#fdb777]"
-              >
-                <WhatsApp className="h-5 w-5" />
-              </Button>
+              <Link href={shareLinks.facebook} target="_blank">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:text-[#fdb777]"
+                >
+                  <Facebook className="h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href={shareLinks.mail} target="_blank">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:text-[#fdb777]"
+                >
+                  <Mail className="h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href={shareLinks.linkedin} target="_blank">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:text-[#fdb777]"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href={shareLinks.whatsapp} target="_blank">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:text-[#fdb777]"
+                >
+                  <WhatsApp className="h-5 w-5" />
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

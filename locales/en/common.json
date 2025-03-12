@@ -688,5 +688,10 @@
     { "title": "Downloads", "href": "/my-account/edit-address/" },
     { "title": "Account", "href": "/my-account/edit-account/" },
     { "title": "Logout", "href": "/my-account/customer-logout/" }
-  ]
+  ],
+  "ReadMore": "Read More",
+  "SelectOptions":"Select Options",
+  "AddToCart":"Add to Cart",
+  "BuyNow":"Buy Now",
+  "SoldOut":"Sold Out"
 }
