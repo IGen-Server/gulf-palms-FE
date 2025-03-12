@@ -195,6 +195,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   <p className="text-[14px] sm:text-[16px] font-semibold text-gray-500">
                     {product.hoveredTitle}
                   </p>
+                  <p className="text-center !px-0 py-2 text-primary text-[16px] font-semibold">From {product?.price} KD</p>
                   <div
                     className={`text-xs sm:text-sm text-gray-500 overflow-hidden transition-all duration-300`}
                     style={{
@@ -206,7 +207,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   >
                     {product.description}
                   </div>
-
+                  
                   <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100 relative mt-2">
                     {product.description && (
                       <>
