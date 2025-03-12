@@ -27,6 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 interface ProductDrawerProps {
   open: boolean;
@@ -55,7 +56,7 @@ export function ProductDrawer({
   const [quantity, setQuantity] = React.useState(1);
   const [isMobile, setIsMobile] = React.useState(false);
   const [currentIndex, setCurrentIndex] = React.useState(0);
-
+  const { t } = useTranslation();
   const { addToCart } = useCart();
 
   React.useEffect(() => {
@@ -120,7 +121,7 @@ export function ProductDrawer({
               className=" w-full h-full"
             >
               <Button className="w-full bg-[#fdb777] text-white hover:bg-[#fda757] font-semibold uppercase">
-                View Details
+                {t("ViewDetails")}
               </Button>
             </Link>
           </div>
@@ -143,7 +144,7 @@ export function ProductDrawer({
 
           {options?.length > 0 && (
             <div className="space-y-2 pb-4">
-              <label className="text-sm font-medium text-gray-700">Size:</label>
+              <label className="text-sm font-medium text-gray-700">{t("Size")}:</label>
               <Select>
                 <SelectTrigger className="w-full bg-white border-gray-300">
                   <SelectValue placeholder="Choose an option" />
@@ -192,24 +193,24 @@ export function ProductDrawer({
                 addToCart(cartProduct);
               }}
             >
-              ADD TO CART
+              {t("AddToCart")}
             </Button>
             <Button
               className="flex-1 bg-primary hover:bg-[#fda757] text-white font-semibold"
               onClick={() => console.log("Buy now")}
             >
-              BUY NOW
+              {t("BuyNow")}
             </Button>
           </div>
 
           {/* Product Details */}
           <div className="space-y-2 text-sm mb-8">
             <p>
-              <span className="font-semibold">SKU:</span>{" "}
+              <span className="font-semibold">{t("SKU")}:</span>{" "}
               <span className="text-gray-600">{product.sku}</span>
             </p>
             <p>
-              <span className="font-semibold">Categories:</span>{" "}
+              <span className="font-semibold">{t("Categories")}:</span>{" "}
               <span className="text-gray-600">
                 {product.categories.map((cat, i) => (
                   <Link
@@ -227,7 +228,7 @@ export function ProductDrawer({
 
           {/* Share Section */}
           <div className="flex items-center gap-4">
-            <span className="text-sm font-semibold">Share:</span>
+            <span className="text-sm font-semibold">{t("Share")}:</span>
             <div className="flex gap-2">
               <Link href={shareLinks.facebook} target="_blank">
                 <Button

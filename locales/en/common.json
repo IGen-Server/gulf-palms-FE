@@ -693,5 +693,12 @@
   "SelectOptions":"Select Options",
   "AddToCart":"Add to Cart",
   "BuyNow":"Buy Now",
-  "SoldOut":"Sold Out"
+  "SoldOut":"Sold Out",
+  "ViewDetails": "View Details",
+  "Size": "Size",
+  "Choose_an_option": "Choose an Option",
+  "SKU": "SKU",
+  "N/A": "N/A",
+  "Categories": "Categories",
+  "Share": "Share"
 }
