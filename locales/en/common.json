@@ -688,5 +688,8 @@
     { "title": "Downloads", "href": "/my-account/edit-address/" },
     { "title": "Account", "href": "/my-account/edit-account/" },
     { "title": "Logout", "href": "/my-account/customer-logout/" }
-  ]
+  ],
+  "terms": {
+    "title": "Terms & Conditions"
+  }
 }

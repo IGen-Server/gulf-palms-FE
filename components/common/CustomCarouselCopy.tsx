@@ -19,6 +19,7 @@ interface CarouselData {
 interface CustomCarouselProps {
   dots?: boolean;
   data: CarouselData[];
+  title?: string;
   autoPlay?: boolean;
   withNavigation?: boolean;
   slidesToShow?: number;
@@ -28,6 +29,7 @@ interface CustomCarouselProps {
 
 export default function CustomCarouselCopy({
   data,
+  title,
   dots = true,
   slidesToShow = 4,
   slidesToScroll = 4,
@@ -37,7 +39,7 @@ export default function CustomCarouselCopy({
 }: CustomCarouselProps) {
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className="absolute right-[0px] md:-right-[22px] top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
+      className="hidden lg:block absolute right-[0px] md:-right-[42px] top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
       onClick={onClick}
     >
       <ChevronRight
@@ -49,12 +51,12 @@ export default function CustomCarouselCopy({
 
   const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className="absolute  md:-left-[35px] top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
+      className="hidden lg:block absolute  md:-left-[25px] top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000"
       onClick={onClick}
     >
       <ChevronLeft
         size={34}
-        className="translate-x-[20px] lg:translate-x-[-100px] text-gray-600 lg:group-hover:translate-x-0 transition-transform duration-1000"
+        className="translate-x-[20px] lg:translate-x-[-80px] text-gray-600 lg:group-hover:translate-x-0 transition-transform duration-1000"
       />
     </div>
   );
@@ -104,9 +106,14 @@ export default function CustomCarouselCopy({
 
   return (
     <div className="relative w-full h-full group">
+      {title && (
+        <h3 className="font-semibold text-[1.375rem] leading-8 text-[#242424]">
+          {title}
+        </h3>
+      )}
       <Slider autoplay={autoPlay} {...settings} className="w-full">
         {data.map((item, index) => (
-          <div key={index} className="h-full ">
+          <div key={index} className="h-full overflow-hidden">
             {/* <span>{item.imageSrc}</span> */}
             {item.imageSrc ? (
               <img
@@ -117,7 +124,9 @@ export default function CustomCarouselCopy({
                 }`}
               />
             ) : (
-              <div className="h-full">{item.component}</div>
+              <div className="h-full ml-5 group-first:ml-0">
+                {item.component}
+              </div>
             )}
           </div>
         ))}

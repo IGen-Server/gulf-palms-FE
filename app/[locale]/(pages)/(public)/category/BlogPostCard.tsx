@@ -36,7 +36,7 @@ const BlogPostCard = ({
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className={`relative w-full h-[273px] overflow-hidden duration-700 cursor-pointer`}
+        className={`relative w-full h-[273px] overflow-hidden duration-700 cursor-pointer shadow group-hover:shadow-lg`}
       >
         <Image
           src={post.image}
@@ -78,13 +78,11 @@ const BlogPostCard = ({
         </div>
       </div>
 
-      <div className="relative flex flex-col items-center gap-2 shadow-sm group-hover:hadow-lg p-6 text-center">
+      <div className="relative flex flex-col items-center gap-2 shadow-sm group-hover:hadow-lg p-6 text-center group-hover:shadow-lg">
         <p className="absolute left-1/2 -translate-x-1/2 -top-3 bg-primary px-3 py-1 font-semibold text-xs text-white uppercase z-20">
-          {slug}
+          {slug.includes("-") ? slug.split("-").join(" ") : slug}
         </p>
-        <h2 className="font-medium text-2xl text-[#333] opacity-65">
-          {post.title}
-        </h2>
+        <h2 className="font-medium text-2xl text-[#333]">{post.title}</h2>
         <div className="flex items-center gap-4">
           <p className="text-sm text-[#bbb]">By</p>
           <Image

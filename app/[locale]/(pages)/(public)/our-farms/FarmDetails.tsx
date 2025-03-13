@@ -29,7 +29,7 @@ const FarmDetails = () => {
 
   const breadcrumbLinks = [
     { name: "Home", arabicName: "الرئيسية", href: "/" },
-    { name: "OurFarms", arabicName: " » مزارعنا", href: "/our-farms" },
+    { name: "OurFarms", arabicName: "مزارعنا", href: "/our-farms" },
   ];
 
   return (

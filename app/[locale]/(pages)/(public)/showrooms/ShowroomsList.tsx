@@ -1,12 +1,12 @@
 "use client";
 
 import GetInTouch from "@/components/common/GetInTouch";
-import ImageTextCard from "@/components/common/ImageTextCard";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import showrooms from "./showroomsData.json";
 import { ServiceProps } from "./[id]/ShowroomDetails";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
+import ImageTextCardCopy from "@/components/common/ImageTextCardCopy";
 
 const breadcrumbLinks = [
   { name: "Home", arabicName: "الرئيسية", href: "/" },
@@ -28,7 +28,7 @@ export default function ShowRoomsList() {
       </div>
       {showrooms.slice(0, 3).map((service: ServiceProps, index: number) => (
         <div key={index} className="flex flex-col gap-12">
-          <ImageTextCard
+          <ImageTextCardCopy
             colReversed={index % 2 !== 0}
             leftContent={{
               type: "text",

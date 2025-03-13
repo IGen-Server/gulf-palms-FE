@@ -1,17 +1,23 @@
 import Image from "next/image";
 
-const BlogPostHeading = () => {
+const BlogPostHeading = ({
+  post,
+  slug = "Decoration",
+}: {
+  post: { title: string; image: string; description: string };
+  slug?: string;
+}) => {
   return (
     <div className="w-full">
       <div className="relative flex flex-col items-center gap-2 py-6 text-center">
         <p className="self-center bg-primary px-3 py-1 font-semibold text-xs text-white uppercase z-20">
-          Decoration
+          {slug.includes("-") ? slug.split("-").join(" ") : slug}
         </p>
-        <h2 className="font-medium text-[2rem] text-[#333]">
-          Exploring Atlanta’s modern homes
+        <h2 className="font-medium text-xl lg:text-[2rem] text-[#333]">
+          {post.title}
         </h2>
         <div className="flex items-center gap-3">
-          <p className="text-sm text-[#bbb]">Posted By</p>
+          <p className="hidden lg:block text-sm text-[#bbb]">Posted By</p>
           <Image
             src="/images/users/avatar.jpg"
             alt="Avatar"
@@ -21,9 +27,9 @@ const BlogPostHeading = () => {
           />
           <p className="text-sm text-[#bbb]">Admin</p>
         </div>
-        <div className="relative w-full h-[623px] mt-3">
+        <div className="relative w-full h-[281px] lg:h-[623px] mt-3">
           <Image
-            src="https://gulfpalms.com/wp-content/uploads/2021/08/wd-blog-1.jpg"
+            src={post.image}
             alt="Blog image"
             width={0}
             height={0}
