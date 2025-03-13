@@ -13,7 +13,9 @@ export default function OrdersPage() {
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true, true);
 
   // Orders
-  const [orderConfig, setOrderConfig] = useState({}); // page: 1, per_page: 10
+  const [orderConfig, setOrderConfig] = useState({
+    status: 'processing,pending,on-hold,completed,cancelled,refunded,failed'
+  }); // page: 1, per_page: 10
   const [orders, setOrders] = useState<any[] | null>(null);
 
   const getOrders = async () => {
@@ -79,7 +81,7 @@ export default function OrdersPage() {
                     <span>{order.needs_payment ? 'needs_payment' : 'no needs_payment'}</span><br></br>
                     <span>{order.needs_processing ? 'needs_processing' : 'no needs_processing'}</span><br></br> */}
                     {
-                      (order.status === 'processing' || order.status === 'pending') && order.is_editable && getTotalQuantity(order?.line_items) > 0 &&
+                      (order.status === 'failed' || order.status === 'pending') && getTotalQuantity(order?.line_items) > 0 &&
                       <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
                         PAY
                       </Button>
@@ -90,7 +92,8 @@ export default function OrdersPage() {
                       </Button>
                     }
                     {
-                      (order.status === 'processing' || order.status === 'pending') && order.is_editable &&
+                      // (order.status === 'processing' || order.status === 'pending') && order.is_editable &&
+                      (order.status === 'failed' || order.status === 'pending') && getTotalQuantity(order?.line_items) > 0 &&
                       <Button onClick={() => onOrderCancel(order.id)} size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
                         CANCEL
                       </Button>

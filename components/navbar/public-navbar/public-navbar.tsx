@@ -217,15 +217,16 @@ export default function PublicNavbar() {
               </HoverCardTrigger>
               <HoverCardContent className="w-[220px] p-4 mt-[16px]">
                 <nav className="flex flex-col space-y-2">
-                  {myDashboard?.map((menu: any) => (
-                    <Link
-                      key={menu.title}
-                      href={menu.href || "#"}
-                      className="text-gray-600 hover:text-gray-900 text-sm px-3 py-2 rounded-md hover:bg-gray-100"
-                    >
-                      {menu.title}
-                    </Link>
-                  ))}
+                  {Array.isArray(myDashboard) &&
+                    myDashboard.map((menu: any) => (
+                      <Link
+                        key={menu.title}
+                        href={menu.href || "#"}
+                        className="text-gray-600 hover:text-gray-900 text-sm px-3 py-2 rounded-md hover:bg-gray-100"
+                      >
+                        {menu.title}
+                      </Link>
+                    ))}
                 </nav>
               </HoverCardContent>
             </HoverCard>

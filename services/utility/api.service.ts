@@ -28,7 +28,10 @@ export const ApiRoutes = {
   ProductCategory: {
     GetById: 'categories/getById',
     Get: 'categories',
-  }
+  },
+  Payment: {
+    Pay: 'payment/pay',
+  },
 };
 
 const AxiosInstanceWithInterceptor = axios.create({
