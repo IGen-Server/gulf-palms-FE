@@ -47,7 +47,7 @@ export function CustomBreadCrumb({
         const isSelected = index === links.length - 1;
 
         return (
-          <div key={index} className="flex items-center">
+          <div key={index} className="flex items-center font-sans">
             {index !== 0 && <span className="mx-2 text-gray-800">/</span>}
             {isLast ? (
               <span

@@ -2,15 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const BlogPostCard = ({
   post,
   slug,
 }: {
-  post: { title: string; image: string; description: string };
+  post: { slug: string; title: string; image: string; description: string };
   slug: string;
 }) => {
+  const router = useRouter();
   const [hovered, setHovered] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
   const text =
@@ -31,12 +33,13 @@ const BlogPostCard = ({
 
   return (
     <div
-      className="w-full mt-24 group"
+      className="w-full mt-24 font-sans group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div
         className={`relative w-full h-[273px] overflow-hidden duration-700 cursor-pointer shadow group-hover:shadow-lg`}
+        onClick={() => router.push(post.slug)}
       >
         <Image
           src={post.image}
@@ -82,7 +85,12 @@ const BlogPostCard = ({
         <p className="absolute left-1/2 -translate-x-1/2 -top-3 bg-primary px-3 py-1 font-semibold text-xs text-white uppercase z-20">
           {slug.includes("-") ? slug.split("-").join(" ") : slug}
         </p>
-        <h2 className="font-medium text-2xl text-[#333]">{post.title}</h2>
+        <Link
+          href={post.slug}
+          className="font-medium text-2xl text-[#333] font-serif"
+        >
+          {post.title}
+        </Link>
         <div className="flex items-center gap-4">
           <p className="text-sm text-[#bbb]">By</p>
           <Image
@@ -106,7 +114,7 @@ const BlogPostCard = ({
             : post.description}
         </p>
         <Link
-          href={`/${slug}`}
+          href={post.slug}
           className="font-semibold text-[.8125rem] text-primary uppercase"
         >
           Continue Reading

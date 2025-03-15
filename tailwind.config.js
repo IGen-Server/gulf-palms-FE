@@ -11,6 +11,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Lato", "Arial", "Helvetica", "sans-serif"],
+        serif: ["sans-serif", "Lato", "Arial", "Helvetica"],
         arabic: ["var(--neo-arabic-font)", "sans-serif"],
       },
       maxWidth: {
