@@ -3,8 +3,8 @@
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import { useTranslation } from "react-i18next";
 
-const page = () => {
-  const { t, i18n } = useTranslation("common");
+const Terms = () => {
+  const { t } = useTranslation("common");
   const breadcrumbLinks = [
     { name: "Home", arabicName: "الرئيسية", href: "/" },
     {
@@ -25,4 +25,4 @@ const page = () => {
     </section>
   );
 };
-export default page;
+export default Terms;

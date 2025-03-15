@@ -16,7 +16,7 @@ const page = () => {
     <BlogStructure breadcrumbLinks={breadcrumbLinks}>
       <BlogPostHeading post={decorationPosts[1]} />
       <div className="flex flex-col gap-6">
-        <p className="text-sm text-lightGray">
+        <p className="text-sm text-lightGray leading-[1.375rem]">
           Ac haca ullamcorper donec ante habi tasse donec imperdiet eturpis
           varius per a augue magna hac. Nec hac et vestibulum duis a tincidunt
           per a aptent interdum purus feugiat a id aliquet erat himenaeos nunc
@@ -26,7 +26,7 @@ const page = () => {
           vulputate cubilia posuere parturient inceptos massa euismod curabitur
           dis dignissim vestibulum quam a urna.
         </p>
-        <p className="">
+        <p className="text-sm text-lightGray leading-[1.375rem]">
           Netus pretium tellus nulla commodo massa adipiscing in elementum magna
           congue condimentum placerat habitasse potenti ac orci a quisque
           tristique elementum et viverra at condimentum scelerisque eu mi. Elit

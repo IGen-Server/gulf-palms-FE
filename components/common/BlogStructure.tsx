@@ -25,7 +25,7 @@ const BlogStructure = ({
     component: <BlogPostCard post={post} slug="" />,
   }));
   return (
-    <div className="max-w-[1222px] mx-auto pt-[98px] rtl">
+    <div className="max-w-[1222px] mx-auto pt-[98px]">
       <div className="flex flex-col items-center">
         <h1
           className={`mb-3 text-4xl lg:text-[4.25rem] lg:leading-[5.125rem] font-bold text-black`}
