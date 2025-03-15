@@ -1,6 +1,6 @@
 import BlogStructure from "@/components/common/BlogStructure";
 import BlogPostHeading from "../exploring-atlantas-modern-homes/BlogPostHeading";
-import { designPosts } from "@/data/blogsData";
+import { decorationPosts, designPosts, furniturePosts } from "@/data/blogsData";
 import Image from "next/image";
 
 const page = () => {
@@ -15,9 +15,14 @@ const page = () => {
   const tags = ["Guide", "Inspiration", "Table", "Trends"];
 
   return (
-    <BlogStructure breadcrumbLinks={breadcrumbLinks} tags={tags}>
-      <BlogPostHeading post={designPosts[0]} />
-      <div className="flex flex-col gap-6">
+    <BlogStructure
+      breadcrumbLinks={breadcrumbLinks}
+      tags={tags}
+      prevBlog={furniturePosts[0]}
+      nextBlog={decorationPosts[1]}
+    >
+      <BlogPostHeading post={designPosts[0]} slug="Design Trends" />
+      <div className="flex flex-col gap-6 font-sans">
         <div className="flex flex-col gap-6">
           <p className="text-sm text-lightGray leading-[1.375rem]">
             Aliquet parturient scele risque scele risque nibh pretium parturient
@@ -43,7 +48,7 @@ const page = () => {
         </div>
         <div className="flex flex-col lg:flex-row gap-3">
           <Image
-            src="https://gulfpalms.com/wp-content/uploads/2021/08/wd-blog-2-800x475.jpg"
+            src="https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-2-800x475.jpg"
             alt="Blog post image"
             width={0}
             height={0}
@@ -51,7 +56,7 @@ const page = () => {
             className="w-full lg:flex-1 h-[251px]"
           />
           <div className="flex flex-col gap-6 flex-1">
-            <h2 className="font-semibold text-[1.375rem] text-[#242424] leading-[1.9375rem]">
+            <h2 className="font-serif font-semibold text-[1.375rem] text-[#242424] leading-[1.9375rem]">
               Tortor mi mus nascetur
             </h2>
             <p className="text-sm text-lightGray leading-[1.375rem]">
@@ -90,7 +95,7 @@ const page = () => {
         </p>
         <div className="flex flex-col lg:flex-row gap-3 lg:gap-7">
           <div className="flex flex-col gap-6 flex-1">
-            <h2 className="font-semibold text-[1.375rem] text-[#242424] leading-[1.9375rem]">
+            <h2 className="font-serif font-semibold text-[1.375rem] text-[#242424] leading-[1.9375rem]">
               A venenatis ad fermentum nascetur
             </h2>
             <p className="text-sm text-lightGray leading-[1.375rem]">
@@ -101,7 +106,7 @@ const page = () => {
             </p>
           </div>
           <div className="flex flex-col gap-6 flex-1">
-            <h2 className="font-semibold text-[1.375rem] text-[#242424] leading-[1.9375rem]">
+            <h2 className="font-serif font-semibold text-[1.375rem] text-[#242424] leading-[1.9375rem]">
               Mattis vestibulum nisl erat pretium morbi
             </h2>
             <p className="text-sm text-lightGray leading-[1.375rem]">

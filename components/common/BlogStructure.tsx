@@ -6,7 +6,8 @@ import Link from "next/link";
 import BlogCommentForm from "@/app/[locale]/(pages)/(public)/(blogs)/exploring-atlantas-modern-homes/BlogCommentForm";
 import BlogPostCard from "@/app/[locale]/(pages)/(public)/category/BlogPostCard";
 import CustomCarouselCopy from "./CustomCarouselCopy";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
+import BlogRightContent from "./BlogRightContent";
 
 const BlogStructure = ({
   children,
@@ -14,12 +15,16 @@ const BlogStructure = ({
   tags = ["Guide", "News", "Sofa"],
   comment = false,
   postTitle,
+  prevBlog,
+  nextBlog,
 }: {
   children: ReactNode;
   breadcrumbLinks: { name: string; arabicName: string; href: string }[];
   tags?: string[];
   comment?: boolean;
   postTitle?: string;
+  prevBlog: { slug: string; title: string; image: string; description: string };
+  nextBlog: { slug: string; title: string; image: string; description: string };
 }) => {
   const slidesData = decorationPosts.map((post) => ({
     component: <BlogPostCard post={post} slug="" />,
@@ -53,47 +58,67 @@ const BlogStructure = ({
               ))}
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 flex justify-center items-center rounded-full bg-[#365493] hover:bg-[#2F487F] duration-300 cursor-pointer">
+              <Link
+                href="https://www.facebook.com/sharer/sharer.php?u=https://gulfpalms.com/en/reinterprets-the-classic-bookshelf/"
+                className="w-10 h-10 flex justify-center items-center rounded-full bg-[#365493] hover:bg-[#2F487F] duration-300 cursor-pointer"
+              >
                 <i className="fa-brands fa-facebook-f text-white"></i>
-              </div>
-              <div className="w-10 h-10 flex justify-center items-center rounded-full bg-[#f89a1e] hover:bg-[#D6851A] duration-300 cursor-pointer">
+              </Link>
+              <Link
+                href="mailto:"
+                className="w-10 h-10 flex justify-center items-center rounded-full bg-[#f89a1e] hover:bg-[#D6851A] duration-300 cursor-pointer"
+              >
                 <i className="fa-solid fa-envelope text-white"></i>
-              </div>
-              <div className="w-10 h-10 flex justify-center items-center rounded-full bg-[#0274b3] hover:bg-[#02649A] duration-300 cursor-pointer">
+              </Link>
+              <Link
+                href="https://www.linkedin.com/shareArticle?mini=true&url=https://gulfpalms.com/en/reinterprets-the-classic-bookshelf/"
+                className="w-10 h-10 flex justify-center items-center rounded-full bg-[#0274b3] hover:bg-[#02649A] duration-300 cursor-pointer"
+              >
                 <i className="fa-brands fa-linkedin-in text-white"></i>
-              </div>
-              <div className="w-10 h-10 flex justify-center items-center rounded-full bg-[#1ebea5] hover:bg-[#1AA48E] duration-300 cursor-pointer">
+              </Link>
+              <Link
+                href="https://api.whatsapp.com/send?text=https%3A%2F%2Fgulfpalms.com%2Fen%2Freinterprets-the-classic-bookshelf%2F"
+                className="w-10 h-10 flex justify-center items-center rounded-full bg-[#1ebea5] hover:bg-[#1AA48E] duration-300 cursor-pointer"
+              >
                 <i className="fa-brands fa-whatsapp text-white"></i>
-              </div>
+              </Link>
             </div>
           </div>
 
           <div className="w-full h-[1px] bg-lightGray/30 my-7" />
 
           <div className="w-full flex justify-between items-center my-7">
-            <div className="flex items-center gap-3">
-              <ChevronLeft className="w-10 h-10 border border-[#bbb] rounded-full p-2" />
+            <Link
+              href={prevBlog.slug}
+              className="flex items-center gap-3 group"
+            >
+              <ChevronLeft className="w-10 h-10 border border-[#bbb] rounded-full p-2 cursor-pointer" />
               <div className="flex flex-col gap-2">
                 <p className="font-light text-xs text-[#bbb] tracking-wider">
                   Newer
                 </p>
-                <p className="hidden lg:block font-semibold text-xs text-[#777] tracking-wider">
-                  Reinterprets the classic bookshelf
+                <p className="hidden lg:block font-semibold text-xs text-[#777] group-hover:text-primary duration-300 tracking-wider">
+                  {prevBlog.title}
                 </p>
               </div>
-            </div>
+            </Link>
 
-            <div className="flex items-center gap-3">
-              <div className="flex flex-col gap-2">
+            <LayoutGrid color="#bbb" />
+
+            <Link
+              href={nextBlog.slug}
+              className="flex items-center gap-3 group"
+            >
+              <div className="flex flex-col items-end gap-2">
                 <p className="font-light text-xs text-[#bbb] tracking-wide">
-                  Newer
+                  Older
                 </p>
-                <p className="hidden lg:block font-semibold text-xs text-[#777] tracking-wide">
-                  Reinterprets the classic bookshelf
+                <p className="hidden lg:block font-semibold text-xs text-[#777] group-hover:text-primary duration-300 tracking-wide">
+                  {nextBlog.title}
                 </p>
               </div>
-              <ChevronRight className="w-10 h-10 border border-[#bbb] rounded-full p-2" />
-            </div>
+              <ChevronRight className="w-10 h-10 border border-[#bbb] rounded-full p-2 cursor-pointer" />
+            </Link>
           </div>
           <div className="w-full h-[625px]">
             <CustomCarouselCopy
@@ -143,102 +168,7 @@ const BlogStructure = ({
           <BlogCommentForm />
         </div>
         <div className="lg:col-span-1 hidden lg:flex flex-col gap-5 px-3">
-          <div className="flex flex-col gap-4">
-            <h3 className="font-semibold text-base text-[#333] uppercase">
-              Categories
-            </h3>
-            <div className="flex flex-col gap-3">
-              {["Decoration", "Design trends", "Furniture", "Inspiration"].map(
-                (category) => (
-                  <Link
-                    href={`/en/cvvategory/${category}`}
-                    key={category}
-                    className="font-normal text-sm text-lightGray hover:text-[#333]"
-                  >
-                    {category}
-                  </Link>
-                )
-              )}
-            </div>
-          </div>
-          <div className="w-full h-[1px] bg-lightGray/30" />
-          <div className="flex flex-col gap-4">
-            <h3 className="font-semibold text-base text-[#333] tracking-wide uppercase">
-              Recent Posts
-            </h3>
-            <div className="flex flex-col gap-3">
-              {recentPosts.map((post, index) => (
-                <div key={index} className="flex gap-2">
-                  <Image
-                    src={post.image}
-                    alt="Post image"
-                    width={75}
-                    height={65}
-                  />
-                  <div className="flex flex-col justify-between">
-                    <p className="font-medium text-sm text-[#333] opacity-65">
-                      {post.title}
-                    </p>
-                    <div className="flex gap-2">
-                      <p className="text-[#bbb] text-[.8125rem]">{post.date}</p>
-                      <p className="text-[#bbb] text-[.8125rem]">No Comments</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="w-full h-[1px] bg-lightGray/30" />
-
-          <div className="flex flex-col gap-4">
-            <h3 className="font-semibold text-base text-[#333] tracking-wide uppercase">
-              Our Instagram
-            </h3>
-            <div className="grid grid-cols-3 gap-1">
-              {images.map((image, index) => (
-                <Image
-                  key={index}
-                  src={image}
-                  alt="Post image"
-                  width={87}
-                  height={87}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="w-full h-[1px] bg-lightGray/30" />
-
-          <div className="flex flex-col gap-4">
-            <h3 className="font-semibold text-base text-[#333] tracking-wide uppercase">
-              Recent Comments
-            </h3>
-            <div className="flex flex-col gap-4">
-              <p className="text-sm">
-                <i className="fa-regular fa-message text-xs text-[#333]"></i>{" "}
-                <span className="text-lightGray px-1">Mr. Mackay on</span>
-                <span className="font-semibold text-[#333]">
-                  {" "}
-                  Sweet seat: functional seat for IT folks
-                </span>
-              </p>
-              <p className="text-sm">
-                <i className="fa-regular fa-message text-xs text-[#333]"></i>{" "}
-                <span className="text-lightGray px-1">Mr. Mackay on</span>
-                <span className="font-semibold text-[#333]">
-                  {" "}
-                  The big design: Wall likes pictures
-                </span>
-              </p>
-              <p className="text-sm">
-                <i className="fa-regular fa-message text-xs text-[#333]"></i>{" "}
-                <span className="text-lightGray px-1">Mr. Mackay on</span>
-                <span className="font-semibold text-[#333]">
-                  {" "}
-                  Minimalist Japanese-inspired furniture
-                </span>
-              </p>
-            </div>
-          </div>
+          <BlogRightContent />
         </div>
       </div>
     </div>

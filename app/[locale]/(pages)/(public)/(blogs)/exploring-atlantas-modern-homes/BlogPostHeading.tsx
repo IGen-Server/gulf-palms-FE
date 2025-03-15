@@ -8,12 +8,12 @@ const BlogPostHeading = ({
   slug?: string;
 }) => {
   return (
-    <div className="w-full">
+    <div className="w-full font-sans">
       <div className="relative flex flex-col items-center gap-2 py-6 text-center">
         <p className="self-center bg-primary px-3 py-1 font-semibold text-xs text-white uppercase z-20">
           {slug.includes("-") ? slug.split("-").join(" ") : slug}
         </p>
-        <h2 className="font-medium text-xl lg:text-[2rem] text-[#333]">
+        <h2 className="font-serif font-medium text-xl lg:text-[2rem] text-[#333]">
           {post.title}
         </h2>
         <div className="flex items-center gap-3">

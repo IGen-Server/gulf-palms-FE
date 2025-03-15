@@ -136,7 +136,6 @@
   }
 }
 
-
 .footer {
   bottom: 0;
   right: 0;
@@ -310,7 +309,7 @@ body {
 }
 
 .focus-visible\:ring-ring:focus-visible {
-  --tw-ring-color:white !important;
+  --tw-ring-color: white !important;
 }
 
 .custom-shadow:hover {
@@ -318,7 +317,6 @@ body {
   -moz-box-shadow: 0px -1px 33px -12px rgba(105, 103, 105, 0.86);
   box-shadow: 0px -1px 33px -12px rgba(105, 103, 105, 0.86);
 }
-
 
 #sb_instagram .sbi_type_video .sbi_playbtn,
 #sb_instagram .sbi_type_carousel .sbi_playbtn,
@@ -359,4 +357,17 @@ body {
 .wd-fill {
   position: absolute;
   inset: 0;
+}
+
+@keyframes moveDots {
+  0% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(3px);
+  }
+}
+
+.group:hover .dot {
+  animation: moveDots 0.5s infinite alternate ease-in-out;
 }

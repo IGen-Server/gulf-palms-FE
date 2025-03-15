@@ -9,7 +9,14 @@ const BlogPostCard = ({
   post,
   slug,
 }: {
-  post: { slug: string; title: string; image: string; description: string };
+  post: {
+    slug: string;
+    title: string;
+    image: string;
+    description: string;
+    date?: number;
+    month?: string;
+  };
   slug: string;
 }) => {
   const router = useRouter();
@@ -33,12 +40,12 @@ const BlogPostCard = ({
 
   return (
     <div
-      className="w-full mt-24 font-sans group"
+      className="w-full mt-7 lg:mt-24 font-sans group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className={`relative w-full h-[273px] overflow-hidden duration-700 cursor-pointer shadow group-hover:shadow-lg`}
+        className={`relative w-full h-[273px] overflow-hidden duration-700 cursor-pointer shadow-md group-hover:shadow-lg`}
         onClick={() => router.push(post.slug)}
       >
         <Image
@@ -51,6 +58,13 @@ const BlogPostCard = ({
             hovered ? "scale-105" : "scale-100"
           } duration-700`}
         />
+
+        <p className="absolute left-3 top-3 w-max h-max bg-white px-3 py-1 text-2xl leading-6 text-[#333]">
+          {post.date ?? 26} <br />{" "}
+          <span className="text-xs uppercase leading-3">
+            {post.month ?? "AUG"}
+          </span>
+        </p>
 
         <div
           className={`absolute inset-0 bg-black duration-700 ${
@@ -115,9 +129,14 @@ const BlogPostCard = ({
         </p>
         <Link
           href={post.slug}
-          className="font-semibold text-[.8125rem] text-primary uppercase"
+          className="flex items-end gap-1 font-semibold text-[.8125rem] text-primary uppercase mt-2 group"
         >
           Continue Reading
+          <div className="opacity-0 group-hover:lg:opacity-100 flex gap-1 cursor-pointer pb-[.375rem]">
+            <div className="dot w-[3px] h-[3px] bg-primary rounded-full" />
+            <div className="dot w-[3px] h-[3px] bg-primary rounded-full" />
+            <div className="dot w-[3px] h-[3px] bg-primary rounded-full" />
+          </div>
         </Link>
       </div>
     </div>

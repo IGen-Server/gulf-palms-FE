@@ -40,7 +40,7 @@ const Category = ({ slug }: { slug: string }) => {
 
   return (
     <>
-      <div className="max-w-[1222px] mx-auto mt-[145px] font-serif mb-12">
+      <div className="max-w-[1222px] mx-auto mt-[145px] font-serif mb-12 px-5 lg:px-0">
         <div className="flex flex-col items-center">
           <h1
             className={`mb-3 text-4xl lg:text-[4.25rem] lg:leading-[5.125rem] font-bold text-black capitalize`}
@@ -49,7 +49,7 @@ const Category = ({ slug }: { slug: string }) => {
           </h1>
           <CustomBreadCrumb links={breadcrumbLinks} />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-5">
           {posts.map((post, index) => (
             <BlogPostCard key={index} post={post} slug={slug} />
           ))}

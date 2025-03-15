@@ -70,6 +70,7 @@ const decorationPosts = [
       "Vivamus enim sagittis aptent hac mi dui a per aptent suspendisse cras odio bibendum augue rhoncus laoreet dui praesent sodales sodales. Dignissim fusce ullamcorper volutpat habitasse tincidunt parturient enim tempor facilisi nostra lobortis proin primis litora",
     image:
       "https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-9.jpg",
+    date: 27,
   },
   {
     slug: "/en/creative-water-features-and-exterior",
@@ -78,6 +79,7 @@ const decorationPosts = [
       "https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-5.jpg",
     description:
       "Ac haca ullamcorper donec ante habi tasse donec imperdiet eturpis varius per a augue magna hac. Nec hac et vestibulum duis a tincidunt per a aptent interdum purus feugiat a id aliquet erat himenaeos nunc torquent euismod adipiscing adipiscing dui gravida justo.",
+    date: 27,
   },
   {
     slug: "/en/new-home-decor-from-john-doerson",
@@ -86,6 +88,7 @@ const decorationPosts = [
       "https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-2.jpg",
     description:
       "Ullamcorper condimentum erat pretium velit at ut a nunc id a adeu vestibulum nibh urna nam consequat erat molestie lacinia rhoncus. Nisi a diamida himenaeos condimentum laoreet pera neque habitant leo feugiat viverra nisl sagittis a curabitur parturient nisi adipiscing.",
+    date: 26,
   },
 ];
 
@@ -97,6 +100,7 @@ const inspirationData = [
       "https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-8.jpg",
     description:
       "A sed a risusat luctus esta anibh rhoncus hendrerit blandit nam rutrum sitmiad hac. Cras a vestibulum a varius adipiscing ut dignissim ullamcorper libero fermentum dis aliquet tellus mollis et tristique sodales. Suspendisse vel mi etiam ullamcorper",
+    date: 27,
   },
   {
     slug: "/en/minimalist-japanese-inspired-furniture",
@@ -105,6 +109,7 @@ const inspirationData = [
       "https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-1.jpg",
     description:
       "A taciti cras scelerisque scelerisque gravida natoque nulla vestibulum turpis primis adipiscing faucibus scelerisque adipiscing aliquet pretium. Et iaculis mi velit tincidunt vestibulum a duis tempor non magna ultrices porta malesuada ullamcorper scelerisque",
+    date: 26,
   },
 ];
 
@@ -116,6 +121,7 @@ const designPosts = [
       "https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-6.jpg",
     description:
       "Aliquet parturient scele risque scele risque nibh pretium parturient suspendisse platea sapien torquent feugiat parturient hac amet. Volutpat nullam montes mollis ad mauris in orci eleifend per eu pulvinar sociosqu primis hendrerit parturient volutpat a volutpat",
+    date: 27,
   },
   {
     slug: "/en/the-big-design-wall-likes-pictures",
@@ -124,6 +130,7 @@ const designPosts = [
       "https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-3.jpg",
     description:
       "Parturient in potenti id rutrum duis torquent parturient sceler isque sit vestibulum a posuere scelerisque viverra urna. Egestas tristique vestibulum vestibulum ante vulputate penati bus a nibh dis parturient cum a adipiscing nam condimentum quisque enim",
+    date: 26,
   },
 ];
 
@@ -135,6 +142,7 @@ const furniturePosts = [
       "https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-7.jpg",
     description:
       "Adipiscing hac imperdiet id blandit varius scelerisque at sagittis libero dui dis volutpat vehicula mus sed ut. Lacinia dui rutrum arcu cras a at conubia a condimentum curabitur dictumst cum consectetur ullamcorper",
+    date: 27,
   },
   {
     slug: "/en/sweet-seat-functional-seat-for-it-folks",
@@ -143,6 +151,8 @@ const furniturePosts = [
       "https://clone.gulfpalms.com/wp-content/uploads/2021/07/wd-blog-4.jpg",
     description:
       "A sed a risusat luctus esta anibh rhoncus hendrerit blandit nam rutrum sitmiad hac. Cras a vestibulum a varius adipiscing ut dignissim ullamcorper libero fermentum dis aliquet tellus mollis et tristique sodales. Suspendisse vel mi etiam ullamcorper parturient",
+    date: 14,
+    month: "JUL",
   },
 ];
 

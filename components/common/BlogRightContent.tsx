@@ -13,7 +13,14 @@ const BlogRightContent = () => {
           {["Decoration", "Design trends", "Furniture", "Inspiration"].map(
             (category) => (
               <Link
-                href={`/en/category/${category}`}
+                href={
+                  category.includes(" ")
+                    ? `/en/category/${category
+                        .toLowerCase()
+                        .split(" ")
+                        .join("-")}`
+                    : `/en/category/${category.toLowerCase()}`
+                }
                 key={category}
                 className="font-normal text-sm text-lightGray hover:text-[#333]"
               >
