@@ -2,6 +2,7 @@
 
 import GetInTouch from "@/components/common/GetInTouch";
 import ImageTextCard from "@/components/common/ImageTextCard";
+import ImageTextCardCopy from "@/components/common/ImageTextCardCopy";
 import { serviceData } from "@/data/serviceData";
 import { useTranslation } from "react-i18next";
 
@@ -14,7 +15,7 @@ const ServiceCards = () => {
     <div className="">
       {serviceData.map((service, index: number) => (
         <div key={service.id}>
-          <ImageTextCard
+          <ImageTextCardCopy
             colReversed={index % 2 !== 0}
             leftContent={{
               type: "text",
