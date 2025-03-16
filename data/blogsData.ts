@@ -1,17 +1,20 @@
 const recentPosts = [
   {
+    slug: "/en/exploring-atlantas-modern-homes",
     title: "Exploring Atlanta’s modern homes",
     image:
       "https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-9-75x65.jpg",
     date: "August 27, 2021",
   },
   {
+    slug: "/en/green-interior-design-inspiration",
     title: "Green interior design inspiration",
     image:
       "https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-8-75x65.jpg",
     date: "August 27, 2021",
   },
   {
+    slug: "/en/collar-brings-back-coffee-brewing-ritual",
     title: "Collar brings back coffee brewing ritual",
     image:
       "https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-7-75x65.jpg",

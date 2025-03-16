@@ -18,8 +18,8 @@ const page = () => {
     <BlogStructure
       breadcrumbLinks={breadcrumbLinks}
       tags={tags}
-      prevBlog={furniturePosts[0]}
-      nextBlog={decorationPosts[1]}
+      newerBlog={furniturePosts[0]}
+      olderBlog={decorationPosts[1]}
     >
       <BlogPostHeading post={designPosts[0]} slug="Design Trends" />
       <div className="flex flex-col gap-6 font-sans">

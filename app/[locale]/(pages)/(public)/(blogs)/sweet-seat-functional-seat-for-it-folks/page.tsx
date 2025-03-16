@@ -1,6 +1,6 @@
 import BlogStructure from "@/components/common/BlogStructure";
 import BlogPostHeading from "../exploring-atlantas-modern-homes/BlogPostHeading";
-import { furniturePosts } from "@/data/blogsData";
+import { designPosts, furniturePosts } from "@/data/blogsData";
 import Image from "next/image";
 
 const page = () => {
@@ -28,6 +28,7 @@ const page = () => {
       tags={tags}
       comment
       postTitle={furniturePosts[1].title}
+      newerBlog={designPosts[1]}
     >
       <BlogPostHeading post={furniturePosts[1]} slug="Furniture" />
       <div className="flex flex-col gap-6">

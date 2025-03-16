@@ -15,16 +15,26 @@ const BlogStructure = ({
   tags = ["Guide", "News", "Sofa"],
   comment = false,
   postTitle,
-  prevBlog,
-  nextBlog,
+  newerBlog,
+  olderBlog,
 }: {
   children: ReactNode;
   breadcrumbLinks: { name: string; arabicName: string; href: string }[];
   tags?: string[];
   comment?: boolean;
   postTitle?: string;
-  prevBlog: { slug: string; title: string; image: string; description: string };
-  nextBlog: { slug: string; title: string; image: string; description: string };
+  newerBlog?: {
+    slug: string;
+    title: string;
+    image: string;
+    description: string;
+  };
+  olderBlog?: {
+    slug: string;
+    title: string;
+    image: string;
+    description: string;
+  };
 }) => {
   const slidesData = decorationPosts.map((post) => ({
     component: <BlogPostCard post={post} slug="" />,
@@ -88,38 +98,51 @@ const BlogStructure = ({
           <div className="w-full h-[1px] bg-lightGray/30 my-7" />
 
           <div className="w-full flex justify-between items-center my-7">
-            <Link
-              href={prevBlog.slug}
-              className="flex items-center gap-3 group"
-            >
-              <ChevronLeft className="w-10 h-10 border border-[#bbb] rounded-full p-2 cursor-pointer" />
-              <div className="flex flex-col gap-2">
-                <p className="font-light text-xs text-[#bbb] tracking-wider">
-                  Newer
-                </p>
-                <p className="hidden lg:block font-semibold text-xs text-[#777] group-hover:text-primary duration-300 tracking-wider">
-                  {prevBlog.title}
-                </p>
-              </div>
-            </Link>
+            <div className="flex-1">
+              {newerBlog ? (
+                <Link
+                  href={newerBlog.slug}
+                  className="flex items-center gap-3 group"
+                >
+                  <ChevronLeft className="w-10 h-10 border border-[#bbb] rounded-full p-2 cursor-pointer" />
+                  <div className="flex flex-col gap-2">
+                    <p className="font-light text-xs text-[#bbb] tracking-wider">
+                      Newer
+                    </p>
+                    <p className="hidden lg:block font-semibold text-xs text-[#777] group-hover:text-primary duration-300 tracking-wider">
+                      {newerBlog.title}
+                    </p>
+                  </div>
+                </Link>
+              ) : (
+                <div className="w-10" />
+              )}
+            </div>
 
-            <LayoutGrid color="#bbb" />
+            <LayoutGrid className="text-[#bbb] hover:text-[#777] duration-300 cursor-pointer" />
 
-            <Link
-              href={nextBlog.slug}
-              className="flex items-center gap-3 group"
-            >
-              <div className="flex flex-col items-end gap-2">
-                <p className="font-light text-xs text-[#bbb] tracking-wide">
-                  Older
-                </p>
-                <p className="hidden lg:block font-semibold text-xs text-[#777] group-hover:text-primary duration-300 tracking-wide">
-                  {nextBlog.title}
-                </p>
-              </div>
-              <ChevronRight className="w-10 h-10 border border-[#bbb] rounded-full p-2 cursor-pointer" />
-            </Link>
+            <div className="flex-1 flex justify-end">
+              {olderBlog ? (
+                <Link
+                  href={olderBlog.slug}
+                  className="flex items-center gap-3 group"
+                >
+                  <div className="flex flex-col items-end gap-2">
+                    <p className="font-light text-xs text-[#bbb] tracking-wide">
+                      Older
+                    </p>
+                    <p className="hidden lg:block font-semibold text-xs text-[#777] group-hover:text-primary duration-300 tracking-wide">
+                      {olderBlog.title}
+                    </p>
+                  </div>
+                  <ChevronRight className="w-10 h-10 border border-[#bbb] rounded-full p-2 cursor-pointer" />
+                </Link>
+              ) : (
+                <div className="w-10" />
+              )}
+            </div>
           </div>
+          <div className="w-full h-[1px] bg-lightGray/30 my-7" />
           <div className="w-full h-[625px]">
             <CustomCarouselCopy
               title="Related Posts"

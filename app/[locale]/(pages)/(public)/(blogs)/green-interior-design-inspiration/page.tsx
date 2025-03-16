@@ -1,6 +1,10 @@
 import BlogStructure from "@/components/common/BlogStructure";
 import BlogPostHeading from "../exploring-atlantas-modern-homes/BlogPostHeading";
-import { furniturePosts, inspirationData } from "@/data/blogsData";
+import {
+  decorationPosts,
+  furniturePosts,
+  inspirationData,
+} from "@/data/blogsData";
 import Image from "next/image";
 
 const page = () => {
@@ -23,7 +27,12 @@ const page = () => {
   ];
 
   return (
-    <BlogStructure breadcrumbLinks={breadcrumbLinks} tags={tags}>
+    <BlogStructure
+      breadcrumbLinks={breadcrumbLinks}
+      tags={tags}
+      newerBlog={decorationPosts[0]}
+      olderBlog={furniturePosts[0]}
+    >
       <BlogPostHeading post={inspirationData[0]} slug="Inspiration" />
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-6">

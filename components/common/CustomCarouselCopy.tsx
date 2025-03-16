@@ -105,13 +105,13 @@ export default function CustomCarouselCopy({
   };
 
   return (
-    <div className="relative w-full h-full group">
+    <div className="relative w-full h-full">
       {title && (
-        <h3 className="font-semibold text-[1.375rem] leading-8 text-[#242424]">
+        <h3 className="absolute top-10 left-0 font-semibold text-[1.375rem] leading-8 text-[#242424]">
           {title}
         </h3>
       )}
-      <Slider autoplay={autoPlay} {...settings} className="w-full">
+      <Slider autoplay={autoPlay} {...settings} className="w-full group">
         {data.map((item, index) => (
           <div key={index} className="h-full overflow-hidden">
             {/* <span>{item.imageSrc}</span> */}

@@ -4,7 +4,7 @@ import BlogPostHeading from "./BlogPostHeading";
 import Image from "next/image";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
-import { decorationPosts, products } from "@/data/blogsData";
+import { decorationPosts, inspirationData, products } from "@/data/blogsData";
 import BlogStructure from "@/components/common/BlogStructure";
 
 const page = () => {
@@ -18,7 +18,10 @@ const page = () => {
   ];
 
   return (
-    <BlogStructure breadcrumbLinks={breadcrumbLinks}>
+    <BlogStructure
+      breadcrumbLinks={breadcrumbLinks}
+      olderBlog={inspirationData[0]}
+    >
       <BlogPostHeading post={decorationPosts[0]} />
       <div className="flex flex-col gap-6">
         <p className="text-sm text-lightGray italic">

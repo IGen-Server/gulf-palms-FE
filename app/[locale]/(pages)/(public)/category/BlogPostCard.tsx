@@ -101,7 +101,7 @@ const BlogPostCard = ({
         </p>
         <Link
           href={post.slug}
-          className="font-medium text-2xl text-[#333] font-serif"
+          className="font-medium text-2xl text-[#333] font-serif hover:text-lightGray duration-300"
         >
           {post.title}
         </Link>

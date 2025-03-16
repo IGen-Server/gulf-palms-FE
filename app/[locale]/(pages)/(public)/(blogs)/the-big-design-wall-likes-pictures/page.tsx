@@ -1,6 +1,6 @@
 import BlogStructure from "@/components/common/BlogStructure";
 import BlogPostHeading from "../exploring-atlantas-modern-homes/BlogPostHeading";
-import { designPosts } from "@/data/blogsData";
+import { decorationPosts, designPosts, furniturePosts } from "@/data/blogsData";
 import CustomCarouselCopy from "@/components/common/CustomCarouselCopy";
 import Image from "next/image";
 
@@ -99,7 +99,12 @@ const page = () => {
   }));
 
   return (
-    <BlogStructure breadcrumbLinks={breadcrumbLinks} tags={tags}>
+    <BlogStructure
+      breadcrumbLinks={breadcrumbLinks}
+      tags={tags}
+      newerBlog={decorationPosts[2]}
+      olderBlog={furniturePosts[1]}
+    >
       <BlogPostHeading post={designPosts[1]} />
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-6">

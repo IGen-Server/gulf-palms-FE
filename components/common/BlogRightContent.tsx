@@ -37,7 +37,7 @@ const BlogRightContent = () => {
         </h3>
         <div className="flex flex-col gap-3">
           {recentPosts.map((post, index) => (
-            <div key={index} className="flex gap-2">
+            <Link href={post.slug} key={index} className="flex gap-2">
               <Image src={post.image} alt="Post image" width={75} height={65} />
               <div className="flex flex-col justify-between">
                 <p className="font-medium text-sm text-[#333] opacity-65">
@@ -48,7 +48,7 @@ const BlogRightContent = () => {
                   <p className="text-[#bbb] text-[.8125rem]">No Comments</p>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
