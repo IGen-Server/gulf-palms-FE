@@ -1,6 +1,6 @@
 const BlogCommentForm = () => {
   return (
-    <div className="flex flex-col gap-6 pt-16 pb-10">
+    <div className="flex flex-col gap-6 pt-32 pb-10">
       <div className="flex flex-col gap-6">
         <h3 className="font-semibold text-[1.375rem] text-[#242424] uppercase">
           Leave a Reply

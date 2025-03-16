@@ -16,6 +16,7 @@ import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.
 import { ProductService } from "@/services/api/product.service";
 import { ProductCategoryModel } from "@/models/product/product";
 import RenderImageAndProductsCopy from "@/components/common/RenderImageAndProductsCopy";
+import CustomCarouselCopy from "@/components/common/CustomCarouselCopy";
 
 const BlogPage = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -59,7 +60,10 @@ const BlogPage = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const response = await getRelatedProducts([25321, 25696, 25167, 25217]);
+        const response = await getRelatedProducts([
+          25321, 25696, 25167, 25217, 25731, 25604, 26087, 25655, 26203, 26209,
+          25679, 26198,
+        ]);
         console.log({ response });
         setProducts([...response.flat()]);
       } catch (error) {
@@ -132,25 +136,34 @@ const BlogPage = () => {
             className="w-full h-auto"
           />
           {/* Add Products here  */}
-          <div className=" grid grid-cols-4 gap-7">
-            {products?.map((product) => (
-              <RenderImageAndProductsCopy
-                key={product.productId}
-                renderType="product"
-                imageFileOrUrl={product.imageFileOrUrl}
-                images={product.images}
-                name={product.name}
-                description={product.description}
-                price={product.price}
-                productId={product.productId}
-                slug={product.slug}
-                currency={""}
-                currentCategories={product.categories}
-                productAttribute={null}
-                slugToCategoryRecord={slugToCategoryRecord}
-              />
-            ))}
-          </div>
+          <CustomCarouselCopy
+            slidesToShow={4}
+            slidesToScroll={4}
+            MobileSlidesNumber={2}
+            // compactArrow={true}
+            dots={false}
+            arrow={false}
+            data={products?.slice(4)?.map((product) => ({
+              component: (
+                <RenderImageAndProductsCopy
+                  key={product.productId}
+                  renderType="product"
+                  imageFileOrUrl={product.imageFileOrUrl}
+                  images={product.images}
+                  name={product.name}
+                  description={product.description}
+                  price={product.price}
+                  productId={product.productId}
+                  slug={product.slug}
+                  currency={""}
+                  currentCategories={product.categories}
+                  productAttribute={null}
+                  slugToCategoryRecord={slugToCategoryRecord}
+                />
+              ),
+              width: " w-full lg:max-w-[218px]  ",
+            }))}
+          />
           <p className="text-sm text-lightGray leading-[1.375rem]">
             Mauris torquent mi eget et amet phasellus eget ad ullamcorper mi a
             fermentum vel a a nunc consectetur enim rutrum. Aliquam vestibulum
@@ -219,25 +232,34 @@ const BlogPage = () => {
             className="w-full h-auto"
           />
           {/* Add products heree  */}
-          <div className=" grid grid-cols-4 gap-7">
-            {products?.map((product) => (
-              <RenderImageAndProductsCopy
-                key={product.productId}
-                renderType="product"
-                imageFileOrUrl={product.imageFileOrUrl}
-                images={product.images}
-                name={product.name}
-                description={product.description}
-                price={product.price}
-                productId={product.productId}
-                slug={product.slug}
-                currency={""}
-                currentCategories={product.categories}
-                productAttribute={null}
-                slugToCategoryRecord={slugToCategoryRecord}
-              />
-            ))}
-          </div>
+          <CustomCarouselCopy
+            slidesToShow={4}
+            slidesToScroll={4}
+            MobileSlidesNumber={2}
+            // compactArrow={true}
+            dots={false}
+            arrow={false}
+            data={products?.slice(4)?.map((product) => ({
+              component: (
+                <RenderImageAndProductsCopy
+                  key={product.productId}
+                  renderType="product"
+                  imageFileOrUrl={product.imageFileOrUrl}
+                  images={product.images}
+                  name={product.name}
+                  description={product.description}
+                  price={product.price}
+                  productId={product.productId}
+                  slug={product.slug}
+                  currency={""}
+                  currentCategories={product.categories}
+                  productAttribute={null}
+                  slugToCategoryRecord={slugToCategoryRecord}
+                />
+              ),
+              width: " w-full lg:max-w-[218px]  ",
+            }))}
+          />
           <p className="text-sm text-lightGray leading-[1.375rem]">
             Mauris torquent mi eget et amet phasellus eget ad ullamcorper mi a
             fermentum vel a a nunc consectetur enim rutrum. Aliquam vestibulum
@@ -265,14 +287,14 @@ const BlogPage = () => {
                 <div className="flex flex-col gap-6">
                   <div className="flex flex-col gap-2 w-full">
                     {/* Heading */}
-                    <h2 className="font-serif font-semibold text-[1.375rem] text-[#242424] text-center uppercase mr-4 whitespace-nowrap">
+                    <h2 className="font-serif font-semibold text-[1.375rem] text-[#242424] text-center mr-4 whitespace-nowrap">
                       {item.title}
                     </h2>
 
                     {/* Line */}
                     <div className="flex flex-1 justify-center h-[2px] bg-gray-200 relative">
                       <div className="h-full bg-lightGray/30 w-max">
-                        <p className="h-[2px] font-serif font-semibold text-[1.375rem] text-center uppercase opacity-0">
+                        <p className="h-[2px] font-serif font-semibold text-[1.375rem] text-center opacity-0">
                           {item.title}
                         </p>
                       </div>
@@ -330,25 +352,34 @@ const BlogPage = () => {
             sizes="100vw"
             className="w-full h-auto"
           />
-          <div className=" grid grid-cols-4 gap-7">
-            {products?.map((product) => (
-              <RenderImageAndProductsCopy
-                key={product.id}
-                renderType="product"
-                imageFileOrUrl={product.imageFileOrUrl}
-                images={product.images}
-                name={product.name}
-                description={product.description}
-                price={product.price}
-                productId={product.productId}
-                slug={product.slug}
-                currency={""}
-                currentCategories={product.categories}
-                productAttribute={null}
-                slugToCategoryRecord={slugToCategoryRecord}
-              />
-            ))}
-          </div>
+          <CustomCarouselCopy
+            slidesToShow={4}
+            slidesToScroll={4}
+            MobileSlidesNumber={2}
+            // compactArrow={true}
+            dots={false}
+            arrow={false}
+            data={products?.slice(4)?.map((product) => ({
+              component: (
+                <RenderImageAndProductsCopy
+                  key={product.productId}
+                  renderType="product"
+                  imageFileOrUrl={product.imageFileOrUrl}
+                  images={product.images}
+                  name={product.name}
+                  description={product.description}
+                  price={product.price}
+                  productId={product.productId}
+                  slug={product.slug}
+                  currency={""}
+                  currentCategories={product.categories}
+                  productAttribute={null}
+                  slugToCategoryRecord={slugToCategoryRecord}
+                />
+              ),
+              width: " w-full lg:max-w-[218px]  ",
+            }))}
+          />
           <p className="text-sm text-lightGray leading-[1.375rem]">
             Mauris torquent mi eget et amet phasellus eget ad ullamcorper mi a
             fermentum vel a a nunc consectetur enim rutrum. Aliquam vestibulum
@@ -371,7 +402,7 @@ const BlogPage = () => {
               ctetur ellus scelerisque ullamcorper montes gravida.
             </p>
             <Image
-              src="https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-image-3.jpg"
+              src="https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-image-4.jpg"
               alt="Furniture image"
               width={0}
               height={0}

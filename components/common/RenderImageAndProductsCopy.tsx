@@ -275,15 +275,17 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
           onMouseLeave={() => setHoveredProductId(null)}
         >
           <div className="w-full h-full sm:h-[280px] duration-700 overflow-hidden relative">
-            <img
-              src={images?.[0]?.src || imageFileOrUrl || "/placeholder.svg"}
-              alt={name}
-              className={`absolute inset-0 w-full h-full object-cover ${
-                hoveredProductId === productId
-                  ? " opacity-100 lg:opacity-0 "
-                  : " lg:opacity-100 "
-              }`}
-            />
+            <Link href={`/product/${slug}`}>
+              <img
+                src={images?.[0]?.src || imageFileOrUrl || "/placeholder.svg"}
+                alt={name}
+                className={`absolute inset-0 w-full h-full object-cover ${
+                  hoveredProductId === productId
+                    ? " opacity-100 lg:opacity-0 "
+                    : " lg:opacity-100 "
+                }`}
+              />
+            </Link>
             <img
               src={
                 images?.[1]?.src ||

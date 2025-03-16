@@ -10,6 +10,7 @@ import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.
 import { ProductService } from "@/services/api/product.service";
 import { ProductCategoryModel } from "@/models/product/product";
 import RenderImageAndProductsCopy from "@/components/common/RenderImageAndProductsCopy";
+import CustomCarouselCopy from "@/components/common/CustomCarouselCopy";
 
 const BlogPage = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -129,25 +130,34 @@ const BlogPage = () => {
         </p>
 
         {/* Add Products Here  */}
-        <div className=" grid grid-cols-4 gap-7">
-          {products?.map((product) => (
-            <RenderImageAndProductsCopy
-              key={product.productId}
-              renderType="product"
-              imageFileOrUrl={product.imageFileOrUrl}
-              images={product.images}
-              name={product.name}
-              description={product.description}
-              price={product.price}
-              productId={product.productId}
-              slug={product.slug}
-              currency={""}
-              currentCategories={product.categories}
-              productAttribute={null}
-              slugToCategoryRecord={slugToCategoryRecord}
-            />
-          ))}
-        </div>
+        <CustomCarouselCopy
+          slidesToShow={4}
+          slidesToScroll={4}
+          MobileSlidesNumber={2}
+          // compactArrow={true}
+          dots={false}
+          arrow={false}
+          data={products?.slice(4)?.map((product) => ({
+            component: (
+              <RenderImageAndProductsCopy
+                key={product.productId}
+                renderType="product"
+                imageFileOrUrl={product.imageFileOrUrl}
+                images={product.images}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                productId={product.productId}
+                slug={product.slug}
+                currency={""}
+                currentCategories={product.categories}
+                productAttribute={null}
+                slugToCategoryRecord={slugToCategoryRecord}
+              />
+            ),
+            width: " w-full lg:max-w-[218px]  ",
+          }))}
+        />
 
         <button className="w-max flex self-center bg-white border border-lightGray/30 hover:bg-lightGray/30 duration-300 px-5 py-2 font-semibold text-xs text-[#333]">
           View all products

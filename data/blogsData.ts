@@ -170,7 +170,7 @@ const accessoriesContents = [
   },
   {
     image:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-img-3.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-img-2.jpg",
     name: "Suspendisse Ullamcorper",
     title: "Parturient Consectetur",
     description:
@@ -178,7 +178,7 @@ const accessoriesContents = [
   },
   {
     image:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-gallery-2.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-img-3.jpg",
     name: "Suspendisse Ullamcorper",
     title: "Parturient Consectetur",
     description:
