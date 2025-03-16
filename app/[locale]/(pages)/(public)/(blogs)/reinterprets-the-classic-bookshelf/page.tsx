@@ -1,9 +1,26 @@
+"use client";
+
 import BlogStructure from "@/components/common/BlogStructure";
 import BlogPostHeading from "../exploring-atlantas-modern-homes/BlogPostHeading";
 import { decorationPosts, designPosts, furniturePosts } from "@/data/blogsData";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { ProductService } from "@/services/api/product.service";
+import { ProductCategoryModel } from "@/models/product/product";
+import RenderImageAndProductsCopy from "@/components/common/RenderImageAndProductsCopy";
 
-const page = () => {
+const BlogPage = () => {
+  const [products, setProducts] = useState<any[]>([]);
+  const { t, i18n } = useTranslation();
+  const axiosInstanceWithOutLoader = CreateAxiosInstanceWithLoader(
+    false,
+    false
+  );
+  const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<
+    Record<number, ProductCategoryModel>
+  >({});
   const breadcrumbLinks = [
     { name: "Home", arabicName: "Home", href: "/" },
     {
@@ -13,6 +30,39 @@ const page = () => {
     },
   ];
   const tags = ["Guide", "Inspiration", "Table", "Trends"];
+
+  const getRelatedProducts = async (hoveresProductIds: number[]) => {
+    try {
+      const response = await ProductService.Get(
+        {
+          lang: i18n.language,
+          include: `[0,${hoveresProductIds.join(",")}]`,
+        },
+        axiosInstanceWithOutLoader
+      );
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await getRelatedProducts([25321, 25696, 25167, 25217]);
+        console.log({ response });
+        setProducts([...response.flat()]);
+      } catch (error) {
+        console.error(error);
+      } finally {
+      }
+    };
+
+    getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <BlogStructure
@@ -79,6 +129,25 @@ const page = () => {
         </p>
 
         {/* Add Products Here  */}
+        <div className=" grid grid-cols-4 gap-7">
+          {products?.map((product) => (
+            <RenderImageAndProductsCopy
+              key={product.productId}
+              renderType="product"
+              imageFileOrUrl={product.imageFileOrUrl}
+              images={product.images}
+              name={product.name}
+              description={product.description}
+              price={product.price}
+              productId={product.productId}
+              slug={product.slug}
+              currency={""}
+              currentCategories={product.categories}
+              productAttribute={null}
+              slugToCategoryRecord={slugToCategoryRecord}
+            />
+          ))}
+        </div>
 
         <button className="w-max flex self-center bg-white border border-lightGray/30 hover:bg-lightGray/30 duration-300 px-5 py-2 font-semibold text-xs text-[#333]">
           View all products
@@ -130,4 +199,4 @@ const page = () => {
     </BlogStructure>
   );
 };
-export default page;
+export default BlogPage;

@@ -1,3 +1,5 @@
+"use client";
+
 import BlogStructure from "@/components/common/BlogStructure";
 import BlogPostHeading from "../exploring-atlantas-modern-homes/BlogPostHeading";
 import {
@@ -8,8 +10,24 @@ import {
   lightingsContents,
 } from "@/data/blogsData";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { ProductService } from "@/services/api/product.service";
+import { ProductCategoryModel } from "@/models/product/product";
+import RenderImageAndProductsCopy from "@/components/common/RenderImageAndProductsCopy";
 
-const page = () => {
+const BlogPage = () => {
+  const [products, setProducts] = useState<any[]>([]);
+  const { t, i18n } = useTranslation();
+  const axiosInstanceWithOutLoader = CreateAxiosInstanceWithLoader(
+    false,
+    false
+  );
+  const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<
+    Record<number, ProductCategoryModel>
+  >({});
+
   const breadcrumbLinks = [
     { name: "Home", arabicName: "Home", href: "/" },
     {
@@ -20,6 +38,39 @@ const page = () => {
   ];
 
   const tags = ["Furniture", "News", "Sofa"];
+
+  const getRelatedProducts = async (hoveresProductIds: number[]) => {
+    try {
+      const response = await ProductService.Get(
+        {
+          lang: i18n.language,
+          include: `[0,${hoveresProductIds.join(",")}]`,
+        },
+        axiosInstanceWithOutLoader
+      );
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await getRelatedProducts([25321, 25696, 25167, 25217]);
+        console.log({ response });
+        setProducts([...response.flat()]);
+      } catch (error) {
+        console.error(error);
+      } finally {
+      }
+    };
+
+    getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <BlogStructure
@@ -81,6 +132,25 @@ const page = () => {
             className="w-full h-auto"
           />
           {/* Add Products here  */}
+          <div className=" grid grid-cols-4 gap-7">
+            {products?.map((product) => (
+              <RenderImageAndProductsCopy
+                key={product.productId}
+                renderType="product"
+                imageFileOrUrl={product.imageFileOrUrl}
+                images={product.images}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                productId={product.productId}
+                slug={product.slug}
+                currency={""}
+                currentCategories={product.categories}
+                productAttribute={null}
+                slugToCategoryRecord={slugToCategoryRecord}
+              />
+            ))}
+          </div>
           <p className="text-sm text-lightGray leading-[1.375rem]">
             Mauris torquent mi eget et amet phasellus eget ad ullamcorper mi a
             fermentum vel a a nunc consectetur enim rutrum. Aliquam vestibulum
@@ -149,6 +219,25 @@ const page = () => {
             className="w-full h-auto"
           />
           {/* Add products heree  */}
+          <div className=" grid grid-cols-4 gap-7">
+            {products?.map((product) => (
+              <RenderImageAndProductsCopy
+                key={product.productId}
+                renderType="product"
+                imageFileOrUrl={product.imageFileOrUrl}
+                images={product.images}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                productId={product.productId}
+                slug={product.slug}
+                currency={""}
+                currentCategories={product.categories}
+                productAttribute={null}
+                slugToCategoryRecord={slugToCategoryRecord}
+              />
+            ))}
+          </div>
           <p className="text-sm text-lightGray leading-[1.375rem]">
             Mauris torquent mi eget et amet phasellus eget ad ullamcorper mi a
             fermentum vel a a nunc consectetur enim rutrum. Aliquam vestibulum
@@ -241,6 +330,25 @@ const page = () => {
             sizes="100vw"
             className="w-full h-auto"
           />
+          <div className=" grid grid-cols-4 gap-7">
+            {products?.map((product) => (
+              <RenderImageAndProductsCopy
+                key={product.id}
+                renderType="product"
+                imageFileOrUrl={product.imageFileOrUrl}
+                images={product.images}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                productId={product.productId}
+                slug={product.slug}
+                currency={""}
+                currentCategories={product.categories}
+                productAttribute={null}
+                slugToCategoryRecord={slugToCategoryRecord}
+              />
+            ))}
+          </div>
           <p className="text-sm text-lightGray leading-[1.375rem]">
             Mauris torquent mi eget et amet phasellus eget ad ullamcorper mi a
             fermentum vel a a nunc consectetur enim rutrum. Aliquam vestibulum
@@ -336,4 +444,4 @@ const page = () => {
     </BlogStructure>
   );
 };
-export default page;
+export default BlogPage;
