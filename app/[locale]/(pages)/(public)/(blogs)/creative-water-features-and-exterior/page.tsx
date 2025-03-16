@@ -1,81 +1,13 @@
 import BlogStructure from "@/components/common/BlogStructure";
 import BlogPostHeading from "../exploring-atlantas-modern-homes/BlogPostHeading";
 import {
+  accessoriesContents,
   decorationPosts,
   designPosts,
   inspirationData,
+  lightingsContents,
 } from "@/data/blogsData";
 import Image from "next/image";
-
-const accessoriesContents = [
-  {
-    image:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-img-1.jpg",
-    name: "Suspendisse Ullamcorper",
-    title: "Parturient Consectetur",
-    description:
-      "Accumsan ridiculus suspendisse ut aenean malesuada metus mi urna facilisi eget amet odio adipiscing aptent class fusce a ullamcorper facilisi nullam ac vivamus sociosqu. Nec felis non parturient fusce ornare dis curae etiam facilisis convallis ligula leo litora dui suscipit suspendisse ullamcorper posuere dui faucibus ligula ullamcorper sit. Imperdiet augue cras aliquet ipsum a a parturient molestie senectus dis morbi massa nibh phasellus vestibulum nam diam vestibulum sodales torquent parturient ut a torquent tempor ullamcorper. Parturient consectetur ultricies ornare ut tristique aptent sit hac dis iaculis.",
-  },
-  {
-    image:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-img-3.jpg",
-    name: "Suspendisse Ullamcorper",
-    title: "Parturient Consectetur",
-    description:
-      "Accumsan ridiculus suspendisse ut aenean malesuada metus mi urna facilisi eget amet odio adipiscing aptent class fusce a ullamcorper facilisi nullam ac vivamus sociosqu. Nec felis non parturient fusce ornare dis curae etiam facilisis convallis ligula leo litora dui suscipit suspendisse ullamcorper posuere dui faucibus ligula ullamcorper sit. Imperdiet augue cras aliquet ipsum a a parturient molestie senectus dis morbi massa nibh phasellus vestibulum nam diam vestibulum sodales torquent parturient ut a torquent tempor ullamcorper. Parturient consectetur ultricies ornare ut tristique aptent sit hac dis iaculis.",
-  },
-  {
-    image:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-gallery-2.jpg",
-    name: "Suspendisse Ullamcorper",
-    title: "Parturient Consectetur",
-    description:
-      "Accumsan ridiculus suspendisse ut aenean malesuada metus mi urna facilisi eget amet odio adipiscing aptent class fusce a ullamcorper facilisi nullam ac vivamus sociosqu. Nec felis non parturient fusce ornare dis curae etiam facilisis convallis ligula leo litora dui suscipit suspendisse ullamcorper posuere dui faucibus ligula ullamcorper sit. Imperdiet augue cras aliquet ipsum a a parturient molestie senectus dis morbi massa nibh phasellus vestibulum nam diam vestibulum sodales torquent parturient ut a torquent tempor ullamcorper. Parturient consectetur ultricies ornare ut tristique aptent sit hac dis iaculis.",
-  },
-  {
-    image:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-img-4.jpg",
-    name: "Suspendisse Ullamcorper",
-    title: "Parturient Consectetur",
-    description:
-      "Accumsan ridiculus suspendisse ut aenean malesuada metus mi urna facilisi eget amet odio adipiscing aptent class fusce a ullamcorper facilisi nullam ac vivamus sociosqu. Nec felis non parturient fusce ornare dis curae etiam facilisis convallis ligula leo litora dui suscipit suspendisse ullamcorper posuere dui faucibus ligula ullamcorper sit. Imperdiet augue cras aliquet ipsum a a parturient molestie senectus dis morbi massa nibh phasellus vestibulum nam diam vestibulum sodales torquent parturient ut a torquent tempor ullamcorper. Parturient consectetur ultricies ornare ut tristique aptent sit hac dis iaculis.",
-  },
-];
-
-const items = [
-  {
-    imgLeft:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-gallery-1.jpg",
-    imgRight:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-gallery-5.jpg",
-    title: "Imperdiet augue",
-    text: "Accumsan ridiculus suspendisse ut aenean malesuada metus mi urna facilisi eget amet odio adipiscing aptent class fusce a ullamcorper facilisi nullam ac vivamus sociosqu. Nec felis non parturient fusce ornare dis curae etiam facilisis convallis ligula leo litora dui suscipit suspendisse ullamcorper posuere dui faucibus ligula ullamcorper sit. Imperdiet augue cras aliquet ipsum a a parturient molestie senectus dis morbi massa nibh phasellus vestibulum nam diam vestibulum sodales torquent parturient ut a torquent tempor ullamcorper torquent a dis.",
-  },
-  {
-    imgLeft:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-gallery-2.jpg",
-    imgRight:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-gallery-6.jpg",
-    title: "Ullamcorper posuere",
-    text: "Accumsan ridiculus suspendisse ut aenean malesuada metus mi urna facilisi eget amet odio adipiscing aptent class fusce a ullamcorper facilisi nullam ac vivamus sociosqu. Nec felis non parturient fusce ornare dis curae etiam facilisis convallis ligula leo litora dui suscipit suspendisse ullamcorper posuere dui faucibus ligula ullamcorper sit. Imperdiet augue cras aliquet ipsum a a parturient molestie senectus dis morbi massa nibh phasellus vestibulum nam diam vestibulum sodales torquent parturient ut a torquent tempor ullamcorper torquent a dis.",
-  },
-  {
-    imgLeft:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-gallery-3.jpg",
-    imgRight:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-gallery-7.jpg",
-    title: "Parturient fusce",
-    text: "Accumsan ridiculus suspendisse ut aenean malesuada metus mi urna facilisi eget amet odio adipiscing aptent class fusce a ullamcorper facilisi nullam ac vivamus sociosqu. Nec felis non parturient fusce ornare dis curae etiam facilisis convallis ligula leo litora dui suscipit suspendisse ullamcorper posuere dui faucibus ligula ullamcorper sit. Imperdiet augue cras aliquet ipsum a a parturient molestie senectus dis morbi massa nibh phasellus vestibulum nam diam vestibulum sodales torquent parturient ut a torquent tempor ullamcorper torquent a dis.",
-  },
-  {
-    imgLeft:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-gallery-4.jpg",
-    imgRight:
-      "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-gallery-8.jpg",
-    title: "Adipiscing aptent",
-    text: "Accumsan ridiculus suspendisse ut aenean malesuada metus mi urna facilisi eget amet odio adipiscing aptent class fusce a ullamcorper facilisi nullam ac vivamus sociosqu. Nec felis non parturient fusce ornare dis curae etiam facilisis convallis ligula leo litora dui suscipit suspendisse ullamcorper posuere dui faucibus ligula ullamcorper sit. Imperdiet augue cras aliquet ipsum a a parturient molestie senectus dis morbi massa nibh phasellus vestibulum nam diam vestibulum sodales torquent parturient ut a torquent tempor ullamcorper torquent a dis.",
-  },
-];
 
 const page = () => {
   const breadcrumbLinks = [
@@ -141,7 +73,7 @@ const page = () => {
             </div>
           </div>
           <Image
-            src="https://clone.clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-image-1.jpg"
+            src="https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-image-1.jpg"
             alt="Accessories image"
             width={0}
             height={0}
@@ -226,7 +158,7 @@ const page = () => {
             ullamcorper arcu est suspendisse eu rhoncus nibh.
           </p>
           <div className="w-full flex flex-col gap-3">
-            {items.map((item, index) => (
+            {lightingsContents.map((item, index) => (
               <div key={index} className="w-full flex gap-6">
                 {/* Left Image */}
                 <Image
