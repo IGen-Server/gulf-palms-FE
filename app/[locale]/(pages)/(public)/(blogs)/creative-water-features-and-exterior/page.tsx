@@ -91,13 +91,15 @@ const page = () => {
             rhoncus quisque a ullamcorper tempor.Consectetur scelerisque
             ullamcorper arcu est suspendisse eu rhoncus nibh.
           </p>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {accessoriesContents.map((item, index) => {
               return (
                 <div
                   key={index}
                   className={`flex ${
-                    index % 2 !== 0 ? "flex-col-reverse" : "flex-col"
+                    index % 2 !== 0
+                      ? "flex-col lg:flex-col-reverse"
+                      : "flex-col"
                   } items-center gap-6`}
                 >
                   <Image
@@ -167,7 +169,7 @@ const page = () => {
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="w-[201PX] h-[313px] rounded-lg shadow-md"
+                  className="hidden lg:block w-[201PX] h-[313px] rounded-lg shadow-md"
                 />
 
                 {/* Text Section */}
@@ -199,7 +201,7 @@ const page = () => {
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="w-[201PX] h-[313px] rounded-lg shadow-md"
+                  className="hidden lg:block w-[201PX] h-[313px] rounded-lg shadow-md"
                 />
               </div>
             ))}
@@ -249,7 +251,7 @@ const page = () => {
             rhoncus quisque a ullamcorper tempor. Consectetur scelerisque
             ullamcorper arcu est suspendisse eu rhoncus nibh.
           </p>
-          <div className="flex gap-5">
+          <div className="flex flex-col lg:flex-row gap-5">
             <p className="text-sm text-lightGray leading-[1.375rem]">
               Mauris torquent mi eget et amet phas ellus eget ad ullam corper mi
               a ferm entum vel a a nunc conse ctetur enim rutrum. Aliquam
@@ -279,7 +281,7 @@ const page = () => {
             rhoncus quisque a ullamcorper tempor. Consectetur scelerisque
             ullamcorper arcu est suspendisse eu rhoncus nibh.
           </p>
-          <div className="flex gap-5">
+          <div className="flex flex-col lg:flex-row gap-5">
             <Image
               src="https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-image-5.jpg"
               alt="Furniture image"
@@ -309,7 +311,7 @@ const page = () => {
             rhoncus quisque a ullamcorper tempor. Consectetur scelerisque
             ullamcorper arcu est suspendisse eu rhoncus nibh.
           </p>
-          <div className="flex gap-5">
+          <div className="flex flex-col lg:flex-row gap-5">
             <p className="text-sm text-lightGray leading-[1.375rem]">
               Mauris torquent mi eget et amet phas ellus eget ad ullam corper mi
               a ferm entum vel a a nunc conse ctetur enim rutrum. Aliquam
