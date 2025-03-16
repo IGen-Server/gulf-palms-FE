@@ -1,19 +1,29 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import type { FC } from "react"
-import { useTranslation } from "react-i18next"
-import "@fortawesome/fontawesome-free/css/all.min.css"
+import Image from "next/image";
+import Link from "next/link";
+import type { FC } from "react";
+import { useTranslation } from "react-i18next";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Footer: FC = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const showrooms = (t("footer.showrooms.items", { returnObjects: true }) as { label: string; link: string }[]) || []
+  const showrooms =
+    (t("footer.showrooms.items", { returnObjects: true }) as {
+      label: string;
+      link: string;
+    }[]) || [];
   const usefulLinks =
-    (t("footer.usefulLinks.items", { returnObjects: true }) as { label: string; link: string }[]) || []
+    (t("footer.usefulLinks.items", { returnObjects: true }) as {
+      label: string;
+      link: string;
+    }[]) || [];
   const productCategories =
-    (t("footer.productCategories.items", { returnObjects: true }) as { label: string; link: string }[]) || []
+    (t("footer.productCategories.items", { returnObjects: true }) as {
+      label: string;
+      link: string;
+    }[]) || [];
 
   return (
     <footer className="footer bg-primary text-secondary max-sm:h-[1300px] max-md:h-[900px] max-lg:overflow-y-auto max-lg:pt-[100px] lg:fixed">
@@ -23,7 +33,7 @@ const Footer: FC = () => {
             {/* Logo and Description */}
             <div className="flex flex-col items-start justify-between gap-4">
               <Image
-                src="https://gulfpalms.com/wp-content/uploads/2023/06/GP_Logo-02.png"
+                src="https://clone.gulfpalms.com/wp-content/uploads/2023/06/GP_Logo-02.png"
                 alt={t("footer.logoAlt")}
                 className="mb-4"
                 height={71}
@@ -42,7 +52,9 @@ const Footer: FC = () => {
                   </Link>
                 ))}
               </div>
-              <p className="text-sm text-secondary">{t("footer.description")}</p>
+              <p className="text-sm text-secondary">
+                {t("footer.description")}
+              </p>
 
               <div className="mt-3 space-y-2">
                 {[
@@ -52,7 +64,7 @@ const Footer: FC = () => {
                 ].map((item, index) => (
                   <p key={index} className="flex items-center gap-4">
                     <Image
-                      src={`https://gulfpalms.com/wp-content/uploads/2021/09/wd-${item.icon}-light.svg`}
+                      src={`https://clone.gulfpalms.com/wp-content/uploads/2021/09/wd-${item.icon}-light.svg`}
                       alt={`${item.icon} icon`}
                       width={14}
                       height={14}
@@ -75,10 +87,15 @@ const Footer: FC = () => {
             {[
               { title: "footer.showrooms.title", items: showrooms },
               { title: "footer.usefulLinks.title", items: usefulLinks },
-              { title: "footer.productCategories.title", items: productCategories },
+              {
+                title: "footer.productCategories.title",
+                items: productCategories,
+              },
             ].map((section, index) => (
               <div key={index} className="mt-8 sm:mt-0">
-                <h5 className="text-lg font-bold text-white mb-4">{t(section.title)}</h5>
+                <h5 className="text-lg font-bold text-white mb-4">
+                  {t(section.title)}
+                </h5>
                 <ul className="space-y-2 text-secondary">
                   {section.items.map((item: any, itemIndex: number) => (
                     <li key={itemIndex}>
@@ -102,7 +119,7 @@ const Footer: FC = () => {
             {t("footer.footerNote", { year: new Date().getFullYear() })}
           </small>
           <Image
-            src="https://gulfpalms.com/wp-content/uploads/2023/09/payyments-methood.png"
+            src="https://clone.gulfpalms.com/wp-content/uploads/2023/09/payyments-methood.png"
             alt={t("footer.paymentMethods")}
             width={262}
             height={33}
@@ -110,8 +127,7 @@ const Footer: FC = () => {
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
-
+export default Footer;

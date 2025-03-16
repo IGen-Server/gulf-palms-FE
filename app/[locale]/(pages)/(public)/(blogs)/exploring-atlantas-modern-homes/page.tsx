@@ -23,7 +23,7 @@ const page = () => {
       olderBlog={inspirationData[0]}
     >
       <BlogPostHeading post={decorationPosts[0]} />
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 font-sans">
         <p className="text-sm text-lightGray italic">
           Vivamus enim sagittis aptent hac mi dui a per aptent suspendisse cras
           odio bibendum augue rhoncus laoreet dui praesent sodales sodales.
@@ -71,14 +71,14 @@ const page = () => {
             <div key={index} className="flex flex-col gap-5">
               <div className="flex flex-col gap-2 w-full">
                 {/* Heading */}
-                <h2 className="font-semibold text-lg tracking-wide text-gray-800 mr-4 whitespace-nowrap">
+                <h2 className="font-serif font-semibold text-lg tracking-wide text-gray-800 mr-4 whitespace-nowrap">
                   {product.title}
                 </h2>
 
                 {/* Line */}
                 <div className="flex-1 h-[2px] bg-gray-200 relative">
                   <div className="h-full bg-orange-400 w-max">
-                    <p className="h-[2px] font-semibold text-lg tracking-wide opacity-0">
+                    <p className="h-[2px] font-serif font-semibold text-lg tracking-wide opacity-0">
                       {product.title}
                     </p>
                   </div>

@@ -29,7 +29,7 @@ const page = () => {
       olderBlog={inspirationData[1]}
     >
       <BlogPostHeading post={decorationPosts[1]} />
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 font-sans">
         <div className="flex flex-col gap-6">
           <p className="text-sm text-lightGray leading-[1.375rem]">
             Ac haca ullamcorper donec ante habi tasse donec imperdiet eturpis
@@ -59,14 +59,14 @@ const page = () => {
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2 w-full">
             {/* Heading */}
-            <h2 className="font-semibold text-4xl text-[#242424] text-center uppercase mr-4 whitespace-nowrap">
+            <h2 className="font-serif font-semibold text-4xl text-[#242424] text-center uppercase mr-4 whitespace-nowrap">
               Accessories
             </h2>
 
             {/* Line */}
             <div className="flex flex-1 justify-center h-[2px] bg-gray-200 relative">
               <div className="h-full bg-orange-400 w-max">
-                <p className="h-[2px] font-semibold text-4xl text-center uppercase opacity-0">
+                <p className="h-[2px] font-serif font-semibold text-4xl text-center uppercase opacity-0">
                   Accessories
                 </p>
               </div>
@@ -127,14 +127,14 @@ const page = () => {
         <div className="flex flex-col gap-6 mt-7">
           <div className="flex flex-col gap-2 w-full">
             {/* Heading */}
-            <h2 className="font-semibold text-4xl text-[#242424] text-center uppercase mr-4 whitespace-nowrap">
+            <h2 className="font-serif font-semibold text-4xl text-[#242424] text-center uppercase mr-4 whitespace-nowrap">
               Lighting
             </h2>
 
             {/* Line */}
             <div className="flex flex-1 justify-center h-[2px] bg-gray-200 relative">
               <div className="h-full bg-orange-400 w-max">
-                <p className="h-[2px] font-semibold text-4xl text-center uppercase opacity-0">
+                <p className="h-[2px] font-serif font-semibold text-4xl text-center uppercase opacity-0">
                   Lighting
                 </p>
               </div>
@@ -176,14 +176,14 @@ const page = () => {
                 <div className="flex flex-col gap-6">
                   <div className="flex flex-col gap-2 w-full">
                     {/* Heading */}
-                    <h2 className="font-semibold text-[1.375rem] text-[#242424] text-center uppercase mr-4 whitespace-nowrap">
+                    <h2 className="font-serif font-semibold text-[1.375rem] text-[#242424] text-center uppercase mr-4 whitespace-nowrap">
                       {item.title}
                     </h2>
 
                     {/* Line */}
                     <div className="flex flex-1 justify-center h-[2px] bg-gray-200 relative">
                       <div className="h-full bg-lightGray/30 w-max">
-                        <p className="h-[2px] font-semibold text-[1.375rem] text-center uppercase opacity-0">
+                        <p className="h-[2px] font-serif font-semibold text-[1.375rem] text-center uppercase opacity-0">
                           {item.title}
                         </p>
                       </div>
@@ -220,14 +220,14 @@ const page = () => {
         <div className="flex flex-col gap-6 mt-7">
           <div className="flex flex-col gap-2 w-full">
             {/* Heading */}
-            <h2 className="font-semibold text-4xl text-[#242424] text-center uppercase mr-4 whitespace-nowrap">
+            <h2 className="font-serif font-semibold text-4xl text-[#242424] text-center uppercase mr-4 whitespace-nowrap">
               Furniture
             </h2>
 
             {/* Line */}
             <div className="flex flex-1 justify-center h-[2px] bg-gray-200 relative">
               <div className="h-full bg-orange-400 w-max">
-                <p className="h-[2px] font-semibold text-4xl text-center uppercase opacity-0">
+                <p className="h-[2px] font-serif font-semibold text-4xl text-center uppercase opacity-0">
                   Furniture
                 </p>
               </div>

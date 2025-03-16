@@ -67,12 +67,12 @@
   "mobileCategoryItems": [
     {
       "title": "Ya Hala Offers",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2023/10/price-tag-1.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/price-tag-1.png",
       "href": "/product-category/ya-hala-offers"
     },
     {
       "title": "Tissue Culture Palms",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2023/10/palms.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/palms.png",
       "href": "/product-category/tissue-culture-palms",
       "submenu": [
         {
@@ -99,12 +99,12 @@
     },
     {
       "title": "Grafted Sider",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant-2.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/plant-2.png",
       "href": "/product-category/grafted-sider"
     },
     {
       "title": "Fruits Trees",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/orange.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/orange.png",
       "href": "/product-category/fruits-trees",
       "submenu": [
         {
@@ -122,7 +122,7 @@
     },
     {
       "title": "Citruses Trees",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/lime.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/lime.png",
       "href": "/product-category/citruses-trees",
       "submenu": [
         {
@@ -142,7 +142,7 @@
     },
     {
       "title": "Ornamental Plants",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/nature.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/nature.png",
       "href": "/product-category/ornamental-plants",
       "submenu": [
         {
@@ -177,7 +177,7 @@
     },
     {
       "title": "Indoor Plants",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/sansevieria.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/sansevieria.png",
       "href": "/product-category/indoor-plants",
       "submenu": [
         {
@@ -200,12 +200,12 @@
     },
     {
       "title": "Herbs",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/tea.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/tea.png",
       "href": "/product-category/herbs"
     },
     {
       "title": "Ornamental Palms & Bonsai",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/tea.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/tea.png",
       "href": "/product-category/ornamental-palms-bonsai",
       "submenu": [
         {
@@ -228,7 +228,7 @@
     },
     {
       "title": "Plant Care",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/bonsai.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/bonsai.png",
       "href": "/product-category/plant-care",
       "submenu": [
         {
@@ -247,7 +247,7 @@
     },
     {
       "title": "Plant Media",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/plant.png",
       "href": "/product-category/plant-media",
       "submenu": [
         {
@@ -269,7 +269,7 @@
     },
     {
       "title": "Fertilizers",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2023/09/fertilizer.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2023/09/fertilizer.png",
       "href": "/product-category/fertilizers",
       "submenu": [
         {
@@ -292,7 +292,7 @@
     },
     {
       "title": "Seeds",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/flax-seed.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/flax-seed.png",
       "href": "/product-category/seeds",
       "submenu": [
         { "title": "Vegetables", "href": "/product-category/seeds/vegetables" },
@@ -302,7 +302,7 @@
     },
     {
       "title": "Pots & Bags",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png",
       "href": "/product-category/pots",
       "submenu": [
         {
@@ -326,7 +326,7 @@
     },
     {
       "title": "Garden Accessories",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png",
       "href": "/product-category/garden-accessories",
       "submenu": [
         {
@@ -353,7 +353,7 @@
     },
     {
       "title": "Garden Furniture",
-      "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/shovel.png",
+      "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/shovel.png",
       "href": "/product-category/garden-furniture",
       "submenu": [
         {
@@ -451,23 +451,23 @@
       "title": "Our Showrooms",
       "items": [
         {
-          "link": "https://gulfpalms.com/en/showrooms/rai-nursery/",
+          "link": "/en/showrooms/rai-nursery/",
           "label": "Rai Nursery"
         },
         {
-          "link": "https://gulfpalms.com/en/showrooms/wafrah-corporate-showroom/",
+          "link": "/en/showrooms/wafrah-corporate-showroom/",
           "label": "Wafrah Corporate Showroom"
         },
         {
-          "link": "https://gulfpalms.com/en/showrooms/wafrah-farm-showroom/",
+          "link": "/en/showrooms/wafrah-farm-showroom/",
           "label": "Wafrah Farm Showroom"
         },
         {
-          "link": "https://gulfpalms.com/en/showrooms/abdali-ittihad-showroom/",
+          "link": "/en/showrooms/abdali-ittihad-showroom/",
           "label": "Abdali Ittihad Showroom"
         },
         {
-          "link": "https://gulfpalms.com/en/showrooms/abdali-farm-showroom/",
+          "link": "/en/showrooms/abdali-farm-showroom/",
           "label": "Abdali Farm Showroom"
         }
       ]
@@ -476,19 +476,19 @@
       "title": "Useful Links",
       "items": [
         {
-          "link": "https://gulfpalms.com/en/privacy-policy/",
+          "link": "/en/privacy-policy/",
           "label": "Privacy Policy"
         },
         {
-          "link": "https://gulfpalms.com/en/refund_returns/",
+          "link": "/en/refund_returns/",
           "label": "Refund and Returns Policy"
         },
         {
-          "link": "https://gulfpalms.com/en/terms-conditions/",
+          "link": "/en/terms-conditions/",
           "label": "Terms & Conditions"
         },
         {
-          "link": "https://gulfpalms.com/en/contact-us/",
+          "link": "/en/contact-us/",
           "label": "Contact Us"
         }
       ]
@@ -497,67 +497,67 @@
       "title": "Product Categories",
       "items": [
         {
-          "link": "https://gulfpalms.com/en/product-category/ya-hala-offers/",
+          "link": "/en/product-category/ya-hala-offers/",
           "label": "Ya Hala Offers"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/tissue-culture-palms/",
+          "link": "/en/product-category/tissue-culture-palms/",
           "label": "Tissue Culture Palms"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/grafted-sider/",
+          "link": "/en/product-category/grafted-sider/",
           "label": "Grafted Sider"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/fruits-trees/",
+          "link": "/en/product-category/fruits-trees/",
           "label": "Fruit Trees"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/citruses-trees/",
+          "link": "/en/product-category/citruses-trees/",
           "label": "Citrus Trees"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/ornamental-plants/",
+          "link": "/en/product-category/ornamental-plants/",
           "label": "Ornamental Plants"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/indoor-plants/",
+          "link": "/en/product-category/indoor-plants/",
           "label": "Indoor Plants"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/herbs/",
+          "link": "/en/product-category/herbs/",
           "label": "Herbs"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/ornamental-palms-bonsai/",
+          "link": "/en/product-category/ornamental-palms-bonsai/",
           "label": "Ornamental Palms & Bonsai"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/plant-care/",
+          "link": "/en/product-category/plant-care/",
           "label": "Plant Care"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/plant-media/",
+          "link": "/en/product-category/plant-media/",
           "label": "Plant Media"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/fertilizers/",
+          "link": "/en/product-category/fertilizers/",
           "label": "Fertilizers"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/seeds/",
+          "link": "/en/product-category/seeds/",
           "label": "Seeds"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/pots/",
+          "link": "/en/product-category/pots/",
           "label": "Pots & Bags"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/garden-accessories/",
+          "link": "/en/product-category/garden-accessories/",
           "label": "Garden Accessories"
         },
         {
-          "link": "https://gulfpalms.com/en/product-category/garden-furniture/",
+          "link": "/en/product-category/garden-furniture/",
           "label": "Garden Furniture"
         }
       ]
@@ -616,7 +616,7 @@
       "subtitle": "Gulf Palm Services",
       "title": "IRRIGATION SYSTEM INSTALLATION",
       "content": "Being a pioneer landscaping company across Kuwait, we use superior quality materials and technologies in our automated irrigation solutions. Our ultimate focus is to maintain the freshness of your garden.",
-      "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/irrigation-services-thumb.jpg",
+      "imageUrl": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/irrigation-services-thumb.jpg",
       "link": "/services/irrigation-system-installation/"
     },
     {
@@ -624,7 +624,7 @@
       "subtitle": "Gulf Palm Services",
       "title": "INDOOR PLANTS MAINTENANCE",
       "content": "We ensure that your space is cared for by people that know how. Each of our Plant Care Teams is supported by a supervisor, to ensure an open line of communication for all clients.",
-      "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/indoor-services-thumb.jpg",
+      "imageUrl": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/indoor-services-thumb.jpg",
       "link": "/services/indoor-plants-maintenance/"
     },
     {
@@ -632,7 +632,7 @@
       "subtitle": "Gulf Palm Services",
       "title": "CONSULTATION",
       "content": "Our landscaping consulting service is excellent for the do-it-yourself homeowner that needs a little step in the right direction. The outcome of your consultation with Gulf Palms Landscaping will be wonderful, rewarding, and affordable.",
-      "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/consultaion-services-thumb.jpg",
+      "imageUrl": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/consultaion-services-thumb.jpg",
       "link": "services/consultation/"
     },
     {
@@ -640,7 +640,7 @@
       "subtitle": "Gulf Palm Services",
       "title": "PALM MAINTENANCE",
       "content": "Gulf Palms provides the best services in supply, planting, transplanting, growing, and production of date Palms. We have the best experts in disease control, pest management, fertilization, and watering requirements of date palms.",
-      "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/palms-services-thumb.jpg",
+      "imageUrl": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/palms-services-thumb.jpg",
       "link": "/services/palms-maintenance/"
     },
     {
@@ -648,7 +648,7 @@
       "subtitle": "Gulf Palm Services",
       "title": "GARDEN MAINTENANCE",
       "content": "Gulf Palms provides a complete range of landscaping maintenance services to maintain the forever charm of your outdoor living spaces. We sign an annual contract for the overall maintenance of the aesthetics of your exterior spaces.",
-      "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/garden-services-thumb.jpg",
+      "imageUrl": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/garden-services-thumb.jpg",
       "link": "/services/garden-maintenance/"
     },
     {
@@ -656,7 +656,7 @@
       "subtitle": "Gulf Palm Services",
       "title": "FARM DEVELOPMENT",
       "content": "Gulf Palm owns and manages the largest nurseries setup. We stock a wide selection of plants ranging from the exotic to the more familiar tried and tested ornamental species with a selection of native local plants.",
-      "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/farm-development-services-thumb.jpg",
+      "imageUrl": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/farm-development-services-thumb.jpg",
       "link": "/services/farm-development/"
     },
     {
@@ -664,7 +664,7 @@
       "subtitle": "Gulf Palm Services",
       "title": "DESIGNING & LANDSCAPING",
       "content": "At Gulf Palms, our professional landscape designers and engineers have avid knowledge of various types of deserts adopted trees, shrubs, groundcovers, flowers, and grasses for adding a touch of elegance.",
-      "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/landscaping-services-thumb.jpg",
+      "imageUrl": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/landscaping-services-thumb.jpg",
       "link": "/services/designing-landscaping/"
     },
     {
@@ -672,7 +672,7 @@
       "subtitle": "Gulf Palm Services",
       "title": "PROJECT EXECUTION",
       "content": "All our designs are sustainable, cost-effective, and resource-efficient. They preserve nature, water, energy, the environment, and reduce the cost of maintenance significantly.",
-      "imageUrl": "https://gulfpalms.com/wp-content/uploads/2023/10/project-services-thumb.jpg",
+      "imageUrl": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/project-services-thumb.jpg",
       "link": "/services/project-execution/"
     }
   ],

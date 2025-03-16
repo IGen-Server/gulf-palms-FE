@@ -441,23 +441,23 @@
       "title": "معارضنا",
       "items": [
         {
-          "link": "https://gulfpalms.com/ar/showrooms/rai-nursery/",
+          "link": "/showrooms/rai-nursery/",
           "label": "مشاتل الري"
         },
         {
-          "link": "https://gulfpalms.com/ar/showrooms/wafrah-corporate-showroom/",
+          "link": "/showrooms/wafrah-corporate-showroom/",
           "label": "معرض الوفرة الإداري"
         },
         {
-          "link": "https://gulfpalms.com/ar/showrooms/wafrah-farm-showroom/",
+          "link": "/showrooms/wafrah-farm-showroom/",
           "label": "معرض مزرعة الوفرة"
         },
         {
-          "link": "https://gulfpalms.com/ar/showrooms/abdali-ittihad-showroom/",
+          "link": "/showrooms/abdali-ittihad-showroom/",
           "label": "معرض اتحاد العبدلي"
         },
         {
-          "link": "https://gulfpalms.com/ar/showrooms/abdali-farm-showroom/",
+          "link": "/showrooms/abdali-farm-showroom/",
           "label": "معرض مزرعة العبدلي"
         }
       ]
@@ -466,19 +466,19 @@
       "title": "روابط مفيدة",
       "items": [
         {
-          "link": "https://gulfpalms.com/ar/privacy-policy/",
+          "link": "/privacy-policy/",
           "label": "سياسة الخصوصية"
         },
         {
-          "link": "https://gulfpalms.com/ar/refund_returns/",
+          "link": "/refund_returns/",
           "label": "سياسة الاسترداد والإرجاع"
         },
         {
-          "link": "https://gulfpalms.com/ar/terms-conditions/",
+          "link": "/terms-conditions/",
           "label": "الشروط والأحكام"
         },
         {
-          "link": "https://gulfpalms.com/ar/contact-us/",
+          "link": "/contact-us/",
           "label": "اتصل بنا"
         }
       ]
