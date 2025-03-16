@@ -1,3 +1,5 @@
+"use client";
+
 import BlogStructure from "@/components/common/BlogStructure";
 import BlogPostHeading from "../exploring-atlantas-modern-homes/BlogPostHeading";
 import { designPosts, furniturePosts, inspirationData } from "@/data/blogsData";

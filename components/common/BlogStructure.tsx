@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { CustomBreadCrumb } from "./CustomBreadCrumb";
 import { ReactNode } from "react";
