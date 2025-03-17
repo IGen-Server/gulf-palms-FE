@@ -1,4 +1,5 @@
 {
+  "siteName": "نخيل الخليج",
   "mobileMenuItems": [
     { "title": "الرئيسية", "href": "/" },
     { "title": "من نحن", "href": "/about-us-arabic" },
@@ -552,7 +553,10 @@
         }
       ]
     },
-    "footerNote": "حقوق الطبع والنشر &copy; {{year}} Gulf Palms | جميع الحقوق محفوظة | تصميم Go Google",
+    "footerNote1": "حقوق الطبع والنشر © {{year}}",
+    "footerNote2": "جميع الحقوق محفوظة",
+    "footerNote3": "تم تصميمه بواسطة",
+   
     "paymentMethods": "طرق الدفع"
   },
   "HomeFirstProductGrid": {
