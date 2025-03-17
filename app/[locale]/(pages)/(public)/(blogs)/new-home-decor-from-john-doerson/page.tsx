@@ -1,3 +1,5 @@
+"use client";
+
 import BlogStructure from "@/components/common/BlogStructure";
 import BlogPostHeading from "../exploring-atlantas-modern-homes/BlogPostHeading";
 import {
@@ -6,8 +8,23 @@ import {
   inspirationData,
 } from "@/data/blogsData";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { ProductService } from "@/services/api/product.service";
+import { ProductCategoryModel } from "@/models/product/product";
+import RenderImageAndProductsCopy from "@/components/common/RenderImageAndProductsCopy";
 
-const page = () => {
+const BlogPage = () => {
+  const [products, setProducts] = useState<any[]>([]);
+  const { t, i18n } = useTranslation();
+  const axiosInstanceWithOutLoader = CreateAxiosInstanceWithLoader(
+    false,
+    false
+  );
+  const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<
+    Record<number, ProductCategoryModel>
+  >({});
   const breadcrumbLinks = [
     { name: "Home", arabicName: "Home", href: "/" },
     {
@@ -18,9 +35,43 @@ const page = () => {
   ];
   const tags = ["Chair", "Table", "Trends"];
 
+  const getRelatedProducts = async (hoveresProductIds: number[]) => {
+    try {
+      const response = await ProductService.Get(
+        {
+          lang: i18n.language,
+          include: `[0,${hoveresProductIds.join(",")}]`,
+        },
+        axiosInstanceWithOutLoader
+      );
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await getRelatedProducts([25321]);
+        console.log({ response });
+        setProducts([...response.flat()]);
+      } catch (error) {
+        console.error(error);
+      } finally {
+      }
+    };
+
+    getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <BlogStructure
       breadcrumbLinks={breadcrumbLinks}
+      tags={tags}
       newerBlog={inspirationData[1]}
       olderBlog={designPosts[1]}
     >
@@ -155,6 +206,25 @@ const page = () => {
         </div>
         <div className="flex items-center">
           {/* {Add product here} */}
+          <div className="w-[280px]">
+            {products?.map((product) => (
+              <RenderImageAndProductsCopy
+                key={product.productId}
+                renderType="product"
+                imageFileOrUrl={product.imageFileOrUrl}
+                images={product.images}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                productId={product.productId}
+                slug={product.slug}
+                currency={""}
+                currentCategories={product.categories}
+                productAttribute={null}
+                slugToCategoryRecord={slugToCategoryRecord}
+              />
+            ))}
+          </div>
           <div className="flex flex-col flex-1 gap-5">
             <div className="flex items-center gap-2 w-full">
               <h2 className="font-semibold text-[1.375rem] leading-[1.9375rem] text-[#242424] text-center uppercase mr-4 whitespace-nowrap">
@@ -209,4 +279,4 @@ const page = () => {
     </BlogStructure>
   );
 };
-export default page;
+export default BlogPage;

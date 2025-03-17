@@ -26,12 +26,12 @@ const RefundsPolicy = () => {
     <>
       <section className="max-w-[1222px] mx-auto space-y-[80px] pt-[98px] w-full overflow-hidden mb-16 font-serif">
         <div className="flex flex-col items-center lg:gap-7 lg:pt-[50px]">
-          <h1 className="text-4xl lg:text-[68px] lg:leading[5rem] font-bold text-black">
+          <h1 className="text-4xl lg:text-[68px] lg:leading[5rem] font-bold text-black text-center">
             {t("refunds.title")}
           </h1>
           <CustomBreadCrumb links={breadcrumbLinks} />
         </div>
-        <div className="grid grid-cols-4 pt-16">
+        <div className="grid grid-cols-4 lg:pt-16">
           <div className="col-span-4 lg:col-span-3 px-3">
             <div className="flex flex-col gap-6">
               {(

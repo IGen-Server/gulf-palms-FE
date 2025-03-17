@@ -1,3 +1,5 @@
+"use client";
+
 import BlogStructure from "@/components/common/BlogStructure";
 import BlogPostHeading from "../exploring-atlantas-modern-homes/BlogPostHeading";
 import {
@@ -8,8 +10,25 @@ import {
   lightingsContents,
 } from "@/data/blogsData";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { ProductService } from "@/services/api/product.service";
+import { ProductCategoryModel } from "@/models/product/product";
+import RenderImageAndProductsCopy from "@/components/common/RenderImageAndProductsCopy";
+import CustomCarouselCopy from "@/components/common/CustomCarouselCopy";
 
-const page = () => {
+const BlogPage = () => {
+  const [products, setProducts] = useState<any[]>([]);
+  const { t, i18n } = useTranslation();
+  const axiosInstanceWithOutLoader = CreateAxiosInstanceWithLoader(
+    false,
+    false
+  );
+  const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<
+    Record<number, ProductCategoryModel>
+  >({});
+
   const breadcrumbLinks = [
     { name: "Home", arabicName: "Home", href: "/" },
     {
@@ -20,6 +39,42 @@ const page = () => {
   ];
 
   const tags = ["Furniture", "News", "Sofa"];
+
+  const getRelatedProducts = async (hoveresProductIds: number[]) => {
+    try {
+      const response = await ProductService.Get(
+        {
+          lang: i18n.language,
+          include: `[0,${hoveresProductIds.join(",")}]`,
+        },
+        axiosInstanceWithOutLoader
+      );
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await getRelatedProducts([
+          25321, 25696, 25167, 25217, 25731, 25604, 26087, 25655, 26203, 26209,
+          25679, 26198,
+        ]);
+        console.log({ response });
+        setProducts([...response.flat()]);
+      } catch (error) {
+        console.error(error);
+      } finally {
+      }
+    };
+
+    getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <BlogStructure
@@ -81,6 +136,34 @@ const page = () => {
             className="w-full h-auto"
           />
           {/* Add Products here  */}
+          <CustomCarouselCopy
+            slidesToShow={4}
+            slidesToScroll={4}
+            MobileSlidesNumber={2}
+            // compactArrow={true}
+            dots={false}
+            arrow={false}
+            data={products?.slice(4)?.map((product) => ({
+              component: (
+                <RenderImageAndProductsCopy
+                  key={product.productId}
+                  renderType="product"
+                  imageFileOrUrl={product.imageFileOrUrl}
+                  images={product.images}
+                  name={product.name}
+                  description={product.description}
+                  price={product.price}
+                  productId={product.productId}
+                  slug={product.slug}
+                  currency={""}
+                  currentCategories={product.categories}
+                  productAttribute={null}
+                  slugToCategoryRecord={slugToCategoryRecord}
+                />
+              ),
+              width: " w-full lg:max-w-[218px]  ",
+            }))}
+          />
           <p className="text-sm text-lightGray leading-[1.375rem]">
             Mauris torquent mi eget et amet phasellus eget ad ullamcorper mi a
             fermentum vel a a nunc consectetur enim rutrum. Aliquam vestibulum
@@ -149,6 +232,34 @@ const page = () => {
             className="w-full h-auto"
           />
           {/* Add products heree  */}
+          <CustomCarouselCopy
+            slidesToShow={4}
+            slidesToScroll={4}
+            MobileSlidesNumber={2}
+            // compactArrow={true}
+            dots={false}
+            arrow={false}
+            data={products?.slice(4)?.map((product) => ({
+              component: (
+                <RenderImageAndProductsCopy
+                  key={product.productId}
+                  renderType="product"
+                  imageFileOrUrl={product.imageFileOrUrl}
+                  images={product.images}
+                  name={product.name}
+                  description={product.description}
+                  price={product.price}
+                  productId={product.productId}
+                  slug={product.slug}
+                  currency={""}
+                  currentCategories={product.categories}
+                  productAttribute={null}
+                  slugToCategoryRecord={slugToCategoryRecord}
+                />
+              ),
+              width: " w-full lg:max-w-[218px]  ",
+            }))}
+          />
           <p className="text-sm text-lightGray leading-[1.375rem]">
             Mauris torquent mi eget et amet phasellus eget ad ullamcorper mi a
             fermentum vel a a nunc consectetur enim rutrum. Aliquam vestibulum
@@ -176,14 +287,14 @@ const page = () => {
                 <div className="flex flex-col gap-6">
                   <div className="flex flex-col gap-2 w-full">
                     {/* Heading */}
-                    <h2 className="font-serif font-semibold text-[1.375rem] text-[#242424] text-center uppercase mr-4 whitespace-nowrap">
+                    <h2 className="font-serif font-semibold text-[1.375rem] text-[#242424] text-center mr-4 whitespace-nowrap">
                       {item.title}
                     </h2>
 
                     {/* Line */}
                     <div className="flex flex-1 justify-center h-[2px] bg-gray-200 relative">
                       <div className="h-full bg-lightGray/30 w-max">
-                        <p className="h-[2px] font-serif font-semibold text-[1.375rem] text-center uppercase opacity-0">
+                        <p className="h-[2px] font-serif font-semibold text-[1.375rem] text-center opacity-0">
                           {item.title}
                         </p>
                       </div>
@@ -241,6 +352,34 @@ const page = () => {
             sizes="100vw"
             className="w-full h-auto"
           />
+          <CustomCarouselCopy
+            slidesToShow={4}
+            slidesToScroll={4}
+            MobileSlidesNumber={2}
+            // compactArrow={true}
+            dots={false}
+            arrow={false}
+            data={products?.slice(4)?.map((product) => ({
+              component: (
+                <RenderImageAndProductsCopy
+                  key={product.productId}
+                  renderType="product"
+                  imageFileOrUrl={product.imageFileOrUrl}
+                  images={product.images}
+                  name={product.name}
+                  description={product.description}
+                  price={product.price}
+                  productId={product.productId}
+                  slug={product.slug}
+                  currency={""}
+                  currentCategories={product.categories}
+                  productAttribute={null}
+                  slugToCategoryRecord={slugToCategoryRecord}
+                />
+              ),
+              width: " w-full lg:max-w-[218px]  ",
+            }))}
+          />
           <p className="text-sm text-lightGray leading-[1.375rem]">
             Mauris torquent mi eget et amet phasellus eget ad ullamcorper mi a
             fermentum vel a a nunc consectetur enim rutrum. Aliquam vestibulum
@@ -263,7 +402,7 @@ const page = () => {
               ctetur ellus scelerisque ullamcorper montes gravida.
             </p>
             <Image
-              src="https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-image-3.jpg"
+              src="https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-1-image-4.jpg"
               alt="Furniture image"
               width={0}
               height={0}
@@ -336,4 +475,4 @@ const page = () => {
     </BlogStructure>
   );
 };
-export default page;
+export default BlogPage;

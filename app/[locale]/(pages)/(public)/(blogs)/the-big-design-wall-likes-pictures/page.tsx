@@ -1,3 +1,5 @@
+"use client";
+
 import BlogStructure from "@/components/common/BlogStructure";
 import BlogPostHeading from "../exploring-atlantas-modern-homes/BlogPostHeading";
 import { decorationPosts, designPosts, furniturePosts } from "@/data/blogsData";
@@ -18,26 +20,26 @@ const page = () => {
   const images = [
     {
       imageSrc:
-        "https://gulfpalms.com/wp-content/uploads/2021/08/post-3-gallery-1-min-450x700.jpg",
+        "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-3-gallery-1-min-450x700.jpg",
     },
     {
       imageSrc:
-        "https://gulfpalms.com/wp-content/uploads/2021/08/post-3-gallery-2-min-450x700.jpg",
+        "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-3-gallery-2-min-450x700.jpg",
     },
     {
       imageSrc:
-        "https://gulfpalms.com/wp-content/uploads/2021/08/post-3-gallery-3-min-450x700.jpg",
+        "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-3-gallery-3-min-450x700.jpg",
     },
     {
       imageSrc:
-        "https://gulfpalms.com/wp-content/uploads/2021/08/post-3-gallery-4-min-450x700.jpg",
+        "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-3-gallery-4-min-450x700.jpg",
     },
   ];
 
   const testimonials = [
     {
       image:
-        "https://gulfpalms.com/wp-content/uploads/2021/08/post-3-testimonials-1-min.jpg",
+        "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-3-testimonials-1-min.jpg",
       name: "Risus Parturient",
       title: "Interior Stylist",
       content:
@@ -45,7 +47,7 @@ const page = () => {
     },
     {
       image:
-        "https://gulfpalms.com/wp-content/uploads/2021/08/post-3-testimonials-1-min.jpg",
+        "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-3-testimonials-1-min.jpg",
       name: "Risus Parturient",
       title: "Interior Stylist",
       content:
@@ -53,7 +55,7 @@ const page = () => {
     },
     {
       image:
-        "https://gulfpalms.com/wp-content/uploads/2021/08/post-3-testimonials-1-min.jpg",
+        "https://clone.gulfpalms.com/wp-content/uploads/2021/08/post-3-testimonials-1-min.jpg",
       name: "Risus Parturient",
       title: "Interior Stylist",
       content:
@@ -187,7 +189,7 @@ const page = () => {
         <div className="flex flex-col lg:flex-row lg:gap-7">
           <div className="flex-1 flex flex-col gap-6">
             <Image
-              src="https://gulfpalms.com/wp-content/uploads/2021/08/wd-blog-9-700x700.jpg"
+              src="https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-9-700x700.jpg"
               alt="Blog post image"
               width={0}
               height={0}
@@ -206,9 +208,9 @@ const page = () => {
               semper et congue sapien erat a cum adipiscing sagittis.
             </p>
           </div>
-          <div className="flex-1 flex flex-col gap-6">
+          <div className="flex-1 flex flex-col gap-6 pt-6 lg:pt-0">
             <Image
-              src="https://gulfpalms.com/wp-content/uploads/2021/08/wd-blog-8-700x700.jpg"
+              src="https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-8-700x700.jpg"
               alt="Blog post image"
               width={0}
               height={0}
@@ -228,10 +230,10 @@ const page = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row lg:gap-7">
+        <div className="flex flex-col lg:flex-row gap-7">
           <div className="flex-1 flex flex-col gap-6">
             <Image
-              src="https://gulfpalms.com/wp-content/uploads/2021/07/wd-blog-4-700x700.jpg"
+              src="https://clone.gulfpalms.com/wp-content/uploads/2021/07/wd-blog-4-700x700.jpg"
               alt="Blog post image"
               width={0}
               height={0}
@@ -252,7 +254,7 @@ const page = () => {
           </div>
           <div className="flex-1 flex flex-col gap-6">
             <Image
-              src="https://gulfpalms.com/wp-content/uploads/2021/08/wd-blog-5-700x700.jpg"
+              src="https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-5-700x700.jpg"
               alt="Blog post image"
               width={0}
               height={0}
@@ -300,7 +302,7 @@ const page = () => {
             condimentum ad fermentum nostra lectus fames porta.
           </p>
           <Image
-            src="https://gulfpalms.com/wp-content/uploads/2021/08/wd-blog-9.jpg"
+            src="https://clone.gulfpalms.com/wp-content/uploads/2021/08/wd-blog-9.jpg"
             alt="Blog post image"
             width={0}
             height={0}

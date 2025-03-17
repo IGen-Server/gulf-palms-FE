@@ -23,7 +23,7 @@ const page = () => {
       olderBlog={inspirationData[0]}
     >
       <BlogPostHeading post={decorationPosts[0]} />
-      <div className="flex flex-col gap-6 font-sans">
+      <div className="flex flex-col gap-6 font-sans pt-5">
         <p className="text-sm text-lightGray italic">
           Vivamus enim sagittis aptent hac mi dui a per aptent suspendisse cras
           odio bibendum augue rhoncus laoreet dui praesent sodales sodales.

@@ -9,7 +9,7 @@ const BlogPostHeading = ({
 }) => {
   return (
     <div className="w-full font-sans">
-      <div className="relative flex flex-col items-center gap-2 py-6 text-center">
+      <div className="relative flex flex-col items-center gap-5 py-6 text-center">
         <p className="self-center bg-primary px-3 py-1 font-semibold text-xs text-white uppercase z-20">
           {slug.includes("-") ? slug.split("-").join(" ") : slug}
         </p>
