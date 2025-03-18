@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import FooterAccordion from "./FooterAccordion";
 
 const Footer: FC = () => {
   const { t } = useTranslation();
@@ -103,23 +104,26 @@ const Footer: FC = () => {
                 items: productCategories,
               },
             ].map((section, index) => (
-              <div key={index} className="mt-8 sm:mt-0">
-                <h5 className="text-sm font-bold text-white mb-4">
-                  {t(section.title)}
-                </h5>
-                <ul className="space-y-2 footer-nav-list">
-                  {section.items.map((item: any, itemIndex: number) => (
-                    <li key={itemIndex}>
-                      <Link
-                        href={item.link}
-                        className="text-sm hover:text-white transition-colors duration-200 cursor-pointer"
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <>
+                <div key={index} className="hidden lg:block mt-8 sm:mt-0">
+                  <h5 className="text-sm font-bold text-white mb-4">
+                    {t(section.title)}
+                  </h5>
+                  <ul className="space-y-2 footer-nav-list">
+                    {section.items.map((item: any, itemIndex: number) => (
+                      <li key={itemIndex}>
+                        <Link
+                          href={item.link}
+                          className="text-sm hover:text-white transition-colors duration-200 cursor-pointer"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <FooterAccordion section={section} />
+              </>
             ))}
           </div>
         </div>

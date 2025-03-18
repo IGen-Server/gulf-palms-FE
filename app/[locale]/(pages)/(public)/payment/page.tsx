@@ -2,26 +2,28 @@
 
 import { Button } from '@/components/ui/button'
 import { PaymentRequestModel } from '@/models/payment/payment-request.model';
+import { useCart } from '@/providers/CartProvider';
 import { PaymentService } from '@/services/api/payment.service';
 import CreateAxiosInstanceWithLoader from '@/services/utility/axios-with-loader.service';
 
 export default function PaymentPage() {
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
-  
+  const { cartItems, subtotal, total, shippingCost } = useCart()
+
+
   function paymentTest() {
     const paymentData: PaymentRequestModel = {
-      products: [
-        { id: 10169, quantity: 2 },
-        { id: 10061, quantity: 3 },
-      ],
+      products: cartItems.map((product) => {
+        return ({ id: product.id as number, quantity: product.quantity })
+      }),
       email: 'john.doe@example.com',
       customerName: 'John Doe',
       mobileNumber: '12345678',
       address: '123 Street, City, Country',
       lang: 'en',
     };
-    
+
     PaymentService.Pay(paymentData, axiosInstanceWithLoader)
       .then(response => {
         console.log(response.Data.PaymentURL);

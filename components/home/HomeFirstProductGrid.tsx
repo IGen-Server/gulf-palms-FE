@@ -13,7 +13,7 @@ interface HomeFirstProductGridProps {
 }
 
 const productData = [
-  { id: 10171, position: { x: 10, y: 27 }, group: "hoverProducts1", buttonType: "add_to_cart" },
+  { id: 10171, arId: 1, position: { x: 10, y: 27 }, group: "hoverProducts1", buttonType: "add_to_cart" },
   { id: 10169, position: { x: 52, y: 62 }, group: "hoverProducts1", buttonType: "read_more" },
   { id: 10061, position: { x: 75, y: 72 }, group: "hoverProducts1", buttonType: "select_options" },
   { id: 23312, position: { x: 24, y: 44 }, group: "hoverProducts2", buttonType: "select_options" },
@@ -39,7 +39,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
         },
         axiosInstanceWithoutLoader
       );
-      console.log({response})
+      console.log({ response })
       return response; // Assuming the response contains an array of products
     } catch (error) {
       console.error(error);
@@ -58,7 +58,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
       // Map the fetched products to the desired format
       const results = fetchedProducts.map((product) => {
         const productInfo = productData.find((p) => p.id == product.id);
-        
+
         return {
           position: productInfo?.position || { x: 0, y: 0 },
           group: productInfo?.group,
@@ -91,7 +91,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
   useEffect(() => {
     fetchProducts();
   }, []);
-// console.log({hoverProducts})
+  // console.log({hoverProducts})
   return (
     <div className="flex items-center gap-[40px] min-h-fit flex-col lg:flex-row lg:h-[839px] w-max font-sans">
       <div

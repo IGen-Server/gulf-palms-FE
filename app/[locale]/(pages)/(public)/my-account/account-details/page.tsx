@@ -9,6 +9,7 @@ import { UserService } from "@/services/api/user.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface UserProfileToEdit {
   first_name: string;
@@ -31,6 +32,8 @@ export default function AccountDetails() {
     last_name: "",
     name: "",
   });
+  const { t } = useTranslation("common")
+
 
   const [userPasswordToEdit, setUserPasswordToEdit] = useState<UserPasswordToEdit>({
     new_password: "",
@@ -51,7 +54,7 @@ export default function AccountDetails() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent, ) => {
+  const handleSubmit = (e: React.FormEvent,) => {
     e.preventDefault();
     console.log("Updated Shipping Address:", userProfileToEdit);
 
@@ -104,14 +107,14 @@ export default function AccountDetails() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="first_name">
-                  First name
+                  {t("accountDetails.firstname")}
                   <span className="text-red-500 ml-0.5">*</span>
                 </Label>
                 <Input id="first_name" value={userProfileToEdit.first_name} onChange={(e) => handleChangeUserProfileToEdit(e, 'first_name')} className="bg-gray-50" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="last_name">
-                  Last name
+                  {t("accountDetails.lastname")}
                   <span className="text-red-500 ml-0.5">*</span>
                 </Label>
                 <Input id="last_name" value={userProfileToEdit.last_name} onChange={(e) => handleChangeUserProfileToEdit(e, 'last_name')} className="bg-gray-50" required />
@@ -120,29 +123,30 @@ export default function AccountDetails() {
 
             <div className="space-y-2">
               <Label htmlFor="name">
-                Display Name
+                {t("accountDetails.displayName")}
                 <span className="text-red-500 ml-0.5">*</span>
               </Label>
               <Input id="name" value={userProfileToEdit.name} onChange={(e) => handleChangeUserProfileToEdit(e, 'name')} className="bg-gray-50" required />
+              <p className="text-sm text-lightGray italic">{t("accountDetails.displayNameDes")}</p>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="email">
-                Email address
+                {t("accountDetails.emailAddress")}
                 <span className="text-red-500 ml-0.5">*</span>
               </Label>
               <Input id="email" value={user?.email} className="bg-gray-50" readOnly />
             </div>
 
             <div className="relative">
-              <span className="absolute top-[-1rem] left-5 font-bold text-2xl px-3 bg-white">Password change</span>
+              <span className="absolute top-[-1rem] left-5 font-bold text-2xl px-3 bg-white">{t("accountDetails.passwordChange")}</span>
               <div className="border p-7 !mt-[3rem]">
-                
+
                 <div className="grid grid-cols-1 gap-6">
 
                   <div className="space-y-2 relative">
                     <Label htmlFor="password">
-                      Current password (leave blank to leave unchanged)
+                      {t("accountDetails.passChangeText")}
                       {/* <span className="text-red-500 ml-0.5">*</span> */}
                     </Label>
                     <Input id="password" type={showPassword ? "text" : "password"} value={user?.email} className="bg-gray-50" readOnly />
@@ -159,7 +163,7 @@ export default function AccountDetails() {
 
                   <div className="space-y-2">
                     <Label htmlFor="new_password">
-                      New password (leave blank to leave unchanged)
+                      {t("accountDetails.newPassword")}
                       {/* <span className="text-red-500 ml-0.5">*</span> */}
                     </Label>
                     <Input id="new_password" minLength={6} value={userPasswordToEdit.new_password} onChange={(e) => handleChangePasswordToEdit(e, 'new_password')} className="bg-gray-50" />
@@ -167,7 +171,7 @@ export default function AccountDetails() {
 
                   <div className="space-y-2">
                     <Label htmlFor="confirm_new_password">
-                      Confirm new password
+                      {t("accountDetails.confirmPassword")}
                       {/* <span className="text-red-500 ml-0.5">*</span> */}
                     </Label>
                     <Input id="confirm_new_password" minLength={6} value={userPasswordToEdit.confirm_new_password} onChange={(e) => handleChangePasswordToEdit(e, 'confirm_new_password')} className="bg-gray-50" />
@@ -179,7 +183,7 @@ export default function AccountDetails() {
             </div>
 
             <Button type="submit" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
-              SAVE CHANGES
+              {t("accountDetails.saveChanges")}
             </Button>
           </form>
       }

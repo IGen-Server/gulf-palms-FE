@@ -11,3 +11,8 @@ export interface PaymentRequestModel {
   address: string;
   lang: 'en' | 'ar';
 }
+
+export interface ExistingPaymentRequestModel {
+  orderId: number;
+  lang: 'en' | 'ar';
+}
