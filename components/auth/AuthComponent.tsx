@@ -14,9 +14,9 @@ import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { useTranslation } from "react-i18next";
 
 export default function AuthComponent() {
-  const {
+  const { t,
     i18n: { language },
-  } = useTranslation();
+  } = useTranslation("common");
 
   const { setIsTokenExpired } = useGlobalDataProvider();
 
@@ -64,14 +64,14 @@ export default function AuthComponent() {
         {/* Left Side - Dynamic Form */}
         <div className="space-y-6 text-[#2B2B2B]">
           <h1 className="text-[22px] font-semibold">
-            {isSignIn ? "LOGIN" : "REGISTER"}
+            {isSignIn ? t("auth.login") : t("auth.register")}
           </h1>
           {error && <p className="text-red-500">{error}</p>}
           <form className="space-y-6" onSubmit={handleAuth}>
             {!isSignIn && (
               <div className="space-y-2">
                 <Label htmlFor="username" className="text-base font-normal">
-                  Username <span className="text-red-500">*</span>
+                  {t("auth.username")} <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="username"
@@ -85,7 +85,7 @@ export default function AuthComponent() {
             )}
             <div className="space-y-2">
               <Label htmlFor="email" className="text-base font-normal">
-                {isSignIn ? "Username or email address" : "Email address"}{" "}
+                {isSignIn ? t("auth.usernameOrEmail") : t("auth.email")}{" "}
                 <span className="text-red-500">*</span>
               </Label>
               <Input
@@ -99,7 +99,7 @@ export default function AuthComponent() {
             </div>
             <div className="relative space-y-2">
               <Label htmlFor="password" className="text-base font-normal">
-                Password <span className="text-red-500">*</span>
+                {t("auth.password")} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <Input
@@ -114,7 +114,7 @@ export default function AuthComponent() {
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="absolute right-2 top-1/2 -translate-y-1/2"
+                  className={`absolute ${language === "en" ? "right-2" : "left-2"} top-1/2 -translate-y-1/2`}
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
@@ -129,34 +129,32 @@ export default function AuthComponent() {
               type="submit"
               className="w-full h-12 bg-primary hover:bg-[#E59B62] font-normal border-b-2 border-[#e68b46]"
             >
-              {isSignIn ? "LOG IN" : "REGISTER"}
+              {isSignIn ? t("auth.loginButton") : t("auth.registerButton")}
             </Button>
             {isSignIn && (
               <div className="flex items-center justify-between pt-2">
                 <div className="flex items-center space-x-2">
-                  <Checkbox id="remember" />
+                  <Checkbox id="remember" className={`${language === "ar" ? "ml-3" : ""}`} />
                   <label
                     htmlFor="remember"
                     className="text-sm text-gray-600 font-normal"
                   >
-                    Remember me
+                    {t("auth.remember")}
                   </label>
                 </div>
                 <Link
                   href="/my-account/lost-password"
                   className="text-sm text-primary hover:text-[#FFA755]"
                 >
-                  Lost your password?
+                  {t("auth.reset")}
                 </Link>
               </div>
             )}
             {!isSignIn && (
               <p className="text-sm text-gray-600">
-                Your personal data will be used to support your experience
-                throughout this website, to manage access to your account, and
-                for other purposes described in our{" "}
+                {t("auth.privacyText")}{" "}
                 <a href="#" className="text-primary hover:text-[#FFA755]">
-                  Privacy policy
+                  {t("auth.privacy")}{" "}
                 </a>
                 .
               </p>
@@ -167,21 +165,17 @@ export default function AuthComponent() {
         {/* Right Side - Info */}
         <div className="space-y-6 text-center">
           <h2 className="text-[22px] font-semibold">
-            {!isSignIn ? "LOGIN" : "REGISTER"}
+            {!isSignIn ? t("auth.login") : t("auth.register")}
           </h2>
           <p className="text-gray-600 leading-relaxed">
-            Registering for this site allows you to access your order status and
-            history. Just fill in the fields below, and we&apos;ll get a new
-            account set up for you in no time. We will only ask you for
-            information necessary to make the purchase process faster and
-            easier.
+            {t("auth.registerText")}
           </p>
           <Button
             variant="ghost"
             onClick={toggleAuth}
-            className="text-gray-800 hover:text-gray-600 px-3 py-2 h-auto font-semibold "
+            className="text-gray-800 bg-lightGray/10 hover:text-gray-600 px-3 py-2 h-auto font-semibold "
           >
-            {!isSignIn ? "LOG IN" : "REGISTER"}
+            {!isSignIn ? t("auth.loginButton") : t("auth.registerButton")}
           </Button>
         </div>
       </div>

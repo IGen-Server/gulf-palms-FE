@@ -130,9 +130,9 @@
   margin-bottom: 680px;
 }
 
-@media (max-width: 1020px) {
+@media (max-width: 1024px) {
   .content {
-    margin-bottom: 500px !important;
+    margin-bottom: 700px !important;
   }
 }
 
@@ -371,4 +371,12 @@ body {
 
 .group:hover .dot {
   animation: moveDots 0.5s infinite alternate ease-in-out;
+}
+
+.footer-nav-list {
+  color: rgba(255,255,255,0.6);
+}
+
+.footer-info {
+  color: rgba(255,255,255,0.8)
 }

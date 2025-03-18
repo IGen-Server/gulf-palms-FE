@@ -208,8 +208,8 @@ export function orderStatusesToReadableSentence(slug: string): string {
   };
 
   return customMappings[slug] || slug
-      .replace(/-/g, " ") // Replace hyphens with spaces
-      .replace(/\b\w/g, char => char.toUpperCase()); // Capitalize first letter of each word
+      ?.replace(/-/g, " ") // Replace hyphens with spaces
+      ?.replace(/\b\w/g, char => char.toUpperCase()); // Capitalize first letter of each word
 }
 
 export function isJwtTokenExpired(token: string): boolean {

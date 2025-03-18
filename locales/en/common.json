@@ -1,4 +1,88 @@
 {
+  "siteName": "Gulf Palms",
+  "account": {
+    "title": "My account",
+    "dashboard": "Dashboard",
+    "orders": "Orders",
+    "downloads": "Downloads",
+    "addresses": "Addresses",
+    "details": "Account Details",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "title1": "From your account dashboard you can view your",
+    "title2": "recent orders",
+    "title3": "manage your",
+    "title4": "",
+    "title5": "shipping and billing addresses",
+    "title6": "and",
+    "title7": "edit your password and account details.",
+    "hello": "Hello",
+    "not": "Not"
+  },
+  "orders": {
+    "order": "Order",
+    "date": "Date",
+    "status": "Status",
+    "total": "Total",
+    "actions": "Actions",
+    "pay": "Pay",
+    "view": "View",
+    "cancel": "Cancel",
+    "next": "Next",
+    "for": "for",
+    "items": "items",
+    "march": "March",
+    "february": "February"
+  },
+  "downloads": {
+    "title1": "No downloads available yet.",
+    "title2": "Browse products"
+  },
+  "address": {
+    "title": "The following addresses will be used on the checkout page by default.",
+    "billing": "Billing address",
+    "shipping": "Shipping address",
+    "editBilling": "Edit Billing address",
+    "editShipping": "Edit SHipping address"
+  },
+  "accountDetails": {
+    "firstname": "First Name",
+    "lastname": "Last Name",
+    "displayName": "Desplay Name",
+    "displayNameDes": "This will be how your name will be displayed in the account section and in reviews",
+    "emailAddress": "Email Address",
+    "passwordChange": "Password Change",
+    "passChangeText": "Current password (leave blank to leave unchanged)",
+    "newPassword": "New password (leave blank to leave unchanged)",
+    "confirmPassword": "Confirm new password",
+    "saveChanges": "Save changes"
+  },
+  "auth": {
+    "login": "Login",
+    "usernameOrEmail": "Username or email address",
+    "username": "Username",
+    "email": "Email address",
+    "password": "Password",
+    "loginButton": "Lon In",
+    "remember": "Remember me",
+    "reset": "Lost your password?",
+    "register": "Register",
+    "registerButton": "Register",
+    "registerText": "Registering for this site allows you to access your order status and history. Just fill in the fields below, and we'll get a new account set up for you in no time. We will only ask you for information necessary to make the purchase process faster and easier.",
+    "privacyText": "Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our",
+    "privacy": "privacy policy"
+  },
+  "orderStatus": {
+    "pending": "Pending Payment",
+    "on-hold": "On Hold",
+    "auto-draft": "Auto Draft",
+    "checkout-draft": "Checkout Draft",
+    "spamorder": "Spam Order",
+    "failed": "Failed",
+    "processing": "Processing",
+    "cancelled": "Cancelled"
+  },
   "mobileMenuItems": [
     { "title": "HOME", "href": "/" },
     { "title": "ABOUT US", "href": "/about-us-arabic" },
@@ -562,7 +646,9 @@
         }
       ]
     },
-    "footerNote": "Copyright &copy; {{year}} Gulf Palms | All Rights Reserved | Designed by Go Google",
+    "footerNote1": "Copyright © {{year}}",
+    "footerNote2": "All Rights Reserved",
+    "footerNote3": "Designed by",
     "paymentMethods": "Payment Methods"
   },
   "HomeFirstProductGrid": {

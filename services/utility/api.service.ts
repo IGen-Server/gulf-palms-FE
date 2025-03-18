@@ -31,6 +31,7 @@ export const ApiRoutes = {
   },
   Payment: {
     Pay: 'payment/pay',
+    PayForExistingOrder: 'payment/pay-existing-order',
   },
 };
 

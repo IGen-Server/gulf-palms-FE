@@ -8,10 +8,11 @@ import GetInTouch from "@/components/common/GetInTouch";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import { onLogout } from "@/services/utility/utility.service";
 import { UserDataProvider, useUserDataProvider } from "@/providers/UserDataProvider";
+import { useTranslation } from "react-i18next";
 
 const breadcrumbLinks = [
-  { name: "Home", href: "/" },
-  { name: "My account", href: "/my-account" },
+  { name: "Home", arabicName: "الرئيسية", href: "/" },
+  { name: "My account", arabicName: "My account", href: "/my-account" },
 ];
 
 export default function AccountLayout({ children }: { children: React.ReactElement; }) {
@@ -27,6 +28,8 @@ export default function AccountLayout({ children }: { children: React.ReactEleme
 function AccountLayoutComponent({ children }: { children: React.ReactElement; }) {
   const { user } = useUserDataProvider();
 
+  const { t } = useTranslation("common")
+
   return (<div className="pt-[98px] ">
     {user ? (
       <div>
@@ -34,22 +37,22 @@ function AccountLayoutComponent({ children }: { children: React.ReactElement; })
           <h1 className="text-[36px] font-bold text-black">My account</h1>
           <CustomBreadCrumb links={breadcrumbLinks} />
         </div>
-        <div className="flex min-h-screen flex-col md:flex-row font-sans !text-[rgb(36,36,36)] max-w-[1192px] mx-auto">
+        <div className="flex min-h-screen flex-col md:flex-row !text-[rgb(36,36,36)] max-w-[1192px] mx-auto">
           <aside className="w-full border-b md:w-64 md:border-b-0 md:border-r">
             <nav className="p-4">
-              <h1 className="mb-6 text-[18px] font-[600] pl-2">MY ACCOUNT</h1>
+              <h1 className="mb-6 text-[18px] font-[600] pl-2">{t("account.title")}</h1>
               <div className="space-y-2">
                 <NavLink href="/my-account" exact>
-                  Dashboard
+                  {t("account.dashboard")}
                 </NavLink>
-                <NavLink href="/my-account/orders">Orders</NavLink>
-                <NavLink href="/my-account/downloads">Downloads</NavLink>
-                <NavLink href="/my-account/edit-address">Addresses</NavLink>
+                <NavLink href="/my-account/orders">{t("account.orders")}</NavLink>
+                <NavLink href="/my-account/downloads">{t("account.downloads")}</NavLink>
+                <NavLink href="/my-account/edit-address">{t("account.addresses")}</NavLink>
                 <NavLink href="/my-account/account-details">
-                  Account details
+                  {t("account.details")}
                 </NavLink>
                 <NavLink href="">
-                  <span onClick={onLogout}>Logout</span>
+                  <span onClick={onLogout}>{t("account.logout")}</span>
                 </NavLink>
               </div>
             </nav>

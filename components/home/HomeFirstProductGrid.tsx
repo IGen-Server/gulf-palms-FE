@@ -13,22 +13,24 @@ interface HomeFirstProductGridProps {
 }
 
 const productData = [
-  { id: 10171, position: { x: 10, y: 27 }, group: "hoverProducts1", buttonType: "add_to_cart" },
-  { id: 10169, position: { x: 52, y: 62 }, group: "hoverProducts1", buttonType: "read_more" },
-  { id: 10061, position: { x: 75, y: 72 }, group: "hoverProducts1", buttonType: "select_options" },
-  { id: 23312, position: { x: 24, y: 44 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 23298, position: { x: 52, y: 52 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 9997, position: { x: 65, y: 78 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 9940, position: { x: 29, y: 73 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 10035, position: { x: 73, y: 52 }, group: "hoverProducts2", buttonType: "select_options" },
-  { id: 11846, position: { x: 30, y: 70 }, group: "hoverProducts3", buttonType: "buy_now" },
-  { id: 24003, position: { x: 50, y: 70 }, group: "hoverProducts4", buttonType: "buy_now" },
+  { id: 10171, arId: 15603, position: { x: 10, y: 27 }, group: "hoverProducts1", buttonType: "add_to_cart" },
+  { id: 10169, arId: 15601, position: { x: 52, y: 62 }, group: "hoverProducts1", buttonType: "read_more" },
+  { id: 10061, arId: 15314, position: { x: 75, y: 72 }, group: "hoverProducts1", buttonType: "select_options" },
+  { id: 23312, arId: 23317, position: { x: 24, y: 44 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 23298, arId: 23303, position: { x: 52, y: 52 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 9997, arId: 15278, position: { x: 65, y: 78 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 9940, arId: 14685, position: { x: 29, y: 73 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 10035, arId: 15300, position: { x: 73, y: 52 }, group: "hoverProducts2", buttonType: "select_options" },
+  { id: 11846, arId: 21503, position: { x: 30, y: 70 }, group: "hoverProducts3", buttonType: "buy_now" },
+  { id: 24001, arId: 24003, position: { x: 50, y: 70 }, group: "hoverProducts4", buttonType: "buy_now" },
 ];
 
 export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirstProductGridProps) {
   const { t, i18n: { language: currentLocale } } = useTranslation();
   const [hoverProducts, setHoverProducts] = useState<{ [key: string]: any[] }>({});
   const axiosInstanceWithoutLoader = useMemo(() => CreateAxiosInstanceWithLoader(false, false), []);
+  console.log(currentLocale);
+
 
   const getRelatedProducts = async (hoveresProductIds: number[]) => {
     try {
@@ -39,7 +41,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
         },
         axiosInstanceWithoutLoader
       );
-      console.log({response})
+      console.log({ response })
       return response; // Assuming the response contains an array of products
     } catch (error) {
       console.error(error);
@@ -50,15 +52,24 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
   const fetchProducts = useCallback(async () => {
     try {
       // Extract all product IDs from productData
-      const hoveresProductIds = productData.map((product) => product.id);
+      let hoveresProductIds;
+      if (currentLocale === "en") {
+        hoveresProductIds = productData.map((product) => product.id);
+      } else {
+        hoveresProductIds = productData.map((product) => product.arId);
+      }
+
 
       // Fetch related products using getRelatedProducts
       const fetchedProducts = await getRelatedProducts(hoveresProductIds);
 
       // Map the fetched products to the desired format
       const results = fetchedProducts.map((product) => {
-        const productInfo = productData.find((p) => p.id == product.id);
-        
+        const productInfo = currentLocale === "en" ? productData.find((p) => p.id == product.id) : productData.find((p) => p.arId == product.id);
+
+        console.log(productInfo, "ProductInfo");
+
+
         return {
           position: productInfo?.position || { x: 0, y: 0 },
           group: productInfo?.group,
@@ -91,7 +102,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
   useEffect(() => {
     fetchProducts();
   }, []);
-// console.log({hoverProducts})
+  // console.log({hoverProducts})
   return (
     <div className="flex items-center gap-[40px] min-h-fit flex-col lg:flex-row lg:h-[839px] w-max font-sans">
       <div

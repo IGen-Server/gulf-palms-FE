@@ -32,3 +32,8 @@ export interface PaymentRequestModelForExistingOrder {
   orderId: number;
   lang: string;
 }
+
+export interface ExistingPaymentRequestModel {
+  orderId: number;
+  lang: 'en' | 'ar';
+}

@@ -10,11 +10,15 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
 import { useCart } from "@/providers/CartProvider"
+import { PaymentService } from "@/services/api/payment.service"
+import { PaymentRequestModel } from "@/models/payment/payment-request.model"
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service"
 
 export default function CheckoutPage() {
   const { cartItems, subtotal, total, shippingCost } = useCart()
   const [differentShipping, setDifferentShipping] = useState(false)
-  const [termsAccepted, setTermsAccepted] = useState(false)
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -24,6 +28,57 @@ export default function CheckoutPage() {
       return
     }
     // Process checkout
+    const paymentData: PaymentRequestModel = {
+      products: [
+        { id: 10169, quantity: 2, variation_id: 0 },
+        { id: 10061, quantity: 3, variation_id: 0 }
+      ],
+      email: "john.doe@example.com",
+      customerName: "John Doe",
+      mobileNumber: "12345678",
+      lang: "en",
+      billing: {
+        first_name: "first_name",
+        last_name: "last_name",
+        company: "company",
+        address_1: "address_1",
+        address_2: "address_2",
+        city: "city",
+        state: "state",
+        postcode: "postcode",
+        country: "country",
+        email: "email@gmail.com",
+        phone: "+965 1234 5678"
+      },
+      shipping: {
+        first_name: "first_name",
+        last_name: "last_name",
+        company: "company",
+        address_1: "address_1",
+        address_2: "address_2",
+        city: "city",
+        state: "state",
+        postcode: "postcode",
+        country: "country",
+        phone: "+965 1234 5678",
+        email: ""
+      }
+    }
+
+
+    PaymentService.Pay(paymentData, axiosInstanceWithLoader)
+      .then(response => {
+        console.log(response.Data.PaymentURL);
+        if (response?.Data?.PaymentURL) {
+          // Redirect to MyFatoorah payment page
+          window.location.href = response.Data.PaymentURL;
+        } else {
+          console.error('Payment URL not found in response', response);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   return (
