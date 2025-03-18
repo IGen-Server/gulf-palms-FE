@@ -3,6 +3,9 @@ set -e
 
 echo "Deployment started..."
 
+echo "Reset package-lock.json before merge"
+git checkout -- package-lock.json
+
 # Pull the latest version of the app
 git pull origin master
 echo "New changes copied to server !"
