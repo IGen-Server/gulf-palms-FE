@@ -19,7 +19,7 @@ export const PaymentService  = {
     axiosInstance = updateAxiosInstanceLoaderAndJwtChecking(axiosInstance, requiresJwt, enableLoader);
     
     try {
-      const response = await axiosInstance.post<any>(ApiRoutes.Payment.Pay, paymentRequestModel);
+      const response = await axiosInstance.post<any>(ApiRoutes.Payment.PayForExistingOrder, paymentRequestModel);
       return response.data;
     } catch (error: any) {
       throw error;

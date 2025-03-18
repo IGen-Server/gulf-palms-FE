@@ -59,7 +59,7 @@ export default function CheckoutPage() {
             lang: language as "en" | "ar",
         };
 
-        PaymentService.Pay(paymentData, axiosInstanceWithLoader)
+        PaymentService.PayForExistingOrder(paymentData, axiosInstanceWithLoader)
             .then(response => {
                 console.log(response.Data.PaymentURL);
                 if (response?.Data?.PaymentURL) {
