@@ -12,11 +12,10 @@ import { CookieStorageService } from "@/services/utility/storage.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { useTranslation } from "react-i18next";
+import { ClientRoutes } from "@/services/utility/router.service";
 
 export default function AuthComponent() {
-  const { t,
-    i18n: { language },
-  } = useTranslation("common");
+  const { t, i18n: { language }, } = useTranslation("common");
 
   const { setIsTokenExpired } = useGlobalDataProvider();
 
@@ -47,9 +46,12 @@ export default function AuthComponent() {
           setError("Authentication failed. Please try again.");
         });
     } else {
-      AuthService.SignUp(username, email, password, axiosInstanceWithLoader)
+      AuthService.SignUp(username, email, password, language, axiosInstanceWithLoader)
         .then((response) => {
           console.log(response);
+          CookieStorageService.setAccessToken(response?.jwt);
+          setIsTokenExpired(false);
+          window.location.href = ClientRoutes.User.MyAccountDashboard;
         })
         .catch((error) => {
           console.error(error);
