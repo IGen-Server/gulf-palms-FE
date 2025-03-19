@@ -16,12 +16,13 @@ export const AuthService  = {
     }
   },
 
-  async SignUp(username: string, email: string, password: string, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<WpResponseModel<SignInResponseModel>> {
+  async SignUp(username: string, email: string, password: string, lang: string, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
     try {
-      const response = await axiosInstance.post<WpResponseModel<SignInResponseModel>>(ApiRoutes.Auth.SignUp, {
+      const response = await axiosInstance.post<any>(ApiRoutes.Auth.SignUp, {
         username: username,
         email: email,
-        password: password
+        password: password,
+        lang: lang
       });
       return response.data;
     } catch (error: any) {
