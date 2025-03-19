@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 export default function Dashboard() {
 
   const { user } = useUserDataProvider();
-  const { t, i18n: { language } } = useTranslation("common")
+  const { t, i18n: { language } } = useTranslation("common");
 
   return (
     <main className="flex-1 p-6">

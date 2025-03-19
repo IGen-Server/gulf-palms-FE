@@ -28,5 +28,29 @@ export const AuthService  = {
     } catch (error: any) {
       throw error;
     }
+  },
+
+  async RecoverPassword(emailOrUsername: string, lang: string, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
+    try {
+      const response = await axiosInstance.post<any>(ApiRoutes.Auth.RecoverPassword, {
+        emailOrUsername: emailOrUsername,
+        lang: lang
+      });
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
+
+  async VerifyRecoveryToken(token: string, lang: string, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
+    try {
+      const response = await axiosInstance.post<any>(ApiRoutes.Auth.VerifyRecoveryToken, {
+        token: token,
+        lang: lang
+      });
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
   }
 }
