@@ -90,14 +90,18 @@ export default function OrdersPage() {
                     <span>{order.needs_processing ? 'needs_processing' : 'no needs_processing'}</span><br></br> */}
                     {
                       (order.status === 'failed' || order.status === 'pending') && getTotalQuantity(order?.line_items) > 0 &&
-                      <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase" onClick={() => router.push(`/checkout/order-pay/${order.id}`)}>
-                        {t("orders.pay")}
-                      </Button>
+                      <Link href={`/checkout/order-pay/${order.id}`}>
+                        <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
+                          {t("orders.pay")}
+                        </Button>
+                      </Link>
                     }
                     {
-                      <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] font-semibold text-xs text-white uppercase mb-2" onClick={() => router.push(`/my-account/view-order/${order.id}`)}>
-                        {t("orders.view")}
-                      </Button>
+                      <Link href={`/my-account/view-order/${order.id}`}>
+                        <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] font-semibold text-xs text-white uppercase mb-2">
+                          {t("orders.view")}
+                        </Button>
+                      </Link>
                     }
                     {
                       // (order.status === 'processing' || order.status === 'pending') && order.is_editable &&
@@ -162,13 +166,17 @@ export default function OrdersPage() {
               <span className="text-gray-800 text-[12.5px] ">{t("orders.actions")}</span>
               <div className="text-right">
                 <div className="flex justify-end gap-2">
-                  <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
-                    {t("orders.pay")}
-                  </Button>
-                  <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
-                    {t("orders.view")}
-                  </Button>
-                  <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
+                  <Link href={`/checkout/order-pay/${order.id}`}>
+                    <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
+                      {t("orders.pay")}
+                    </Button>
+                  </Link>
+                  <Link href={`/my-account/view-order/${order.id}`}>
+                    <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
+                      {t("orders.view")}
+                    </Button>
+                  </Link>
+                  <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase" onClick={() => onOrderCancel(order.id)}>
                     {t("orders.cancel")}
                   </Button>
                 </div>

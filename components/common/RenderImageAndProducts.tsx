@@ -32,6 +32,8 @@ import {
 
 import { useCart } from "@/providers/CartProvider";
 import { ProductDrawer } from "../shop/ProductDrawer";
+import { useTranslation } from "react-i18next";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 interface HoverProduct {
   position: { x: number; y: number };
@@ -58,6 +60,7 @@ interface RenderImageAndProductsProps {
   currentCategories: ProductCategoryModel[];
   productAttribute: ProductAttribute | null;
   quantity?: number;
+  stock?: any,
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
 }
 
@@ -67,6 +70,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   hoverProducts,
   images,
   name,
+  stock = 'instock',
   description,
   slug,
   price,
@@ -78,6 +82,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   slugToCategoryRecord,
 }) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
+  const [wishList, setWishList] = useState<any[]>([])
   const [selectProductId, setSelectProductId] = useState<string | null>(null);
   const [expandedDescriptionId, setExpandedDescriptionId] = useState<
     string | null
@@ -85,10 +90,12 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const { t, i18n: { language } } = useTranslation();
   const { addToCart } = useCart();
 
-   const handleAddToCart = async () => {
+  console.log({ wishList })
+
+  const handleAddToCart = async () => {
     setLoading(true); // Set loading to true
     try {
       await addToCart({
@@ -113,7 +120,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
           onClick={() => handleAddToCart()}
         >
-          {loading ? <ClipLoader/> : "ADD TO CART"}
+          {loading ? <ClipLoader /> : t("AddToCart")}
         </div>
       );
     }
@@ -123,7 +130,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           href={product.hoveredHref}
           className="bg-gray-200 text-black text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
         >
-          READ MORE
+          {t("ReadMore")}
         </Link>
       );
     }
@@ -133,7 +140,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           href={product.hoveredHref}
           className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
         >
-          SELECT OPTIONS
+          {t("SelectOptions")}
         </Link>
       );
     }
@@ -143,7 +150,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           href={product.hoveredHref}
           className="bg-primary text-white text-[10px] sm:text-[12px] px-2 sm:px-3 py-1 sm:py-2 w-fit cursor-pointer"
         >
-          BUY NOW
+          {t("BuyNow")}
         </Link>
       );
     }
@@ -151,93 +158,194 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
 
   if (renderType === "image") {
     return (
-      <div
-        className={`relative w-full h-full`}
-        style={{
-          backgroundImage: `url(${imageFileOrUrl})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        {hoverProducts?.map((product, index) => (
-          <HoverCard key={index} openDelay={100}>
-            <div
-              className="absolute"
-              style={{
-                top: `${product.position.y}%`,
-                left: `${product.position.x}%`,
-              }}
-            >
-              <HoverCardTrigger
-                onMouseEnter={() => setHoveredProductId(product.productId)}
-                onMouseLeave={() => setHoveredProductId(null)}
+      <>
+        <div
+          className={`hidden lg:block relative w-full h-full`}
+          style={{
+            backgroundImage: `url(${imageFileOrUrl})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          {hoverProducts?.map((product, index) => (
+            <HoverCard key={index} openDelay={100}>
+              <div
+                className="absolute"
+                style={{
+                  top: `${product.position.y}%`,
+                  left: `${product.position.x}%`,
+                }}
               >
-                <div className="relative w-[30px] sm:w-[50px] h-[30px] sm:h-[50px] grid place-content-center">
-                  <div className="w-[15px] sm:w-[20px] h-[15px] sm:h-[20px] bg-primary rounded-full cursor-pointer grid place-content-center hotspot-btn">
-                    <div className="w-[4px] sm:w-[6px] h-[4px] sm:h-[6px] bg-white rounded-full z-10">
-                      <p className="hotspot-sonar !animate-ping"></p>
-                    </div>
-                  </div>
-                </div>
-              </HoverCardTrigger>
-
-              {hoveredProductId === product.productId && (
-                <HoverCardContent
-                  className="p-4 bg-white shadow-lg border rounded-md text-center font-arabic w-[280px] sm:w-[320px]"
+                <HoverCardTrigger
                   onMouseEnter={() => setHoveredProductId(product.productId)}
                   onMouseLeave={() => setHoveredProductId(null)}
+                  onClick={() => setHoveredProductId(product.productId)}
                 >
-                  <img
-                    src={product.imgUrl || "/placeholder.svg"}
-                    alt={product.hoveredTitle}
-                    className="w-full h-auto object-cover mb-2"
-                  />
-                  <p className="text-[14px] sm:text-[16px] font-semibold text-gray-500">
-                    {product.hoveredTitle}
-                  </p>
-                  <div
-                    className={`text-xs sm:text-sm text-gray-500 overflow-hidden transition-all duration-300`}
-                    style={{
-                      height:
-                        expandedDescriptionId == product.productId
-                          ? " fit-content "
-                          : " 48px ",
-                    }}
+                  <div className="relative w-[30px] sm:w-[50px] h-[30px] sm:h-[50px] grid place-content-center">
+                    <div className="w-[15px] sm:w-[20px] h-[15px] sm:h-[20px] bg-primary rounded-full cursor-pointer grid place-content-center hotspot-btn">
+                      <div className="w-[4px] sm:w-[6px] h-[4px] sm:h-[6px] bg-white rounded-full z-10">
+                        <p className="hotspot-sonar !animate-ping"></p>
+                      </div>
+                    </div>
+                  </div>
+                </HoverCardTrigger>
+
+                {hoveredProductId === product.productId && (
+                  <HoverCardContent
+                    className="p-4 bg-white shadow-lg border rounded-md text-center font-arabic w-[280px] sm:w-[320px]"
+                    onMouseEnter={() => setHoveredProductId(product.productId)}
+                    onMouseLeave={() => setHoveredProductId(null)}
+                  // onClick={() => setHoveredProductId(product.productId)}
                   >
-                    {product.description}
-                  </div>
-
-                  <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100 relative mt-2">
-                    {product.description && (
-                      <>
-                        {!expandedDescriptionId && (
-                          <div className="absolute h-[15px] blur-sm bg-white/80 w-full -top-3 left-0"></div>
-                        )}
-                        <Ellipsis
-                          className={
-                            expandedDescriptionId === product.productId
-                              ? "opacity-0"
-                              : "cursor-pointer"
-                          }
-                          onClick={() =>
-                            setExpandedDescriptionId((prevId) =>
-                              prevId === product.productId
-                                ? null
-                                : product.productId
-                            )
-                          }
-                        />
-                      </>
+                    <img
+                      src={product.imgUrl || "/placeholder.svg"}
+                      alt={product.hoveredTitle}
+                      className="w-full h-auto object-cover mb-2"
+                    />
+                    <p className="text-[14px] sm:text-[16px] font-semibold text-gray-500">
+                      {product.hoveredTitle}
+                    </p>
+                    {product?.price && (
+                      <p className="text-center !px-0 py-2 text-primary text-[16px] font-semibold">
+                        From {product?.price} KD
+                      </p>
                     )}
+                    <div
+                      className={`text-xs sm:text-sm text-gray-500 overflow-hidden transition-all duration-300`}
+                      style={{
+                        height:
+                          expandedDescriptionId == product.productId
+                            ? " fit-content "
+                            : " 48px ",
+                      }}
+                    >
+                      {product.description}
+                    </div>
 
-                    {renderHoveredButton(product)}
+                    <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100 relative mt-2">
+                      {product.description && (
+                        <>
+                          {!expandedDescriptionId && (
+                            <div className="absolute h-[15px] blur-sm bg-white/80 w-full -top-3 left-0"></div>
+                          )}
+                          <Ellipsis
+                            className={
+                              expandedDescriptionId === product.productId
+                                ? "opacity-0"
+                                : "cursor-pointer"
+                            }
+                            onClick={() =>
+                              setExpandedDescriptionId((prevId) =>
+                                prevId === product.productId
+                                  ? null
+                                  : product.productId
+                              )
+                            }
+                          />
+                        </>
+                      )}
+
+                      {renderHoveredButton(product)}
+                    </div>
+                  </HoverCardContent>
+                )}
+              </div>
+            </HoverCard>
+          ))}
+        </div>
+        <div
+          className={`block lg:hidden relative w-full h-full`}
+          style={{
+            backgroundImage: `url(${imageFileOrUrl})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          {hoverProducts?.map((product, index) => (
+            <Popover key={index}>
+              <div
+                className="absolute"
+                style={{
+                  top: `${product.position.y}%`,
+                  left: `${product.position.x}%`,
+                }}
+              >
+                <PopoverTrigger
+
+                  onClick={() => setHoveredProductId(product.productId)}
+                >
+                  <div className="relative w-[30px] sm:w-[50px] h-[30px] sm:h-[50px] grid place-content-center">
+                    <div className="w-[15px] sm:w-[20px] h-[15px] sm:h-[20px] bg-primary rounded-full cursor-pointer grid place-content-center hotspot-btn">
+                      <div className="w-[4px] sm:w-[6px] h-[4px] sm:h-[6px] bg-white rounded-full z-10">
+                        <p className="hotspot-sonar !animate-ping"></p>
+                      </div>
+                    </div>
                   </div>
-                </HoverCardContent>
-              )}
-            </div>
-          </HoverCard>
-        ))}
-      </div>
+                </PopoverTrigger>
+
+                {hoveredProductId === product.productId && (
+                  <PopoverContent
+                    className="p-4 bg-white shadow-lg border rounded-md text-center font-arabic w-[280px] sm:w-[320px]"
+
+                    onClick={() => setHoveredProductId(product.productId)}
+                  >
+                    <img
+                      src={product.imgUrl || "/placeholder.svg"}
+                      alt={product.hoveredTitle}
+                      className="w-full h-auto object-cover mb-2"
+                    />
+                    <p className="text-[14px] sm:text-[16px] font-semibold text-gray-500">
+                      {product.hoveredTitle}
+                    </p>
+                    {product?.price && (
+                      <p className="text-center !px-0 py-2 text-primary text-[16px] font-semibold">
+                        From {product?.price} KD
+                      </p>
+                    )}
+                    <div
+                      className={`text-xs sm:text-sm text-gray-500 overflow-hidden transition-all duration-300`}
+                      style={{
+                        height:
+                          expandedDescriptionId == product.productId
+                            ? " fit-content "
+                            : " 48px ",
+                      }}
+                    >
+                      {product.description}
+                    </div>
+
+                    <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100 relative mt-2">
+                      {product.description && (
+                        <>
+                          {!expandedDescriptionId && (
+                            <div className="absolute h-[15px] blur-sm bg-white/80 w-full -top-3 left-0"></div>
+                          )}
+                          <Ellipsis
+                            className={
+                              expandedDescriptionId === product.productId
+                                ? "opacity-0"
+                                : "cursor-pointer"
+                            }
+                            onClick={() =>
+                              setExpandedDescriptionId((prevId) =>
+                                prevId === product.productId
+                                  ? null
+                                  : product.productId
+                              )
+                            }
+                          />
+                        </>
+                      )}
+
+                      {renderHoveredButton(product)}
+                    </div>
+                  </PopoverContent>
+                )}
+              </div>
+            </Popover>
+          ))}
+        </div>
+      </>
     );
   }
 
@@ -248,28 +356,27 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
       price: Number(price),
       description: description || "Product description not available",
       image: imageFileOrUrl || (images && (images[0]?.src || images[0])),
-      images:images ,
+      images: images,
       sku: productId || "N/A",
       categories: currentCategories,
       quantity: quantity,
-      slug:slug,
+      slug: slug,
     };
     return (
       <>
         <div
-          className="relative overflow-hidden max-w-full sm:max-w-[260px] h-[380px] sm:h-[357px] cursor-pointer z-[10]"
+          className="relative bg-white overflow-hidden max-w-full sm:max-w-[260px] h-[380px] sm:h-[375px] cursor-pointer z-[10]"
           onMouseEnter={() => setHoveredProductId(productId)}
           onMouseLeave={() => setHoveredProductId(null)}
         >
-          <div className="w-full h-full sm:h-[280px] duration-700 overflow-hidden relative">
+          <div className="w-full h-[280px] duration-700 overflow-hidden relative">
             <img
               src={images?.[0]?.src || imageFileOrUrl || "/placeholder.svg"}
               alt={name}
-              className={`absolute inset-0 w-full h-full object-cover ${
-                hoveredProductId === productId
-                  ? " opacity-100 lg:opacity-0 "
-                  : " lg:opacity-100 "
-              }`}
+              className={`absolute inset-0 w-full h-full object-cover ${hoveredProductId === productId
+                ? " opacity-100 lg:opacity-0 "
+                : " lg:opacity-100 "
+                }`}
             />
             <img
               src={
@@ -279,13 +386,22 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                 "/placeholder.svg"
               }
               alt={name}
-              className={`absolute inset-0 w-full h-full object-cover ${
-                hoveredProductId === productId
-                  ? "opacity-0 lg:opacity-100 lg:scale-[1.1] transition-transform duration-1000"
-                  : "opacity-0 scale-100"
-              }`}
+              className={`absolute inset-0 w-full h-full object-cover ${hoveredProductId === productId
+                ? "opacity-0 lg:opacity-100 lg:scale-[1.1] transition-transform duration-1000"
+                : "opacity-0 scale-100"
+                }`}
             />
-
+            <div className="absolute top-0 left-2 ">
+              {stock === "instock" ? (
+                <p className="font-bold text-[11px] rounded-full shadow flex items-center justify-center h-[46px] w-[46px] !font-arabic text-black bg-white text-center leading-none uppercase">
+                  {t("inStock")}
+                </p>
+              ) : (
+                <p className="font-bold text-xs rounded-full shadow flex items-center justify-center h-[46px] w-[46px] !font-arabic text-black bg-white text-center leading-none">
+                  {t("SoldOut")}
+                </p>
+              )}
+            </div>
             {productAttribute &&
               productAttribute.visible &&
               productAttribute.variation && (
@@ -301,34 +417,30 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               )}
 
             <div
-              className={`hidden lg:block absolute bottom-0 left-0 w-full h-[38px] overflow-hidden ${
-                selectProductId === productId && "z-[20]"
-              }`}
+              className={`hidden lg:block absolute bottom-0 left-0 w-full h-[38px] overflow-hidden ${selectProductId === productId && "z-[20]"
+                }`}
             >
               <div
-                className={`h-full bg-primary w-full text-center font-arabic text-white duration-500 ${
-                  hoveredProductId === productId ||
+                className={`h-full bg-primary w-full text-center font-arabic text-white duration-500 ${hoveredProductId === productId ||
                   selectProductId === productId
-                    ? " cursor-pointer opacity-90"
-                    : " opacity-0 pointer-events-none "
-                }`}
+                  ? " cursor-pointer opacity-90 hover:opacity-100 hover:bg-[#f0864a]"
+                  : " opacity-0 pointer-events-none "
+                  }`}
               >
                 <div className="group/cart relative h-full flex flex-col items-center justify-center">
                   <p
-                    className={`translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200 text-xs sm:text-sm ${
-                      selectProductId === productId
-                        ? " -translate-y-[20px] "
-                        : "  "
-                    }`}
+                    className={`translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200 text-xs sm:text-sm ${selectProductId === productId
+                      ? " -translate-y-[20px] "
+                      : "  "
+                      }`}
                   >
                     SELECT OPTIONS
                   </p>
                   <p
-                    className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${
-                      selectProductId === productId
-                        ? " -translate-y-3 z-[20] "
-                        : "  "
-                    } `}
+                    className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${selectProductId === productId
+                      ? " -translate-y-3 z-[20] "
+                      : "  "
+                      } `}
                     onClick={() => {
                       setSelectProductId(productId);
                       setIsSheetOpen(true);
@@ -352,14 +464,14 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                 </div>
               </div>
             </div>
+
             <div className="hidden lg:grid absolute top-2 right-2 rounded-lg  place-content-center">
               <div
-                className={`h-[100px] sm:h-[135px] w-[35px] sm:w-[45px] text-center font-arabic text-gray-700 duration-500 ${
-                  hoveredProductId === productId ||
+                className={`h-[100px] sm:h-[135px] w-[35px] sm:w-[45px] text-center font-arabic text-gray-700 duration-500 ${hoveredProductId === productId ||
                   selectProductId === productId
-                    ? "!translate-y-[0px] shadow shadow-gray-300 p-2 bg-white"
-                    : "opacity-0 pointer-events-none translate-x-[50px]"
-                }`}
+                  ? "!translate-y-[0px] shadow shadow-gray-300 p-2 bg-white"
+                  : "opacity-0 pointer-events-none translate-x-[50px]"
+                  }`}
               >
                 <div className=" group/cart h-full z-10">
                   <TooltipProvider delayDuration={0}>
@@ -393,7 +505,16 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                       </Tooltip>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Heart className="cursor-pointer w-[15px] sm:w-[20px]" />
+                          {wishList.includes(productId) ? (
+                            <p className="w-[15px] sm:w-[20px]">✔</p>
+                          ) : (
+                            <Heart
+                              className="cursor-pointer w-[15px] sm:w-[20px]"
+                              onClick={() => {
+                                setWishList((prev) => [...prev, productId]);
+                              }}
+                            />
+                          )}
                         </TooltipTrigger>
                         <TooltipContent
                           sideOffset={15}
@@ -410,18 +531,31 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             </div>
             {/* mobile */}
             <div className="lg:hidden absolute right-6 grid place-content-center rounded-full shadow-md h-[30px] w-[30px]">
-              <Heart className="cursor-pointer w-[15px]" />
+              {wishList.includes(productId) ? (
+                "✔"
+              ) : (
+                <Heart
+                  className="cursor-pointer w-[15px]"
+                  onClick={() => {
+                    setWishList((prev) =>
+                      prev.includes(productId)
+                        ? prev.filter((p) => p !== productId)
+                        : [...prev, productId]
+                    );
+                  }}
+                />
+              )}
             </div>
+
             <div
               onClick={() => {
                 setSelectProductId(productId);
                 setIsSheetOpen(true);
               }}
-              className={`lg:hidden absolute left-2 p-1 bottom-0 grid place-content-center bg-primary shadow-md h-[35px] ${
-                selectProductId === productId
-                  ? "w-full z-[20] h-[45px]"
-                  : "w-[35px]"
-              } `}
+              className={`lg:hidden absolute left-2 p-1 bottom-0 grid place-content-center bg-primary shadow-md h-[35px] ${selectProductId === productId
+                ? "w-full z-[20] h-[45px]"
+                : "w-[35px]"
+                } `}
             >
               {loading && isSheetOpen ? (
                 <ClipLoader />
@@ -447,7 +581,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               </h2>
             </Link>
             {/* <p className="text-[11px] sm:text-[13.3px] text-gray-500 overflow-ellipsis">{description}</p> */}
-            {currentCategories?.slice(0, 2)?.map((category, index) => (
+            {currentCategories?.map((category, index) => (
               <span key={category.id} className="text-[13.3px] text-[#a5a5a5]">
                 <Link
                   href={getCategoryPathByIdFromRecord(
@@ -463,6 +597,9 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               </span>
             ))}
             <p className="text-[12px] sm:text-[14px] text-primary font-bold">
+              {(productAttribute?.options?.length || 0) > 1 && (
+                <span>{language === "en" ? "From" : "من"}</span>
+              )}{" "}
               {price} {currency}
             </p>
           </div>

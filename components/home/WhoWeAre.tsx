@@ -2,19 +2,19 @@
 
 import React from "react";
 import { useTranslation } from "react-i18next";
-import ImageTextCard from "../common/ImageTextCard";
+import ImageTextCardCopy from "../common/ImageTextCardCopy";
 
 export default function WhoWeAre() {
   const { t } = useTranslation();
 
   return (
     <div className="text-secondary">
-      <ImageTextCard
+      <ImageTextCardCopy
         leftContent={{
           type: "image",
           src: "https://gulfpalms.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-30-at-4.00.09-PM.jpeg",
           bgColor: "bg-white",
-          imgHeight: "h-[678.6px]",
+          imgHeight: "h-[430px] lg:h-[678.6px]",
         }}
         rightContent={{
           type: "text",
@@ -24,29 +24,30 @@ export default function WhoWeAre() {
           subheading: t("whoWeAre.subheading"),
           subheadingColor: "text-[#777777]",
           subheadingSize: "lg:text-[30px]",
-          subheadingWeight: "font-sans",
+          subheadingWeight: "",
           bullets: [
             t("whoWeAre.description"),
           ],
-          textSize: "text-sm lg:text-[16px] text-left  lg:pr-0",
+          textSize: "text-sm lg:text-[16px] lg:pr-0",
           textColor: "text-[#777777]",
-          fontWeight: "font-[400] font-sans",
+          fontWeight: "font-[400]",
           bgColor: "bg-white",
           buttons: {
             items: [
               {
                 text: t("whoWeAre.buttons.shopNow"),
-                bgColor: "bg-black",
+                bgColor: "bg-[#242424] hover:bg-[#242424]",
                 borderRadius: "rounded-none",
                 href: "/shop",
               },
               {
                 text: t("whoWeAre.buttons.readMore"),
-                bgColor: "bg-white",
-                textColor: "text-[#242424] hover:bg-[#F3F3F3]",
+                bgColor: "bg-white hover:bg-lightGray/10",
+                textColor: "text-[#333] leading-[1.375rem]",
+                textHoverColor: "text-[#333]",
                 borderRadius: "none",
                 border: "1px solid #F3F3F3",
-                href:'/about-us-arabic'
+                href: '/about-us-arabic'
               },
             ],
           },

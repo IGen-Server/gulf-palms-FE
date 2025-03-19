@@ -35,13 +35,13 @@ export default function ShowRoom() {
       <div className="flex flex-col lg:flex-row h-fit">
         {showrooms.map(({ id, nameKey, showroomKey, link, bgColor }) => (
           <div key={id} className={`text-white space-y-3 ${bgColor} p-[50px] text-center w-full flex flex-col items-center justify-center min-h-[206px]`}>
-            <p className="text-[30px] font-sans font-light">{t(nameKey)}</p>
+            <p className="text-[30px] font-light">{t(nameKey)}</p>
             <p className="text-[29px] font-bold font-arabic min-h-fit h-[100px]">
               {t(showroomKey)}
             </p>
             <Link
               href={link}
-              className="w-[132px] h-[42px] grid place-content-center uppercase rounded-none bg-[#f3f3f3] text-gray-700 text-[13px] font-sans hover:bg-gray-200 font-semibold"
+              className="w-[132px] h-[42px] grid place-content-center uppercase rounded-none bg-[#f3f3f3] text-gray-700 text-[13px] hover:bg-gray-200 font-semibold"
             >
               {t("showrooms.getLocation")}
             </Link>
