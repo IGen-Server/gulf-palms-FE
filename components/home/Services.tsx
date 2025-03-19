@@ -15,7 +15,7 @@ interface Service {
 }
 
 export default function Services() {
-  const { t } = useTranslation();
+  const { t, i18n: { language } } = useTranslation();
 
   const servicesCarouselData = t("servicesCarouselData", { returnObjects: true }) as Service[] || [];
   const createSlide = (service: Service) => (
@@ -28,20 +28,20 @@ export default function Services() {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className="relative group/number !w-[98vw] md:!w-[42vw] lg:!w-[310px] xl:!w-[420px] overflow-hidden"
+      className="relative group/number w-full lg:w-[430px] overflow-hidden"
     >
-      <div className="absolute top-0 left-0 h-full w-full p-5 text-white space-y-[10px]">
-        <p className="text-xl font-sans">{service.subtitle}</p>
+      <div className={`absolute top-0 left-0 h-full w-full p-5 text-white ${language === "en" ? "text-left" : "text-right"} space-y-[10px]`}>
+        <p className="text-xl">{service.subtitle}</p>
         <p className="text-2xl font-bold font-arabic">{service.title}</p>
-        <p className="font-sans">{service.content}</p>
-        <div className="w-full h-[48px] overflow-hidden !mt-4 ">
+        <p className="">{service.content}</p>
+        <div className={`w-full h-[48px] overflow-hidden !mt-4 flex ${language === "en" ? "justify-start" : "justify-end"}`}>
           <Link href={service.link}>
-          <Button
-            className="lg:translate-y-[48px] group-hover/number:translate-y-[0px] rounded-none bg-primary transition-transform duration-500 opacity-90 hover:bg-primary hover:opacity-100 w-[113px] h-[42px] grid place-content-center"
-            variant={"default"}
-          >
-            {t("whoWeAre.buttons.readMore")}
-          </Button>
+            <Button
+              className="lg:translate-y-[48px] group-hover/number:translate-y-[0px] rounded-none bg-primary transition-transform duration-500 opacity-90 hover:bg-primary hover:opacity-100 w-[113px] h-[42px] grid place-content-center"
+              variant={"default"}
+            >
+              {t("whoWeAre.buttons.readMore")}
+            </Button>
           </Link>
         </div>
       </div>
@@ -55,13 +55,13 @@ export default function Services() {
   return (
     <div className="container mx-auto px-4 max-w-[1458px]">
       <div className="pb-[30px] space-y-2 md:space-y-6 max-w-[800px]">
-        <p className="text-[#777777] text-xl md:text-[30px] font-light font-sans">
+        <p className="text-[#777777] text-xl md:text-[30px] font-light">
           {t("services.ourServices")}
         </p>
         <p className="text-[#242424] font-bold text-2xl md:text-[36px] font-arabic">
           {t("services.servicesProvided")}
         </p>
-        <p className="text-[#777777] text-sm md:text-[16px] font-sans">
+        <p className="text-[#777777] text-sm md:text-[16px]">
           {t("services.description")}
         </p>
       </div>

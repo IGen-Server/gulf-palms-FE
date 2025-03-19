@@ -725,7 +725,7 @@
       "id": "palm-maintenance",
       "subtitle": "Gulf Palm Services",
       "title": "PALM MAINTENANCE",
-      "content": "Gulf Palms provides the best services in supply, planting, transplanting, growing, and production of date Palms. We have the best experts in disease control, pest management, fertilization, and watering requirements of date palms.",
+      "content": "Gulf Palms provides the best services in supply, planting, transplanting, growing, and production of date palms. We have the best experts in disease control, pest management, fertilization, and watering requirements of date palms.",
       "imageUrl": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/palms-services-thumb.jpg",
       "link": "/services/palms-maintenance/"
     },
@@ -775,6 +775,19 @@
     { "title": "Account", "href": "/my-account/edit-account/" },
     { "title": "Logout", "href": "/my-account/customer-logout/" }
   ],
+  "ReadMore": "Read More",
+  "SelectOptions":"Select Options",
+  "AddToCart":"Add to Cart",
+  "BuyNow":"Buy Now",
+  "SoldOut":"Sold Out",
+  "ViewDetails": "View Details",
+  "Size": "Size",
+  "Choose_an_option": "Choose an Option",
+  "SKU": "SKU",
+  "N/A": "N/A",
+  "Categories": "Categories",
+  "Share": "Share",
+  "inStock": "In Stock",
   "terms": {
     "title": "Terms & Conditions"
   },

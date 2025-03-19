@@ -127,9 +127,8 @@ export default function CustomCarouselCopy({
               <img
                 src={item.imageSrc || "/placeholder.svg"}
                 alt="Carousel Item"
-                className={`${item.height || "h-auto"} ${
-                  item.width || "w-full lg:ml-5"
-                }`}
+                className={`${item.height || "h-auto"} ${item.width || "w-full lg:ml-5"
+                  }`}
               />
             ) : (
               <div className="h-full lg:ml-5 mr-2 lg:mr-0 group-first:ml-0">

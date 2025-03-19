@@ -30,9 +30,11 @@ export function CartDrawer() {
               VIEW CART
             </Button>
           </Link>
-          <Button className="w-full bg-primary hover:bg-[#FFA366]/90">
-            CHECKOUT
-          </Button>
+          <Link href="/checkout">
+            <Button className="w-full bg-primary hover:bg-[#FFA366]/90">
+              CHECKOUT
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

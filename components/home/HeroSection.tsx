@@ -12,21 +12,21 @@ export default function HeroSection() {
     <>
       <p
         className={`text-[24px] ${
-          isArabic ? "text-right" : "text-left"
+          isArabic ? "text-right !font-arabic " : "text-left"
         } sm:text-[30px] lg:text-[42px] font-[300] font-sans`}
       >
         {t("home.heroSection.Slogan1")}
       </p>
       <p
         className={`sm:text-[22px] lg:text-[28px] ${
-          isArabic ? "text-right" : "text-left"
-        } sm:text-[32px] lg:text-[46px] font-bold font-arabic pt-1`}
+          isArabic ? "text-right font-arabic " : "text-left"
+        } sm:text-[32px] lg:text-[46px]  font-semibold font-arabic pt-1 `}
       >
         {t("home.heroSection.Slogan2")}
       </p>
       <p
-        className={`text-[14px] lg:text-[16px] pt-3 font-sans max-w-[700px] ${
-          isArabic ? "text-right" : "text-left"
+        className={`text-[14px] lg:text-[16px] pt-3  max-w-[700px] ${
+          isArabic ? "text-right font-arabic " : "text-left font-sans"
         }`}
       >
         {t("home.heroSection.Slogan3")}
@@ -49,7 +49,7 @@ export default function HeroSection() {
   );
 
   return (
-    <div className="!max-w-[99vw] max-md:w-full pr-[30px] sm:pr-[60px] lg:max-w-[1000px] px-[22px] lg:text-left absolute top-[125px] lg:top-[353px] 2xl:top-[360px] lg:ml-[30px] 2xl:-ml-[30px] !overflow-x-hidden">
+    <div className={`!max-w-[99vw] max-md:w-full  lg:max-w-[1000px]  lg:text-left absolute top-[125px] lg:top-[353px] 2xl:top-[360px] lg:ml-[30px] 2xl:-ml-[30px] !overflow-x-hidden ${isArabic ? 'max-lg:px-[22px]' : ' px-[22px] pr-[30px] sm:pr-[60px]'}`}>
       <div className="relative z-10 text-white lg:text-secondary">
         {content}
       </div>

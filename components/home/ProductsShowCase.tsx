@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import CustomCarousel from "../common/CustomCarousel";
 import ImageTextCard from "../common/ImageTextCard";
-import { useTranslation } from "react-i18next"; 
+import { useTranslation } from "react-i18next";
 import { ProductCategoryModel } from "@/models/product/product";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
@@ -17,7 +17,7 @@ interface ProductsShowCaseProps {
 export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowCaseProps) {
   const [products, setProducts] = useState<any[]>([]);
   const { t, i18n } = useTranslation();
-  const axiosInstanceWithOutLoader = CreateAxiosInstanceWithLoader(false,false);
+  const axiosInstanceWithOutLoader = CreateAxiosInstanceWithLoader(false, false);
 
   const getRelatedProducts = async (hoveresProductIds: number[]) => {
     try {
@@ -28,19 +28,19 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
         },
         axiosInstanceWithOutLoader
       );
-    
+
       return response;
     } catch (error) {
       console.error(error);
-      return []; 
+      return [];
     }
   };
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const response = await getRelatedProducts([10171,10169,10061,23312,23298,9997,9940,10035]);
-        console.log({response})
+        const response = await getRelatedProducts([10171, 10169, 10061, 23312, 23298, 9997, 9940, 10035]);
+        console.log({ response })
         setProducts([...response.flat()]);
       } catch (error) {
         console.error(error);
@@ -51,20 +51,20 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
     getProducts();
   }, []);
 
-// console.log({products})
+  // console.log({products})
   const bottomLayer = (
     <div className="grid h-full w-full place-content-center ">
       <div className="max-lg:w-[85vw] lg:w-[550px] py-3 h-full flex flex-col justify-center items-center ">
         <div className="grid place-content-center w-full">
           <div className="pb-[20px] text-center w-[364px]">
-            <p className="text-[#777777] text-[30px] font-sans font-light">
-            {t("productsShowcase.heading")}
+            <p className="text-[#777777] text-[30px] font-light">
+              {t("productsShowcase.heading")}
             </p>
             <p className="text-[#242424] font-bold text-[36px] font-arabic">
               {/* Translated Product Title */}
               {t("productsShowcase.titleBottom")}
             </p>
-            <p className="text-[#777777] text-[16px] font-sans">
+            <p className="text-[#777777] text-[16px]">
               {/* Translated Description */}
               {t("productsShowcase.description")}
             </p>
@@ -73,7 +73,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
         <CustomCarousel
           slidesToShow={2}
           slidesToScroll={2}
-          MobileSlidesNumber={1}
+          MobileSlidesNumber={2}
           compactArrow={true}
           data={products?.slice(4)?.map((product) => ({
             component: (
@@ -88,7 +88,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
                 productId={product.productId}
                 slug={product.slug}
                 currency={""}
-                currentCategories={[]}
+                currentCategories={product.categories}
                 productAttribute={null}
                 slugToCategoryRecord={slugToCategoryRecord}
 
@@ -105,14 +105,14 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
       <div className="max-lg:w-[85vw] lg:w-[550px] py-3 h-full flex flex-col justify-center items-center">
         <div className="grid place-content-center w-full">
           <div className="pb-[20px] text-center w-[364px]">
-            <p className="text-[#777777] text-[30px] font-sans font-light">
-            {t("productsShowcase.heading")}
+            <p className="text-[#777777] text-[30px] font-light">
+              {t("productsShowcase.heading")}
             </p>
             <p className="text-[#242424] font-bold text-[36px] font-arabic">
               {/* Translated Product Title */}
               {t("productsShowcase.title")}
             </p>
-            <p className="text-[#777777] text-[16px] font-sans">
+            <p className="text-[#777777] text-[16px]">
               {/* Translated Description */}
               {t("productsShowcase.description")}
             </p>
@@ -121,9 +121,9 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
         <CustomCarousel
           slidesToShow={2}
           slidesToScroll={2}
-          MobileSlidesNumber={1}
+          MobileSlidesNumber={2}
           compactArrow={true}
-          data={products?.slice(0,4)?.map((product) => ({
+          data={products?.slice(0, 4)?.map((product) => ({
             component: (
               <RenderImageAndProducts
                 key={product.productId}
@@ -136,7 +136,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
                 productId={product.productId}
                 slug={product?.slug}
                 currency={""}
-                currentCategories={[]}
+                currentCategories={product.categories}
                 productAttribute={null}
                 slugToCategoryRecord={slugToCategoryRecord}
               />
@@ -161,7 +161,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
             type: "component",
             component: topLayer,
           }}
-          colReversed = {true}
+          colReversed={true}
         />
         <ImageTextCard
           leftContent={{

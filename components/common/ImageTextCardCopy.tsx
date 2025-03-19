@@ -5,6 +5,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 interface ButtonProps {
   text: string; // Button text
@@ -68,11 +69,12 @@ interface ImageTextCardCopyProps {
 export default function ImageTextCardCopy({
   leftContent,
   rightContent,
-  size = { width: "max-w-[1140px]", height: "h-fit" },
+  size = { width: "max-w-[1200px]", height: "h-fit" },
   className = "",
   colReversed = false,
   imageFirst,
 }: ImageTextCardCopyProps) {
+  const { i18n: { language } } = useTranslation();
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   useEffect(() => {
@@ -97,16 +99,12 @@ export default function ImageTextCardCopy({
         {buttons.items.map((button, index) => (
           <button
             key={index}
-            className={`px-3 py-2 duration-300 !cursor-pointer ${
-              button.textHoverColor || "hover:text-white"
-            } ${button.bgColor || "bg-primary"} ${
-              button.bgHoverColor || "hover:bg-primary"
-            } ${button.textColor || "text-white"} ${
-              button.borderColor || "#777"
-            }
-              ${button.fontWeight || "font-medium"} ${
-              button.borderRadius || "rounded"
-            } `}
+            className={`px-3 py-2 duration-300 !cursor-pointer ${button.textHoverColor || "hover:text-white"
+              } ${button.bgColor || "bg-primary"} ${button.bgHoverColor || "hover:bg-primary"
+              } ${button.textColor || "text-white"} ${button.borderColor || "#777"
+              }
+              ${button.fontWeight || "font-medium"} ${button.borderRadius || "rounded"
+              } `}
             style={{
               height: button.height || "auto",
               width: button.width || "auto",
@@ -132,16 +130,15 @@ export default function ImageTextCardCopy({
   const renderContent = (content: ContentProps) => {
     const textAlignClass = content.textAlign
       ? `text-${content.textAlign}`
-      : "text-left";
+      : "";
 
     if (content.type === "text") {
       return (
         <div className={`w-full space-y-[20px] p-[30px] ${textAlignClass}`}>
           {content.subheading && (
             <h3
-              className={`${content.subheadingColor || "text-primary"} ${
-                content.subheadingSize || "text-md"
-              } 
+              className={`${content.subheadingColor || "text-primary"} ${content.subheadingSize || "text-md"
+                } 
               ${content.subheadingWeight || "font-medium"} mb-2`}
             >
               {content.subheading}
@@ -149,9 +146,8 @@ export default function ImageTextCardCopy({
           )}
           {content.heading && (
             <h2
-              className={`${content.headingColor || "text-black"} ${
-                content.headingSize || "text-[30px]"
-              } 
+              className={`${content.headingColor || "text-black"} ${content.headingSize || "text-[30px]"
+                } 
               ${content.headingWeight || "font-bold"} mb-2`}
             >
               {content.heading}
@@ -160,9 +156,8 @@ export default function ImageTextCardCopy({
 
           {content.bullets && content.bullets.length === 1 ? (
             <p
-              className={`${content.textColor || "text-secondary"} ${
-                content.textSize || "text-sm"
-              } 
+              className={`${content.textColor || "text-secondary"} ${content.textSize || "text-sm"
+                } 
               ${content.fontWeight || "font-normal"} mb-1`}
             >
               <span className="font-semibold">{content.bulletsSpan}</span>
@@ -175,9 +170,8 @@ export default function ImageTextCardCopy({
                   {content.bullets.map((bullet, index) => (
                     <li
                       key={index}
-                      className={`${content.textColor || "text-secondary"} ${
-                        content.textSize || "text-sm"
-                      }
+                      className={`${content.textColor || "text-secondary"} ${content.textSize || "text-sm"
+                        }
                       ${content.fontWeight || "font-normal"} mb-1`}
                     >
                       <span className="font-semibold">
@@ -206,16 +200,14 @@ export default function ImageTextCardCopy({
             layout="fill"
             objectFit="cover"
             priority
-            className={`absolute inset-0 z-0 transition-opacity duration-500 ${
-              isVideoLoaded ? "opacity-0" : "opacity-100"
-            }`}
+            className={`absolute inset-0 z-0 transition-opacity duration-500 ${isVideoLoaded ? "opacity-0" : "opacity-100"
+              }`}
           />
 
           {/* Video background */}
           <div
-            className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${
-              isVideoLoaded ? "opacity-100" : "opacity-0"
-            }`}
+            className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${isVideoLoaded ? "opacity-100" : "opacity-0"
+              }`}
           >
             <video
               className="object-cover w-full h-full"
@@ -252,18 +244,17 @@ export default function ImageTextCardCopy({
 
   return (
     <div
-      className={`w-full mx-auto ${size.width} ${size.height} gap-12 lg:gap-0 grid grid-cols-1 lg:grid-cols-2 gap-y-7 ${className} justify-between`}
+      className={`w-full mx-auto ${size.width} ${size.height} gap-12 lg:gap-0 grid grid-cols-1 lg:grid-cols-2 gap-y-3 ${className} justify-between`}
     >
       {/* Left Content */}
       <div
-        className={`relative flex flex-col items-start w-full text-justify
+        className={`relative flex flex-col items-start w-full ${language === "en" ? "text-left" : "text-right"}
           ${leftContent.bgColor || ""}
           ${colReversed ? "order-1 lg:order-2" : "order-1"}
           ${leftContent.type === "text" && "grid place-content-center"}
-          ${
-            imageFirst && leftContent.type === "text"
-              ? "max-lg:order-2"
-              : "order-1"
+          ${imageFirst && leftContent.type === "text"
+            ? "max-lg:order-2"
+            : "order-1"
           }
         `}
       >
@@ -272,14 +263,13 @@ export default function ImageTextCardCopy({
 
       {/* Right Content */}
       <div
-        className={`relative flex flex-col items-start w-full text-justify
+        className={`relative flex flex-col items-start w-full ${language === "en" ? "text-left" : "text-right"}
           ${rightContent.bgColor || ""}
           ${colReversed ? "order-2 lg:order-1" : "order-2"}
           ${rightContent.type === "text" && "grid place-content-center"}
-          ${
-            imageFirst && rightContent.type === "text"
-              ? "max-lg:order-2"
-              : "order-1"
+          ${imageFirst && rightContent.type === "text"
+            ? "max-lg:order-2"
+            : "order-1"
           }
 
         `}

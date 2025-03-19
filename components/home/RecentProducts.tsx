@@ -19,13 +19,13 @@ export default function RecentProducts({ products, slugToCategoryRecord, isLoadi
   return (
     <div className="z-[50]">
       <div className="pb-[50px] space-y-[10px]">
-        <p className="text-[#777777] md:text-[30px] font-sans font-light">
+        <p className="text-[#777777] md:text-[30px] font-light">
           {t("recentProducts.newlyAdded")}
         </p>
-        <p className="text-[#242424] font-bold md:text-[36px] font-arabic">
+        <p className="text-[#242424] font-bold md:text-[36px]">
           {t("recentProducts.title")}
         </p>
-        <p className="text-[#777777] md:text-[16px] font-sans">
+        <p className="text-[#777777] md:text-[16px]">
           {t("recentProducts.description")}
         </p>
       </div>
@@ -40,21 +40,22 @@ export default function RecentProducts({ products, slugToCategoryRecord, isLoadi
         <CustomCarousel
           slidesToShow={4}
           slidesToScroll={4}
-          MobileSlidesNumber={1}
+          MobileSlidesNumber={2}
           data={products.map((product) => ({
             component: (
               <RenderImageAndProducts
                 key={product.productId}
                 renderType="product"
+                stock={product.stock_status}
                 imageFileOrUrl={product.imageFileOrUrl}
                 images={product.images}
                 name={product.name}
-                description={product.description}
+                description={product?.short_description}
                 price={product.price}
-                productId={product?.productId || product?.id} 
-                slug={product.slug} 
-                currency={extractCurrency(product.price_html)} 
-                currentCategories={product.categories} 
+                productId={product?.productId || product?.id}
+                slug={product.slug}
+                currency={extractCurrency(product.price_html)}
+                currentCategories={product.categories}
                 productAttribute={product.attributes[0]}
                 slugToCategoryRecord={slugToCategoryRecord}
               />

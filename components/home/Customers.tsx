@@ -52,23 +52,23 @@ export default function Customers() {
 
   const { t } = useTranslation();
 
-  const CreateTestimonialSlide = (testimonial:any) => {
+  const CreateTestimonialSlide = (testimonial: any) => {
     const [expanded, setExpanded] = useState(false);
     const reviewPreview = testimonial.review.slice(0, 100);
     const isLongReview = testimonial.review.length > 100;
-  
+
     return (
       <div className="px-4 py-6 h-full relative">
         <div className="bg-white rounded-lg shadow-sm p-6 min-h-[300px] h-full flex flex-col border border-gray-400">
           <div className="flex flex-col justify-center items-center gap-4 mb-4">
             <div className="absolute top-0">
               <div className="relative">
-                <img 
-                  src={testimonial.image || "/placeholder.svg"} 
+                <img
+                  src={testimonial.image || "/placeholder.svg"}
                   alt={testimonial.name}
                   className="w-12 h-12 rounded-full"
                 />
-                <img 
+                <img
                   src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"
                   alt="Google"
                   className="absolute -bottom-1 -right-1 w-5 h-5"
@@ -103,7 +103,7 @@ export default function Customers() {
 
   return (
     <div className="container mx-auto px-4 max-w-[1458px]">
-       <div className="pb-[30px] space-y-2 md:space-y-6 max-w-[800px] ">
+      <div className="pb-[30px] space-y-2 md:space-y-6 max-w-[800px] ">
         <p className="text-[#777777] text-xl md:text-[30px] font-light font-sans">
           {t("customers.ourServices")}
         </p>
@@ -123,6 +123,7 @@ export default function Customers() {
             component: CreateTestimonialSlide(testimonial)
           }))}
           autoPlay={true}
+          arrow={false}
         />
       </div>
     </div>

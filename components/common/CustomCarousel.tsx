@@ -18,6 +18,7 @@ interface CarouselData {
 
 interface CustomCarouselProps {
   dots?: boolean;
+  arrow?: boolean;
   data: CarouselData[];
   autoPlay?: boolean;
   withNavigation?: boolean;
@@ -30,6 +31,7 @@ interface CustomCarouselProps {
 
 export default function CustomCarousel({
   data,
+  arrow = true,
   dots = true,
   slidesToShow = 4,
   slidesToScroll = 4,
@@ -41,7 +43,7 @@ export default function CustomCarousel({
 }: CustomCarouselProps) {
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className={`absolute  top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000   ${compactArrow ? ' right-[0px] md:-right-[22px] ' : ' right-[10px] md:-right-[30px] '}`}
+      className={`${arrow ? "block" : "hidden"} absolute  top-1/2 transform -translate-y-1/2 z-20 rounded-full cursor-pointer lg:overflow-hidden opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000   ${compactArrow ? ' right-[0px] md:-right-[22px] ' : ' right-[10px] md:-right-[30px] '}`}
       onClick={onClick}
     >
       <ChevronRight
@@ -53,7 +55,7 @@ export default function CustomCarousel({
 
   const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className={`absolute  top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000 ${compactArrow ? 'md:-left-[35px]' : 'md:-left-[50px]'}`}
+      className={`${arrow ? "block" : "hidden"} absolute  top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000 ${compactArrow ? 'md:-left-[35px]' : 'md:-left-[50px]'}`}
       onClick={onClick}
     >
       <ChevronLeft
@@ -82,16 +84,16 @@ export default function CustomCarousel({
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: Math.min(serviceComponent ? 2:3, slidesToShow),
-          slidesToScroll: Math.min(serviceComponent ? 2:3, slidesToScroll),
+          slidesToShow: Math.min(serviceComponent ? 2 : 3, slidesToShow),
+          slidesToScroll: Math.min(serviceComponent ? 2 : 3, slidesToScroll),
           dots: false,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: Math.min(serviceComponent ? 1:2, slidesToShow),
-          slidesToScroll: Math.min(serviceComponent ? 1:2, slidesToScroll),
+          slidesToShow: Math.min(serviceComponent ? 1 : 2, slidesToShow),
+          slidesToScroll: Math.min(serviceComponent ? 1 : 2, slidesToScroll),
           dots: false,
         },
       },
@@ -110,20 +112,18 @@ export default function CustomCarousel({
     <div className="relative w-full min-h-[300px] md:min-h-[420px] h-fit group">
       <Slider autoplay={autoPlay} {...settings} className="w-full">
         {data.map((item, index) => (
-          <div key={index} className="h-full ">
+          <div key={index} className="h-full">
             {/* <span>{item.imageSrc}</span> */}
             {item.imageSrc ? (
               <img
                 src={item.imageSrc || "/placeholder.svg"}
                 alt="Carousel Item"
-                className={`${item.height || "h-auto"} ${
-                  item.width || "w-full"
-                }`}
+                className={`${item.height || "h-auto"} ${item.width || "w-full"
+                  }`}
               />
             ) : (
-              <div className={` h-full ${
-                item.width || "w-full"
-              }`}>{item.component}</div>
+              <div className={` h-full ${item.width || "w-full"
+                }`}>{item.component}</div>
             )}
           </div>
         ))}
