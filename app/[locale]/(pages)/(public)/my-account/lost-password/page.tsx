@@ -39,10 +39,18 @@ export default function LostPassword() {
       })
       .catch(error => {
         console.error(error);
+        
+        // Ensure error.response exists before accessing it
+        if (error.response) {
+          console.error("Error Response:", error.response);
+        } else {
+          console.error("Unknown error:", error);
+        }
+
         setIsRecoveryMailSendSuccess(false);
         setIsInvalidKey(false);
         setLoading(false);
-      });
+      })
   };
 
   return (
