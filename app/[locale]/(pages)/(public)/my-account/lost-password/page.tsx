@@ -32,6 +32,7 @@ export default function LostPassword() {
 
     AuthService.GetRecoverPasswordLinkInEmail(email, language, axiosInstanceWithLoader)
       .then(response => {
+        console.log(response);
         setIsRecoveryMailSendSuccess(true);
         setIsInvalidKey(false);
         setLoading(false);
