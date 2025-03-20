@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { AuthService } from "@/services/api/auth.service";
 import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
@@ -15,7 +15,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { CookieStorageService } from "@/services/utility/storage.service";
 import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 
-export default function ResetPassword() {
+function ResetPasswordContent() {
   const { t, i18n: { language } } = useTranslation("common");
   const { setIsTokenExpired } = useGlobalDataProvider();
   const searchParams = useSearchParams();
@@ -164,5 +164,13 @@ export default function ResetPassword() {
         </div>
       }
     </>
+  );
+}
+
+export default function LostPassword() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }

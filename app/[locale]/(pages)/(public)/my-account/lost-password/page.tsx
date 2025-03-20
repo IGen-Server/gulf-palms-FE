@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { AuthService } from "@/services/api/auth.service";
 import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
@@ -11,7 +11,7 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useSearchParams } from "next/navigation";
 
-export default function LostPassword() {
+function LostPasswordContent() {
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const { t, i18n: { language } } = useTranslation("common");
   const searchParams = useSearchParams();
@@ -111,5 +111,13 @@ export default function LostPassword() {
         </div>
       }
     </>
+  );
+}
+
+export default function LostPassword() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LostPasswordContent />
+    </Suspense>
   );
 }

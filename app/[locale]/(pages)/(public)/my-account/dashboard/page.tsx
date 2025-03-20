@@ -5,12 +5,12 @@ import { FileText, Download, MapPin, User, LogOut } from "lucide-react"
 import { onLogout } from "@/services/utility/utility.service";
 import { useUserDataProvider } from "@/providers/UserDataProvider";
 import { useTranslation } from "react-i18next";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { ClientRoutes } from "@/services/utility/router.service";
 
-export default function Dashboard() {
+function DashboardContent() {
 
   const { user } = useUserDataProvider();
   const { t, i18n: { language } } = useTranslation("common");
@@ -23,7 +23,7 @@ export default function Dashboard() {
   useEffect(() => {
     if (hasMounted.current) return;
     hasMounted.current = true;
-    
+
     if (passwordResetToken) {
       if (!isPasswordResetTokenUsed(passwordResetToken)) {
         setIsPasswordReset(true);
@@ -127,4 +127,12 @@ export default function Dashboard() {
       </div>
     </main>
   )
+}
+
+export default function Dashboard() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardContent />
+    </Suspense>
+  );
 }
