@@ -30,7 +30,7 @@ export const AuthService  = {
     }
   },
 
-  async RecoverPassword(emailOrUsername: string, lang: string, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
+  async GetRecoverPasswordLinkInEmail(emailOrUsername: string, lang: string, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
     try {
       const response = await axiosInstance.post<any>(ApiRoutes.Auth.RecoverPassword, {
         emailOrUsername: emailOrUsername,
@@ -47,6 +47,20 @@ export const AuthService  = {
       const response = await axiosInstance.post<any>(ApiRoutes.Auth.VerifyRecoveryToken, {
         token: token,
         lang: lang
+      });
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
+
+  async ResetPassword(password: string, confirmPassword: string, token: string, lang: string, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
+    try {
+      const response = await axiosInstance.post<any>(ApiRoutes.Auth.ResetPassword, {
+        password,
+        confirmPassword,
+        token,
+        lang
       });
       return response.data;
     } catch (error: any) {

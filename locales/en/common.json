@@ -1014,5 +1014,21 @@
         ]
       }
     ]
+  },
+  "myAccount": {
+    "lostPassword": {
+      "recoveryMailSendSuccessMessage": "Password reset email has been sent.",
+      "recoveryMailSendSuccessNote": "A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox. Please wait at least 10 minutes before attempting another reset.",
+      "recoveryMailSendFailureMessage": "Invalid username or email.",
+      "recoveryInvalidKeyMessage": "This key is invalid or has already been used. Please reset your password again if needed."
+    },
+    "recoverAccount": {
+      "formTitle": "Enter a new password below.",
+      "newPasswordLabel": "New password",
+      "confirmPasswordLabel": "Re-enter new password",
+      "passwordMismatch": "Passwords do not match.",
+      "saveButtonText": "Save",
+      "passwordResetSuccess": "Your password has been reset successfully."
+    }
   }
 }

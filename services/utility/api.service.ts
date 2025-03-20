@@ -11,6 +11,7 @@ export const ApiRoutes = {
     SignUp: '/auth/signup',
     RecoverPassword: '/auth/recover-password',
     VerifyRecoveryToken: '/auth/verify-recovery-token',
+    ResetPassword: '/auth/reset-password',
   },
   User: {
     Profile: '/user/profile',
