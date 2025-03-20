@@ -92,7 +92,7 @@ function LostPasswordContent() {
                     className="w-full px-[20px] py-[5px] bg-primary hover:bg-[#E59B62] text-white border-b-2 border-[#e68b46]"
                     disabled={loading} // Disable button while loading
                   >
-                    {loading ? "Sending..." : "Reset password"}
+                    Reset password
                   </Button>
                 </form>
               </div>
