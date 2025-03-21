@@ -104,13 +104,13 @@ export default function Customers() {
   return (
     <div className="container mx-auto px-4 max-w-[1458px]">
       <div className="pb-[30px] space-y-2 md:space-y-6 max-w-[800px] ">
-        <p className="text-[#777777] text-xl md:text-[30px] font-light font-sans">
+        <p className="text-[#777777] text-xl md:text-[30px] font-light">
           {t("customers.ourServices")}
         </p>
         <p className="text-[#242424] font-bold text-2xl md:text-[36px] font-arabic">
           {t("customers.title")}
         </p>
-        <p className="text-[#777777] text-sm md:text-[16px] font-sans">
+        <p className="text-[#777777] text-sm md:text-[16px]">
           {t("customers.description")}
         </p>
       </div>

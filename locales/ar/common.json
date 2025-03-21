@@ -753,6 +753,35 @@
       "link": "/services/project-execution/"
     }
   ],
+  "shop": {
+    "title": "المتجر",
+    "filterByPrice": "تصفية حسب السعر",
+    "filter": "تصفية",
+    "price": "السعر",
+    "categories": "فئات المنتجات",
+    "stockStatus": "حالة الرصيد، وضع مخزون",
+    "onSale": "خصم استثنائي",
+    "inStock": "في المخزن",
+    "topRatedProducts": "المنتجات الأعلى تقييمًا",
+    "clear": "مسح الفلاتر",
+    "min": "الحد الأدنى",
+    "max": "الحد الأعلى",
+    "show": "عرض",
+    "default": "الترتيب الافتراضي",
+    "sortByPopularity": "ترتيب حسب الشهرة",
+    "sortByRating": "ترتيب حسب معدل التقييم",
+    "sortByLatest": "ترتيب حسب الأحدث",
+    "priceLowToHigh": "ترتيب حسب: الأدنى سعراً للأعلى",
+    "priceHighToLow": "ترتيب حسب: الأعلى سعراً للأدنى",
+    "addToCart": "تحديد أحد الخيارات",
+    "buyNow": "اشتري الآن",
+    "noDescription": "وصف المنتج غير متوفر",
+    "showSidebar": "إظهار الشريط الجانبي",
+    "showingResults": "عرض {{ range }} من أصل {{ total }} نتيجة"
+  },
+  "washingtonianPalms": "واشنطونيا",
+  "plantMedium": "تربة",
+  "from": "من",
   "mobileNavTabs": {
     "tab1": "الفئات",
     "tab2": "القائمة"

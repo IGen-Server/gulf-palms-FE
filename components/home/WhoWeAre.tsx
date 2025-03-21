@@ -36,13 +36,15 @@ export default function WhoWeAre() {
             items: [
               {
                 text: t("whoWeAre.buttons.shopNow"),
-                bgColor: "bg-[#242424] hover:bg-[#242424]",
+                bgColor: "bg-[#242424]",
+                bgHoverColor: "hover:bg-[#242424]",
                 borderRadius: "rounded-none",
                 href: "/shop",
               },
               {
                 text: t("whoWeAre.buttons.readMore"),
-                bgColor: "bg-white hover:bg-lightGray/10",
+                bgColor: "bg-white border border-lightGray/30",
+                bgHoverColor: "hover:bg-lightGray/10",
                 textColor: "text-[#333] leading-[1.375rem]",
                 textHoverColor: "text-[#333]",
                 borderRadius: "none",

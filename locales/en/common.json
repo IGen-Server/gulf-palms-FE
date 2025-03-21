@@ -762,6 +762,35 @@
       "link": "/services/project-execution/"
     }
   ],
+  "shop": {
+    "title": "Shop",
+    "filterByPrice": "Filter by price",
+    "filter": "Filter",
+    "price": "Price",
+    "categories": "Product categories",
+    "stockStatus": "Stock Status",
+    "onSale": "On sale",
+    "inStock": "In stock",
+    "topRatedProducts": "Top rated products",
+    "clear": "Clear filters",
+    "min": "Min",
+    "max": "Max",
+    "show": "Show",
+    "default": "Default Sorting",
+    "sortByPopularity": "Sort by popularity",
+    "sortByRating": "Sort by average rating",
+    "sortByLatest": "Sort by latest",
+    "priceLowToHigh": "Sort by price: low to high",
+    "priceHighToLow": "Sort by price: high to low",
+    "addToCart": "Add To Cart",
+    "buyNow": "Buy Now",
+    "noDescription": "Product description not available",
+    "showSidebar": "Show Sidebar",
+    "showingResults": "Showing {{ range }} of {{ total }} results"
+  },
+  "washingtonianPalms": "Washingtonian Palms",
+  "plantMedium": "Plant Medium",
+  "from": "From",
   "mobileNavTabs": {
     "tab1": "MENU",
     "tab2": "CATEGORIES"

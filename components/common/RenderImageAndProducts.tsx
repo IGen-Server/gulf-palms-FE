@@ -207,7 +207,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                     </p>
                     {product?.price && (
                       <p className="text-center !px-0 py-2 text-primary text-[16px] font-semibold">
-                        From {product?.price} KD
+                        {t("from")} {product?.price} KD
                       </p>
                     )}
                     <div
@@ -354,7 +354,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
       id: productId,
       name: name || "",
       price: Number(price),
-      description: description || "Product description not available",
+      description: description || t("shop.noDescription"),
       image: imageFileOrUrl || (images && (images[0]?.src || images[0])),
       images: images,
       sku: productId || "N/A",
@@ -434,7 +434,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                       : "  "
                       }`}
                   >
-                    SELECT OPTIONS
+                    {t("SelectOptions")}
                   </p>
                   <p
                     className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${selectProductId === productId
@@ -608,6 +608,9 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           open={isQuickViewOpen}
           onOpenChange={setIsQuickViewOpen}
           product={productData}
+          optionName={productAttribute?.visible && productAttribute?.variation
+            ? productAttribute?.name
+            : ""}
           options={
             productAttribute?.visible && productAttribute?.variation
               ? productAttribute.options

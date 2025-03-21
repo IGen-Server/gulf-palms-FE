@@ -45,6 +45,7 @@ interface ProductDrawerProps {
     quantity?: number;
     slug?: any;
   };
+  optionName: string;
   options?: any;
 }
 
@@ -52,6 +53,7 @@ export function ProductDrawer({
   open,
   onOpenChange,
   product,
+  optionName,
   options = [],
 }: ProductDrawerProps) {
   const [quantity, setQuantity] = React.useState(1);
@@ -76,6 +78,7 @@ export function ProductDrawer({
   const nextImage = () => {
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
+
 
   const shareLinks = {
     whatsapp:
@@ -145,7 +148,7 @@ export function ProductDrawer({
 
           {options?.length > 0 && (
             <div className="flex items-center gap-3 space-y-2 pb-4">
-              <label className="text-sm font-semibold text-gray-700">{t("Size")}:</label>
+              <label className="text-sm font-semibold text-gray-700">{optionName}:</label>
               <DirectionProvider dir={language === "en" ? "ltr" : "rtl"}>
                 <Select>
                   <SelectTrigger className="w-full bg-white border-gray-300">

@@ -23,6 +23,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ProductCategoryModel } from "@/models/product/product";
 import { getCategoryPathByIdFromRecord, getLargestCategoryPathByIdFromRecord } from "@/services/utility/utility.service";
 import { useCart } from "@/providers/CartProvider";
+import { t } from "i18next";
 
 interface ProductDetailsProps {
   product: any;
@@ -31,6 +32,7 @@ interface ProductDetailsProps {
 }
 
 export default function ProductDetails({ product, slugToCategoryRecord, relatedProducts }: ProductDetailsProps) {
+  const { t } = useTranslation("common");
   const [selectedImage, setSelectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
@@ -125,11 +127,11 @@ export default function ProductDetails({ product, slugToCategoryRecord, relatedP
                 Home
               </Link>
               <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
-              
+
               {getLargestCategoryPathByIdFromRecord(product?.categories || [], slugToCategoryRecord).map((category) => {
                 return (<Link href={getCategoryPathByIdFromRecord(category.id, slugToCategoryRecord)} className="hover:text-primary">{category.name}&nbsp;&nbsp;/&nbsp;&nbsp;</Link>);
               })}
-              
+
               <span className="font-semibold">{product?.name}</span>
             </div>
             {
@@ -146,7 +148,7 @@ export default function ProductDetails({ product, slugToCategoryRecord, relatedP
                 <Link href={`/product/${relatedProducts[1].slug}`} className="p-2 hover:bg-muted rounded-sm">
                   <ChevronRight className="w-4 h-4" />
                 </Link>
-              </div> 
+              </div>
             }
           </div>
           <h1 className="text-3xl font-arabic text-gray-800">{product?.name}</h1>
@@ -186,9 +188,9 @@ export default function ProductDetails({ product, slugToCategoryRecord, relatedP
 
           {/* Quantity Selector */}
           <div className="flex items-center gap-6">
-            <button 
-            onClick={() => handleQuantityChange("decrease")}
-            className="text-xl px-2 py-1 hover:bg-muted rounded">
+            <button
+              onClick={() => handleQuantityChange("decrease")}
+              className="text-xl px-2 py-1 hover:bg-muted rounded">
               -
             </button>
             <input
@@ -197,22 +199,22 @@ export default function ProductDetails({ product, slugToCategoryRecord, relatedP
               className="w-12 text-center border-none"
               min="1"
             />
-            <button 
-            onClick={() => handleQuantityChange("increase")}
-            className="text-xl px-2 py-1 hover:bg-muted rounded">
+            <button
+              onClick={() => handleQuantityChange("increase")}
+              className="text-xl px-2 py-1 hover:bg-muted rounded">
               +
             </button>
           </div>
 
           {/* Action Buttons */}
           <div className="flex gap-4">
-            <button className="rounded-none px-6 py-2 bg-primary text-white border-b-2 border-orange-700/20 hover:bg-[#FFA366]/90"
-            onClick={handleAddToCart}
+            <button className="rounded-none px-6 py-2 bg-primary text-white border-b-2 border-orange-700/20 hover:bg-[#FFA366]/90 uppercase"
+              onClick={handleAddToCart}
             >
-              ADD TO CART
+              {t("shop.addToCart")}
             </button>
-            <button className="rounded-none px-6 py-2 bg-primary text-white border-b-2 border-orange-700/20 hover:bg-[#FFA366]/90">
-              BUY NOW
+            <button className="rounded-none px-6 py-2 bg-primary text-white border-b-2 border-orange-700/20 hover:bg-[#FFA366]/90 uppercase">
+              {t("shop.buyNow")}
             </button>
           </div>
 
@@ -230,7 +232,7 @@ export default function ProductDetails({ product, slugToCategoryRecord, relatedP
 
           {/* Product Info */}
           <div className="space-y-4 pt-4">
-            <span className="text-muted-foreground/80"><span className="font-semibold">SKU: </span> { product?.sku || 'N/A' }</span>
+            <span className="text-muted-foreground/80"><span className="font-semibold">SKU: </span> {product?.sku || 'N/A'}</span>
             <div className="flex gap-2">
               <span className="text-muted-foreground font-semibold">Category:</span>
               {

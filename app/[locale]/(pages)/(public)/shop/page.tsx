@@ -16,6 +16,7 @@ import {
   EllipsisVertical,
   Menu,
   ChevronDown,
+  X,
 } from "lucide-react";
 import GetInTouch from "@/components/common/GetInTouch";
 import { useTranslation } from "react-i18next";
@@ -25,20 +26,29 @@ import { ProductCategoryModel } from "@/models/product/product";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
 import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { CustomBreadCrumb2 } from "@/components/common/CustomBreadCrumb2";
+import { Checkbox } from "@/components/ui/checkbox";
+import Image from "next/image";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import MobileNav from "@/components/navbar/public-navbar/MobileNav";
+import { DirectionProvider } from "@radix-ui/react-direction";
 
 const breadcrumbLinks = [
-  { name: "Home", href: "/" },
-  { name: "Shop", href: "/shop" },
+  { name: "Home", arabicName: "الرئيسية", href: "/" },
+  {
+    name: "Shop", arabicName: " تسوق", href: "/shop"
+  },
 ];
 
 const showPerPage = [
-  { name: "9", href: "/shop/?per_page=9", value: 9 },
-  { name: "12", href: "/shop/?per_page=12", value: 12 },
-  { name: "18", href: "/shop/?per_page=18", value: 18 },
-  { name: "24", href: "/shop/?per_page=24", value: 24 },
+  { name: "9", arabicName: "9", href: "/shop/?per_page=9", value: 9 },
+  { name: "12", arabicName: "12", href: "/shop/?per_page=12", value: 12 },
+  { name: "18", arabicName: "18", href: "/shop/?per_page=18", value: 18 },
+  { name: "24", arabicName: "24", href: "/shop/?per_page=24", value: 24 },
 ];
 
 export default function Shop() {
+  const { t, i18n: { language } } = useTranslation("common");
   const [columns, setColumns] = useState(4);
   const [showMobileScreenCategory, setShowMobileScreenCategory] =
     useState(false);
@@ -46,7 +56,7 @@ export default function Shop() {
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const { categories } = useGlobalDataProvider();
 
-  const [pageConfig, setPageConfig] = useState({
+  const initialPageConfig = {
     lang: i18n.language,
     order: "asc",
     orderby: ProductSortValues[0],
@@ -54,11 +64,16 @@ export default function Shop() {
     per_page: 24,
     min_price: null,
     max_price: null,
-  });
+    stock_status: null,
+    on_sale: null
+  }
+
+  const [pageConfig, setPageConfig] = useState(initialPageConfig);
 
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
+  const [showSidebarButton, setShowSidebarButton] = useState(false);
 
   const updatePageConfig = (key: string, value: any) => {
     setPageConfig((prevState) => ({
@@ -66,6 +81,32 @@ export default function Shop() {
       [key]: value,
     }));
   };
+
+  useEffect(() => {
+    console.log(pageConfig);
+
+  }, [pageConfig]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerWidth < 1024) { // lg breakpoint in Tailwind
+        setShowSidebarButton(window.scrollY > 250);
+      } else {
+        setShowSidebarButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+
+    // Initial check
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -93,6 +134,7 @@ export default function Shop() {
 
     getProducts();
   }, [pageConfig]);
+
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -127,11 +169,90 @@ export default function Shop() {
     getProductCategories();
   }, [categories]);
 
+
   return (
     <div className="pt-10 lg:pt-[98px]">
+
+      <div className={`fixed top-1/2 transform -translate-y-1/2 transition-all duration-500 ${showSidebarButton
+        ? i18n.language === "en"
+          ? "left-0"
+          : "right-0"
+        : i18n.language === "en"
+          ? "-left-16"
+          : "-right-16"
+        } text-sm cursor-pointer z-30`}>
+        {" "}
+        <DirectionProvider dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+          <Sheet>
+            <SheetTrigger asChild>
+              <div
+
+                className="w-16 h-16 rounded-r-full bg-[#D4D4D4] flex justify-center items-center text-[#242424]"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-funnel"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" /></svg>
+
+              </div>
+            </SheetTrigger>
+            <SheetContent
+              side={i18n.language === "en" ? "left" : "right"}
+              className="p-0 w-[300px] drawer overflow-y-auto"
+            >
+              <div className="w-[276px] px-[15px] py-7 divide-y-2">
+                <SheetClose asChild>
+                  <div className="w-full flex justify-end items-center gap-2 pb-7">
+                    <X size={16} />
+                    <p className="font-semibold text-sm text-lightGray">{i18n.language === "en" ? "Close" : "يغلق"}</p>
+                  </div>
+                </SheetClose>
+                <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <ProductCategories />
+                </Suspense>
+                <div className="mt-7">
+                  <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center gap-2">
+                      <Checkbox
+                        id="onSale"
+                        // checked={termsAccepted}
+                        // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
+                        className="border-lightGray/30 hover:border-primary"
+                      />
+                      <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
+                        {t("shop.onSale")}
+                      </label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Checkbox
+                        id="inStock"
+                        // checked={termsAccepted}
+                        // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
+                        className="border-lightGray/30 hover:border-primary"
+                      />
+                      <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
+                        {t("shop.inStock")}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-7">
+                  <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
+                  <div className="flex items-center gap-3">
+                    <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
+                    <div className="flex flex-col gap-2">
+                      <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
+                      <p className="text-primary text-sm">{language === "en" ? "From" : "من"} 3.500 KD</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </DirectionProvider>
+      </div>
       <div className="max-w-content mx-auto">
-        <div className="flex flex-col items-center pb-[100px] lg:pb-[200px] pt-[50px]">
-          <h1 className="text-[36px] font-bold text-black">Shop</h1>
+        <div className="flex flex-col items-center pb-[100px] pt-[50px]">
+          <h1 className="text-[36px] lg:text-[4.25rem] font-bold text-[#242424] leading-[5.125rem] font-serif capitalize">{t("shop.title")}</h1>
           <div className="lg:hidden w-full mx-auto min-h-10 px-6 text-center">
             <p
               className="flex items-center gap-3 justify-center pt-4 cursor-pointer"
@@ -139,7 +260,7 @@ export default function Shop() {
                 setShowMobileScreenCategory(!showMobileScreenCategory)
               }
             >
-              Categories{" "}
+              {i18n.language === "en" ? "Categories" : "الفئات"}{" "}
               <ChevronDown
                 className={`${showMobileScreenCategory ? " rotate-180 " : " "}`}
               />
@@ -147,11 +268,10 @@ export default function Shop() {
 
             {/* Smooth height transition container */}
             <div
-              className={`overflow-hidden transition-all duration-500 ${
-                showMobileScreenCategory
-                  ? "max-h-[500px] opacity-100"
-                  : "max-h-0 opacity-0"
-              }`}
+              className={`overflow-hidden transition-all duration-500 ${showMobileScreenCategory
+                ? "max-h-[500px] opacity-100"
+                : "max-h-0 opacity-0"
+                }`}
             >
               {showMobileScreenCategory && <ProductCategories />}
             </div>
@@ -159,83 +279,202 @@ export default function Shop() {
         </div>
         <div className="flex items-start gap-3">
           <div className="w-[276px] px-[15px] divide-y-2 hidden lg:block">
-            <PriceSlider setPriceSlider={updatePageConfig} />
+            <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} />
             <Suspense fallback={<div>Loading...</div>}>
               <ProductCategories />
             </Suspense>
+            <div className="mt-7">
+              <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="onSale"
+                    checked={pageConfig.on_sale === true}
+                    onCheckedChange={(checked) => updatePageConfig("on_sale", checked === true ? true : null)}
+                    className="border-lightGray/30 hover:border-primary"
+                  />
+                  <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
+                    {t("shop.onSale")}
+                  </label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="inStock"
+                    checked={pageConfig.stock_status === "instock"}
+                    onCheckedChange={(checked) => updatePageConfig("stock_status", checked === true ? "instock" : null)}
+                    className="border-lightGray/30 hover:border-primary"
+                  />
+                  <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
+                    {t("shop.inStock")}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="mt-7">
+              <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
+              <div className="flex items-center gap-3">
+                <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
+                <div className="flex flex-col gap-2">
+                  <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
+                  <p className="text-primary text-sm">{language === "en" ? "From" : "من"} 3.500 KD</p>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="flex-1 ">
             <div className="px-[15px] flex justify-between max-lg:border-b">
               <CustomBreadCrumb
                 links={breadcrumbLinks}
                 uppercase={false}
-                currentStyle="font-semibold"
+                currentStyle="font-semibold text-sm"
               />
 
               <div className="flex items-center gap-4 ">
                 <div className="hidden lg:flex items-center gap-3">
-                  <p className="text-sm font-semibold">Show :</p>
+                  <p className="text-sm font-semibold text-[#242424]">{t("shop.show")} :</p>
                   <Suspense fallback={<div>Loading...</div>}>
                     <CustomBreadCrumb2
                       links={showPerPage}
                       activeLastLink={true}
                       updatePerPage={updatePageConfig}
                       uppercase={false}
-                      currentStyle="font-extrabold text-black"
+                      currentStyle="font-extrabold text-[#242424]"
                     />
                   </Suspense>
                 </div>
                 <div className="hidden lg:flex items-center gap-2">
                   <LayoutGrid
-                    className={`cursor-pointer h-[22px] ${
-                      columns === 2
-                        ? "font-extrabold text-black"
-                        : " text-gray-300"
-                    }`}
+                    className={`cursor-pointer h-[22px] ${columns === 2
+                      ? "font-extrabold text-[#242424]"
+                      : " text-lightGray/50"
+                      }`}
                     onClick={() => setColumns(2)}
                   />
                   <Grip
-                    className={`cursor-pointer ${
-                      columns === 3
-                        ? "font-extrabold text-black"
-                        : " text-gray-300"
-                    }`}
+                    className={`cursor-pointer ${columns === 3
+                      ? "font-extrabold text-[#242424]"
+                      : " text-lightGray/50"
+                      }`}
                     onClick={() => setColumns(3)}
                   />
                   <div
-                    className={`flex items-center justify-center cursor-pointer -ml-[10px] ${
-                      columns === 4
-                        ? "font-extrabold text-black"
-                        : " text-gray-300"
-                    }`}
+                    className={`flex items-center justify-center cursor-pointer -ml-[10px] ${columns === 4
+                      ? "font-extrabold text-[#242424]"
+                      : " text-lightGray/50"
+                      }`}
                     onClick={() => setColumns(4)}
                   >
-                    <EllipsisVertical className="-mr-[10px]" />
+                    <EllipsisVertical className={language === "en" ? "-mr-[10px]" : "-ml-[10px]"} />
                     <Grip />
                   </div>
                 </div>
-                <div className="px-4 pb-1 text-sm text-gray-700 font-sans lg:hidden">
-                  Showing 1–24 of 545 results
+                <div className="px-4 pb-1 text-sm text-lightGray font-sans lg:hidden">
+                  {t("shop.showingResults", {
+                    range: `1-24`,
+                    total: 530
+                  })}
                 </div>
                 <div className="max-lg:hidden">
                   <Suspense fallback={<div>Loading...</div>}>
-                    <SortingDropdown setSorting={updatePageConfig} />
+                    <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} />
                   </Suspense>
                 </div>
               </div>
             </div>
-            <div className="lg:hidden flex w-full justify-between px-3">
+            <div className="lg:hidden flex w-full justify-between px-3 pt-7">
               <div className="flex items-center gap-3 text-sm cursor-pointer">
                 {" "}
-                <Menu /> <span>Show sidebar</span>
+                <DirectionProvider dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="hover:bg-transparent w-fit p-0 flex items-center gap-1 text-[#333]"
+                      >
+                        <Menu /> <span>{t("shop.showSidebar")}</span>
+                        <span className="text-[13px] font-bold text-secondary">
+                          {i18n.language === "en" ? "MENU" : "القائمة"}
+                        </span>
+                      </Button>
+                    </SheetTrigger>
+                    <SheetContent
+                      side={i18n.language === "en" ? "left" : "right"}
+                      className="p-0 w-[300px] drawer overflow-y-auto"
+                    >
+                      <div className="w-[276px] px-[15px] py-7 divide-y-2">
+                        <SheetClose asChild>
+                          <div className="w-full flex justify-end items-center gap-2 pb-7">
+                            <X size={16} />
+                            <p className="font-semibold text-sm text-lightGray">{i18n.language === "en" ? "Close" : "يغلق"}</p>
+                          </div>
+                        </SheetClose>
+                        <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} />
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <ProductCategories />
+                        </Suspense>
+                        <div className="mt-7">
+                          <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
+                          <div className="flex flex-col gap-3">
+                            <div className="flex items-center gap-2">
+                              <Checkbox
+                                id="onSale"
+                                // checked={termsAccepted}
+                                // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
+                                className="border-lightGray/30 hover:border-primary"
+                              />
+                              <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
+                                {t("shop.onSale")}
+                              </label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Checkbox
+                                id="inStock"
+                                // checked={termsAccepted}
+                                // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
+                                className="border-lightGray/30 hover:border-primary"
+                              />
+                              <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
+                                {t("shop.inStock")}
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-7">
+                          <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
+                          <div className="flex items-center gap-3">
+                            <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
+                            <div className="flex flex-col gap-2">
+                              <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
+                              <p className="text-primary text-sm">{language === "en" ? "From" : "من"} 3.500 KD</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </SheetContent>
+                  </Sheet>
+                </DirectionProvider>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
-                <SortingDropdown setSorting={updatePageConfig} />
+                <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} />
               </Suspense>
             </div>
-            <div className="flex items-center justify-center min-h-screen">
+            <div className="flex flex-col justify-center px-4 pt-7">
+              <div className="w-full flex items-center gap-7">
+                {(pageConfig.min_price !== null || pageConfig.max_price !== null) && <button className="flex items-center gap-2 text-[#333] hover:text-lightGray" onClick={() => setPageConfig(initialPageConfig)}>
+                  <X size={16} strokeWidth={1.5} className="" />
+                  <p className="font-semibold text-[.8125rem]">{t("shop.clear")}</p>
+                </button>}
+                {(pageConfig.min_price !== null && pageConfig.min_price > 0) && <button className="flex items-center gap-2 text-[#333] hover:text-lightGray" onClick={() => setPageConfig((prev) => ({ ...prev, min_price: null }))}>
+                  <X size={16} strokeWidth={1.5} className="" />
+                  <p className="font-semibold text-[.8125rem]">{t("shop.min")}<span className="text-primary"> {pageConfig.min_price} KD</span></p>
+                </button>}
+                {pageConfig.max_price !== null && <button className="flex items-center gap-2 text-[#333] hover:text-lightGray" onClick={() => setPageConfig((prev) => ({ ...prev, max_price: null }))}>
+                  <X size={16} strokeWidth={1.5} className="" />
+                  <p className="font-semibold text-[.8125rem]">Max <span className="text-primary"> {pageConfig.max_price} KD</span></p>
+                </button>}
+              </div>
               <div
-                className={`w-full grid pt-16 grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-${columns} max-lg:px-8 mx-auto`}
+                className={`w-full grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-${columns} mx-auto`}
               >
                 {products.map((product) => (
                   <ProductCard
@@ -245,11 +484,17 @@ export default function Shop() {
                     name={product.name}
                     price={product.price}
                     img={product.images ? product?.images[0]?.src : ""}
-                    options={product.options}
+                    images={product.images}
+                    optionName={product.attributes[0]?.visible && product.attributes[0]?.variation
+                      ? product.attributes[0]?.name
+                      : ""}
+                    options={product.attributes[0]?.visible && product.attributes[0]?.variation
+                      ? product.attributes[0]?.options
+                      : []}
                     sku={product.sku}
                     currentCategories={product.categories}
                     slugToCategoryRecord={slugToCategoryRecord}
-                    description={undefined}
+                    description={product.short_description}
                   />
                 ))}
               </div>
@@ -279,9 +524,9 @@ export default function Shop() {
               )}
             </div>
           </div>
-        </div>
-      </div>
-      <GetInTouch />
-    </div>
+        </div >
+      </div >
+      <GetInTouch language={i18n.language} />
+    </div >
   );
 }

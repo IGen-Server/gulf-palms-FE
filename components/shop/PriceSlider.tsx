@@ -9,12 +9,22 @@ import { useTranslation } from "react-i18next";
 
 interface PriceSliderProps {
   setPriceSlider: (key: string, value: any) => void;
+  minPrice: null | number;
+  maxPrice: null | number;
 }
 
-export default function PriceSlider({ setPriceSlider }: PriceSliderProps) {
+export default function PriceSlider({ setPriceSlider, minPrice, maxPrice }: PriceSliderProps) {
+  const [minValue, set_minValue] = useState(minPrice || 0);
+  const [maxValue, set_maxValue] = useState(maxPrice || 2250);
+  const { t } = useTranslation("common");
 
-  const [minValue, set_minValue] = useState(0);
-  const [maxValue, set_maxValue] = useState(2250);
+  useEffect(() => {
+    set_minValue(minPrice || 0);
+    set_maxValue(maxPrice || 2250);
+  }, [minPrice, maxPrice]);
+
+  console.log(minValue, maxValue);
+
   const handleInput = (e: {
     min?: number;
     max?: number;
@@ -25,14 +35,14 @@ export default function PriceSlider({ setPriceSlider }: PriceSliderProps) {
     set_maxValue(e.maxValue);
   };
 
-  function onClickFilter () {
+  function onClickFilter() {
     setPriceSlider('min_price', minValue);
     setPriceSlider('max_price', maxValue);
   }
 
   return (
     <div className="space-y-4 pb-[30px]">
-      <p className="uppercase font-semibold text-[16px] ">Filter by price</p>
+      <p className="uppercase font-semibold text-base text-[#333]">{t("shop.filterByPrice")}</p>
       <MultiRangeSlider
         min={0}
         max={2250}
@@ -46,13 +56,13 @@ export default function PriceSlider({ setPriceSlider }: PriceSliderProps) {
       />
       <div className="flex items-center justify-between">
         <div className="text-sm">
-          <span className="text-gray-600 ">Price:</span>{" "}
-          <span className="font-semibold">
+          <span className="text-lightGray">{t("shop.price")}:</span>{" "}
+          <span className="font-semibold text-sm text-primary">
             {minValue} KD — {maxValue} KD
           </span>
         </div>
-        <button className="text-[12px] px-[14px] py-[5px] bg-gray-100" onClick={onClickFilter}>
-          Filter
+        <button className="font-semibold uppercase text-[12px] text-[#333] px-[14px] py-[5px] bg-gray-100 hover:bg-gray-200 duration-300" onClick={onClickFilter}>
+          {t("shop.filter")}
         </button>
       </div>
     </div>
