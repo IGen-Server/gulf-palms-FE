@@ -5,15 +5,58 @@ import { FileText, Download, MapPin, User, LogOut } from "lucide-react"
 import { onLogout } from "@/services/utility/utility.service";
 import { useUserDataProvider } from "@/providers/UserDataProvider";
 import { useTranslation } from "react-i18next";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { CheckIcon } from "@heroicons/react/24/solid";
+import { ClientRoutes } from "@/services/utility/router.service";
 
-export default function Dashboard() {
+function DashboardContent() {
 
   const { user } = useUserDataProvider();
-  const { t, i18n: { language } } = useTranslation("common")
+  const { t, i18n: { language } } = useTranslation("common");
+
+  const searchParams = useSearchParams();
+  const passwordResetToken = searchParams.get("password-reset")
+  const [isPasswordReset, setIsPasswordReset] = useState(false);
+  const hasMounted = useRef(false);
+
+  useEffect(() => {
+    if (hasMounted.current) return;
+    hasMounted.current = true;
+
+    if (passwordResetToken) {
+      if (!isPasswordResetTokenUsed(passwordResetToken)) {
+        setIsPasswordReset(true);
+        saveUsedPasswordResetToken(passwordResetToken);
+      } else {
+        window.location.href = ClientRoutes.User.MyAccountDashboard;
+      }
+    }
+  }, [passwordResetToken]);
+
+  const isPasswordResetTokenUsed = (token: string): boolean => {
+    const usedTokens = JSON.parse(localStorage.getItem("usedPasswordResetTokens") || "[]");
+    return usedTokens.includes(token);
+  };  
+
+  const saveUsedPasswordResetToken = (token: string) => {
+    const usedTokens = JSON.parse(localStorage.getItem("usedPasswordResetTokens") || "[]");
+    if (!usedTokens.includes(token)) {
+      usedTokens.push(token);
+      localStorage.setItem("usedPasswordResetTokens", JSON.stringify(usedTokens));
+    }
+  };  
 
   return (
     <main className="flex-1 p-6">
       <div className="mb-8">
+        {
+          isPasswordReset &&
+          <div className="bg-[#459647] text-white w-full px-8 py-5 flex flex-row gap-6 mb-6">
+            <CheckIcon className="h-6 w-6" />
+            <span>{t('myAccount.recoverAccount.passwordResetSuccess')}</span>
+          </div>
+        }
         <div className="flex items-center justify-between">
           <p className="text-muted-foreground font-serif">
             {t("dashboard.hello")} <span className="font-semibold">{user?.name}</span>&nbsp;
@@ -84,4 +127,12 @@ export default function Dashboard() {
       </div>
     </main>
   )
+}
+
+export default function Dashboard() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardContent />
+    </Suspense>
+  );
 }

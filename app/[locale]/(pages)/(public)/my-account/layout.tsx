@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import GetInTouch from "@/components/common/GetInTouch";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import { onLogout } from "@/services/utility/utility.service";
@@ -27,11 +27,16 @@ export default function AccountLayout({ children }: { children: React.ReactEleme
 
 function AccountLayoutComponent({ children }: { children: React.ReactElement; }) {
   const { user } = useUserDataProvider();
+  const { t } = useTranslation("common");
+  const pathname = usePathname();
+  const isLostPasswordPage = pathname.includes("lost-password");
 
-  const { t } = useTranslation("common")
+  useEffect(() => {
+    console.log(pathname);
+  }, [pathname]);
 
   return (<div className="pt-[98px] ">
-    {user ? (
+    {user && !isLostPasswordPage ? (
       <div>
         <div className="flex flex-col items-center py-[50px]">
           <h1 className="text-[36px] font-bold text-black">My account</h1>
