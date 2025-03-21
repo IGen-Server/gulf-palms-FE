@@ -39,7 +39,7 @@ const Footer: FC = () => {
                 height={71}
                 width={179}
               />
-              <div className="flex space-x-4 py-4">
+              <div className="flex items-center gap-4 py-4">
                 {["x-twitter", "instagram", "linkedin"].map((social) => (
                   <Link
                     key={social}

@@ -104,7 +104,7 @@ export default function PublicNavbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
- useEffect(() => {
+  useEffect(() => {
     const currentTotalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
     if (currentTotalQuantity > 0) {
@@ -122,14 +122,12 @@ export default function PublicNavbar() {
       className={`w-full fixed duration-500 top-0 z-[49] left-0 transition-transform flex items-center
         
         ${showNavbar ? "translate-y-0" : "-translate-y-full"}
-        ${
-          isHomePage
-            ? ` ${
-                isScrolled
-                  ? "bg-primary shadow-lg h-[60px]"
-                  : "bg-transparent h-[60px] lg:h-[105px]"
-              }`
-            : "bg-primary h-[60px] lg:h-fit"
+        ${isHomePage
+          ? ` ${isScrolled
+            ? "bg-primary shadow-lg h-[60px]"
+            : "bg-transparent h-[60px] lg:h-[105px]"
+          }`
+          : "bg-primary h-[60px] lg:h-fit"
         }`}
     >
       <div className="max-w-[100vw] w-full overflow-x-hidden lg:max-w-content mx-auto lg:w-[1396px] px-4 py-2">
@@ -138,9 +136,8 @@ export default function PublicNavbar() {
           <nav className="hidden lg:flex lg:items-center lg:gap-6 w-full ">
             <div className="w-[170px]">
               <div
-                className={`transition-all duration-500 grid place-content-center ${
-                  isScrolled ? "w-[125px] h-[60px]" : "w-[170px] !h-[77px]"
-                }`}
+                className={`transition-all duration-500 grid place-content-center ${isScrolled ? "w-[125px] h-[60px]" : "w-[170px] !h-[77px]"
+                  }`}
               >
                 {isScrolled ? (
                   <BrandFullLogo height={60} width={125} />
@@ -163,7 +160,7 @@ export default function PublicNavbar() {
                 >
                   <Menu className="h-5 w-5 text-white" />
                   <span className="text-[13px] font-bold text-secondary">
-                    MENU
+                    {i18n.language === "en" ? "MENU" : "القائمة"}
                   </span>
                 </Button>
               </SheetTrigger>
@@ -254,25 +251,25 @@ export default function PublicNavbar() {
           {/* {pathname.includes('my-account') || <AuthSheet />} */}
 
           <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary ">
-          <SideDrawerForCart
-                title="Cart"
-                open={isCartDrawerOpen}
-                onOpenChange={setIsCartDrawerOpen}
-                triggerComponent={
-                  <Button
-                    variant="ghost"
-                    className="hover:bg-transparent w-fit p-0 flex items-center text-white"
-                  >
-                    <div className="relative cursor-pointer">
-                      <ShoppingCart className="w-5 h-5" />
-                      <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 w-4 grid place-content-center">
-                        {cartItems.length || 0}
-                      </p>
-                    </div>
-                  </Button>
-                }
-                bodyComponent={<CartDrawer />}
-              />
+            <SideDrawerForCart
+              title="Cart"
+              open={isCartDrawerOpen}
+              onOpenChange={setIsCartDrawerOpen}
+              triggerComponent={
+                <Button
+                  variant="ghost"
+                  className="hover:bg-transparent w-fit p-0 flex items-center text-white"
+                >
+                  <div className="relative cursor-pointer">
+                    <ShoppingCart className="w-5 h-5" />
+                    <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 w-4 grid place-content-center">
+                      {cartItems.length || 0}
+                    </p>
+                  </div>
+                </Button>
+              }
+              bodyComponent={<CartDrawer />}
+            />
 
             <div className="hidden lg:block">
               <HeartIcon className="w-5 h-5" />

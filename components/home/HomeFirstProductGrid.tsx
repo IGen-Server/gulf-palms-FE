@@ -26,7 +26,7 @@ const productData = [
 ];
 
 export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirstProductGridProps) {
-  const { t, i18n: { language: currentLocale } } = useTranslation();
+  const { t, i18n: { language: currentLocale } } = useTranslation("common");
   const [hoverProducts, setHoverProducts] = useState<{ [key: string]: any[] }>({});
   const axiosInstanceWithoutLoader = useMemo(() => CreateAxiosInstanceWithLoader(false, false), []);
   console.log(currentLocale);
@@ -104,7 +104,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
   }, []);
   // console.log({hoverProducts})
   return (
-    <div className="flex items-center gap-[40px] min-h-fit flex-col lg:flex-row lg:h-[839px] w-max ">
+    <div className="flex items-center gap-[40px] min-h-fit flex-col lg:flex-row lg:h-[839px] w-full">
       <div
         style={{
           backgroundImage: `url(https://gulfpalms.com/wp-content/uploads/2023/10/DSC08580.jpg)`,
@@ -164,7 +164,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
                   position: { x: 30, y: 70 },
                   imgUrl: "https://clone.gulfpalms.com/wp-content/uploads/2023/10/3-mian-img.jpg",
                   productId: "washingtonian-palms",
-                  hoveredTitle: "Washingtonian Palms",
+                  hoveredTitle: t("washingtonianPalms"),
                   hoveredHref: 'https://clone.gulfpalms.com/en/product-category/ornamental-palms-bonsai/washingtonian-palms/',
                   price: '',
                   description: '',
@@ -190,7 +190,7 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
                   position: { x: 50, y: 70 },
                   imgUrl: "https://clone.gulfpalms.com/wp-content/uploads/2023/10/600by600-thumb5.jpg",
                   productId: "plant-medium",
-                  hoveredTitle: "Plant Medium",
+                  hoveredTitle: t("plantMedium"),
                   hoveredHref: 'https://clone.gulfpalms.com/en/product-category/plant-media/',
                   price: '',
                   description: '',

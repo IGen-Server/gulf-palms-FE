@@ -16,6 +16,8 @@ import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { getCategoryPathById, getCategoryPathByIdFromRecord, getProductCategoryLink } from "@/services/utility/utility.service";
+import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 export default function ProductCard({
   id,
@@ -23,6 +25,8 @@ export default function ProductCard({
   name,
   price,
   img,
+  images,
+  optionName,
   options,
   sku,
   currentCategories = [],
@@ -34,12 +38,15 @@ export default function ProductCard({
   name: any;
   price: any;
   img: any;
+  images: any[];
+  optionName: string;
   options: any;
   sku: string;
   currentCategories: ProductCategoryModel[];
   description: any;
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
 }) {
+  const { t, i18n: { language } } = useTranslation("common");
   const [selectProductId, setSelectProductId] = useState<
     string | null | number
   >(null);
@@ -50,14 +57,15 @@ export default function ProductCard({
     id: id,
     name: name,
     price: Number.parseFloat(price),
-    description: description || "Product description not available",
+    description: description || t("shop.noDescription"),
     image: img,
+    images,
     sku: sku || 'N/A',
     categories: currentCategories,
   };
 
   return (
-    <div className="relative group w-full grid place-content-center mb-[70px] custom-shadow pb-4 pt-7">
+    <div className="relative group w-full overflow-hidden grid place-content-center lg:mb-[70px] custom-shadow pb-4 lg:pt-7">
       <SelectProductVariant
         isOpen={isSheetOpen}
         setIsOpen={setIsSheetOpen}
@@ -75,6 +83,8 @@ export default function ProductCard({
         open={isQuickViewOpen}
         onOpenChange={setIsQuickViewOpen}
         product={productData}
+        optionName={optionName}
+        options={options}
       />
 
       {/* Product Image Section */}
@@ -82,18 +92,17 @@ export default function ProductCard({
         <Link href={`/product/${slug}`} className="block">
           <img
             loading="lazy"
-            width={280}
-            height={280}
+
             src={img}
             alt={name}
-            className="w-full object-contain !h-[265px] group-hover:scale-[105%] duration-500"
+            className="w-full object-cover !h-[265px] group-hover:scale-[105%] duration-500"
           />
         </Link>
       </div>
 
       {/* Product Details */}
       <div className="w-full text-center">
-        <h3 className="text-[14px] font-semibold">
+        <h3 className="text-[14px] font-semibold text-[#333] hover:text-lightGray/70">
           <Link href={`/product/${slug}`} className="text-center">
             {name}
           </Link>
@@ -114,7 +123,7 @@ export default function ProductCard({
 
         <div>
           <span className="text-primary text-[14px] font-semibold">
-            From {price} <span className="">KD</span>
+            {language === "en" ? "From" : "من"} {price} <span className="">KD</span>
           </span>
         </div>
       </div>
@@ -145,7 +154,7 @@ export default function ProductCard({
 
           {/* Add to Cart Button */}
           {selectProductId == id || (
-            <div className="group/select_product bg-primary text-white uppercase font-semibold text-sm px-3 py-2 shadow-md shadow-primary/95 min-w-[150px] text-center h-[40px] grid place-content-center  overflow-hidden">
+            <div className="group/select_product bg-primary text-white uppercase font-semibold text-sm px-3 py-2 shadow-md shadow-primary/95 min-w-[150px] text-center h-[40px] hidden lg:grid place-content-center  overflow-hidden">
               <div
                 className="grid place-content-center cursor-pointer"
                 onClick={() => {
@@ -153,8 +162,8 @@ export default function ProductCard({
                   setIsSheetOpen(true);
                 }}
               >
-                <span className="translate-y-3 group-hover/select_product:-translate-y-[100px] transition-all duration-500">
-                  Add to Cart
+                <span className="translate-y-3 group-hover/select_product:-translate-y-[100px] transition-all duration-500 uppercase">
+                  {t("shop.addToCart")}
                 </span>
                 <div className="translate-y-[100px] w-full place-items-center group-hover/select_product:-translate-y-2 transition-all duration-500">
                   <ShoppingCart />
@@ -162,6 +171,24 @@ export default function ProductCard({
               </div>
             </div>
           )}
+
+          {selectProductId == id || (
+            <div className="lg:hidden text-lightGray uppercase font-semibold text-sm px-3 py-2 shadow-mdtext-center h-[40px] grid place-content-center  overflow-hidden">
+              <div
+                className="grid place-content-center cursor-pointer"
+                onClick={() => {
+                  setSelectProductId(id);
+                  setIsSheetOpen(true);
+                }}
+              >
+
+                <div className="w-full place-items-center">
+                  <ShoppingCart />
+                </div>
+              </div>
+            </div>
+          )}
+
 
           {/* Quick View Button */}
           <div>

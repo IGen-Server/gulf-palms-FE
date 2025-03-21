@@ -43,29 +43,25 @@ export function CustomBreadCrumb2({
               ? link.name.toUpperCase()
               : link.name
             : language === "ar"
-            ? link.arabicName
-            : "";
+              ? link.arabicName
+              : "";
         const isCurrent = perPage ? perPage === String(link.value) : isLast;
 
         return (
           <div key={index} className="flex items-center">
             {index !== 0 && <span className="mx-2 text-gray-800">/</span>}
-            {isLast ? (
-              <span className={cn("font-semibold text-[.6875rem] leading-4 text-[#242424]", isCurrent && currentStyle)}>
-                {linkName}
-              </span>
-            ) : (
-              <Link
-                href={link.href}
-                className={cn(
-                  "font-semibold text-[.6875rem] leading-4 text-[#333] hover:text-gray-500 cursor-pointer",
-                  isCurrent && currentStyle
-                )}
-                onClick={() => updatePerPage && updatePerPage("per_page", link.value)}
-              >
-                {linkName}
-              </Link>
-            )}
+
+            <Link
+              href={link.href}
+              className={cn(
+                "font-semibold text-[.6875rem] leading-4 text-lightGray hover:text-[#242424] cursor-pointer",
+                isCurrent && currentStyle
+              )}
+              onClick={() => updatePerPage && updatePerPage("per_page", link.value)}
+            >
+              {linkName}
+            </Link>
+
           </div>
         );
       })}

@@ -155,7 +155,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
             type: "image",
             src: "https://gulfpalms.com/wp-content/uploads/2023/06/3-slide-img.jpg",
             bgColor: "bg-white",
-            imgHeight: "h-[706px] ",
+            imgHeight: "h-[410px] lg:h-[706px]",
           }}
           leftContent={{
             type: "component",
@@ -168,7 +168,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
             type: "image",
             src: "https://gulfpalms.com/wp-content/uploads/2021/09/2-slide-img.jpg",
             bgColor: "bg-white",
-            imgHeight: "h-[730px] ",
+            imgHeight: "h-[410px] lg:h-[730px] ",
           }}
           rightContent={{
             type: "component",

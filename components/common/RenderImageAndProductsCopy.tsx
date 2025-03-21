@@ -193,7 +193,7 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
                   className="p-4 bg-white shadow-lg border rounded-md text-center font-arabic w-[280px] sm:w-[320px]"
                   onMouseEnter={() => setHoveredProductId(product.productId)}
                   onMouseLeave={() => setHoveredProductId(null)}
-                  // onClick={() => setHoveredProductId(product.productId)}
+                // onClick={() => setHoveredProductId(product.productId)}
                 >
                   <img
                     src={product.imgUrl || "/placeholder.svg"}
@@ -259,7 +259,7 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
       id: productId,
       name: name || "",
       price: Number(price),
-      description: description || "Product description not available",
+      description: description || t("shop.noDescription"),
       image: imageFileOrUrl || (images && (images[0]?.src || images[0])),
       images: images,
       sku: productId || "N/A",
@@ -279,11 +279,10 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
               <img
                 src={images?.[0]?.src || imageFileOrUrl || "/placeholder.svg"}
                 alt={name}
-                className={`absolute inset-0 w-full h-full object-cover ${
-                  hoveredProductId === productId
-                    ? " opacity-100 lg:opacity-0 "
-                    : " lg:opacity-100 "
-                }`}
+                className={`absolute inset-0 w-full h-full object-cover ${hoveredProductId === productId
+                  ? " opacity-100 lg:opacity-0 "
+                  : " lg:opacity-100 "
+                  }`}
               />
             </Link>
             <img
@@ -294,11 +293,10 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
                 "/placeholder.svg"
               }
               alt={name}
-              className={`absolute inset-0 w-full h-full object-cover ${
-                hoveredProductId === productId
-                  ? "opacity-0 lg:opacity-100 lg:scale-[1.1] transition-transform duration-1000"
-                  : "opacity-0 scale-100"
-              }`}
+              className={`absolute inset-0 w-full h-full object-cover ${hoveredProductId === productId
+                ? "opacity-0 lg:opacity-100 lg:scale-[1.1] transition-transform duration-1000"
+                : "opacity-0 scale-100"
+                }`}
             />
             {/* <div className="absolute top-4 ">
               {stock === "instock" ? (
@@ -326,34 +324,30 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
               )}
 
             <div
-              className={`hidden lg:block absolute bottom-0 left-0 w-full h-[38px] overflow-hidden ${
-                selectProductId === productId && "z-[20]"
-              }`}
+              className={`hidden lg:block absolute bottom-0 left-0 w-full h-[38px] overflow-hidden ${selectProductId === productId && "z-[20]"
+                }`}
             >
               <div
-                className={`h-full bg-primary w-full text-center font-arabic text-white duration-500 ${
-                  hoveredProductId === productId ||
+                className={`h-full bg-primary w-full text-center font-arabic text-white duration-500 ${hoveredProductId === productId ||
                   selectProductId === productId
-                    ? " cursor-pointer opacity-90 hover:opacity-100 hover:bg-[#f0864a]"
-                    : " opacity-0 pointer-events-none "
-                }`}
+                  ? " cursor-pointer opacity-90 hover:opacity-100 hover:bg-[#f0864a]"
+                  : " opacity-0 pointer-events-none "
+                  }`}
               >
                 <div className="group/cart relative h-full flex flex-col items-center justify-center">
                   <p
-                    className={`translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200 text-xs sm:text-sm ${
-                      selectProductId === productId
-                        ? " -translate-y-[20px] "
-                        : "  "
-                    }`}
+                    className={`translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200 text-xs sm:text-sm ${selectProductId === productId
+                      ? " -translate-y-[20px] "
+                      : "  "
+                      }`}
                   >
                     SELECT OPTIONS
                   </p>
                   <p
-                    className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${
-                      selectProductId === productId
-                        ? " -translate-y-3 z-[20] "
-                        : "  "
-                    } `}
+                    className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${selectProductId === productId
+                      ? " -translate-y-3 z-[20] "
+                      : "  "
+                      } `}
                     onClick={() => {
                       setSelectProductId(productId);
                       setIsSheetOpen(true);
@@ -380,12 +374,11 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
 
             <div className="hidden lg:grid absolute top-2 right-2 rounded-lg  place-content-center">
               <div
-                className={`h-[100px] sm:h-[135px] w-[35px] sm:w-[45px] text-center font-arabic text-gray-700 duration-500 ${
-                  hoveredProductId === productId ||
+                className={`h-[100px] sm:h-[135px] w-[35px] sm:w-[45px] text-center font-arabic text-gray-700 duration-500 ${hoveredProductId === productId ||
                   selectProductId === productId
-                    ? "!translate-y-[0px] shadow shadow-gray-300 p-2 bg-white"
-                    : "opacity-0 pointer-events-none translate-x-[50px]"
-                }`}
+                  ? "!translate-y-[0px] shadow shadow-gray-300 p-2 bg-white"
+                  : "opacity-0 pointer-events-none translate-x-[50px]"
+                  }`}
               >
                 <div className=" group/cart h-full z-10">
                   <TooltipProvider delayDuration={0}>
@@ -466,11 +459,10 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
                 setSelectProductId(productId);
                 setIsSheetOpen(true);
               }}
-              className={`lg:hidden absolute left-2 p-1 bottom-0 grid place-content-center bg-primary shadow-md h-[35px] ${
-                selectProductId === productId
-                  ? "w-full z-[20] h-[45px]"
-                  : "w-[35px]"
-              } `}
+              className={`lg:hidden absolute left-2 p-1 bottom-0 grid place-content-center bg-primary shadow-md h-[35px] ${selectProductId === productId
+                ? "w-full z-[20] h-[45px]"
+                : "w-[35px]"
+                } `}
             >
               {loading && isSheetOpen ? (
                 <ClipLoader />
@@ -523,6 +515,9 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
           open={isQuickViewOpen}
           onOpenChange={setIsQuickViewOpen}
           product={productData}
+          optionName={productAttribute?.visible && productAttribute?.variation
+            ? productAttribute.name
+            : ""}
           options={
             productAttribute?.visible && productAttribute?.variation
               ? productAttribute.options
