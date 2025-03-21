@@ -160,7 +160,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
             />
           </div>
         </div>
-        <div className="col-span-2 space-y-5 lg:mt-0 mt-5">
+        <div className="max-lg:col-span-2 space-y-5 lg:mt-0 mt-5">
           <div className="w-full xl:w-[446.65px] h-[493px] lg:h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
@@ -176,7 +176,7 @@ export default function HomeSecondProductGrid({ slugToCategoryRecord }: HomeSeco
               slugToCategoryRecord={slugToCategoryRecord}
             />
           </div>
-          <div className="col-span-2 w-full xl:w-[446.65px] h-[493px] lg:h-[595.5px]">
+          <div className="max-lg:col-span-2 w-full xl:w-[446.65px] h-[493px] lg:h-[595.5px]">
             <RenderImageAndProducts
               renderType="image"
               name="Flower"
