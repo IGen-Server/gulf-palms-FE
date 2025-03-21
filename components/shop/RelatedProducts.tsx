@@ -5,6 +5,7 @@ import RenderImageAndProducts from "../common/RenderImageAndProducts";
 import CustomCarousel from "../common/CustomCarousel";
 import { extractCurrency, getCategoryNameAndLinksAsArray } from "@/services/utility/utility.service";
 import { ProductCategoryModel } from "@/models/product/product";
+import { useTranslation } from "react-i18next";
 
 // const products = [
 //   {
@@ -135,11 +136,12 @@ interface RelatedProductsProps {
 }
 
 export default function RelatedProducts({ products, slugToCategoryRecord }: RelatedProductsProps) {
+  const { t } = useTranslation("common");
   return (
-    <div className="z-[50]">
+    <div className="px-5 z-[50]">
       <div className="pb-[50px] space-y-[10px]">
         <p className="text-[#242424] font-bold md:text-[36px] font-arabic">
-          Related products
+          {t("relatedProducts")}
         </p>
       </div>
       {
@@ -147,7 +149,7 @@ export default function RelatedProducts({ products, slugToCategoryRecord }: Rela
         <CustomCarousel
           slidesToShow={4}
           slidesToScroll={4}
-          MobileSlidesNumber={1}
+          MobileSlidesNumber={2}
           data={products?.map((product) => ({
             component: (
               <RenderImageAndProducts

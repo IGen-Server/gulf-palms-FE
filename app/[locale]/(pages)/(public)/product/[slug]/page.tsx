@@ -11,7 +11,6 @@ import { useTranslation } from "react-i18next";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
 import { ProductCategoryModel } from "@/models/product/product";
-import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
 import { SlugType, useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -54,8 +53,6 @@ const waterRequirementData = [
 ];
 
 export default function ProductPage() {
-
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
   const { categories, slugToTranslate, addSlugToTranslate } = useGlobalDataProvider();
   const { i18n: { language: currentLocale } } = useTranslation();
@@ -63,16 +60,19 @@ export default function ProductPage() {
   const [pageConfig, setPageConfig] = useState({ lang: currentLocale, slug: slug });
   const [product, setProduct] = useState<any | null>(null);
   const hasMounted = useRef(false);
+  const [isProductLoading, setIsProductsLoading] = useState(false);
+
 
   useEffect(() => {
     if (hasMounted.current) return;
     hasMounted.current = true;
 
     const getProduct = async () => {
+      setIsProductsLoading(true);
       try {
         const response = await ProductService.GetBySlug(
           pageConfig,
-          axiosInstanceWithLoader
+          axiosInstanceWithoutLoader
         );
 
         setProduct(response);
@@ -88,6 +88,7 @@ export default function ProductPage() {
         }
 
         await getSuggestedProducts();
+        setIsProductsLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -145,7 +146,7 @@ export default function ProductPage() {
 
   // Category
   const [slugToCategoryRecord, setSlugToCategoryRecord] = useState<Record<number, ProductCategoryModel>>({});
-  useEffect( () => {
+  useEffect(() => {
     if (categories) {
       setSlugToCategoryRecord(generateIdToCategoryRecord(categories));
     }
@@ -154,9 +155,9 @@ export default function ProductPage() {
   return (
     <div className="pt-[75px] lg:pt-[98px]">
 
-      <ProductDetails product={product} slugToCategoryRecord={slugToCategoryRecord} relatedProducts={relatedProducts} />
-      
-      <div className="w-screen max-w-[1370px] mx-auto py-[100px]">
+      <ProductDetails loading={isProductLoading} product={product} slugToCategoryRecord={slugToCategoryRecord} relatedProducts={relatedProducts} />
+
+      <div className="w-screen max-w-[1370px] mx-auto pb-[100px]">
         {
           suggestedProducts.length === 0 && isSuggestedProductsLoading &&
           <div className="flex flex-col mb-5">
@@ -164,11 +165,11 @@ export default function ProductPage() {
             <Skeleton className="h-[18rem] w-full rounded-xl bg-gray-100" />
           </div>
         }
-        {suggestedProducts.length > 0  && <ProductDetailsExtended
+        {suggestedProducts.length > 0 && <ProductDetailsExtended
           fertilizationData={fertilizationData}
           waterRequirementData={waterRequirementData}
           recommendedProducts={suggestedProducts}
-          slugToCategoryRecord={slugToCategoryRecord} 
+          slugToCategoryRecord={slugToCategoryRecord}
         />}
         {
           relatedProducts.length === 0 && isRelatedProductLoading &&
@@ -179,7 +180,7 @@ export default function ProductPage() {
         }
         {relatedProducts.length > 0 && <RelatedProducts products={relatedProducts} slugToCategoryRecord={slugToCategoryRecord} />}
       </div>
-      <GetInTouch />
+      <GetInTouch language={currentLocale} />
     </div>
   );
 }

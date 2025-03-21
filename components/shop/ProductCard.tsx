@@ -13,11 +13,8 @@ import {
 import SelectProductVariant from "./SelectProductVariant";
 import { ProductDrawer } from "./ProductDrawer";
 import { ProductCategoryModel } from "@/models/product/product";
-import { ProductCategoryService } from "@/services/api/product-category.service";
-import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
-import { getCategoryPathById, getCategoryPathByIdFromRecord, getProductCategoryLink } from "@/services/utility/utility.service";
+import { getCategoryPathById, getCategoryPathByIdFromRecord } from "@/services/utility/utility.service";
 import { useTranslation } from "react-i18next";
-import { t } from "i18next";
 
 export default function ProductCard({
   id,
