@@ -32,7 +32,7 @@ import SearchDrawer from "@/components/search/SearchDrawer";
 import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { ClientRoutes } from "@/services/utility/router.service";
 import { CookieStorageService } from "@/services/utility/storage.service";
-import { isJwtTokenExpired } from "@/services/utility/utility.service";
+import { isJwtTokenExpired, onLogout } from "@/services/utility/utility.service";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { SideDrawerForCart } from "@/components/common/SideDrawerForCart";
 import { SideDrawerForSearch } from "@/components/common/SideDrawerForSearch";
@@ -225,7 +225,8 @@ export default function PublicNavbar() {
                     myDashboard.map((menu: any) => (
                       <Link
                         key={menu.title}
-                        href={menu.href || "#"}
+                        href={menu.title === "Logout" ? "" : menu.href || ""}
+                        onClick={(e) => { if (menu.title === "Logout") { onLogout(e) } }}
                         className="text-gray-600 hover:text-gray-900 text-sm px-3 py-2 rounded-md hover:bg-gray-100"
                       >
                         {menu.title}

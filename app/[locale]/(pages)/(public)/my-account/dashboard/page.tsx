@@ -62,7 +62,7 @@ function DashboardContent() {
             {t("dashboard.hello")} <span className="font-semibold">{user?.name}</span>&nbsp;
             <span className="text-foreground">
               ({t("dashboard.not")} <span className="font-semibold">{user?.name}</span>?&nbsp;
-              <Link href="/logout" className="text-[#333333] hover:underline">
+              <Link onClick={onLogout} href="" className="text-[#333333] hover:underline">
                 {t("account.logout")}
               </Link>
               )
@@ -117,7 +117,7 @@ function DashboardContent() {
           <h2 className="text-sm text-[#555555] font-[600]">{t("account.details")}</h2>
         </Link>
         <Link
-          href="/logout"
+          href=""
           onClick={onLogout}
           className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted"
         >

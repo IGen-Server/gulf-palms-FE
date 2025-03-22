@@ -818,7 +818,7 @@
     { "title": "Address", "href": "/my-account/downloads/" },
     { "title": "Downloads", "href": "/my-account/edit-address/" },
     { "title": "Account", "href": "/my-account/edit-account/" },
-    { "title": "Logout", "href": "/my-account/customer-logout/" }
+    { "title": "Logout", "href": "/my-account" }
   ],
   "ReadMore": "Read More",
   "SelectOptions":"Select Options",
