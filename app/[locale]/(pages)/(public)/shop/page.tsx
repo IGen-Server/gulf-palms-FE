@@ -60,6 +60,9 @@ function ShopContent() {
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
 
   const { categories } = useGlobalDataProvider();
+  
+  // stop fetching more products
+  const hasProducts = useRef(true);
 
   useEffect(() => {
     const param = searchParams.get("s");
@@ -94,9 +97,9 @@ function ShopContent() {
     }));
   };
 
+ // stop fetching more products
   useEffect(() => {
-    console.log(pageConfig);
-
+    hasProducts.current = true;
   }, [pageConfig]);
 
   useEffect(() => {
@@ -155,6 +158,12 @@ function ShopContent() {
           cleanedPageConfig,
           axiosInstanceWithoutLoader
         );
+
+        // stop fetching more products
+        if (response.length == 0 || response.length < pageConfig.per_page) {
+          hasProducts.current = false;
+        }
+
         setProducts((prev) =>
           pageConfig.page === 1 ? response : [...prev, ...response]
         );
@@ -172,7 +181,8 @@ function ShopContent() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !loading) {
+        // stop fetching more products (append after !loading => && hasProducts.current)
+        if (entries[0].isIntersecting && !loading && hasProducts.current) {
           setPageConfig((prev) => ({
             ...prev,
             page: prev.page + 1,
