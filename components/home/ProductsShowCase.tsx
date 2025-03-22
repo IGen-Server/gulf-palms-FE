@@ -89,7 +89,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
                 slug={product.slug}
                 currency={""}
                 currentCategories={product.categories}
-                productAttribute={null}
+                productAttribute={product.attributes[0]}
                 slugToCategoryRecord={slugToCategoryRecord}
 
               />
@@ -137,7 +137,7 @@ export default function ProductsShowCase({ slugToCategoryRecord }: ProductsShowC
                 slug={product?.slug}
                 currency={""}
                 currentCategories={product.categories}
-                productAttribute={null}
+                productAttribute={product.attributes[0]}
                 slugToCategoryRecord={slugToCategoryRecord}
               />
             ),

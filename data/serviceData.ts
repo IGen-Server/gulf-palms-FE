@@ -161,12 +161,13 @@ export const serviceData: ServiceData[] = [
     },
     sectionImage: "/images/services/garden_section_image.jpg",
     galleryImages: [
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-gmDwJERedQsAjN16dxMqhzvgy5g4q3.png",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-palm-men-1200x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/08/Medjool-50-100CM.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/08/Barhi-120-200CM-2-800x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC01281-533x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/08/Barhi-120-200CM-4.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_667654081-1199x800.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/compressed-Untitled_1.2.1-450x800.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/compressed-Untitled_1.6.1-450x800.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/compressed-Untitled_1.8.1-450x800.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/compressed-Untitled_1.7.1-450x800.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_106616339-1200x800.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/compressed-Untitled_1.5.1-450x800.jpg"
     ],
     en: {
       title: "Garden Maintenance",
@@ -260,12 +261,12 @@ export const serviceData: ServiceData[] = [
     },
     sectionImage: "/images/services/farm_section_image.jpg",
     galleryImages: [
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-uYFiQ2rJ2d2H6JmrxvwOuPLq8A8fcf.png",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/compressed-palm-men-1200x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/08/Medjool-50-100CM.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/08/Barhi-120-200CM-2-800x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/10/DSC01281-533x800.jpg",
-      "https://gulfpalms.com/wp-content/uploads/2023/08/Barhi-120-200CM-4.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_1854326206-1173x800.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_626590571-1200x800.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_567716494-1199x800.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/compressed-shutterstock_590308763-1067x800.jpg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/IMG_EE4609C5A18F-1-643x800.jpeg",
+      "https://clone.gulfpalms.com/wp-content/uploads/2023/10/DSC08580-533x800.jpg",
     ],
     en: {
       title: "Farm Development",

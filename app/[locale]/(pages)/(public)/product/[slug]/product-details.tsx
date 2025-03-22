@@ -333,27 +333,41 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
             </div>
             {
               relatedProducts.length > 1 &&
-              <div className="relative flex gap-2 group">
-                <Link href={`/product/${relatedProducts[0].slug}`} className="p-2 hover:bg-muted rounded-sm" onMouseEnter={() => setHoveredProduct(relatedProducts[0])} onMouseLeave={() => setHoveredProduct(null)}>
+              <div className="relative flex gap-2">
+                <Link href={`/product/${relatedProducts[0].slug}`} className="p-2 hover:bg-muted rounded-sm group" onMouseEnter={() => setHoveredProduct(relatedProducts[0])}>
                   <ChevronLeft className="w-4 h-4" />
+                  {hoveredProduct && (
+                    <Link href={`/product/${hoveredProduct.slug}`} className="min-w-max absolute top-7 right-0 hidden group-hover:block">
+                      <div className="flex items-center gap-3 mt-7 bg-white px-5 py-2 shadow-md">
+                        <Image src={hoveredProduct.images[0].src} alt="Product image" width={65} height={65} />
+                        <div className="flex flex-col gap-2">
+                          <p className="font-medium text-sm text-[#333] whitespace-nowrap">{hoveredProduct.name}</p>
+                          <p className="text-primary text-sm">{t("from")} {hoveredProduct.price} KD</p>
+                        </div>
+                      </div>
+                    </Link>
+                  )}
                 </Link>
                 <Link href='/shop' title="Back to product">
                   <button className="p-2 hover:bg-muted rounded-sm">
                     <Grid2x2 className="w-4 h-4" />
                   </button>
                 </Link>
-                <Link href={`/product/${relatedProducts[1].slug}`} className="p-2 hover:bg-muted rounded-sm" onMouseEnter={() => setHoveredProduct(relatedProducts[1])} onMouseLeave={() => setHoveredProduct(null)}>
+                <Link href={`/product/${relatedProducts[1].slug}`} className="p-2 hover:bg-muted rounded-sm group" onMouseEnter={() => setHoveredProduct(relatedProducts[1])}>
                   <ChevronRight className="w-4 h-4" />
+                  {hoveredProduct && (
+                    <Link href={`/product/${hoveredProduct.slug}`} className="min-w-max absolute top-7 right-0 hidden group-hover:block">
+                      <div className="flex items-center gap-3 mt-7 bg-white px-5 py-2 shadow-md">
+                        <Image src={hoveredProduct.images[0].src} alt="Product image" width={65} height={65} />
+                        <div className="flex flex-col gap-2">
+                          <p className="font-medium text-sm text-[#333] whitespace-nowrap">{hoveredProduct.name}</p>
+                          <p className="text-primary text-sm">{t("from")} {hoveredProduct.price} KD</p>
+                        </div>
+                      </div>
+                    </Link>
+                  )}
                 </Link>
-                {hoveredProduct && (
-                  <div className="min-w-max absolute top-7 right-0 hidden group-hover:flex items-center gap-3 mt-7 bg-white px-5 py-2 shadow-md">
-                    <Image src={hoveredProduct.images[0].src} alt="Product image" width={65} height={65} />
-                    <div className="flex flex-col gap-2">
-                      <p className="font-medium text-sm text-[#333] whitespace-nowrap">{hoveredProduct.name}</p>
-                      <p className="text-primary text-sm">{t("from")} {hoveredProduct.price} KD</p>
-                    </div>
-                  </div>
-                )}
+
               </div>
             }
           </div>

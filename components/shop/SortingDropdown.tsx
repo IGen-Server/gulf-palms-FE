@@ -27,9 +27,20 @@ interface SortingDropdownProps {
 
 }
 
+
+
 export function SortingDropdown({ setSorting, setSortingDir }: SortingDropdownProps) {
   const router = useRouter();
   const { t, i18n: { language } } = useTranslation();
+
+  const sortingList: Record<typeof currentOrderby, string> = {
+    menu_order: t("shop.default"),
+    popularity: t("shop.sortByPopularity"),
+    rating: t("shop.sortByRating"),
+    date: t("shop.sortByLatest"),
+    price: t("shop.priceLowToHigh"),
+    "price-desc": t("shop.priceHighToLow"),
+  }
 
   // List of valid orderby values
   const [currentOrderby, setCurrentOrderby] = useState<string>('menu_order');
@@ -71,7 +82,7 @@ export function SortingDropdown({ setSorting, setSortingDir }: SortingDropdownPr
           >
             <span className="text-[#242424]">
               {currentOrderby != "menu_order"
-                ? currentOrderby
+                ? sortingList[currentOrderby]
                 : t("shop.default")}
             </span>
           </SelectTrigger>

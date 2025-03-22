@@ -55,7 +55,7 @@ export default function CustomCarousel({
 
   const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
-      className={`${arrow ? "block" : "hidden"} absolute  top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000 ${compactArrow ? 'md:-left-[35px]' : 'md:-left-[50px]'}`}
+      className={`${arrow ? (serviceComponent ? "hidden lg:block" : "block") : "hidden"} absolute  top-1/2 transform -translate-y-1/2 z-20 p-2 rounded-full cursor-pointer opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-1000 ${compactArrow ? 'md:-left-[35px]' : 'md:-left-[50px]'}`}
       onClick={onClick}
     >
       <ChevronLeft

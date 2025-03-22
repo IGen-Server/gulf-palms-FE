@@ -149,7 +149,7 @@ const SingleProject = ({ slug }: { slug: string }) => {
           );
         }}
       >
-        <div className="w-full max-w-[1192px] mx-auto columns-2 md:columns-3 lg:columns-4 gap-2 px-5">
+        <div className={`w-full max-w-[1192px] mx-auto columns-2 md:columns-3 ${project.subImages.length < 8 ? "grid lg:grid-cols-4" : "lg:columns-4"} gap-2 px-5`}>
           {project.subImages?.map((image, index) => {
             return (
               <PhotoView key={index} src={image}>
@@ -159,7 +159,7 @@ const SingleProject = ({ slug }: { slug: string }) => {
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="w-full h-auto mb-2"
+                  className={`w-full h-auto ${project.subImages.length < 8 ? "" : "mb-2"}`}
                 />
               </PhotoView>
             );

@@ -319,6 +319,7 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
                     setIsSheetOpen(false);
                   }}
                   productId={productId}
+                  optionName={productAttribute.name}
                   options={productAttribute.options}
                 />
               )}

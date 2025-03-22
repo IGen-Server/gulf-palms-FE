@@ -34,6 +34,8 @@ import MobileNav from "@/components/navbar/public-navbar/MobileNav";
 import { DirectionProvider } from "@radix-ui/react-direction";
 import ProductsGridSkeleton from "@/components/shop/ProductCardSkeleton";
 import { useSearchParams } from "next/navigation";
+import { arProducts, enProducts } from "./topRatedProductsData";
+import TopRatedProducts from "./TopRatedProducts";
 
 const breadcrumbLinks = [
   { name: "Home", arabicName: "الرئيسية", href: "/" },
@@ -53,14 +55,14 @@ function ShopContent() {
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("s"));
   const [isResolved, setIsResolved] = useState(false);
-  
+
   const [columns, setColumns] = useState(4);
   const [showMobileScreenCategory, setShowMobileScreenCategory] = useState(false);
   const { i18n } = useTranslation();
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
 
   const { categories } = useGlobalDataProvider();
-  
+
   // stop fetching more products
   const hasProducts = useRef(true);
 
@@ -97,7 +99,7 @@ function ShopContent() {
     }));
   };
 
- // stop fetching more products
+  // stop fetching more products
   useEffect(() => {
     hasProducts.current = true;
   }, [pageConfig]);
@@ -136,7 +138,7 @@ function ShopContent() {
 
       setLoading(true);
       let pageConfigTemp: any = {};
-      
+
       if (pageConfig.search && categories?.find((x) => x.name === pageConfig.search)) {
         pageConfigTemp = {
           ...pageConfig,
@@ -144,7 +146,7 @@ function ShopContent() {
           search: null
         };
       } else {
-        pageConfigTemp = {...pageConfig};
+        pageConfigTemp = { ...pageConfig };
       }
 
       const cleanedPageConfig = Object.fromEntries(
@@ -216,6 +218,7 @@ function ShopContent() {
     return (
       <div className="pt-10 lg:pt-[98px]">
 
+        {/* Floating Sidebar for Mobile  */}
         <div className={`fixed top-1/2 transform -translate-y-1/2 transition-all duration-500 ${showSidebarButton
           ? i18n.language === "en"
             ? "left-0"
@@ -230,9 +233,9 @@ function ShopContent() {
               <SheetTrigger asChild>
                 <div
 
-                className={`w-16 h-16 ${i18n.language === "en" ? "rounded-r-full" : "rounded-l-full"} bg-[#D4D4D4] flex justify-center items-center text-[#242424]`}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-funnel"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" /></svg>
+                  className={`w-16 h-16 ${i18n.language === "en" ? "rounded-r-full" : "rounded-l-full"} bg-[#D4D4D4] flex justify-center items-center text-[#242424]`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-funnel"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" /></svg>
 
                 </div>
               </SheetTrigger>
@@ -253,41 +256,35 @@ function ShopContent() {
                   </Suspense>
                   <div className="mt-7">
                     <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
-                    <div className="flex flex-col gap-3">
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id="onSale"
-                          // checked={termsAccepted}
-                          // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
-                          className="border-lightGray/30 hover:border-primary"
-                        />
-                        <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
-                          {t("shop.onSale")}
-                        </label>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id="inStock"
-                          // checked={termsAccepted}
-                          // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
-                          className="border-lightGray/30 hover:border-primary"
-                        />
-                        <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
-                          {t("shop.inStock")}
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-7">
-                    <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
-                    <div className="flex items-center gap-3">
-                      <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
-                      <div className="flex flex-col gap-2">
-                        <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
-                        <p className="text-primary text-sm">{language === "en" ? "From" : "من"} 3.500 KD</p>
+                    <div className="mt-7">
+                      <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
+                      <div className="flex flex-col gap-3">
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="onSale"
+                            checked={pageConfig.on_sale === true}
+                            onCheckedChange={(checked) => updatePageConfig("on_sale", checked === true ? true : null)}
+                            className="border-lightGray/30 hover:border-primary"
+                          />
+                          <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
+                            {t("shop.onSale")}
+                          </label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="inStock"
+                            checked={pageConfig.stock_status === "instock"}
+                            onCheckedChange={(checked) => updatePageConfig("stock_status", checked === true ? "instock" : null)}
+                            className="border-lightGray/30 hover:border-primary"
+                          />
+                          <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
+                            {t("shop.inStock")}
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <TopRatedProducts />
                 </div>
               </SheetContent>
             </Sheet>
@@ -295,9 +292,7 @@ function ShopContent() {
         </div>
         <div className="max-w-content mx-auto">
           <div className="flex flex-col items-center pb-[100px] pt-[50px]">
-            <h1 className="text-[36px] lg:text-[4.25rem] font-bold text-[#242424] leading-[5.125rem] font-serif capitalize">
-              {searchTerm ? t("shop.search", { searchTerm: searchTerm}) : t("shop.title")}
-            </h1>
+            <h1 className="text-[36px] lg:text-[4.25rem] font-bold text-[#242424] leading-[5.125rem] font-serif capitalize">{t("shop.title")}</h1>
             <div className="lg:hidden w-full mx-auto min-h-10 px-6 text-center">
               <p
                 className="flex items-center gap-3 justify-center pt-4 cursor-pointer"
@@ -355,16 +350,7 @@ function ShopContent() {
                   </div>
                 </div>
               </div>
-              <div className="mt-7">
-                <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
-                <div className="flex items-center gap-3">
-                  <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
-                  <div className="flex flex-col gap-2">
-                    <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
-                    <p className="text-primary text-sm">{language === "en" ? "From" : "من"} 3.500 KD</p>
-                  </div>
-                </div>
-              </div>
+              <TopRatedProducts />
             </div>
             <div className="flex-1 ">
               <div className="px-[15px] flex justify-between max-lg:border-b">
@@ -459,41 +445,35 @@ function ShopContent() {
                           </Suspense>
                           <div className="mt-7">
                             <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
-                            <div className="flex flex-col gap-3">
-                              <div className="flex items-center gap-2">
-                                <Checkbox
-                                  id="onSale"
-                                  // checked={termsAccepted}
-                                  // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
-                                  className="border-lightGray/30 hover:border-primary"
-                                />
-                                <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
-                                  {t("shop.onSale")}
-                                </label>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Checkbox
-                                  id="inStock"
-                                  // checked={termsAccepted}
-                                  // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
-                                  className="border-lightGray/30 hover:border-primary"
-                                />
-                                <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
-                                  {t("shop.inStock")}
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="mt-7">
-                            <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
-                            <div className="flex items-center gap-3">
-                              <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
-                              <div className="flex flex-col gap-2">
-                                <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
-                                <p className="text-primary text-sm">{language === "en" ? "From" : "من"} 3.500 KD</p>
+                            <div className="mt-7">
+                              <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
+                              <div className="flex flex-col gap-3">
+                                <div className="flex items-center gap-2">
+                                  <Checkbox
+                                    id="onSale"
+                                    checked={pageConfig.on_sale === true}
+                                    onCheckedChange={(checked) => updatePageConfig("on_sale", checked === true ? true : null)}
+                                    className="border-lightGray/30 hover:border-primary"
+                                  />
+                                  <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
+                                    {t("shop.onSale")}
+                                  </label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <Checkbox
+                                    id="inStock"
+                                    checked={pageConfig.stock_status === "instock"}
+                                    onCheckedChange={(checked) => updatePageConfig("stock_status", checked === true ? "instock" : null)}
+                                    className="border-lightGray/30 hover:border-primary"
+                                  />
+                                  <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
+                                    {t("shop.inStock")}
+                                  </label>
+                                </div>
                               </div>
                             </div>
                           </div>
+                          <TopRatedProducts />
                         </div>
                       </SheetContent>
                     </Sheet>
@@ -518,11 +498,11 @@ function ShopContent() {
                     <p className="font-semibold text-[.8125rem]">Max <span className="text-primary"> {pageConfig.max_price} KD</span></p>
                   </button>}
                 </div>
-  
-              {(!products.length && loading) ? (
-                <ProductsGridSkeleton count={8} />
-              )
-                : (<div
+
+                {(!products.length && loading) ? (
+                  <ProductsGridSkeleton count={8} />
+                )
+                  : (<div
                     className={`w-full grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-${columns} mx-auto`}
                   >
                     {products.map((product) => (
@@ -547,7 +527,7 @@ function ShopContent() {
                       />
                     ))}
                   </div>
-                )}
+                  )}
               </div>
               <div
                 ref={loaderRef}
