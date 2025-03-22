@@ -42,12 +42,12 @@ export function CustomBreadCrumb({
               ? link.name.toUpperCase()
               : link.name
             : language === "ar"
-            ? link.arabicName
-            : "";
+              ? link.arabicName
+              : "";
         const isSelected = index === links.length - 1;
 
         return (
-          <div key={index} className="flex items-center font-sans">
+          <div key={index} className="flex items-center">
             {index !== 0 && <span className="mx-2 text-gray-800">/</span>}
             {isLast ? (
               <span

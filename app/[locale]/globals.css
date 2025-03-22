@@ -380,3 +380,29 @@ body {
 .footer-info {
   color: rgba(255,255,255,0.8)
 }
+
+.expanded_table {
+  @apply text-[#333];
+}
+
+.expanded_table {
+  max-width: 1192px;
+  overflow-x: auto;
+}
+
+.expanded_table th {
+  @apply bg-[#FDEDE4] text-[#333] font-semibold p-4 text-left border border-[#ebebeb];
+}
+
+.expanded_table td {
+  @apply p-4 border border-[#FDEDE4];
+}
+
+.expanded_table table tbody tr {
+  text-align: center;
+}
+
+.expanded_table table tbody tr:first-child {
+  background-color: #FDEDE4;
+  text-align: center;
+}

@@ -82,16 +82,13 @@ export default function ContactUs() {
 
   return (
     <div
-      className={`w-screen overflow-hidden pt-[98px] ${
-        language === "en" ? "font-sans" : "font-arabic"
-      }`}
+      className={`w-screen overflow-hidden pt-[98px]`}
     >
       <div className="w-full max-w-[1192px] mx-auto mb-10">
         <div className="flex flex-col items-center pb-16 lg:pb-[6.25rem] pt-[50px]">
           <h1
-            className={`mb-3 ${
-              language === "en" ? "font-arabic" : "font-arabic"
-            } font-arabic text-4xl lg:text-[4.25rem] lg:leading-[5.125rem] font-bold text-black`}
+            className={`mb-3 ${language === "en" ? "font-arabic" : "font-arabic"
+              } font-arabic text-4xl lg:text-[4.25rem] lg:leading-[5.125rem] font-bold text-black`}
           >
             {language === "en" ? "Contact us" : "اتصل بنا"}
           </h1>
@@ -166,9 +163,8 @@ export default function ContactUs() {
               <form action="/api/contact" method="POST" className="w-full">
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                   <div
-                    className={`${
-                      language === "ar" ? "flex flex-col items-end" : ""
-                    }`}
+                    className={`${language === "ar" ? "flex flex-col items-end" : ""
+                      }`}
                   >
                     <label htmlFor="name" className="block text-gray-700">
                       {texts.name}
@@ -182,9 +178,8 @@ export default function ContactUs() {
                   </div>
 
                   <div
-                    className={`${
-                      language === "ar" ? "flex flex-col items-end" : ""
-                    }`}
+                    className={`${language === "ar" ? "flex flex-col items-end" : ""
+                      }`}
                   >
                     <label htmlFor="email" className="block text-gray-700">
                       {texts.emailText}
@@ -198,9 +193,8 @@ export default function ContactUs() {
                   </div>
 
                   <div
-                    className={`${
-                      language === "ar" ? "flex flex-col items-end" : ""
-                    }`}
+                    className={`${language === "ar" ? "flex flex-col items-end" : ""
+                      }`}
                   >
                     <label htmlFor="phone" className="block text-gray-700">
                       {texts.phoneText}
@@ -214,9 +208,8 @@ export default function ContactUs() {
                   </div>
 
                   <div
-                    className={`${
-                      language === "ar" ? "flex flex-col items-end" : ""
-                    }`}
+                    className={`${language === "ar" ? "flex flex-col items-end" : ""
+                      }`}
                   >
                     <label htmlFor="company" className="block text-gray-700">
                       {texts.companyText}
@@ -231,9 +224,8 @@ export default function ContactUs() {
                 </div>
 
                 <div
-                  className={`mt-6 ${
-                    language === "ar" ? "flex flex-col items-end" : ""
-                  }`}
+                  className={`mt-6 ${language === "ar" ? "flex flex-col items-end" : ""
+                    }`}
                 >
                   <label htmlFor="message" className="block text-gray-700">
                     {texts.messageText}
@@ -247,9 +239,8 @@ export default function ContactUs() {
                 </div>
 
                 <div
-                  className={`mt-6 ${
-                    language === "ar" ? "flex justify-self-end self-start" : ""
-                  }`}
+                  className={`mt-6 ${language === "ar" ? "flex justify-self-end self-start" : ""
+                    }`}
                 >
                   <Button
                     type="submit"

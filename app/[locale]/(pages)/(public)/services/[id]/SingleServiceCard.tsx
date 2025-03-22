@@ -180,7 +180,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
         /> */}
       <Services />
 
-      <div className="w-full max-w-[1140px] mx-auto flex flex-col lg:flex-row items-center">
+      <div className="w-full max-w-[1140px] mx-auto flex flex-col lg:flex-row items-center pt-24">
         <div className="flex flex-1 h-[678px]">
           <Image
             src="https://gulfpalms.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-30-at-4.00.09-PM.jpeg"

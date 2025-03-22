@@ -165,7 +165,7 @@ export default function ImageTextCardCopy({
             </p>
           ) : (
             content.bullets && (
-              <div className="w-full h-full pl-3">
+              <div className="w-full h-full pr-3 pl-3">
                 <ul className="list-disc text-gray-600 space-y-3">
                   {content.bullets.map((bullet, index) => (
                     <li

@@ -36,6 +36,12 @@ import { DirectionProvider } from "@radix-ui/react-direction";
 import { Input } from "@/components/ui/input";
 import { shareLinks } from "@/components/shop/ProductDrawer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface ProductDetailsProps {
   loading?: boolean;
@@ -509,43 +515,71 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
 
-      <div className="mt-16">
+      <div className="hidden lg:flex flex-col gap-7 mt-7 lg:mt-16">
         {product?.table_tabs_expanded && product.table_tabs_expanded.length > 0 && (
-          <Tabs defaultValue={product.table_tabs_expanded[0].title} className="w-full">
-            <TabsList className="w-full border-b rounded-none h-auto p-0 bg-transparent">
-              <div className="flex gap-8">
-                {product.table_tabs_expanded.map((item: any) => (
-                  <TabsTrigger
-                    key={item.title}
-                    value={item.title}
-                    className="border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:text-primary pb-4 px-0 rounded-none text-lg font-medium text-[#333]"
-                  >
-                    {item.title}
-                  </TabsTrigger>
-                ))}
-
-              </div>
-            </TabsList>
-
-            {product.table_tabs_expanded.map((item: any) => (
-              <TabsContent
-                key={item.title}
-                value={item.title}
-                className="pt-8"
-              >
-                <div className="prose max-w-none">
-                  <div className="expanded_table" dangerouslySetInnerHTML={{ __html: item?.expanded_content ?? '' }} />
+          <DirectionProvider dir={language === "en" ? "ltr" : "rtl"}>
+            <Tabs defaultValue={product.table_tabs_expanded[0].title} className="w-full">
+              <TabsList className="w-full max-lg:justify-start border-t rounded-none h-auto p-0 bg-transparent">
+                <div className="flex flex-col lg:flex-row max-lg:items-start gap-8">
+                  {product.table_tabs_expanded.map((item: any) => (
+                    <TabsTrigger
+                      key={item.title}
+                      value={item.title}
+                      className="border-t-[3px] border-transparent data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:text-[#333] pb-4 px-0 rounded-none text-lg font-semibold text-lightGray shadow-none"
+                    >
+                      {item.title}
+                    </TabsTrigger>
+                  ))}
                 </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+              </TabsList>
+
+              {product?.table_tabs_expanded.map((item: any) => (
+                <TabsContent
+                  key={item.title}
+                  value={item.title}
+                  className="pt-8"
+                >
+                  <div className="prose max-w-none">
+                    <div className="expanded_table" dangerouslySetInnerHTML={{ __html: item?.expanded_content ?? '' }} />
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </DirectionProvider>
         )}
       </div>
+
+      <div className="lg:hidden">
+        <Accordion type="single" collapsible className="w-full">
+          {product?.table_tabs_expanded.map((item: any) => (
+            <AccordionItem key={item.title} value={item.title}>
+              <AccordionTrigger className="text-lg font-semibold text-[#333] hover:no-underline">
+                {item.title}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="prose max-w-none pt-4">
+                  <div className="expanded_table" dangerouslySetInnerHTML={{ __html: item?.expanded_content ?? '' }} />
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+      {
+        product && product.attributes[0] && product.attributes[0].visible && product.attributes[0].variation && (
+          <div className="flex flex-col gap-5 mt-7 lg:mt-12">
+            <h2 className="font-semibold text-lg lg:text-2xl text-[#242424] lg:hidden">{t("additionalInfo")}</h2>
+            <div className="w-full max-w-[700px] mx-auto flex justify-between items-center">
+              <p className="font-semibold text-base text-[#242424]">{product?.attributes[0]?.name}</p>
+              <p className="text-sm text-lightGray">{product?.attributes[0]?.options?.join(",")}</p>
+            </div>
+          </div>
+        )
+
+      }
 
       {/* Product Specifications */}
       {/* <div className="mt-16">

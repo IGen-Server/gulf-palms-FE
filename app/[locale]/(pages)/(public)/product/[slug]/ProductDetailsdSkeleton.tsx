@@ -86,6 +86,55 @@ export default function ProductSkeleton() {
                         </div>
                     </div>
                 </div>
+                <div className="grid md:grid-cols-2 gap-8">
+                    {/* Desktop Tabs Skeleton */}
+                    <div className="hidden lg:flex flex-col gap-7 mt-7 lg:mt-16">
+                        <div className="w-full">
+                            {/* Tab List Skeleton */}
+                            <div className="border-t w-full pt-4">
+                                <div className="flex gap-8">
+                                    {[...Array(3)].map((_, i) => (
+                                        <Skeleton
+                                            key={i}
+                                            className="h-8 w-32 bg-gray-200"
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Tab Content Skeleton */}
+                            <div className="pt-8">
+                                <div className="space-y-4">
+                                    <Skeleton className="h-4 w-full bg-gray-200" />
+                                    <Skeleton className="h-4 w-[90%] bg-gray-200" />
+                                    <Skeleton className="h-4 w-[95%] bg-gray-200" />
+                                    <Skeleton className="h-4 w-[85%] bg-gray-200" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Mobile Accordion Skeleton */}
+                    <div className="lg:hidden space-y-4 mt-7">
+                        {[...Array(3)].map((_, i) => (
+                            <div key={i} className="border-b pb-4">
+                                <div className="flex justify-between items-center">
+                                    <Skeleton className="h-6 w-32 bg-gray-200" />
+                                    <Skeleton className="h-6 w-6 rounded-full bg-gray-200" />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Additional Info Skeleton */}
+                    <div className="flex flex-col gap-5 mt-7 lg:mt-12">
+                        <Skeleton className="h-8 w-48 lg:hidden bg-gray-200" />
+                        <div className="w-full max-w-[700px] mx-auto flex justify-between items-center">
+                            <Skeleton className="h-6 w-32 bg-gray-200" />
+                            <Skeleton className="h-6 w-48 bg-gray-200" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

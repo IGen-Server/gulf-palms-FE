@@ -67,13 +67,12 @@ function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
     return (
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <div
-          className={`flex ${
-            language === "en" ? "" : "flex-row-reverse text-right"
-          } w-full hover:bg-muted border-t`}
+          className={`flex ${language === "en" ? "" : "flex-row-reverse text-right"
+            } w-full hover:bg-muted border-t`}
         >
           <Link
             href={item.href || "#"}
-            className="flex-1 px-4 py-3 text-sm font-semibold border-r uppercase"
+            className="flex-1 px-4 py-3 text-sm font-semibold text-[#333] border-r uppercase"
           >
             {item.title}
           </Link>
@@ -95,9 +94,8 @@ function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
               <Link
                 key={subItem.title}
                 href={subItem.href || "#"}
-                className={`flex items-center px-8 py-2 text-sm text-muted-foreground hover:bg-muted ${
-                  language === "en" ? "" : "justify-end"
-                }`}
+                className={`flex items-center px-8 py-2 text-sm text-muted-foreground hover:bg-muted ${language === "en" ? "" : "justify-end"
+                  }`}
               >
                 {subItem.title}
               </Link>
@@ -162,22 +160,19 @@ export default function MobileNav() {
       {/* Search Bar */}
       <div className="relative p-4">
         <Search
-          className={`absolute ${
-            pageConfig.lang === "en" ? "right-4" : "left-7"
-          } top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground cursor-pointer`}
+          className={`absolute ${pageConfig.lang === "en" ? "right-4" : "left-7"
+            } top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground cursor-pointer`}
         />
         <Input
           type="search"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder={`${
-            pageConfig.lang === "en"
-              ? "Search for products"
-              : "البحث عن المنتجات"
-          }`}
-          className={`w-full ${
-            pageConfig.lang === "en" ? "pr-10" : ""
-          } border-none shadow-none outline-none ring-0`}
+          placeholder={`${pageConfig.lang === "en"
+            ? "Search for products"
+            : "البحث عن المنتجات"
+            }`}
+          className={`w-full ${pageConfig.lang === "en" ? "pr-10" : ""
+            } border-none shadow-none outline-none ring-0`}
         />
       </div>
 
