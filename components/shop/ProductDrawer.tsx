@@ -139,7 +139,7 @@ export function ProductDrawer({
             <Link href={`/product/${product.slug}`} className="text-[26px] text-[#333] hover:opacity-65 duration-300 font-semibold mb-2">{product.name}</Link>
             <p className="text-[21.7px] font-bold mb-6 text-primary">
               {(options?.length || 0) > 1 && <span>{language === "en" ? "From" : "من"}</span>}{" "}
-              {product.price.toFixed(3)} <span className="">KD</span>{" "}
+              {typeof product.price === "number" ? product.price.toFixed(3) : ""} KD <span className="">KD</span>{" "}
             </p>
           </div>
 

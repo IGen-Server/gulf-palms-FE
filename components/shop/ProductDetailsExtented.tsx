@@ -174,7 +174,9 @@ export function ProductDetailsExtended({
               <p className="text-xs sm:text-sm text-gray-600 mb-2">
                 For {selectedProducts.length} item{selectedProducts.length !== 1 ? "s" : ""}
               </p>
-              <p className="text-xl sm:text-2xl font-bold text-orange-400 mb-4">{totalPrice.toFixed(2)} KD</p>
+              <p className="text-xl sm:text-2xl font-bold text-orange-400 mb-4">
+                {typeof totalPrice === "number" ? totalPrice.toFixed(3) : ""} KD
+              </p>
               <Button
                 className="w-full bg-[#fdb777] hover:bg-[#fda757] text-white h-8 sm:h-10 text-xs sm:text-sm"
                 disabled={selectedProducts.length === 0}

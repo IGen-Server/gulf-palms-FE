@@ -182,7 +182,9 @@ export default function CheckoutPage() {
                 <span className="text-sm">
                   {item.name} × {item.quantity}
                 </span>
-                <span className="text-sm">{item.price.toFixed(3)} KD</span>
+                <span className="text-sm">
+                  {typeof item.price === "number" ? item.price.toFixed(3) : ""} KD
+                </span>
               </div>
             ))}
 
