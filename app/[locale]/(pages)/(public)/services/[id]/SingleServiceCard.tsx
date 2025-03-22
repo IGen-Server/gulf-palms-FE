@@ -1,14 +1,11 @@
 "use client";
 
-import CustomCarousel from "@/components/common/CustomCarousel";
-import { Button } from "@/components/ui/button";
-import { ServiceData, serviceData } from "@/data/serviceData";
+import { serviceData } from "@/data/serviceData";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { ServiceProps } from "../../showrooms/[id]/ShowroomDetails";
 import Services from "@/components/home/Services";
 
 const SingleServiceCard = ({ slug }: { slug: string }) => {
@@ -103,9 +100,9 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
               </h1>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="w-full flex flex-col lg:flex-row items-stretch gap-12">
               {/* Content Column */}
-              <div className="space-y-8 px-3">
+              <div className="flex-1 space-y-8 px-">
                 {serviceDetails.details.content.overview.map((item, index) => (
                   <div key={index} className="">
                     {item.title && (
@@ -134,11 +131,11 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
               </div>
 
               {/* Image Column */}
-              <div className="relative h-[600px] rounded-lg overflow-hidden">
+              <div className={`relative flex-1 rounded-lg overflow-hidden`}>
                 <Image
                   src={
                     service.sectionImage ||
-                    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9F2WinKvnGRw6HTYDoKOEAUgST4giB.png"
+                    ""
                   }
                   alt="Palm maintenance service"
                   fill
@@ -152,7 +149,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
 
         {/* Gallery Grid */}
         <div className="px-3 lg:px-0 py-[80px]">
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-2 px-3">
+          <div className={`columns-2 md:columns-3 ${service.galleryImages.length < 4 ? `lg:columns-${service.galleryImages.length}` : "lg:columns-4"} gap-2 px-3`}>
             {service.galleryImages.map((image, index) => {
               return (
                 <div key={index}>

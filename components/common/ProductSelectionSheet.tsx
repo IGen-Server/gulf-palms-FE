@@ -1,20 +1,32 @@
-import React from 'react'
+"use client";
+
+import React, { Dispatch, SetStateAction } from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { X } from 'lucide-react'
+import { DirectionProvider } from '@radix-ui/react-direction'
+import { useTranslation } from 'react-i18next';
 
 interface ProductSelectionSheetProps {
   isOpen: boolean
   onClose: () => void
-  productId: string
-  options: string[]
+  productId: string;
+  optionName: string;
+  options: string[];
+  selectedVariant?: string;
+  onSelectVariant?: (variant: string) => void
 }
 
 const ProductSelectionSheet: React.FC<ProductSelectionSheetProps> = ({
   isOpen,
   onClose,
   productId,
-  options = []
+  optionName,
+  options = [],
+  selectedVariant,
+  onSelectVariant
 }) => {
+  const { t, i18n: { language } } = useTranslation("common");
+
   if (!isOpen) return null
 
   return (
@@ -31,20 +43,22 @@ const ProductSelectionSheet: React.FC<ProductSelectionSheetProps> = ({
 
       {/* Size Selection */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%]">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">Size:</label>
-          <Select>
-            <SelectTrigger className="w-full bg-white border-gray-300">
-              <SelectValue placeholder="Choose an option" />
-            </SelectTrigger>
-            <SelectContent>
-              {options.map((option) => (
-                <SelectItem key={option} value={option}>
-                  {option}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className={`flex flex-col ${language === " en" ? "items-start" : "items-end"} gap-2`}>
+          <label className={`text-sm font-medium text-gray-700`}>{optionName}:</label>
+          <DirectionProvider dir={language === "en" ? "ltr" : "rtl"}>
+            <Select value={selectedVariant} onValueChange={onSelectVariant}>
+              <SelectTrigger className="w-full bg-white border-gray-300">
+                <SelectValue placeholder={t("Choose_an_option")} />
+              </SelectTrigger>
+              <SelectContent>
+                {options.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </DirectionProvider>
         </div>
       </div>
     </div>

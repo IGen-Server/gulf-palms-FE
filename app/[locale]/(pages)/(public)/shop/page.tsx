@@ -33,6 +33,8 @@ import { Button } from "@/components/ui/button";
 import MobileNav from "@/components/navbar/public-navbar/MobileNav";
 import { DirectionProvider } from "@radix-ui/react-direction";
 import ProductsGridSkeleton from "@/components/shop/ProductCardSkeleton";
+import { arProducts, enProducts } from "./topRatedProductsData";
+import TopRatedProducts from "./TopRatedProducts";
 
 const breadcrumbLinks = [
   { name: "Home", arabicName: "الرئيسية", href: "/" },
@@ -57,6 +59,7 @@ export default function Shop() {
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
 
   const { categories } = useGlobalDataProvider();
+
 
   const initialPageConfig = {
     lang: i18n.language,
@@ -83,11 +86,6 @@ export default function Shop() {
       [key]: value,
     }));
   };
-
-  useEffect(() => {
-    console.log(pageConfig);
-
-  }, [pageConfig]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -175,6 +173,7 @@ export default function Shop() {
   return (
     <div className="pt-10 lg:pt-[98px]">
 
+      {/* Floating Sidebar for Mobile  */}
       <div className={`fixed top-1/2 transform -translate-y-1/2 transition-all duration-500 ${showSidebarButton
         ? i18n.language === "en"
           ? "left-0"
@@ -212,41 +211,35 @@ export default function Shop() {
                 </Suspense>
                 <div className="mt-7">
                   <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
-                  <div className="flex flex-col gap-3">
-                    <div className="flex items-center gap-2">
-                      <Checkbox
-                        id="onSale"
-                        // checked={termsAccepted}
-                        // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
-                        className="border-lightGray/30 hover:border-primary"
-                      />
-                      <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
-                        {t("shop.onSale")}
-                      </label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Checkbox
-                        id="inStock"
-                        // checked={termsAccepted}
-                        // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
-                        className="border-lightGray/30 hover:border-primary"
-                      />
-                      <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
-                        {t("shop.inStock")}
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-7">
-                  <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
-                  <div className="flex items-center gap-3">
-                    <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
-                    <div className="flex flex-col gap-2">
-                      <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
-                      <p className="text-primary text-sm">{language === "en" ? "From" : "من"} 3.500 KD</p>
+                  <div className="mt-7">
+                    <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
+                    <div className="flex flex-col gap-3">
+                      <div className="flex items-center gap-2">
+                        <Checkbox
+                          id="onSale"
+                          checked={pageConfig.on_sale === true}
+                          onCheckedChange={(checked) => updatePageConfig("on_sale", checked === true ? true : null)}
+                          className="border-lightGray/30 hover:border-primary"
+                        />
+                        <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
+                          {t("shop.onSale")}
+                        </label>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Checkbox
+                          id="inStock"
+                          checked={pageConfig.stock_status === "instock"}
+                          onCheckedChange={(checked) => updatePageConfig("stock_status", checked === true ? "instock" : null)}
+                          className="border-lightGray/30 hover:border-primary"
+                        />
+                        <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
+                          {t("shop.inStock")}
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <TopRatedProducts />
               </div>
             </SheetContent>
           </Sheet>
@@ -312,16 +305,7 @@ export default function Shop() {
                 </div>
               </div>
             </div>
-            <div className="mt-7">
-              <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
-              <div className="flex items-center gap-3">
-                <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
-                <div className="flex flex-col gap-2">
-                  <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
-                  <p className="text-primary text-sm">{language === "en" ? "From" : "من"} 3.500 KD</p>
-                </div>
-              </div>
-            </div>
+            <TopRatedProducts />
           </div>
           <div className="flex-1 ">
             <div className="px-[15px] flex justify-between max-lg:border-b">
@@ -416,41 +400,35 @@ export default function Shop() {
                         </Suspense>
                         <div className="mt-7">
                           <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
-                          <div className="flex flex-col gap-3">
-                            <div className="flex items-center gap-2">
-                              <Checkbox
-                                id="onSale"
-                                // checked={termsAccepted}
-                                // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
-                                className="border-lightGray/30 hover:border-primary"
-                              />
-                              <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
-                                {t("shop.onSale")}
-                              </label>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Checkbox
-                                id="inStock"
-                                // checked={termsAccepted}
-                                // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
-                                className="border-lightGray/30 hover:border-primary"
-                              />
-                              <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
-                                {t("shop.inStock")}
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mt-7">
-                          <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
-                          <div className="flex items-center gap-3">
-                            <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
-                            <div className="flex flex-col gap-2">
-                              <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
-                              <p className="text-primary text-sm">{language === "en" ? "From" : "من"} 3.500 KD</p>
+                          <div className="mt-7">
+                            <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
+                            <div className="flex flex-col gap-3">
+                              <div className="flex items-center gap-2">
+                                <Checkbox
+                                  id="onSale"
+                                  checked={pageConfig.on_sale === true}
+                                  onCheckedChange={(checked) => updatePageConfig("on_sale", checked === true ? true : null)}
+                                  className="border-lightGray/30 hover:border-primary"
+                                />
+                                <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
+                                  {t("shop.onSale")}
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Checkbox
+                                  id="inStock"
+                                  checked={pageConfig.stock_status === "instock"}
+                                  onCheckedChange={(checked) => updatePageConfig("stock_status", checked === true ? "instock" : null)}
+                                  className="border-lightGray/30 hover:border-primary"
+                                />
+                                <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
+                                  {t("shop.inStock")}
+                                </label>
+                              </div>
                             </div>
                           </div>
                         </div>
+                        <TopRatedProducts />
                       </div>
                     </SheetContent>
                   </Sheet>

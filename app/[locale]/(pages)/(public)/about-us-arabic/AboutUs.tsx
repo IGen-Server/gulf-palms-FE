@@ -73,7 +73,7 @@ const AboutUs = () => {
         className="max-lg:flex flex-col-reverse"
       />
 
-      <div className="w-full max-w-[1140px] mx-auto flex flex-col md:flex-row">
+      <div className="w-full max-w-[1200px] mx-auto flex flex-col md:flex-row">
         <div className="flex flex-col gap-7 flex-1 bg-primary p-7">
           <h2 className="font-semibold text-3xl text-white">
             {about.service.title}

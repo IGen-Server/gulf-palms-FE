@@ -4,12 +4,18 @@ import GetInTouch from "@/components/common/GetInTouch";
 import ImageTextCard from "@/components/common/ImageTextCard";
 import ImageTextCardCopy from "@/components/common/ImageTextCardCopy";
 import { serviceData } from "@/data/serviceData";
+import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
 const ServiceCards = () => {
   const {
     i18n: { language },
   } = useTranslation();
+
+  const pathname = usePathname();
+
+  console.log(pathname);
+
 
   return (
     <div className="">
@@ -39,20 +45,23 @@ const ServiceCards = () => {
                 items: [
                   {
                     text: language === "en" ? "GET IN TOUCH" : "ابقى على تواصل",
+                    textColor: "font-semibold text-sm text-white",
                     bgColor: "bg-primary",
+                    bgHoverColor: "hover:bg-[#e59b62]",
                     borderRadius: "rounded-none",
                     href: "/contact",
                   },
                   {
                     text: language === "en" ? "READ MORE" : "اقرأ أكثر",
                     bgColor: "bg-white",
-                    textColor: "text-black",
-                    href: `${
-                      language === "en"
-                        ? `/services/${service.slug[0]}`
-                        : `/services/${service.slug[1]}`
-                    }`,
-                    borderColor: "border border-[#777] hover:border-[#777]/10",
+                    textColor: "font-semibold text-sm text-lightBlack",
+                    href: `${language === "en"
+                      ? `/services/${service.slug[0]}`
+                      : `/services/${service.slug[1]}`
+                      }`,
+                    borderColor: "border border-[#777]/10 hover:border-[#777]/10",
+                    bgHoverColor: "hover:bg-lightGray/10",
+                    textHoverColor: "text-lightBlack",
                     borderRadius: "none",
                   },
                 ],

@@ -65,8 +65,7 @@ const Showroom = ({ slug }: { slug: string }) => {
           <CustomBreadCrumb links={breadcrumbLinks} />
         </div>
         <div
-          className={`w-full max-w-[1200px] mx-auto flex flex-col-reverse lg:flex-row lg:items-stretch lg:justify-center gap-0 ${nursery?.video ? "bg-primary" : "bg-[#6F803D]"
-            } overflow-hidden`}
+          className={`w-full max-w-[1200px] mx-auto flex flex-col-reverse lg:flex-row lg:items-stretch lg:justify-center gap-0 overflow-hidden`}
         >
           <div
             className={`w-full lg:w-1/2 h-[570px] ${nursery?.video ? "bg-primary" : "bg-[#6F803D]"

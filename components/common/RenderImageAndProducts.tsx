@@ -90,12 +90,15 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { t, i18n: { language } } = useTranslation();
+  const { t, i18n: { language } } = useTranslation("common");
   const { addToCart } = useCart();
-
-  console.log({ wishList })
+  const [selectedVariant, setSelectedVariant] = useState<string>("");
 
   const handleAddToCart = async () => {
+    if (!selectedVariant) {
+      alert("Please select some product options before adding this product to your cart.");
+      return;
+    }
     setLoading(true); // Set loading to true
     try {
       await addToCart({
@@ -104,6 +107,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
         price: Number(price) as number,
         quantity: 1,
         image: images?.[0] || imageFileOrUrl,
+        // variant: selectedVariant
       });
       setIsSheetOpen(false);
     } catch (error) {
@@ -167,91 +171,97 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             backgroundPosition: "center",
           }}
         >
-          {hoverProducts?.map((product, index) => (
-            <HoverCard key={index} openDelay={100}>
-              <div
-                className="absolute"
-                style={{
-                  top: `${product.position.y}%`,
-                  left: `${product.position.x}%`,
-                }}
-              >
-                <HoverCardTrigger
-                  onMouseEnter={() => setHoveredProductId(product.productId)}
-                  onMouseLeave={() => setHoveredProductId(null)}
-                  onClick={() => setHoveredProductId(product.productId)}
-                >
-                  <div className="relative w-[30px] sm:w-[50px] h-[30px] sm:h-[50px] grid place-content-center">
-                    <div className="w-[15px] sm:w-[20px] h-[15px] sm:h-[20px] bg-primary rounded-full cursor-pointer grid place-content-center hotspot-btn">
-                      <div className="w-[4px] sm:w-[6px] h-[4px] sm:h-[6px] bg-white rounded-full z-10">
-                        <p className="hotspot-sonar !animate-ping"></p>
-                      </div>
-                    </div>
-                  </div>
-                </HoverCardTrigger>
+          {hoverProducts?.map((product, index) => {
+            console.log(product);
 
-                {hoveredProductId === product.productId && (
-                  <HoverCardContent
-                    className="p-4 bg-white shadow-lg border rounded-md text-center font-arabic w-[280px] sm:w-[320px]"
+            return (
+              <HoverCard key={index} openDelay={100}>
+                <div
+                  className="absolute"
+                  style={{
+                    top: `${product.position.y}%`,
+                    left: `${product.position.x}%`,
+                  }}
+                >
+                  <HoverCardTrigger
                     onMouseEnter={() => setHoveredProductId(product.productId)}
                     onMouseLeave={() => setHoveredProductId(null)}
-                  // onClick={() => setHoveredProductId(product.productId)}
+                    onClick={() => setHoveredProductId(product.productId)}
                   >
-                    <img
-                      src={product.imgUrl || "/placeholder.svg"}
-                      alt={product.hoveredTitle}
-                      className="w-full h-auto object-cover mb-2"
-                    />
-                    <p className="text-[14px] sm:text-[16px] font-semibold text-gray-500">
-                      {product.hoveredTitle}
-                    </p>
-                    {product?.price && (
-                      <p className="text-center !px-0 py-2 text-primary text-[16px] font-semibold">
-                        {t("from")} {product?.price} KD
-                      </p>
-                    )}
-                    <div
-                      className={`text-xs sm:text-sm text-gray-500 overflow-hidden transition-all duration-300`}
-                      style={{
-                        height:
-                          expandedDescriptionId == product.productId
-                            ? " fit-content "
-                            : " 48px ",
-                      }}
+                    <div className="relative w-[30px] sm:w-[50px] h-[30px] sm:h-[50px] grid place-content-center">
+                      <div className="w-[15px] sm:w-[20px] h-[15px] sm:h-[20px] bg-primary rounded-full cursor-pointer grid place-content-center hotspot-btn">
+                        <div className="w-[4px] sm:w-[6px] h-[4px] sm:h-[6px] bg-white rounded-full z-10">
+                          <p className="hotspot-sonar !animate-ping"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </HoverCardTrigger>
+
+                  {hoveredProductId === product.productId && (
+                    <HoverCardContent
+                      className="p-4 bg-white shadow-lg border rounded-md text-center font-arabic w-[280px] sm:w-[320px]"
+                      onMouseEnter={() => setHoveredProductId(product.productId)}
+                      onMouseLeave={() => setHoveredProductId(null)}
+                    // onClick={() => setHoveredProductId(product.productId)}
                     >
-                      {product.description}
-                    </div>
-
-                    <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100 relative mt-2">
-                      {product.description && (
-                        <>
-                          {!expandedDescriptionId && (
-                            <div className="absolute h-[15px] blur-sm bg-white/80 w-full -top-3 left-0"></div>
-                          )}
-                          <Ellipsis
-                            className={
-                              expandedDescriptionId === product.productId
-                                ? "opacity-0"
-                                : "cursor-pointer"
-                            }
-                            onClick={() =>
-                              setExpandedDescriptionId((prevId) =>
-                                prevId === product.productId
-                                  ? null
-                                  : product.productId
-                              )
-                            }
-                          />
-                        </>
+                      <img
+                        src={product.imgUrl || "/placeholder.svg"}
+                        alt={product.hoveredTitle}
+                        className="w-full h-auto object-cover mb-2"
+                      />
+                      <Link href={`${product.hoveredHref}`}>
+                        <p className="text-[14px] sm:text-[16px] font-semibold text-gray-500">
+                          {product.hoveredTitle}
+                        </p>
+                      </Link>
+                      {product?.price && (
+                        <p className="text-center !px-0 py-2 text-primary text-[16px] font-semibold">
+                          {t("from")} {product?.price} KD
+                        </p>
                       )}
+                      <div
+                        className={`text-xs sm:text-sm text-gray-500 overflow-hidden transition-all duration-300`}
+                        style={{
+                          height:
+                            expandedDescriptionId == product.productId
+                              ? " fit-content "
+                              : " 48px ",
+                        }}
+                      >
+                        {product.description}
+                      </div>
 
-                      {renderHoveredButton(product)}
-                    </div>
-                  </HoverCardContent>
-                )}
-              </div>
-            </HoverCard>
-          ))}
+                      <div className="h-fit flex flex-col items-center justify-between gap-2 border-t border-gray-100 relative mt-2">
+                        {product.description && (
+                          <>
+                            {!expandedDescriptionId && (
+                              <div className="absolute h-[15px] blur-sm bg-white/80 w-full -top-3 left-0"></div>
+                            )}
+                            <Ellipsis
+                              className={
+                                expandedDescriptionId === product.productId
+                                  ? "opacity-0"
+                                  : "cursor-pointer"
+                              }
+                              onClick={() =>
+                                setExpandedDescriptionId((prevId) =>
+                                  prevId === product.productId
+                                    ? null
+                                    : product.productId
+                                )
+                              }
+                            />
+                          </>
+                        )}
+
+                        {renderHoveredButton(product)}
+                      </div>
+                    </HoverCardContent>
+                  )}
+                </div>
+              </HoverCard>
+            )
+          })}
         </div>
         <div
           className={`block lg:hidden relative w-full h-full`}
@@ -362,6 +372,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
       quantity: quantity,
       slug: slug,
     };
+
     return (
       <>
         <div
@@ -370,27 +381,29 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           onMouseLeave={() => setHoveredProductId(null)}
         >
           <div className="w-full h-[280px] duration-700 overflow-hidden relative">
-            <img
-              src={images?.[0]?.src || imageFileOrUrl || "/placeholder.svg"}
-              alt={name}
-              className={`absolute inset-0 w-full h-full object-cover ${hoveredProductId === productId
-                ? " opacity-100 lg:opacity-0 "
-                : " lg:opacity-100 "
-                }`}
-            />
-            <img
-              src={
-                images?.[1]?.src ||
-                images?.[0]?.src ||
-                imageFileOrUrl ||
-                "/placeholder.svg"
-              }
-              alt={name}
-              className={`absolute inset-0 w-full h-full object-cover ${hoveredProductId === productId
-                ? "opacity-0 lg:opacity-100 lg:scale-[1.1] transition-transform duration-1000"
-                : "opacity-0 scale-100"
-                }`}
-            />
+            <Link href={`/product/${slug}`}>
+              <img
+                src={images?.[0]?.src || imageFileOrUrl || "/placeholder.svg"}
+                alt={name}
+                className={`absolute inset-0 w-full h-full object-cover ${hoveredProductId === productId
+                  ? " opacity-100 lg:opacity-0 "
+                  : " lg:opacity-100 "
+                  }`}
+              />
+              <img
+                src={
+                  images?.[1]?.src ||
+                  images?.[0]?.src ||
+                  imageFileOrUrl ||
+                  "/placeholder.svg"
+                }
+                alt={name}
+                className={`absolute inset-0 w-full h-full object-cover ${hoveredProductId === productId
+                  ? "opacity-0 lg:opacity-100 lg:scale-[1.1] transition-transform duration-1000"
+                  : "opacity-0 scale-100"
+                  }`}
+              />
+            </Link>
             <div className="absolute top-0 left-2 ">
               {stock === "instock" ? (
                 <p className="font-bold text-[11px] rounded-full shadow flex items-center justify-center h-[46px] w-[46px] !font-arabic text-black bg-white text-center leading-none uppercase">
@@ -412,7 +425,10 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                     setIsSheetOpen(false);
                   }}
                   productId={productId}
+                  optionName={productAttribute.name}
                   options={productAttribute.options}
+                  selectedVariant={selectedVariant}
+                  onSelectVariant={(variant) => setSelectedVariant(variant)}
                 />
               )}
 
@@ -427,41 +443,38 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   : " opacity-0 pointer-events-none "
                   }`}
               >
-                <div className="group/cart relative h-full flex flex-col items-center justify-center">
-                  <p
-                    className={`translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200 text-xs sm:text-sm ${selectProductId === productId
-                      ? " -translate-y-[20px] "
-                      : "  "
-                      }`}
-                  >
-                    {t("SelectOptions")}
-                  </p>
-                  <p
-                    className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${selectProductId === productId
-                      ? " -translate-y-3 z-[20] "
-                      : "  "
-                      } `}
-                    onClick={() => {
-                      setSelectProductId(productId);
-                      setIsSheetOpen(true);
-                    }}
-                  >
-                    {loading && isSheetOpen ? (
-                      <ClipLoader />
-                    ) : (
-                      <ShoppingCart
-                        className="w-4 h-4 sm:w-5 sm:h-5"
-                        onClick={() => {
-                          const isSelected = selectProductId === productId;
-                          const isSheetOpenTrue = isSheetOpen;
-                          if (isSelected && isSheetOpenTrue) {
-                            handleAddToCart();
-                          }
-                        }}
-                      />
-                    )}
-                  </p>
-                </div>
+                {(selectProductId === productId && isSheetOpen) ? (
+                  <p className="pt-2 uppercase" onClick={() => handleAddToCart()}>{t("AddToCart")}</p>
+                ) :
+                  <div className="group/cart relative h-full flex flex-col items-center justify-center" onClick={() => {
+                    setSelectProductId(productId);
+                    setIsSheetOpen(true);
+                  }}>
+                    <p
+                      className={`translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200 text-xs sm:text-sm ${selectProductId === productId
+                        ? " -translate-y-[20px] "
+                        : "  "
+                        }`}
+                    >
+                      {t("SelectOptions")}
+                    </p>
+                    <p
+                      className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${selectProductId === productId
+                        ? " -translate-y-3 z-[20] "
+                        : "  "
+                        } `}
+
+                    >
+                      {loading && isSheetOpen ? (
+                        <ClipLoader />
+                      ) : (
+                        <ShoppingCart
+                          className="w-4 h-4 sm:w-5 sm:h-5"
+                        />
+                      )}
+                    </p>
+                  </div>
+                }
               </div>
             </div>
 

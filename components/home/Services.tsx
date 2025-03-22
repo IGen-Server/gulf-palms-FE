@@ -73,7 +73,6 @@ export default function Services() {
           autoPlay={true}
           MobileSlidesNumber={1}
           serviceComponent={true}
-          arrow={false}
         />
       </div>
     </div>

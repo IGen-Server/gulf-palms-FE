@@ -2,9 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import MultiRangeSlider from "multi-range-slider-react";
-import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
-import { OrderService } from "@/services/api/order.service";
-import { ProductService } from "@/services/api/product.service";
 import { useTranslation } from "react-i18next";
 
 interface PriceSliderProps {

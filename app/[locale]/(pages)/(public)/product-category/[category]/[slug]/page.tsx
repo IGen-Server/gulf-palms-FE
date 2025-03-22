@@ -30,6 +30,8 @@ import { CustomBreadCrumb2 } from "@/components/common/CustomBreadCrumb2";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DirectionProvider } from "@radix-ui/react-direction";
 import { Button } from "@/components/ui/button";
+import ProductsGridSkeleton from "@/components/shop/ProductCardSkeleton";
+import TopRatedProducts from "../../../shop/TopRatedProducts";
 
 export default function SubcategoryPage() {
   const { categories, addSlugToTranslate } = useGlobalDataProvider();
@@ -38,7 +40,7 @@ export default function SubcategoryPage() {
   const { t,
     i18n: { language: currentLocale },
   } = useTranslation("common");
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
   const pathname = usePathname();
   const paths = pathname.split("/");
   const path = paths[paths.length - 2];
@@ -85,7 +87,7 @@ export default function SubcategoryPage() {
       try {
         const response = await ProductService.Get(
           cleanedPageConfig,
-          axiosInstanceWithLoader
+          axiosInstanceWithoutLoader
         );
         setProducts((prev) =>
           pageConfig.page === 1 ? response : [...prev, ...response]
@@ -213,6 +215,8 @@ export default function SubcategoryPage() {
 
   return (
     <div className="pt-[98px] ">
+
+      {/* Floating sidebar button for Mobile  */}
       <div className={`fixed top-1/2 transform -translate-y-1/2 transition-all duration-500 ${showSidebarButton
         ? currentLocale === "en"
           ? "left-0"
@@ -227,7 +231,7 @@ export default function SubcategoryPage() {
             <SheetTrigger asChild>
               <div
 
-                className="w-16 h-16 rounded-r-full bg-[#D4D4D4] flex justify-center items-center text-[#242424]"
+                className={`w-16 h-16 ${currentLocale === "en" ? "rounded-r-full" : "rounded-l-full"} bg-[#D4D4D4] flex justify-center items-center text-[#242424]`}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-funnel"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" /></svg>
 
@@ -254,8 +258,8 @@ export default function SubcategoryPage() {
                     <div className="flex items-center gap-2">
                       <Checkbox
                         id="onSale"
-                        // checked={termsAccepted}
-                        // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
+                        checked={pageConfig.on_sale === true}
+                        onCheckedChange={(checked) => updatePageConfig("on_sale", checked === true ? true : null)}
                         className="border-lightGray/30 hover:border-primary"
                       />
                       <label htmlFor="onSale" className="text-sm text-[#777] hover:text-[#333]">
@@ -265,8 +269,8 @@ export default function SubcategoryPage() {
                     <div className="flex items-center gap-2">
                       <Checkbox
                         id="inStock"
-                        // checked={termsAccepted}
-                        // onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
+                        checked={pageConfig.stock_status === "instock"}
+                        onCheckedChange={(checked) => updatePageConfig("stock_status", checked === true ? "instock" : null)}
                         className="border-lightGray/30 hover:border-primary"
                       />
                       <label htmlFor="inStock" className="text-sm text-[#777] hover:text-[#333]">
@@ -275,16 +279,7 @@ export default function SubcategoryPage() {
                     </div>
                   </div>
                 </div>
-                <div className="mt-7">
-                  <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
-                  <div className="flex items-center gap-3">
-                    <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
-                    <div className="flex flex-col gap-2">
-                      <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
-                      <p className="text-primary text-sm">{currentLocale === "en" ? "From" : "من"} 3.500 KD</p>
-                    </div>
-                  </div>
-                </div>
+                <TopRatedProducts />
               </div>
             </SheetContent>
           </Sheet>
@@ -355,16 +350,7 @@ export default function SubcategoryPage() {
                 </div>
               </div>
             </div>
-            <div className="mt-7">
-              <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
-              <div className="flex items-center gap-3">
-                <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
-                <div className="flex flex-col gap-2">
-                  <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
-                  <p className="text-primary text-sm">{t("from")} 3.500 KD</p>
-                </div>
-              </div>
-            </div>
+            <TopRatedProducts />
           </div>
           <div className=" flex-1 ">
             <div className="px-[15px] flex  justify-between">
@@ -498,16 +484,7 @@ export default function SubcategoryPage() {
                             </div>
                           </div>
                         </div>
-                        <div className="mt-7">
-                          <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
-                          <div className="flex items-center gap-3">
-                            <Image src="https://clone.gulfpalms.com/wp-content/uploads/2023/08/Dracaena-Compacta-Height-60CM-3-1-860x860.jpg" alt="Product image" width={65} height={65} />
-                            <div className="flex flex-col gap-2">
-                              <p className="font-medium text-sm text-[#333]">Dracaena Compacta</p>
-                              <p className="text-primary text-sm">{currentLocale === "en" ? "From" : "من"} 3.500 KD</p>
-                            </div>
-                          </div>
-                        </div>
+                        <TopRatedProducts />
                       </div>
                     </SheetContent>
                   </Sheet>
@@ -531,31 +508,36 @@ export default function SubcategoryPage() {
                 <p className="font-semibold text-[.8125rem]">{t("shop.max")} <span className="text-primary"> {pageConfig.max_price} KD</span></p>
               </button>}
             </div>
-            <div
-              className={`grid pt-16 grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-${columns} px-2`}
-            >
-              {products?.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  id={product.id}
-                  slug={product.slug}
-                  name={product.name}
-                  price={product.price}
-                  img={product.images ? product.images[0].src : ""}
-                  images={product.images}
-                  optionName={product.attributes[0]?.visible && product.attributes[0]?.variation
-                    ? product.attributes[0]?.name
-                    : ""}
-                  options={product.attributes[0]?.visible && product.attributes[0]?.variation
-                    ? product.attributes[0]?.options
-                    : []}
-                  sku={product.sku}
-                  currentCategories={product.categories}
-                  description={product.short_description}
-                  slugToCategoryRecord={slugToCategoryRecord}
-                />
-              ))}
-            </div>
+            {(!products.length && loading) ? (
+              <ProductsGridSkeleton count={8} />
+            )
+              : (
+                <div
+                  className={`grid pt-16 grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-${columns} px-2`}
+                >
+                  {products?.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      id={product.id}
+                      slug={product.slug}
+                      name={product.name}
+                      price={product.price}
+                      img={product.images ? product.images[0].src : ""}
+                      images={product.images}
+                      optionName={product.attributes[0]?.visible && product.attributes[0]?.variation
+                        ? product.attributes[0]?.name
+                        : ""}
+                      options={product.attributes[0]?.visible && product.attributes[0]?.variation
+                        ? product.attributes[0]?.options
+                        : []}
+                      sku={product.sku}
+                      currentCategories={product.categories}
+                      description={product.short_description}
+                      slugToCategoryRecord={slugToCategoryRecord}
+                    />
+                  ))}
+                </div>
+              )}
             <div
               ref={loaderRef}
               className="text-center my-6 grid place-content-center w-full"
