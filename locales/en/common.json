@@ -787,7 +787,8 @@
     "buyNow": "Buy Now",
     "noDescription": "Product description not available",
     "showSidebar": "Show Sidebar",
-    "showingResults": "Showing {{ range }} of {{ total }} results"
+    "showingResults": "Showing {{ range }} of {{ total }} results",
+    "search": "Search Results for: {{searchTerm}}"
   },
   "washingtonianPalms": "Washingtonian Palms",
   "plantMedium": "Plant Medium",
@@ -817,7 +818,7 @@
     { "title": "Address", "href": "/my-account/downloads/" },
     { "title": "Downloads", "href": "/my-account/edit-address/" },
     { "title": "Account", "href": "/my-account/edit-account/" },
-    { "title": "Logout", "href": "/my-account/customer-logout/" }
+    { "title": "Logout", "href": "/my-account" }
   ],
   "ReadMore": "Read More",
   "SelectOptions":"Select Options",
@@ -1074,5 +1075,9 @@
       "saveButtonText": "Save",
       "passwordResetSuccess": "Your password has been reset successfully."
     }
+  },
+  "search": {
+    "placeholder": "Search for products",
+    "message": "Start typing to see products you are looking for."
   }
 }

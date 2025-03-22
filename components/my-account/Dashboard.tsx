@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { FileText, Download, MapPin, User, LogOut } from "lucide-react"
+import { onLogout } from "@/services/utility/utility.service"
 
 export default function Dashboard() {
   return (
@@ -12,7 +13,7 @@ export default function Dashboard() {
           Hello{" "}
           <span className="text-foreground">
             (not ?{" "}
-            <Link href="/logout" className="text-[#333333] hover:underline">
+            <Link href="" onClick={onLogout} className="text-[#333333] hover:underline">
               Log out
             </Link>
             )
@@ -67,7 +68,8 @@ export default function Dashboard() {
         <h2 className="text-sm text-[#555555] font-[600]">Account details</h2>
       </Link>
       <Link
-        href="/logout"
+        href=""
+        onClick={onLogout}
         className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted"
       >
         <LogOut className="mb-4 h-12 w-12 text-[#a7a7a7] hover:text-primary" />

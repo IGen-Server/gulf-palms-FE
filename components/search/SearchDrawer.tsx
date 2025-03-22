@@ -9,6 +9,23 @@ import Link from "next/link";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductService } from "@/services/api/product.service";
 import { useTranslation } from "react-i18next";
+import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
+
+export const useDebounce = (value: string, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
 
 interface Product {
   name: string;
@@ -16,39 +33,75 @@ interface Product {
   image: string;
 }
 
-
 export default function SearchDrawer() {
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+  const { categories } = useGlobalDataProvider();
+  const { isSearchDrawerOpen, setIsSearchDrawerOpen } = useGlobalDataProvider();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(true);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
-
   const [pageConfig, setPageConfig] = useState({
     search: searchQuery,
     per_page:30,
     lang: i18n.language,
   });
 
+  const debouncedSearchTerm = useDebounce(searchQuery, 1000);
+
+  useEffect(() => {
+    if (!debouncedSearchTerm) return;
+
+    const updatePageConfig = async () => {
+      console.log(debouncedSearchTerm);
+      setPageConfig((prev) => ({
+        ...prev,
+        search: debouncedSearchTerm,
+      }));
+    };
+
+    updatePageConfig();
+  }, [debouncedSearchTerm]);
+
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const response = await ProductService.Get(
-          pageConfig,
-          axiosInstanceWithLoader
-        );
 
-        console.log(response);
-        searchQuery && setProducts(response);
+        if (pageConfig.search && categories?.find((x) => x.name === pageConfig.search)) {
+          const productsByCategory = await ProductService.Get(
+            {
+              per_page:30,
+              lang: i18n.language,
+              category: pageConfig.search
+            },
+            axiosInstanceWithLoader
+          );
+          setProducts(productsByCategory);
+        } else {
+          const productsBySearchTerm = await ProductService.Get(
+            pageConfig,
+            axiosInstanceWithLoader
+          );
+  
+          setProducts(productsBySearchTerm);
+        }
         
       } catch (error) {
         console.error(error);
       }
     };
 
-    searchQuery && getProducts();
-  }, [pageConfig,searchQuery]);
+    if (pageConfig) {
+      if (pageConfig.search){
+        getProducts();
+      } else{
+        setProducts([]);
+      }
+    }
+
+  }, [pageConfig]);
 
   if (!isOpen) return null;
 
@@ -57,14 +110,14 @@ export default function SearchDrawer() {
       <div className="mb-8 space-y-5 flex flex-col justify-center items-center">
         <Input
           type="text"
-          placeholder="Search for products"
+          placeholder={t('search.placeholder')}
           value={searchQuery} 
           onChange={(e) => setSearchQuery(e.target.value)}
           className="text-[30px] xl:text-[40px] h-fit font-semibold text-black  placeholder:font-semibold placeholder:text-black !focus-visible:ring-0 xl:pl-[200px] !border-none !shadow-none w-[380px] !p-0 text-center"
         />
         {!!searchQuery || (
           <p className="text-left xl:text-center pl-4 xl:pl-0 text-muted-foreground w-[380px]">
-            Start typing to see products you are looking for.
+            {t('search.message')}
           </p>
         )}
       </div>
@@ -75,19 +128,19 @@ export default function SearchDrawer() {
         {products.map((product, index) => (
           <div key={index} className="group cursor-pointer w-[180px] h-[280px] flex flex-col items-start justify-start overflow-hidden">
             <Image
-                src={product.images[0]?.src || "/placeholder.svg"}
-                alt={product.name}
-                width={180}
-                height={180}
-                className="object-cover w-[180px] h-[180px] group-hover:scale-105 transition-transform duration-300 mb-2 "
-              />
+              src={product.images[0]?.src || "/placeholder.svg"}
+              alt={product.name}
+              width={180}
+              height={180}
+              className="object-cover w-[180px] h-[180px] group-hover:scale-105 transition-transform duration-300 mb-2 "
+            />
             <h3 className="font-medium text-sm">{product?.name}</h3>
             <p className="text-primary">{product?.price} Kd</p>
           </div>
         ))}
        
       </div>
-     {searchQuery && products.length &&  <Link href={`/shop/?s=${searchQuery}&post_type=product`} className="w-screen overflow-hidden pt-5 cursor-pointer  border-t place-content-end font-semibold text-center">
+     {searchQuery && products.length && <Link onClick={() => { setIsSearchDrawerOpen(false) }} href={`/shop/?s=${searchQuery}&post_type=product`} className="w-screen overflow-hidden pt-5 cursor-pointer  border-t place-content-end font-semibold text-center">
         VIEW ALL RESULTS
         </Link>}
     </div>

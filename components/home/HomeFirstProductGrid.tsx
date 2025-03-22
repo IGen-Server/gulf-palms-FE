@@ -31,15 +31,15 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
   const axiosInstanceWithoutLoader = useMemo(() => CreateAxiosInstanceWithLoader(false, false), []);
   console.log(currentLocale);
 
-
-  const getRelatedProducts = async (hoveresProductIds: number[]) => {
+  const getProductsAsync = async (hoversProductIds: number[]) => {
     try {
       const response = await ProductService.Get(
         {
           lang: currentLocale,
-          include: `[0,${hoveresProductIds.join(",")}]`,
+          include: `[0,${hoversProductIds.join(",")}]`,
         },
-        axiosInstanceWithoutLoader
+        axiosInstanceWithoutLoader,
+        true
       );
       // console.log({response})
       return response;
@@ -52,23 +52,19 @@ export default function HomeFirstProductGrid({ slugToCategoryRecord }: HomeFirst
   const fetchProducts = useCallback(async () => {
     try {
       // Extract all product IDs from productData
-      let hoveresProductIds;
+      let hoversProductIds;
       if (currentLocale === "en") {
-        hoveresProductIds = productData.map((product) => product.id);
+        hoversProductIds = productData.map((product) => product.id);
       } else {
-        hoveresProductIds = productData.map((product) => product.arId);
+        hoversProductIds = productData.map((product) => product.arId);
       }
 
-
       // Fetch related products using getRelatedProducts
-      const fetchedProducts = await getRelatedProducts(hoveresProductIds);
+      const fetchedProducts = await getProductsAsync(hoversProductIds);
 
       // Map the fetched products to the desired format
       const results = fetchedProducts.map((product) => {
         const productInfo = currentLocale === "en" ? productData.find((p) => p.id == product.id) : productData.find((p) => p.arId == product.id);
-
-        console.log(productInfo, "ProductInfo");
-
 
         return {
           position: productInfo?.position || { x: 0, y: 0 },

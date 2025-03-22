@@ -19,6 +19,9 @@ import {
 import { NavItem } from "./navData";
 import Image from "next/image";
 import useMobileCategoryItems from "./useMenuItems";
+import { useEffect, useState } from "react";
+import { useDebounce } from "@/components/search/SearchDrawer";
+import { useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 
 interface Category {
   title: string;
@@ -110,43 +113,69 @@ function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
 export default function MobileNav() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [products, setProducts] = React.useState<any[]>([]);
-
+  const { categories } = useGlobalDataProvider();
   const { i18n, t } = useTranslation();
 
-  const axiosInstanceWithLoader = React.useMemo(
-    () => CreateAxiosInstanceWithLoader(),
-    []
-  );
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
 
-  const [pageConfig, setPageConfig] = React.useState({
+  const [pageConfig, setPageConfig] = useState({
     search: searchQuery,
+    per_page:30,
     lang: i18n.language,
   });
 
-  React.useEffect(() => {
-    setPageConfig({
-      search: searchQuery,
-      lang: i18n.language,
-    });
-  }, [searchQuery, i18n.language]);
-
-  React.useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const response = await ProductService.Get(
-          pageConfig,
-          axiosInstanceWithLoader
-        );
-
-        console.log(response);
-        setProducts(response);
-      } catch (error) {
-        console.error(error);
+  const debouncedSearchTerm = useDebounce(searchQuery, 1000);
+  
+    useEffect(() => {
+      if (!debouncedSearchTerm) return;
+  
+      const updatePageConfig = async () => {
+        console.log(debouncedSearchTerm);
+        setPageConfig((prev) => ({
+          ...prev,
+          search: debouncedSearchTerm,
+        }));
+      };
+  
+      updatePageConfig();
+    }, [debouncedSearchTerm]);
+  
+    useEffect(() => {
+      const getProducts = async () => {
+        try {
+          if (pageConfig.search && categories?.find((x) => x.name === pageConfig.search)) {
+            const productsByCategory = await ProductService.Get(
+              {
+                per_page:30,
+                lang: i18n.language,
+                category: pageConfig.search
+              },
+              axiosInstanceWithLoader
+            );
+            setProducts(productsByCategory);
+          } else {
+            const productsBySearchTerm = await ProductService.Get(
+              pageConfig,
+              axiosInstanceWithLoader
+            );
+    
+            setProducts(productsBySearchTerm);
+          }
+          
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      if (pageConfig) {
+        if (pageConfig.search){
+          getProducts();
+        } else{
+          setProducts([]);
+        }
       }
-    };
-
-    if (searchQuery) getProducts();
-  }, [axiosInstanceWithLoader, pageConfig]);
+  
+    }, [pageConfig]);
 
   const mobileCategoryItems = useMobileCategoryItems();
 
@@ -167,12 +196,10 @@ export default function MobileNav() {
           type="search"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder={`${pageConfig.lang === "en"
-            ? "Search for products"
-            : "البحث عن المنتجات"
-            }`}
-          className={`w-full ${pageConfig.lang === "en" ? "pr-10" : ""
-            } border-none shadow-none outline-none ring-0`}
+          placeholder={t('search.placeholder')}
+          className={`w-full ${
+            pageConfig.lang === "en" ? "pr-10" : ""
+          } border-none shadow-none outline-none ring-0`}
         />
       </div>
 

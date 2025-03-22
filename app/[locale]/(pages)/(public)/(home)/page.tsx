@@ -60,7 +60,8 @@ function HomePage({
       try {
         const response = await ProductService.Get(
           recentProductConfig,
-          axiosInstanceWithLoader
+          axiosInstanceWithLoader,
+          true
         );
 
         setRecentProducts(response);

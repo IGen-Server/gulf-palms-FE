@@ -69,12 +69,20 @@ export default function SubcategoryPage() {
   const [loading, setLoading] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
 
+  // stop fetching more products
+  const hasProducts = useRef(true);
+
   const updatePageConfig = (key: string, value: any) => {
     setPageConfig((prevState) => ({
       ...prevState,
       [key]: value,
     }));
   };
+
+  // stop fetching more products
+  useEffect(() => {
+    hasProducts.current = true;
+  }, [pageConfig]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -89,6 +97,12 @@ export default function SubcategoryPage() {
           cleanedPageConfig,
           axiosInstanceWithoutLoader
         );
+
+        // stop fetching more products
+        if (response.length == 0 || response.length < pageConfig.per_page) {
+          hasProducts.current = false;
+        }
+        
         setProducts((prev) =>
           pageConfig.page === 1 ? response : [...prev, ...response]
         );
@@ -107,7 +121,8 @@ export default function SubcategoryPage() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !loading) {
+        // stop fetching more products (append after !loading => && hasProducts.current)
+        if (entries[0].isIntersecting && !loading && hasProducts.current) {
           setPageConfig((prev) => ({
             ...prev,
             page: prev.page + 1,

@@ -21,7 +21,9 @@ export function CartItemsForPage({ item }:{item:any}) {
       </div>
 
       {/* Price */}
-      <div className="col-span-2 text-primary font-medium">{item.price.toFixed(3)} KD</div>
+      <div className="col-span-2 text-primary font-medium">
+        {typeof item.price === "number" ? item.price.toFixed(3) : ""} KD
+      </div>
 
       {/* Quantity */}
       <div className="col-span-2">

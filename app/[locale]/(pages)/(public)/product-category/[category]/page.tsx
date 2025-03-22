@@ -59,9 +59,11 @@ export default function CategoryPage() {
   const [loading, setLoading] = useState(false);
   const [currentCategory, setCurrentCategory] = useState<any>({});
   const loaderRef = useRef<HTMLDivElement>(null);
-  const [showMobileScreenCategory, setShowMobileScreenCategory] =
-    useState(false);
+  const [showMobileScreenCategory, setShowMobileScreenCategory] = useState(false);
   const [showSidebarButton, setShowSidebarButton] = useState(false);
+
+  // stop fetching more products
+  const hasProducts = useRef(true);
 
   const updatePageConfig = (key: string, value: any) => {
     setPageConfig((prevState) => ({
@@ -69,6 +71,11 @@ export default function CategoryPage() {
       [key]: value
     }));
   };
+
+  // stop fetching more products
+  useEffect(() => {
+    hasProducts.current = true;
+  }, [pageConfig]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -84,6 +91,11 @@ export default function CategoryPage() {
           cleanedPageConfig,
           axiosInstanceWithoutLoader
         );
+
+        // stop fetching more products
+        if (response.length == 0 || response.length < pageConfig.per_page) {
+          hasProducts.current = false;
+        }
 
         setProducts((prev) =>
           pageConfig.page === 1 ? response : [...prev, ...response]
@@ -103,7 +115,8 @@ export default function CategoryPage() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !loading) {
+        // stop fetching more products (append after !loading => && hasProducts.current)
+        if (entries[0].isIntersecting && !loading && hasProducts.current) {
           setPageConfig((prev) => ({
             ...prev,
             page: prev.page + 1,

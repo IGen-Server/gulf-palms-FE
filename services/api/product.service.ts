@@ -6,6 +6,7 @@ import AxiosInstanceWithInterceptor, {
 import { CustomAxiosInstance } from "../utility/axios-with-loader.service";
 import { updateAxiosInstanceLoaderAndJwtChecking } from "../utility/utility.service";
 import { ProductModel } from "@/models/product/product";
+import { CacheService } from "../utility/cache.service";
 
 export const ProductService = {
   async GetById(
@@ -81,17 +82,22 @@ export const ProductService = {
       throw error;
     }
   },
-  async Get(
-    query: Record<string, any> = {},
-    axiosInstance: CustomAxiosInstance
-  ): Promise<any[]> {
-    try {
-      const queryParams = Object.keys(query).length
-        ? `?${new URLSearchParams(query).toString()}`
-        : "";
-      const productsUrl = `${ApiRoutes.Product.Get}${queryParams}`;
+  async Get(query: Record<string, any> = {}, axiosInstance: CustomAxiosInstance, useCaching: boolean = false): Promise<any[]> {
+    const cacheKey = `cacheGetProducts:${JSON.stringify(query)}`;
+    // Check if the data is in cache (first LocalStorage, then in-memory cache)
+    const cachedData = CacheService.get<any[]>(cacheKey);
+    if (cachedData) {
+      return cachedData; // Return cached data if available
+    }
 
+    try {
+      const queryParams = Object.keys(query).length ? `?${new URLSearchParams(query).toString()}` : "";
+      const productsUrl = `${ApiRoutes.Product.Get}${queryParams}`;
       const response = await axiosInstance.get<any[]>(productsUrl);
+
+      // Store the response data in cache with a TTL of 1 hour (3600 seconds)
+      CacheService.set(cacheKey, response.data, 1000 * 60 * 60); // 1 hour TTL
+
       return response.data;
     } catch (error: any) {
       throw error;

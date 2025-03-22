@@ -34,7 +34,6 @@ export const ProductCategoryService  = {
     // Check if the data is in cache (first LocalStorage, then in-memory cache)
     const cachedData = CacheService.get<any[]>(cacheKey);
     if (cachedData) {
-      console.log('Returning data from cache.');
       return cachedData; // Return cached data if available
     }
 

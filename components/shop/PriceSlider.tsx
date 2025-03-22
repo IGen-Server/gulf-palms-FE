@@ -20,8 +20,6 @@ export default function PriceSlider({ setPriceSlider, minPrice, maxPrice }: Pric
     set_maxValue(maxPrice || 2250);
   }, [minPrice, maxPrice]);
 
-  console.log(minValue, maxValue);
-
   const handleInput = (e: {
     min?: number;
     max?: number;

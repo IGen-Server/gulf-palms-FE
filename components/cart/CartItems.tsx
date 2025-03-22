@@ -52,7 +52,7 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
             </button>
           </div>
           <div className="text-primary font-medium">
-            {item.price.toFixed(3)} KD
+            {typeof item.price === "number" ? item.price.toFixed(3) : ""} KD
           </div>
           {showSubtotal && (
             <div className="ml-auto text-primary font-medium">

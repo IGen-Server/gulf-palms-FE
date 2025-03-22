@@ -9,7 +9,7 @@ export const ApiRoutes = {
   Auth: {
     SignIn: '/auth/signin',
     SignUp: '/auth/signup',
-    RecoverPassword: '/auth/recover-password',
+    GetRecoveryEmail: '/auth/get-recovery-email',
     VerifyRecoveryToken: '/auth/verify-recovery-token',
     ResetPassword: '/auth/reset-password',
   },

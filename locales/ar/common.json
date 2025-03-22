@@ -778,12 +778,13 @@
     "buyNow": "اشتري الآن",
     "noDescription": "وصف المنتج غير متوفر",
     "showSidebar": "إظهار الشريط الجانبي",
-    "showingResults": "عرض {{ range }} من أصل {{ total }} نتيجة"
+    "showingResults": "عرض {{ range }} من أصل {{ total }} نتيجة",
+    "search": "{searchTerm}: نتائج البحث عن"
   },
   "washingtonianPalms": "واشنطونيا",
   "plantMedium": "تربة",
   "from": "من",
-  "backToProducts": "العودة إلى المنتجات ",
+  "backToProducts": "العودة إلى المنتجات",
   "compare": "مقارنة",
   "addToWishList": "إضافة الى المفضلة",
   "relatedsProducts": "منتجات ذات صلة",
@@ -1057,5 +1058,9 @@
       "saveButtonText": "حفظ",
       "passwordResetSuccess": "تم إعادة تعيين كلمة المرور الخاصة بك بنجاح."
     }
+  },
+  "search": {
+    "placeholder": "البحث عن المنتجات",
+    "message": "ابدأ كتابة أسم المنتج لرؤية المنتجات التي تبحث عنها."
   }
 }
