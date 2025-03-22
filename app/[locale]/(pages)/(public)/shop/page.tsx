@@ -292,7 +292,9 @@ function ShopContent() {
         </div>
         <div className="max-w-content mx-auto">
           <div className="flex flex-col items-center pb-[100px] pt-[50px]">
-            <h1 className="text-[36px] lg:text-[4.25rem] font-bold text-[#242424] leading-[5.125rem] font-serif capitalize">{t("shop.title")}</h1>
+            <h1 className="text-[36px] lg:text-[4.25rem] font-bold text-[#242424] leading-[5.125rem] font-serif capitalize">
+              {searchTerm ? t("shop.search", { searchTerm: searchTerm}) : t("shop.title")}
+            </h1>
             <div className="lg:hidden w-full mx-auto min-h-10 px-6 text-center">
               <p
                 className="flex items-center gap-3 justify-center pt-4 cursor-pointer"
