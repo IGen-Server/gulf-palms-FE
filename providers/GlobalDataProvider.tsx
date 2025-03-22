@@ -24,6 +24,8 @@ interface GlobalDataProviderProps {
 
   categories: ProductCategoryModel[] | null;
   setCategories: Dispatch<SetStateAction<ProductCategoryModel[] | null>>;
+  isSearchDrawerOpen: boolean;
+  setIsSearchDrawerOpen: Dispatch<SetStateAction<boolean>>;
   
   slugToTranslate: Record<string, Record<string, { id: number, slugType: SlugType, otherLangSlug: string }>>;
   addSlugToTranslate: (lang: string, slug: string, id: number, slugType: SlugType, otherLangSlug: string) => void;
@@ -45,6 +47,7 @@ export function GlobalDataProvider({ children }: { children: React.ReactNode }) 
   const [userSettings, setUserSettings] = useState<UserAsCustomer | null>(null);
   const [isTokenExpired, setIsTokenExpired] = useState<boolean>(true);
   const [categories, setCategories] = useState<ProductCategoryModel[] | null>(null);
+  const [isSearchDrawerOpen, setIsSearchDrawerOpen] = useState(false);
   const [translations, setTranslations] = useState<Record<string, Record<string, string>>>({
     en: { },
     ar: { }
@@ -128,6 +131,9 @@ export function GlobalDataProvider({ children }: { children: React.ReactNode }) 
 
       categories,
       setCategories,
+
+      isSearchDrawerOpen,
+      setIsSearchDrawerOpen,
 
       slugToTranslate,
       addSlugToTranslate,

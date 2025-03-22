@@ -35,6 +35,7 @@ import { CookieStorageService } from "@/services/utility/storage.service";
 import { isJwtTokenExpired } from "@/services/utility/utility.service";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { SideDrawerForCart } from "@/components/common/SideDrawerForCart";
+import { SideDrawerForSearch } from "@/components/common/SideDrawerForSearch";
 
 interface MenuItem {
   title: string;
@@ -281,7 +282,7 @@ export default function PublicNavbar() {
               <HeartIcon className="w-5 h-5" />
             </div>
             <div className="hidden lg:block">
-              <SideDrawer
+              <SideDrawerForSearch
                 title={""}
                 side="bottom"
                 triggerComponent={

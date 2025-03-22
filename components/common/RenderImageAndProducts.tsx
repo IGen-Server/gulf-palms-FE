@@ -93,8 +93,6 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   const { t, i18n: { language } } = useTranslation();
   const { addToCart } = useCart();
 
-  console.log({ wishList })
-
   const handleAddToCart = async () => {
     setLoading(true); // Set loading to true
     try {
