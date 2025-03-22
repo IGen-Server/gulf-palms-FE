@@ -48,13 +48,12 @@ export default function UserNavbar() {
           <Link
             key={index}
             href={item.href}
-            className={`${
-              pathname ===
-              refineLocalePrefixForRoute(currentLocale) +
+            className={`${pathname ===
+                refineLocalePrefixForRoute(currentLocale) +
                 refineRoutePath(item.href, currentLocale)
                 ? "text-primary"
                 : "text-muted-foreground"
-            } transition-colors hover:text-foreground text-base border border-transparent mt-[5px]`}
+              } transition-colors hover:text-foreground text-base border border-transparent mt-[5px]`}
           >
             {item.name}
             {/* {t('navigation.' + item.name)} */}
@@ -77,16 +76,15 @@ export default function UserNavbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`${
-                  pathname ===
-                  refineLocalePrefixForRoute(currentLocale) +
+                className={`${pathname ===
+                    refineLocalePrefixForRoute(currentLocale) +
                     refineRoutePath(item.href, currentLocale)
                     ? "text-primary"
                     : "text-muted-foreground"
-                } transition-colors hover:text-foreground text-base`}
+                  } transition-colors hover:text-foreground text-base`}
                 aria-current={
                   pathname ===
-                  refineLocalePrefixForRoute(currentLocale) +
+                    refineLocalePrefixForRoute(currentLocale) +
                     refineRoutePath(item.href, currentLocale)
                     ? "page"
                     : undefined

@@ -10,32 +10,73 @@ import {
   Heart,
   Expand,
   Grid2x2,
+  ChevronUp,
+  ChevronDown,
+  Plus,
+  Minus,
+  Check,
+  Facebook,
+  Mail,
+  Linkedin,
+  PhoneIcon as WhatsApp,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import { Button } from "@/components/ui/button";
-import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { useTranslation } from "react-i18next";
-import { ProductService } from "@/services/api/product.service";
-import { usePathname } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ProductCategoryModel } from "@/models/product/product";
 import { getCategoryPathByIdFromRecord, getLargestCategoryPathByIdFromRecord } from "@/services/utility/utility.service";
 import { useCart } from "@/providers/CartProvider";
-import { t } from "i18next";
+import InnerImageZoom from 'react-inner-image-zoom';
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
+import ProductSkeleton from "./ProductDetailsdSkeleton";
+import { DirectionProvider } from "@radix-ui/react-direction";
+import { Input } from "@/components/ui/input";
+import { shareLinks } from "@/components/shop/ProductDrawer";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface ProductDetailsProps {
+  loading?: boolean;
   product: any;
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
   relatedProducts: any[];
 }
 
-export default function ProductDetails({ product, slugToCategoryRecord, relatedProducts }: ProductDetailsProps) {
-  const { t } = useTranslation("common");
+export default function ProductDetails({ loading, product, slugToCategoryRecord, relatedProducts }: ProductDetailsProps) {
+  const { t, i18n: { language } } = useTranslation("common");
   const [selectedImage, setSelectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
+  // Add this state for tracking visible images
+  const [hoveredProduct, setHoveredProduct] = useState<any | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [checkedOptions, setCheckedOptions] = useState({
+    compare: false,
+    wishlist: false,
+  })
+
+  // Add these functions to handle navigation
+  const handlePrevClick = () => {
+    setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : prev));
+    setSelectedImage(product?.images[currentImageIndex - 1]?.src);
+  };
+
+  const handleNextClick = () => {
+    setCurrentImageIndex((prev) =>
+      (prev < (product?.images?.length || 0) - 1 ? prev + 1 : prev)
+    );
+    setSelectedImage(product?.images[currentImageIndex + 1]?.src);
+  };
+
   useEffect(() => {
     setSelectedImage(product?.images?.[0]?.src || '');
   }, [product])
@@ -58,65 +99,221 @@ export default function ProductDetails({ product, slugToCategoryRecord, relatedP
     });
   };
 
+  const handleShare = (type: string, imageUrl: string) => {
+    switch (type) {
+      case 'facebook':
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, '_blank');
+        break;
+      case 'twitter':
+        window.open(`https://twitter.com/intent/tweet?url=${window.location.href}`, '_blank');
+        break;
+      case 'pinterest':
+        window.open(`https://pinterest.com/pin/create/button/?url=${window.location.href}&media=${imageUrl}`, '_blank');
+        break;
+      case 'download':
+        fetch(imageUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.blob();
+          })
+          .then(blob => {
+            // Create a temporary URL for the blob
+            const url = window.URL.createObjectURL(blob);
+
+            // Create and configure download link
+            const link = document.createElement('a');
+            link.href = url;
+            // Clean filename and remove special characters
+            const cleanName = (product?.name || 'product').replace(/[^a-zA-Z0-9]/g, '-');
+            link.download = `${cleanName}-image.jpg`;
+
+            // Trigger download
+            document.body.appendChild(link);
+            link.click();
+
+            // Cleanup
+            setTimeout(() => {
+              document.body.removeChild(link);
+              window.URL.revokeObjectURL(url);
+            }, 100);
+          })
+          .catch(error => {
+            console.error('Error downloading image:', error);
+            // Optionally show error to user
+            alert('Failed to download image. Please try again.');
+          });
+        break;
+    }
+  };
+
+  if (loading) return <ProductSkeleton />;
+
   return (
-    <div className="container max-w-[1200px] px-2 lg:px-0 lg:py-8 mx-auto font-sans">
+    <div className="container max-w-[1200px] px-2 lg:px-0 lg:py-8 mx-auto">
       {/* Breadcrumb and Navigation */}
       <div className="grid md:grid-cols-2 gap-8">
         {/* Image Gallery */}
-        <div className="flex flex-col-reverse lg:flex-row gap-4">
-          <div className="flex lg:flex-col gap-4">
-
-            {product?.images?.map((image: any, index: number) => (
-              <div key={index} className="border rounded overflow-hidden cursor-pointer">
-                <Image
-                  src={image.src}
-                  alt={image.name}
-                  width={122}
-                  height={122}
-                  className="object-cover w-full h-full"
-                  onClick={() => setSelectedImage(image.src)}
-                />
+        <div className="flex flex-col-reverse lg:flex-row gap-6">
+          {/* Thumbnail Slider */}
+          {product?.images.length > 1 && (
+            <div className="hidden lg:flex flex-col gap-4 relative h-[450px] min-w-[122px]">
+              <div className="flex flex-col gap-4 relative overflow-hidden h-full">
+                <div
+                  className="flex flex-col gap-4 absolute transition-transform duration-300 ease-in-out w-full"
+                  style={{ transform: `translateY(-${currentImageIndex * 146}px)` }}
+                >
+                  {product?.images?.map((image: any, index: number) => (
+                    <div
+                      key={image.src}
+                      className={`border rounded overflow-hidden cursor-pointer transition-all duration-300 shrink-0 w-[122px] h-[122px] ${selectedImage === image.src ? 'border-primary' : 'border-gray-200'
+                        }`}
+                    >
+                      <Image
+                        src={image.src}
+                        alt={image.name}
+                        width={122}
+                        height={122}
+                        className="object-cover w-full h-full"
+                        onClick={() => setSelectedImage(image.src)}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
-
-          <PhotoProvider
-            speed={() => 800}
-            easing={(type) =>
-              type === 2
-                ? "cubic-bezier(0.36, 0, 0.66, -0.56)"
-                : "cubic-bezier(0.34, 1.56, 0.64, 1)"
-            }
-            toolbarRender={({ onScale, scale }) => {
-              return (
-                <>
-                  <svg
-                    className="PhotoView-Slider__toolbarIcon"
-                    onClick={() => onScale(scale + 1)}
-                  />
-                  <svg
-                    className="PhotoView-Slider__toolbarIcon"
-                    onClick={() => onScale(scale - 1)}
-                  />
-                </>
-              );
-            }}
-          >
-            <div className="relative flex-1 cursor-pointer">
-              <Image
-                src={selectedImage}
-                alt={selectedImage}
-                width={450}
-                height={450}
-                className="object-cover rounded w-full max-w-[450px] h-full z-0"
-              />
-              <PhotoView src={selectedImage}>
-                <Button className="absolute bottom-5 ml-5 p-3 w-[150px] rounded-full text-black bg-white justify-start hover:bg-white">
-                  <Expand />
-                </Button>
-              </PhotoView>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handlePrevClick}
+                  disabled={currentImageIndex === 0}
+                  className={`flex-1 flex justify-center bg-lightGray/30 py-1 disabled:opacity-50`}
+                >
+                  <ChevronUp size={20} />
+                </button>
+                <button
+                  onClick={handleNextClick}
+                  disabled={currentImageIndex >= (product?.images?.length || 0) - 3}
+                  className={`flex-1 flex justify-center bg-lightGray/30 py-1 disabled:opacity-50`}
+                >
+                  <ChevronDown size={20} />
+                </button>
+              </div>
             </div>
-          </PhotoProvider>
+          )}
+
+          {/* Main Image */}
+          <div className="flex-1 relative">
+            <PhotoProvider
+
+              speed={() => 800}
+              easing={(type) =>
+                type === 2
+                  ? "cubic-bezier(0.36, 0, 0.66, -0.56)"
+                  : "cubic-bezier(0.34, 1.56, 0.64, 1)"
+              }
+              toolbarRender={({ images, index }) => (
+                <div className="flex items-center gap-3 relative z-50"> {/* Updated z-index and added relative */}
+                  <div className="relative">
+                    <button
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      className="p-2 rounded-full transition-colors"
+                      title="Share"
+                    >
+                      <i className="fa-solid fa-share text-lightGray"></i>
+                    </button>
+
+                    <div
+                      className={`${language === "en" ? "text-left" : "text-right"}
+      absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50
+      transition-all duration-200 ease-in-out
+      ${isDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}
+    `}
+                    >
+                      <button
+                        onClick={() => handleShare('facebook', selectedImage)}
+                        className={`${language === "en" ? "text-left" : "text-right"}  w-full px-3 py-2 text-sm hover:bg-[#365493] text-[#333] hover:text-white transition-colors`}
+                      >
+
+                        {t("facebookShare")}
+                      </button>
+
+                      <button
+                        onClick={() => handleShare('twitter', selectedImage)}
+                        className={`${language === "en" ? "text-left" : "text-right"}  w-full px-3 py-2 text-sm hover:bg-[#000000] text-[#333] hover:text-white transition-colors`}
+                      >
+
+                        {t("twitterShare")}
+                      </button>
+
+                      <button
+                        onClick={() => handleShare('pinterest', selectedImage)}
+                        className={`${language === "en" ? "text-left" : "text-right"}  w-full px-3 py-2 text-sm hover:bg-[#CE272D] text-[#333] hover:text-white transition-colors`}
+                      >
+
+                        {t("pinterestShare")}
+                      </button>
+
+                      <button
+                        onClick={() => handleShare('download', selectedImage)}
+                        className={`${language === "en" ? "text-left" : "text-right"} w-full px-3 py-2 text-sm hover:bg-[#F89E6B] text-[#333] hover:text-white transition-colors`}
+                      >
+
+                        {t("downloadImage")}
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              )}
+            >
+              <div className="relative">
+                <div className="relative overflow-hidden group">
+                  <div
+                    className="flex transition-transform duration-300 ease-in-out"
+                    style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+                  >
+                    {product?.images?.map((image: any) => (
+                      <div key={image.src} className="w-full flex-shrink-0">
+                        <InnerImageZoom
+                          src={image.src}
+                          zoomSrc={image.src}
+                          zoomType="hover"
+                          hideHint
+                          className="max-w-full h-[450px] object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Navigation Buttons */}
+                  <button
+                    onClick={handlePrevClick}
+                    disabled={currentImageIndex === 0}
+                    className={`hidden group-hover:block absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 rounded-full shadow-md transition-opacity ${currentImageIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white'
+                      }`}
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button
+                    onClick={handleNextClick}
+                    disabled={currentImageIndex >= (product?.images?.length || 0) - 1}
+                    className={`hidden group-hover:block absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 rounded-full shadow-md transition-opacity ${currentImageIndex >= (product?.images?.length || 0) - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white'
+                      }`}
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+
+                  {/* Expand Button */}
+                  <PhotoView src={product?.images[currentImageIndex]?.src}>
+                    <Button className="absolute bottom-5 left-5 p-3 rounded-full text-black bg-white justify-start hover:bg-white transition-all duration-300 group">
+                      <Expand />
+                      <p className="w-0 opacity-0 group-hover:w-max group-hover:opacity-100">{t("clickToEnlarge")}</p>
+                    </Button>
+                  </PhotoView>
+                </div>
+              </div>
+            </PhotoProvider>
+          </div>
         </div>
 
         {/* Product Details */}
@@ -124,7 +321,7 @@ export default function ProductDetails({ product, slugToCategoryRecord, relatedP
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center text-sm text-muted-foreground">
               <Link href="/" className="hover:text-primary">
-                Home
+                {t("home.home")}
               </Link>
               <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
 
@@ -136,8 +333,8 @@ export default function ProductDetails({ product, slugToCategoryRecord, relatedP
             </div>
             {
               relatedProducts.length > 1 &&
-              <div className="flex gap-2">
-                <Link href={`/product/${relatedProducts[0].slug}`} className="p-2 hover:bg-muted rounded-sm">
+              <div className="relative flex gap-2 group">
+                <Link href={`/product/${relatedProducts[0].slug}`} className="p-2 hover:bg-muted rounded-sm" onMouseEnter={() => setHoveredProduct(relatedProducts[0])} onMouseLeave={() => setHoveredProduct(null)}>
                   <ChevronLeft className="w-4 h-4" />
                 </Link>
                 <Link href='/shop' title="Back to product">
@@ -145,9 +342,18 @@ export default function ProductDetails({ product, slugToCategoryRecord, relatedP
                     <Grid2x2 className="w-4 h-4" />
                   </button>
                 </Link>
-                <Link href={`/product/${relatedProducts[1].slug}`} className="p-2 hover:bg-muted rounded-sm">
+                <Link href={`/product/${relatedProducts[1].slug}`} className="p-2 hover:bg-muted rounded-sm" onMouseEnter={() => setHoveredProduct(relatedProducts[1])} onMouseLeave={() => setHoveredProduct(null)}>
                   <ChevronRight className="w-4 h-4" />
                 </Link>
+                {hoveredProduct && (
+                  <div className="min-w-max absolute top-7 right-0 hidden group-hover:flex items-center gap-3 mt-7 bg-white px-5 py-2 shadow-md">
+                    <Image src={hoveredProduct.images[0].src} alt="Product image" width={65} height={65} />
+                    <div className="flex flex-col gap-2">
+                      <p className="font-medium text-sm text-[#333] whitespace-nowrap">{hoveredProduct.name}</p>
+                      <p className="text-primary text-sm">{t("from")} {hoveredProduct.price} KD</p>
+                    </div>
+                  </div>
+                )}
               </div>
             }
           </div>
@@ -159,19 +365,22 @@ export default function ProductDetails({ product, slugToCategoryRecord, relatedP
 
           {
             product && product.attributes[0] && product.attributes[0].visible && product.attributes[0].variation &&
-            <div>
-              <Select>
-                <SelectTrigger className="bg-white border-gray-300 w-fit">
-                  <SelectValue placeholder="Choose an option" />
-                </SelectTrigger>
-                <SelectContent>
-                  {product?.attributes[0]?.options?.map((option: string) => (
-                    <SelectItem key={option} value={option}>
-                      {option}&nbsp;
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <div className="flex items-center gap-2">
+              <label className="text-sm font-semibold text-gray-700">{product?.attributes[0]?.name}:</label>
+              <DirectionProvider dir={language === "en" ? "ltr" : "rtl"}>
+                <Select>
+                  <SelectTrigger className="bg-white border-gray-300 w-[290px]">
+                    <SelectValue placeholder={t("Choose_an_option")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {product?.attributes[0]?.options?.map((option: string) => (
+                      <SelectItem key={option} value={option}>
+                        {option}&nbsp;
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </DirectionProvider>
             </div>
           }
 
@@ -187,115 +396,190 @@ export default function ProductDetails({ product, slugToCategoryRecord, relatedP
           />
 
           {/* Quantity Selector */}
-          <div className="flex items-center gap-6">
-            <button
-              onClick={() => handleQuantityChange("decrease")}
-              className="text-xl px-2 py-1 hover:bg-muted rounded">
-              -
-            </button>
-            <input
-              type="number"
-              value={quantity}
-              className="w-12 text-center border-none"
-              min="1"
-            />
-            <button
-              onClick={() => handleQuantityChange("increase")}
-              className="text-xl px-2 py-1 hover:bg-muted rounded">
-              +
-            </button>
-          </div>
+          <div className="flex gap-2">
+            {/* Quantity Selector */}
+            <div className="flex items-center">
+              <button
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                className="w-7 h-9 border rounded-md flex items-center justify-center hover:bg-gray-50"
+              >
+                <Minus className="h-4 w-4" />
+              </button>
 
-          {/* Action Buttons */}
-          <div className="flex gap-4">
-            <button className="rounded-none px-6 py-2 bg-primary text-white border-b-2 border-orange-700/20 hover:bg-[#FFA366]/90 uppercase"
-              onClick={handleAddToCart}
+              <Input
+                type="number"
+                value={quantity}
+                onChange={(e) =>
+                  setQuantity(Number.parseInt(e.target.value) || 1)
+                }
+                className="w-12 text-center p-0"
+              />
+              <button
+                onClick={() => setQuantity(quantity + 1)}
+                className="w-7 h-9 border rounded-md flex items-center justify-center hover:bg-gray-50"
+              >
+                <Plus className="h-4 w-4" />
+              </button>
+            </div>
+            <Button
+              className="bg-primary px-3 hover:bg-[#fda757] text-white font-semibold"
+              onClick={() => {
+                let cartProduct = { ...product, quantity: quantity || 1 };
+                addToCart(cartProduct);
+              }}
             >
-              {t("shop.addToCart")}
-            </button>
-            <button className="rounded-none px-6 py-2 bg-primary text-white border-b-2 border-orange-700/20 hover:bg-[#FFA366]/90 uppercase">
-              {t("shop.buyNow")}
-            </button>
+              {t("AddToCart")}
+            </Button>
+            <Button
+              className="bg-primary px-3 hover:bg-[#fda757] text-white font-semibold"
+              onClick={() => console.log("Buy now")}
+            >
+              {t("BuyNow")}
+            </Button>
           </div>
 
           {/* Compare and Wishlist */}
-          <div className="flex gap-6 text-sm text-muted-foreground">
-            <button className="flex items-center gap-2 hover:primary">
-              <ArrowLeftRight className="w-4 h-4" />
-              Compare
+          <div className="flex gap-6 font-semibold text-sm text-[#333]">
+            <button className="flex items-center gap-2 hover:text-[#777]" onClick={() => setCheckedOptions({ ...checkedOptions, compare: true })}>
+              {checkedOptions.compare ? <Check size={16} strokeWidth={1.5} /> : <ArrowLeftRight className="w-4 h-4" />}
+              {checkedOptions.compare ? t("compared") : t("compare")}
             </button>
-            <button className="flex items-center gap-2 hover:primary">
-              <Heart className="w-4 h-4" />
-              Add to wishlist
+            <button className="flex items-center gap-2 hover:text-[#777]" onClick={() => setCheckedOptions({ ...checkedOptions, wishlist: true })}>
+              {checkedOptions.wishlist ? <Check size={16} strokeWidth={1.5} /> : <Heart className="w-4 h-4" />}
+              {checkedOptions.wishlist ? t("addedWishlist") : t("addToWishList")}
             </button>
           </div>
 
+          <div className="w-full h-[1px] bg-lightGray/20" />
           {/* Product Info */}
           <div className="space-y-4 pt-4">
-            <span className="text-muted-foreground/80"><span className="font-semibold">SKU: </span> {product?.sku || 'N/A'}</span>
+            <span className="text-[#333]"><span className="font-semibold">{t("SKU")}: </span> {product?.sku || t("N/A")}</span>
             <div className="flex gap-2">
-              <span className="text-muted-foreground font-semibold">Category:</span>
+              <span className="text-lightBlack font-semibold">{t("Categories")}:</span>
               {
                 product?.categories?.map((category: any, index: number) => (
-                  <span className="text-muted-foreground/80">
+                  <div className="flex items-center gap-1 text-lightBlack text-sm">
                     <Link
                       href={getCategoryPathByIdFromRecord(category.id, slugToCategoryRecord)}
                       key={category.id}
-                      className=" hover:underline"
+                      className="hover:text-primary"
                     >
                       {category.name}
                     </Link>
                     {index < product.categories.length - 1 && ","}
-                  </span>
+                  </div>
                 ))
               }
 
             </div>
 
-            <div className="flex gap-4 items-center">
-              <span className="text-muted-foreground font-semibold">Share:</span>
-              <div className="flex gap-4">
-                <Link href="#" className="hover:primary">
-                  <svg
-                    className="w-4 h-4"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-semibold text-[#333]">{t("Share")}:</span>
+              <div className="flex gap-2 text-black/80">
+                <Link href={shareLinks.facebook} target="_blank">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:text-[#fdb777]"
                   >
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                  </svg>
+                    <Facebook className="h-5 w-5" />
+                  </Button>
                 </Link>
-                <Link href="#" className="hover:primary">
-                  <svg
-                    className="w-4 h-4"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
+                <Link href={shareLinks.mail} target="_blank">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:text-[#fdb777]"
                   >
-                    <path d="M1.815 21.585h20.37l-10.185-18.37-10.185 18.37zm8.185-7.585v-2h4v2h-4zm0 4v-2h4v2h-4z" />
-                  </svg>
+                    <Mail className="h-5 w-5" />
+                  </Button>
                 </Link>
-                <Link href="#" className="hover:primary">
-                  <svg
-                    className="w-4 h-4"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
+                <Link href={shareLinks.linkedin} target="_blank">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:text-[#fdb777]"
                   >
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                  </svg>
+                    <Linkedin className="h-5 w-5" />
+                  </Button>
                 </Link>
-                <Link href="#" className="hover:primary">
-                  <svg
-                    className="w-4 h-4"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
+                <Link href={shareLinks.whatsapp} target="_blank">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:text-[#fdb777]"
                   >
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
-                  </svg>
+                    <i className="fa-brands fa-whatsapp"></i>
+                  </Button>
                 </Link>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div className="hidden lg:flex flex-col gap-7 mt-7 lg:mt-16">
+        {product?.table_tabs_expanded && product.table_tabs_expanded.length > 0 && (
+          <DirectionProvider dir={language === "en" ? "ltr" : "rtl"}>
+            <Tabs defaultValue={product.table_tabs_expanded[0].title} className="w-full">
+              <TabsList className="w-full max-lg:justify-start border-t rounded-none h-auto p-0 bg-transparent">
+                <div className="flex flex-col lg:flex-row max-lg:items-start gap-8">
+                  {product.table_tabs_expanded.map((item: any) => (
+                    <TabsTrigger
+                      key={item.title}
+                      value={item.title}
+                      className="border-t-[3px] border-transparent data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:text-[#333] pb-4 px-0 rounded-none text-lg font-semibold text-lightGray shadow-none"
+                    >
+                      {item.title}
+                    </TabsTrigger>
+                  ))}
+                </div>
+              </TabsList>
+
+              {product?.table_tabs_expanded.map((item: any) => (
+                <TabsContent
+                  key={item.title}
+                  value={item.title}
+                  className="pt-8"
+                >
+                  <div className="prose max-w-none">
+                    <div className="expanded_table" dangerouslySetInnerHTML={{ __html: item?.expanded_content ?? '' }} />
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </DirectionProvider>
+        )}
+      </div>
+
+      <div className="lg:hidden">
+        <Accordion type="single" collapsible className="w-full">
+          {product?.table_tabs_expanded.map((item: any) => (
+            <AccordionItem key={item.title} value={item.title}>
+              <AccordionTrigger className="text-lg font-semibold text-[#333] hover:no-underline">
+                {item.title}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="prose max-w-none pt-4">
+                  <div className="expanded_table" dangerouslySetInnerHTML={{ __html: item?.expanded_content ?? '' }} />
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+      {
+        product && product.attributes[0] && product.attributes[0].visible && product.attributes[0].variation && (
+          <div className="flex flex-col gap-5 mt-7 lg:mt-12">
+            <h2 className="font-semibold text-lg lg:text-2xl text-[#242424] lg:hidden">{t("additionalInfo")}</h2>
+            <div className="w-full max-w-[700px] mx-auto flex justify-between items-center">
+              <p className="font-semibold text-base text-[#242424]">{product?.attributes[0]?.name}</p>
+              <p className="text-sm text-lightGray">{product?.attributes[0]?.options?.join(",")}</p>
+            </div>
+          </div>
+        )
+
+      }
 
       {/* Product Specifications */}
       {/* <div className="mt-16">

@@ -84,7 +84,7 @@ const SingleProject = ({ slug }: { slug: string }) => {
                   key={item.key}
                   className="text-[1.1875rem] md:text-2xl pl-3 py-6 border-t-[1px] border-[#242424] text-[#242424]"
                 >
-                  <span className="font-semibold pr-7">
+                  <span className={`font-semibold ${language === "en" ? "pr-7" : "pl-7"}`}>
                     {(index + 1).toString().padStart(2, "0")}
                   </span>
                   <span>

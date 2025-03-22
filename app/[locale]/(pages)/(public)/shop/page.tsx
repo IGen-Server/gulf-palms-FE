@@ -32,6 +32,7 @@ import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/s
 import { Button } from "@/components/ui/button";
 import MobileNav from "@/components/navbar/public-navbar/MobileNav";
 import { DirectionProvider } from "@radix-ui/react-direction";
+import ProductsGridSkeleton from "@/components/shop/ProductCardSkeleton";
 
 const breadcrumbLinks = [
   { name: "Home", arabicName: "الرئيسية", href: "/" },
@@ -53,7 +54,8 @@ export default function Shop() {
   const [showMobileScreenCategory, setShowMobileScreenCategory] =
     useState(false);
   const { i18n } = useTranslation();
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+
   const { categories } = useGlobalDataProvider();
 
   const initialPageConfig = {
@@ -120,7 +122,7 @@ export default function Shop() {
       try {
         const response = await ProductService.Get(
           cleanedPageConfig,
-          axiosInstanceWithLoader
+          axiosInstanceWithoutLoader
         );
         setProducts((prev) =>
           pageConfig.page === 1 ? response : [...prev, ...response]
@@ -187,7 +189,7 @@ export default function Shop() {
             <SheetTrigger asChild>
               <div
 
-                className="w-16 h-16 rounded-r-full bg-[#D4D4D4] flex justify-center items-center text-[#242424]"
+                className={`w-16 h-16 ${i18n.language === "en" ? "rounded-r-full" : "rounded-l-full"} bg-[#D4D4D4] flex justify-center items-center text-[#242424]`}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-funnel"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" /></svg>
 
@@ -473,31 +475,36 @@ export default function Shop() {
                   <p className="font-semibold text-[.8125rem]">Max <span className="text-primary"> {pageConfig.max_price} KD</span></p>
                 </button>}
               </div>
-              <div
-                className={`w-full grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-${columns} mx-auto`}
-              >
-                {products.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    id={product.id}
-                    slug={product.slug}
-                    name={product.name}
-                    price={product.price}
-                    img={product.images ? product?.images[0]?.src : ""}
-                    images={product.images}
-                    optionName={product.attributes[0]?.visible && product.attributes[0]?.variation
-                      ? product.attributes[0]?.name
-                      : ""}
-                    options={product.attributes[0]?.visible && product.attributes[0]?.variation
-                      ? product.attributes[0]?.options
-                      : []}
-                    sku={product.sku}
-                    currentCategories={product.categories}
-                    slugToCategoryRecord={slugToCategoryRecord}
-                    description={product.short_description}
-                  />
-                ))}
-              </div>
+
+              {(!products.length && loading) ? (
+                <ProductsGridSkeleton count={8} />
+              )
+                : (<div
+                  className={`w-full grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-${columns} mx-auto`}
+                >
+                  {products.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      id={product.id}
+                      slug={product.slug}
+                      name={product.name}
+                      price={product.price}
+                      img={product.images ? product?.images[0]?.src : ""}
+                      images={product.images}
+                      optionName={product.attributes[0]?.visible && product.attributes[0]?.variation
+                        ? product.attributes[0]?.name
+                        : ""}
+                      options={product.attributes[0]?.visible && product.attributes[0]?.variation
+                        ? product.attributes[0]?.options
+                        : []}
+                      sku={product.sku}
+                      currentCategories={product.categories}
+                      slugToCategoryRecord={slugToCategoryRecord}
+                      description={product.short_description}
+                    />
+                  ))}
+                </div>
+                )}
             </div>
             <div
               ref={loaderRef}

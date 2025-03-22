@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Button } from "../../ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../../ui/sheet";
 
 import {
   HeartIcon,
@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import BrandFullLogo from "../../logo/brand-full-logo";
 import { LocaleToggler } from "../../LocaleProvider/locale-togger";
-import { NavLinksWithName } from "@/constants/global-constants";
 import { useTranslation } from "react-i18next";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -57,6 +56,12 @@ export default function PublicNavbar() {
 
   const cartRef = useRef<HTMLDivElement>(null);
   const { cartItems, subtotal } = useCart();
+
+  const sheetCloseRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    sheetCloseRef.current?.click();
+  }, [pathname]);
 
   useEffect(() => {
     const accessToken = CookieStorageService.getAccessToken();
@@ -168,6 +173,7 @@ export default function PublicNavbar() {
                 side="left"
                 className="p-0 w-[340px] drawer max-h-screen overflow-y-auto"
               >
+                <SheetClose className="sr-only" ref={sheetCloseRef}></SheetClose>
                 <MobileNav />
               </SheetContent>
             </Sheet>

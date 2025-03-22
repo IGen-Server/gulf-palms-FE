@@ -517,6 +517,7 @@
     { "title": "CONTACT US", "href": "/contact-us" }
   ],
   "home": {
+    "home": "Home",
     "heroSection": {
       "Slogan1": "YOUR ONE-STOP SOLUTION FOR",
       "Slogan2": "ALL YOUR LANDSCAPING NEEDS",
@@ -791,6 +792,20 @@
   "washingtonianPalms": "Washingtonian Palms",
   "plantMedium": "Plant Medium",
   "from": "From",
+  "backToProducts": "Back to products",
+  "compare": "Compare",
+  "addToWishList": "Add to wishlist",
+  "relatedsProducts": "Related Products",
+  "additionalInfo": "Additional Information",
+  "reviews": "Reviews",
+  "clickToEnlarge": "Click to enlarge",
+  "facebookShare": "Share on Facebook",
+  "twitterShare": "Share on X",
+  "pinterestShare": "Pin it",
+  "downloadImage": "Download Image",
+  "compared": "Compared products",
+  "addedWishlist": "Browse wishlist",
+  "relatedProducts": "Related products",
   "mobileNavTabs": {
     "tab1": "MENU",
     "tab2": "CATEGORIES"

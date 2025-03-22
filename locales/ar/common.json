@@ -504,9 +504,10 @@
       ]
     },
     { "title": "المعرض", "href": "/gallery" },
-    { "title": "اتصل بنا", "href": "/contact" }
+    { "title": "اتصل بنا", "href": "/contact-us" }
   ],
   "home": {
+    "home": "الرئيسية",
     "heroSection": {
       "Slogan1": "الحل الشامل لـ",
       "Slogan2": "جميع احتياجات تنسيق الحدائق الخاصة بك",
@@ -782,6 +783,19 @@
   "washingtonianPalms": "واشنطونيا",
   "plantMedium": "تربة",
   "from": "من",
+  "backToProducts": "العودة إلى المنتجات ",
+  "compare": "مقارنة",
+  "addToWishList": "إضافة الى المفضلة",
+  "relatedsProducts": "منتجات ذات صلة",
+  "additionalInfo": "معلومات إضافية",
+  "reviews": "مراجعات",
+  "clickToEnlarge": "اضغط للتكبير",
+  "facebookShare": "شارك على الفيسبوك",
+  "twitterShare": "شارك على X",
+  "pinterestShare": "نشر على بينترست",
+  "downloadImage": "تحميل صورة",
+  "compared": "مقارنة المنتجات",
+  "addedWishlist": "تصفح المفضلة",
   "mobileNavTabs": {
     "tab1": "الفئات",
     "tab2": "القائمة"
@@ -796,6 +810,7 @@
   "Size" : "مقاس",
   "inStock": "في المخزن",
 "Choose_an_option" :"تحديد أحد الخيارات",
+"relatedProducts": "منتجات ذات صلة",
 "SKU" : "رمز المنتج",
 "N/A" :"غير محدد",
 "Categories" :"الفئات",

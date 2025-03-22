@@ -30,6 +30,16 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { DirectionProvider } from '@radix-ui/react-direction';
 
+export const shareLinks = {
+  whatsapp:
+    "https://api.whatsapp.com/send?text=https%3A%2F%2Fgulfpalms.com%2Fen%2Fproduct%2Fbougainvillea-net%2F",
+  linkedin:
+    "https://www.linkedin.com/shareArticle?mini=true&url=https://gulfpalms.com/en/product/bougainvillea-net/",
+  mail: "mailto:?subject=Check%20this%20https://clone.gulfpalms.com/en/product/sansevieria-green/",
+  facebook:
+    "https://www.facebook.com/sharer/sharer.php?u=https://clone.gulfpalms.com/en/product/sansevieria-green/",
+};
+
 interface ProductDrawerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -80,15 +90,7 @@ export function ProductDrawer({
   };
 
 
-  const shareLinks = {
-    whatsapp:
-      "https://api.whatsapp.com/send?text=https%3A%2F%2Fgulfpalms.com%2Fen%2Fproduct%2Fbougainvillea-net%2F",
-    linkedin:
-      "https://www.linkedin.com/shareArticle?mini=true&url=https://gulfpalms.com/en/product/bougainvillea-net/",
-    mail: "mailto:?subject=Check%20this%20https://clone.gulfpalms.com/en/product/sansevieria-green/",
-    facebook:
-      "https://www.facebook.com/sharer/sharer.php?u=https://clone.gulfpalms.com/en/product/sansevieria-green/",
-  };
+
 
   const Content = (
     <div className="relative">
@@ -269,7 +271,7 @@ export function ProductDrawer({
                   size="icon"
                   className="hover:text-[#fdb777]"
                 >
-                  <WhatsApp className="h-5 w-5" />
+                  <i className="fa-brands fa-whatsapp"></i>
                 </Button>
               </Link>
             </div>

@@ -57,14 +57,12 @@ const AboutUs = () => {
           type: "text",
           heading: about.about.heading,
           headingColor: "text-[#242424]",
-          headingSize: `text-[2.375rem] ${
-            language === "ar" ? "text-right" : ""
-          }`,
+          headingSize: `text-[2.375rem] ${language === "ar" ? "text-right" : ""
+            }`,
           headingWeight: "font-semibold",
           subheading: about.about.title,
-          subheadingSize: `text-[1.0625rem] ${
-            language === "ar" ? "text-right" : ""
-          }`,
+          subheadingSize: `text-[1.0625rem] ${language === "ar" ? "text-right" : ""
+            }`,
           subheadingWeight: "font-semibold",
           bullets: [about.about.summary],
           textSize: "text-[.9375rem]",
@@ -86,7 +84,7 @@ const AboutUs = () => {
                 return (
                   <div key={index} className="flex flex-col gap-2 text-white">
                     <p className="font-semibold">{item.title}</p>
-                    <ul className="ml-5">
+                    <ul className={`${language === "en" ? "ml-5" : "mr-5"}`}>
                       {item.summary.map((point, index) => (
                         <li key={index} className="list-disc">
                           {point}
@@ -99,7 +97,7 @@ const AboutUs = () => {
               return (
                 <div key={index} className="text-white text-base">
                   <p className="">
-                    <span className="font-semibold mr-2">{item.title}:</span>
+                    <span className={`font-semibold ${language === "en" ? "mr-2" : "ml-2"} `}>{item.title}:</span>
                     {item.summary}
                   </p>
                 </div>
