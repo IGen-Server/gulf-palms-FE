@@ -32,7 +32,7 @@ export const AuthService  = {
 
   async GetRecoverPasswordLinkInEmail(emailOrUsername: string, lang: string, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
     try {
-      const response = await axiosInstance.post<any>(ApiRoutes.Auth.RecoverPassword, {
+      const response = await axiosInstance.post<any>(ApiRoutes.Auth.GetRecoveryEmail, {
         emailOrUsername: emailOrUsername,
         lang: lang
       });
