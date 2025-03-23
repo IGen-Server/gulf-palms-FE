@@ -90,6 +90,16 @@ export default function ContactUs() {
     yourMessage: "",
   });
 
+  const resetForm = () => {
+    setContactFormData({
+      yourName: "",
+      yourEmail: "",
+      tel767: "",
+      text1: "",
+      yourMessage: "",
+    });
+  };  
+
   const handleChange = (e: any, name: string) => {
     setContactFormData((prevData) => ({
       ...prevData,
@@ -113,6 +123,7 @@ export default function ContactUs() {
         axiosInstanceWithoutLoader
       );
 
+      resetForm();
       setIsContactSavedSuccess(true);
       setIsContactSaving(false);
     } catch (error) {
