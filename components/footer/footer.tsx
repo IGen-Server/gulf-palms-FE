@@ -26,10 +26,19 @@ const Footer: FC = () => {
       link: string;
     }[]) || [];
 
+  const footerAccordions = [
+    { title: "footer.showrooms.title", items: showrooms },
+    { title: "footer.usefulLinks.title", items: usefulLinks },
+    {
+      title: "footer.productCategories.title",
+      items: productCategories,
+    },
+  ];
+
   return (
-    <footer className="footer bg-primary text-secondary max-sm:h-[1300px] max-md:h-[900px] max-lg:overflow-y-auto max-lg:pt-[100px] lg:fixed">
+    <footer className="footer bg-primary text-secondary max-sm:h-fit max-md:h-[900px] max-lg:overflow-y-auto max-sm:pt-[40px] max-lg:pt-[100px] lg:fixed">
       <div className="relative h-full max-w-[1222px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto pt-8 pb-7">
+        <div className="container mx-auto max-sm:pt-1 pt-8 pb-7">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Logo and Description */}
             <div className="flex flex-col items-start gap-2 footer-info">
@@ -96,14 +105,7 @@ const Footer: FC = () => {
             </div>
 
             {/* Other Sections */}
-            {[
-              { title: "footer.showrooms.title", items: showrooms },
-              { title: "footer.usefulLinks.title", items: usefulLinks },
-              {
-                title: "footer.productCategories.title",
-                items: productCategories,
-              },
-            ].map((section, index) => (
+            {footerAccordions.map((section, index) => (
               <>
                 <div key={index} className="hidden lg:block mt-8 sm:mt-0">
                   <h5 className="text-sm font-bold text-white mb-4">
