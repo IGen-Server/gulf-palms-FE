@@ -1,14 +1,21 @@
 "use client";
+
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
 import GetInTouch from "@/components/common/GetInTouch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useTranslation } from "react-i18next";
+import './contact-us.css';
+import { ContactFormData, ContactService } from "@/services/api/contact.service";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { join } from "path";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/solid";
 
-interface ContactData {
+export interface ContactData {
   sectionName: string;
   title: string;
   description: string;
@@ -74,11 +81,46 @@ const breadcrumbLinks = [
 ];
 
 export default function ContactUs() {
-  const {
-    i18n: { language },
-  } = useTranslation();
+  const { t, i18n: { language } } = useTranslation();
+  const [contactFormData, setContactFormData] = useState<ContactFormData>({
+    yourName: "",
+    yourEmail: "",
+    tel767: "",
+    text1: "",
+    yourMessage: "",
+  });
+
+  const handleChange = (e: any, name: string) => {
+    setContactFormData((prevData) => ({
+      ...prevData,
+      [name]: e.target.value,
+    }));
+  };
 
   const texts = contactsData[language as "en" | "ar"];
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+  
+  const [isContactSaving, setIsContactSaving] = useState(false);
+  const [isContactSavedSuccess, setIsContactSavedSuccess] = useState<boolean | null>(null);
+  
+  async function handleSubmit(e: any) {
+    e.preventDefault();
+    setIsContactSaving(true);
+
+    try {
+      const response = await ContactService.Save(
+        contactFormData,
+        axiosInstanceWithoutLoader
+      );
+
+      setIsContactSavedSuccess(true);
+      setIsContactSaving(false);
+    } catch (error) {
+      console.error(error);
+      setIsContactSavedSuccess(false);
+      setIsContactSaving(false);
+    }
+  }
 
   return (
     <div
@@ -160,7 +202,7 @@ export default function ContactUs() {
               <h2 className="font-arabic text-2xl text-[#242424] font-semibold mt-2 mb-6">
                 {texts.formTitle}
               </h2>
-              <form action="/api/contact" method="POST" className="w-full">
+              <form className="w-full" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                   <div
                     className={`${language === "ar" ? "flex flex-col items-end" : ""
@@ -173,7 +215,10 @@ export default function ContactUs() {
                       type="text"
                       id="name"
                       name="name"
+                      value={contactFormData.yourName}
+                      onChange={(e) => handleChange(e, 'yourName')}
                       className="mt-1 border-black border-opacity-20 w-full"
+                      required
                     />
                   </div>
 
@@ -188,7 +233,10 @@ export default function ContactUs() {
                       type="email"
                       id="email"
                       name="email"
+                      value={contactFormData.yourEmail}
+                      onChange={(e) => handleChange(e, 'yourEmail')}
                       className="mt-1 border-black border-opacity-20"
+                      required
                     />
                   </div>
 
@@ -203,6 +251,8 @@ export default function ContactUs() {
                       type="tel"
                       id="phone"
                       name="phone"
+                      value={contactFormData.tel767}
+                      onChange={(e) => handleChange(e, 'tel767')}
                       className="mt-1 border-black border-opacity-20"
                     />
                   </div>
@@ -218,6 +268,8 @@ export default function ContactUs() {
                       type="text"
                       id="company"
                       name="company"
+                      value={contactFormData.text1}
+                      onChange={(e) => handleChange(e, 'text1')}
                       className="mt-1 border-black border-opacity-20"
                     />
                   </div>
@@ -233,6 +285,8 @@ export default function ContactUs() {
                   <textarea
                     id="message"
                     name="message"
+                    value={contactFormData.yourMessage}
+                    onChange={(e) => handleChange(e, 'yourMessage')}
                     className="mt-1 border-black border-opacity-20 bg-transparent border w-full"
                     rows={6}
                   />
@@ -242,13 +296,32 @@ export default function ContactUs() {
                   className={`mt-6 ${language === "ar" ? "flex justify-self-end self-start" : ""
                     }`}
                 >
-                  <Button
-                    type="submit"
-                    className="w-auto text-[#3e3e3e] hover:bg-[#e0e0e0] bg-[#F3F3F3] font-semibold uppercase"
-                  >
-                    {texts.sendText}
-                  </Button>
+                  <div className="flex flex-row gap-4 items-center">
+                    <Button
+                      type="submit"
+                      className="w-auto text-[#3e3e3e] hover:bg-[#e0e0e0] bg-[#F3F3F3] font-semibold uppercase"
+                    >
+                      {texts.sendText}
+                    </Button>
+                    {isContactSaving && <div className="spinner"></div>}
+
+                  </div>
                 </div>
+
+                {
+                  isContactSavedSuccess &&
+                  <div className="bg-[#459647] text-white w-full px-8 py-4 flex flex-row gap-6 text-[14px] mt-6">
+                    <CheckIcon className="h-6 w-6" />
+                    <span>{t('contactUs.sendMessageSuccess')}</span>
+                  </div>
+                }
+                {
+                  isContactSavedSuccess === false &&
+                  <div className="bg-[#E0B252] text-white w-full px-8 py-4 flex flex-row gap-6 text-[14px] mt-6">
+                    <ExclamationCircleIcon className="h-6 w-6" />
+                    <span>{t('contactUs.sendMessageFailure')}</span>
+                  </div>
+                }
               </form>
             </section>
           </div>

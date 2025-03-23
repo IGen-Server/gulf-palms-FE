@@ -27,6 +27,8 @@ export const ApiRoutes = {
     GetBySlug: 'products/getBySlug',
     Get: 'products',
     GetSuggestedProducts: 'products/suggested',
+    GetFrequentlyBoughtTogether: 'products/frequently-bought-together',
+    GetVariant: 'products/variation',
   },
   ProductCategory: {
     GetById: 'categories/getById',
@@ -36,6 +38,9 @@ export const ApiRoutes = {
     Pay: 'payment/pay',
     PayForExistingOrder: 'payment/pay-existing-order',
   },
+  Contact: {
+    Save: 'contact-us'
+  }
 };
 
 const AxiosInstanceWithInterceptor = axios.create({
