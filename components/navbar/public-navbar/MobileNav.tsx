@@ -113,69 +113,72 @@ function NavItemWithSubmenu({ item, index }: { item: NavItem; index: number }) {
 export default function MobileNav() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [products, setProducts] = React.useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { categories } = useGlobalDataProvider();
   const { i18n, t } = useTranslation();
 
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
 
   const [pageConfig, setPageConfig] = useState({
     search: searchQuery,
-    per_page:30,
+    per_page: 30,
     lang: i18n.language,
   });
 
   const debouncedSearchTerm = useDebounce(searchQuery, 1000);
-  
-    useEffect(() => {
-      if (!debouncedSearchTerm) return;
-  
-      const updatePageConfig = async () => {
-        console.log(debouncedSearchTerm);
-        setPageConfig((prev) => ({
-          ...prev,
-          search: debouncedSearchTerm,
-        }));
-      };
-  
-      updatePageConfig();
-    }, [debouncedSearchTerm]);
-  
-    useEffect(() => {
-      const getProducts = async () => {
-        try {
-          if (pageConfig.search && categories?.find((x) => x.name === pageConfig.search)) {
-            const productsByCategory = await ProductService.Get(
-              {
-                per_page:30,
-                lang: i18n.language,
-                category: pageConfig.search
-              },
-              axiosInstanceWithLoader
-            );
-            setProducts(productsByCategory);
-          } else {
-            const productsBySearchTerm = await ProductService.Get(
-              pageConfig,
-              axiosInstanceWithLoader
-            );
-    
-            setProducts(productsBySearchTerm);
-          }
-          
-        } catch (error) {
-          console.error(error);
+
+  useEffect(() => {
+    if (!debouncedSearchTerm) return;
+
+    const updatePageConfig = async () => {
+      console.log(debouncedSearchTerm);
+      setPageConfig((prev) => ({
+        ...prev,
+        search: debouncedSearchTerm,
+      }));
+    };
+
+    updatePageConfig();
+  }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      setIsLoading(true);
+      try {
+        if (pageConfig.search && categories?.find((x) => x.name === pageConfig.search)) {
+          const productsByCategory = await ProductService.Get(
+            {
+              per_page: 30,
+              lang: i18n.language,
+              category: pageConfig.search
+            },
+            axiosInstanceWithoutLoader
+          );
+          setProducts(productsByCategory);
+        } else {
+          const productsBySearchTerm = await ProductService.Get(
+            pageConfig,
+            axiosInstanceWithoutLoader
+          );
+
+          setProducts(productsBySearchTerm);
         }
-      };
-  
-      if (pageConfig) {
-        if (pageConfig.search){
-          getProducts();
-        } else{
-          setProducts([]);
-        }
+        setIsLoading(false);
+
+      } catch (error) {
+        console.error(error);
       }
-  
-    }, [pageConfig]);
+    };
+
+    if (pageConfig) {
+      if (pageConfig.search) {
+        getProducts();
+      } else {
+        setProducts([]);
+      }
+    }
+
+  }, [pageConfig]);
 
   const mobileCategoryItems = useMobileCategoryItems();
 
@@ -188,23 +191,47 @@ export default function MobileNav() {
     <div className="w-full max-w-md mx-auto bg-background text-sm">
       {/* Search Bar */}
       <div className="relative p-4">
-        <Search
-          className={`absolute ${pageConfig.lang === "en" ? "right-4" : "left-7"
-            } top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground cursor-pointer`}
-        />
+        {isLoading ? (
+          <div className={`absolute ${pageConfig.lang === "en" ? "right-4" : "left-7"} top-1/2 -translate-y-1/2`}>
+            <svg
+              className="animate-spin h-4 w-4 text-muted-foreground"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
+            </svg>
+          </div>
+        ) : (
+          <Search
+            className={`absolute ${pageConfig.lang === "en" ? "right-4" : "left-7"} 
+        top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground cursor-pointer`}
+          />
+        )}
         <Input
           type="search"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder={t('search.placeholder')}
-          className={`w-full ${
-            pageConfig.lang === "en" ? "pr-10" : ""
-          } border-none shadow-none outline-none ring-0`}
+          className={`w-full ${pageConfig.lang === "en" ? "pr-10" : ""
+            } border-none shadow-none outline-none ring-0`}
         />
       </div>
 
       {/* No Items Found Message */}
-      {searchQuery && products.length === 0 && (
+      {!isLoading && products.length === 0 && (
         <div className="items-center px-6 py-3 text-sm font-semibold uppercase">
           No items found!
         </div>

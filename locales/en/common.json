@@ -788,7 +788,8 @@
     "noDescription": "Product description not available",
     "showSidebar": "Show Sidebar",
     "showingResults": "Showing {{ range }} of {{ total }} results",
-    "search": "Search Results for: {{searchTerm}}"
+    "search": "Search Results for: {{searchTerm}}",
+    "noProductsFound": "No products found"
   },
   "washingtonianPalms": "Washingtonian Palms",
   "plantMedium": "Plant Medium",

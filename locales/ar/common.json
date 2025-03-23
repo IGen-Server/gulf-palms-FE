@@ -779,7 +779,8 @@
     "noDescription": "وصف المنتج غير متوفر",
     "showSidebar": "إظهار الشريط الجانبي",
     "showingResults": "عرض {{ range }} من أصل {{ total }} نتيجة",
-    "search": "{searchTerm}: نتائج البحث عن"
+    "search": "{searchTerm}: نتائج البحث عن",
+    "noProductsFound": "لم يتم العثور على منتجات"
   },
   "washingtonianPalms": "واشنطونيا",
   "plantMedium": "تربة",
