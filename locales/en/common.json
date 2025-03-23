@@ -1085,5 +1085,9 @@
   "search": {
     "placeholder": "Search for products",
     "message": "Start typing to see products you are looking for."
+  },
+  "contactUs": {
+    "sendMessageSuccess": "Thank you for your message. It has been sent.",
+    "sendMessageFailure": "One or more fields have an error. Please check and try again."
   }
 }

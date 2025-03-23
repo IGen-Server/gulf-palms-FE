@@ -1076,5 +1076,9 @@
   "search": {
     "placeholder": "البحث عن المنتجات",
     "message": "ابدأ كتابة أسم المنتج لرؤية المنتجات التي تبحث عنها."
+  },
+  "contactUs": {
+    "sendMessageSuccess": "Thank you for your message. It has been sent.",
+    "sendMessageFailure": "One or more fields have an error. Please check and try again."
   }
 }
