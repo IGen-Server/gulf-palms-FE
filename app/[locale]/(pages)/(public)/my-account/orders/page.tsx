@@ -11,10 +11,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import 'dayjs/locale/ar';
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 export default function OrdersPage() {
 
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true, true);
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
 
   // Orders
   const [orderConfig, setOrderConfig] = useState({
@@ -27,7 +29,7 @@ export default function OrdersPage() {
   const getOrders = async () => {
     setOrders(null);
 
-    OrderService.Get(orderConfig, axiosInstanceWithLoader)
+    OrderService.Get(orderConfig, axiosInstanceWithoutLoader)
       .then(response => {
         setOrders(response || []);
       })
@@ -37,7 +39,7 @@ export default function OrdersPage() {
   };
 
   function onOrderCancel(orderId: number) {
-    OrderService.Cancel(orderId, axiosInstanceWithLoader)
+    OrderService.Cancel(orderId, axiosInstanceWithoutLoader)
       .then(response => {
         getOrders();
       })
@@ -56,64 +58,64 @@ export default function OrdersPage() {
       {/* Desktop View */}
       {orders === null && <SkeletonType2 />}
       {
-        orders !== null &&
-        <div className="hidden md:block overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b">
-                <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 uppercase">{t("orders.order")}</th>
-                <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 uppercase">{t("orders.date")}</th>
-                <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 uppercase">{t("orders.status")}</th>
-                {/* <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">DELIVERY DETAILS</th> */}
-                <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 uppercase">{t("orders.total")}</th>
-                <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 pl-[100px] uppercase">{t("orders.actions")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders?.map((order, index) => (
-                <tr className="border-b" key={index}>
-                  <td className="px-4 py-4 text-[14px] font-semibold">#{order.id}</td>
-                  <td className="px-4 py-4 text-black/60 text-[14px]">{dayjs(order?.date_created)
-                    .locale(language === 'ar' ? 'ar' : 'en')
-                    .format("MMMM D, YYYY")}</td>
-                  <td className="px-4 py-4 text-black/60 text-[14px]">{t(`orderStatus.${order.status}`)}</td>
-                  {/* <td className="px-4 py-4 text-black/60 text-[14px]">
+        orders !== null && orders?.length > 0 ?
+          (<div className="hidden md:block overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b">
+                  <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 uppercase">{t("orders.order")}</th>
+                  <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 uppercase">{t("orders.date")}</th>
+                  <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 uppercase">{t("orders.status")}</th>
+                  {/* <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800">DELIVERY DETAILS</th> */}
+                  <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 uppercase">{t("orders.total")}</th>
+                  <th className="px-4 py-2 text-left text-[15px] font-[600] text-gray-800 pl-[100px] uppercase">{t("orders.actions")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders?.map((order, index) => (
+                  <tr className="border-b" key={index}>
+                    <td className="px-4 py-4 text-[14px] font-semibold">#{order.id}</td>
+                    <td className="px-4 py-4 text-black/60 text-[14px]">{dayjs(order?.date_created)
+                      .locale(language === 'ar' ? 'ar' : 'en')
+                      .format("MMMM D, YYYY")}</td>
+                    <td className="px-4 py-4 text-black/60 text-[14px]">{t(`orderStatus.${order.status}`)}</td>
+                    {/* <td className="px-4 py-4 text-black/60 text-[14px]">
                   <div>Delivery Date: February 21, 2025</div>
                   <div>Delivery Time: 02:00 PM - 06:00 PM</div>
                 </td> */}
-                  <td className="px-4 py-4">
-                    <span className="text-[#ff9666]">{order.total} {order.currency_symbol}</span> {t("orders.for")} {getTotalQuantity(order?.line_items) || 0} {t("orders.items")}
-                  </td>
-                  <td className="px-4 py-4 pl-[100px] flex justify-end gap-2">
-                    {/* <span>status: {order.status}</span><br></br>
+                    <td className="px-4 py-4">
+                      <span className="text-[#ff9666]">{order.total} {order.currency_symbol}</span> {t("orders.for")} {getTotalQuantity(order?.line_items) || 0} {t("orders.items")}
+                    </td>
+                    <td className="px-4 py-4 pl-[100px] flex justify-end gap-2">
+                      {/* <span>status: {order.status}</span><br></br>
                     <span>{order.needs_payment ? 'needs_payment' : 'no needs_payment'}</span><br></br>
                     <span>{order.needs_processing ? 'needs_processing' : 'no needs_processing'}</span><br></br> */}
-                    {
-                      (order.status === 'failed' || order.status === 'pending') && getTotalQuantity(order?.line_items) > 0 &&
-                      <Link href={`/checkout/order-pay/${order.id}`}>
-                        <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
-                          {t("orders.pay")}
+                      {
+                        (order.status === 'failed' || order.status === 'pending') && getTotalQuantity(order?.line_items) > 0 &&
+                        <Link href={`/checkout/order-pay/${order.id}`}>
+                          <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
+                            {t("orders.pay")}
+                          </Button>
+                        </Link>
+                      }
+                      {
+                        <Link href={`/my-account/view-order/${order.id}`}>
+                          <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] font-semibold text-xs text-white uppercase mb-2">
+                            {t("orders.view")}
+                          </Button>
+                        </Link>
+                      }
+                      {
+                        // (order.status === 'processing' || order.status === 'pending') && order.is_editable &&
+                        (order.status === 'failed' || order.status === 'pending') && getTotalQuantity(order?.line_items) > 0 &&
+                        <Button onClick={() => onOrderCancel(order.id)} size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
+                          {t("orders.cancel")}
                         </Button>
-                      </Link>
-                    }
-                    {
-                      <Link href={`/my-account/view-order/${order.id}`}>
-                        <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] font-semibold text-xs text-white uppercase mb-2">
-                          {t("orders.view")}
-                        </Button>
-                      </Link>
-                    }
-                    {
-                      // (order.status === 'processing' || order.status === 'pending') && order.is_editable &&
-                      (order.status === 'failed' || order.status === 'pending') && getTotalQuantity(order?.line_items) > 0 &&
-                      <Button onClick={() => onOrderCancel(order.id)} size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
-                        {t("orders.cancel")}
-                      </Button>
-                    }
-                  </td>
-                </tr>
-              ))}
-              {/* <tr className="border-b">
+                      }
+                    </td>
+                  </tr>
+                ))}
+                {/* <tr className="border-b">
               <td className="px-4 py-4 text-[14px]">#27815</td>
               <td className="px-4 py-4 text-black/60 text-[14px]">February 11, 2025</td>
               <td className="px-4 py-4 text-black/60 text-[14px]">Failed</td>
@@ -136,9 +138,19 @@ export default function OrdersPage() {
                 </Button>
               </td>
             </tr> */}
-            </tbody>
-          </table>
-        </div>
+              </tbody>
+            </table>
+          </div>) : (
+            <Alert className="bg-[#E0B252] border-yellow-200">
+              <AlertCircle className="h-4 w-4 !text-white mt-1" />
+              <AlertDescription className="flex items-center gap-2 text-white">
+                {t("orders.noOrder")}
+                <Button variant="link" className="font-semibold text-white uppercase">
+                  {t("orders.browseProducts")}
+                </Button>
+              </AlertDescription>
+            </Alert>
+          )
       }
 
       {/* Mobile View */}

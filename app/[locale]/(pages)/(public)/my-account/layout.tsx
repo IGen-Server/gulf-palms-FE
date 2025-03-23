@@ -47,16 +47,16 @@ function AccountLayoutComponent({ children }: { children: React.ReactElement; })
             <nav className="p-4">
               <h1 className="mb-6 text-[18px] font-[600] pl-2">{t("account.title")}</h1>
               <div className="space-y-2">
-                <NavLink href="/my-account" exact>
+                <NavLink exact href="/my-account">
                   {t("account.dashboard")}
                 </NavLink>
-                <NavLink href="/my-account/orders">{t("account.orders")}</NavLink>
-                <NavLink href="/my-account/downloads">{t("account.downloads")}</NavLink>
-                <NavLink href="/my-account/edit-address">{t("account.addresses")}</NavLink>
-                <NavLink href="/my-account/account-details">
+                <NavLink exact href="/my-account/orders">{t("account.orders")}</NavLink>
+                <NavLink exact href="/my-account/downloads">{t("account.downloads")}</NavLink>
+                <NavLink exact href="/my-account/edit-address">{t("account.addresses")}</NavLink>
+                <NavLink exact href="/my-account/edit-account">
                   {t("account.details")}
                 </NavLink>
-                <NavLink href="">
+                <NavLink exact href="">
                   <span onClick={onLogout}>{t("account.logout")}</span>
                 </NavLink>
               </div>
@@ -98,12 +98,14 @@ function NavLink({
   exact?: boolean;
 }) {
   const pathname = usePathname();
-  const isActive = exact ? pathname === href : pathname?.startsWith(href);
+  const isActive = exact
+    ? pathname === href || pathname === `/en${href}` || pathname === `/ar${href}`
+    : pathname?.includes(href);
 
   return (
     <Link
       href={href}
-      className={`block rounded-none p-2 text-sm font-[600] ${isActive ? "!text-[#242424]" : "!text-[#242424] hover:bg-muted"
+      className={`block rounded-none p-2 text-sm font-[600] ${isActive ? "bg-gray-100 !text-[#242424]" : "!text-[#242424] hover:bg-muted"
         }`}
     >
       {children}

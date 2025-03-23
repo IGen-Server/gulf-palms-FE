@@ -231,7 +231,7 @@ export default function MobileNav() {
       </div>
 
       {/* No Items Found Message */}
-      {!isLoading && products.length === 0 && (
+      {debouncedSearchTerm && !isLoading && products.length === 0 && (
         <div className="items-center px-6 py-3 text-sm font-semibold uppercase">
           No items found!
         </div>
