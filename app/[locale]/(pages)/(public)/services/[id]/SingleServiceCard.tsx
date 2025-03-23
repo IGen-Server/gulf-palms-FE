@@ -160,7 +160,7 @@ const SingleServiceCard = ({ slug }: { slug: string }) => {
                     width={0}
                     height={0}
                     sizes="100vw"
-                    className="w-full h-full object-cover mb-2"
+                    className={`w-full ${service.galleryImages.length < 4 ? `h-[301px]` : "h-full"} object-cover mb-2`}
                   />
                 </div>
               );
