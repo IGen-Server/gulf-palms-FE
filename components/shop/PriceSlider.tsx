@@ -8,9 +8,10 @@ interface PriceSliderProps {
   setPriceSlider: (key: string, value: any) => void;
   minPrice: null | number;
   maxPrice: null | number;
+  onFilter?: () => void;
 }
 
-export default function PriceSlider({ setPriceSlider, minPrice, maxPrice }: PriceSliderProps) {
+export default function PriceSlider({ setPriceSlider, minPrice, maxPrice, onFilter }: PriceSliderProps) {
   const [minValue, set_minValue] = useState(minPrice || 0);
   const [maxValue, set_maxValue] = useState(maxPrice || 2250);
   const { t } = useTranslation("common");
@@ -31,6 +32,7 @@ export default function PriceSlider({ setPriceSlider, minPrice, maxPrice }: Pric
   };
 
   function onClickFilter() {
+    onFilter && onFilter();
     setPriceSlider('min_price', minValue);
     setPriceSlider('max_price', maxValue);
   }

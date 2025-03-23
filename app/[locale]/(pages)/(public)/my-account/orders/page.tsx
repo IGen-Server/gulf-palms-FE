@@ -25,8 +25,10 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<any[] | null>(null);
   const router = useRouter();
   const { t, i18n: { language } } = useTranslation("common");
+  const [isLoading, setIsLoading] = useState(false);
 
   const getOrders = async () => {
+    setIsLoading(true)
     setOrders(null);
 
     OrderService.Get(orderConfig, axiosInstanceWithoutLoader)
@@ -36,6 +38,8 @@ export default function OrdersPage() {
       .catch(error => {
         console.error(error);
       });
+
+    setIsLoading(false)
   };
 
   function onOrderCancel(orderId: number) {
@@ -53,13 +57,30 @@ export default function OrdersPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderConfig]);
 
+  console.log(orders, isLoading);
+
+
   return (
     <div>
       {/* Desktop View */}
-      {orders === null && <SkeletonType2 />}
-      {
-        orders !== null && orders?.length > 0 ?
-          (<div className="hidden md:block overflow-x-auto">
+
+      <div>
+        {/* Desktop View */}
+        {isLoading ? (
+          <SkeletonType2 />
+        ) : orders?.length === 0 ? (
+          <Alert className="bg-[#E0B252] border-yellow-200">
+            <AlertCircle className="h-4 w-4 !text-white mt-1" />
+            <AlertDescription className="flex items-center gap-2 text-white">
+              {t("orders.noOrder")}
+              <Button variant="link" className="font-semibold text-white uppercase">
+                {t("orders.browseProducts")}
+              </Button>
+            </AlertDescription>
+          </Alert>
+        ) : orders && orders?.length > 0 ? (
+          <div className="hidden md:block overflow-x-auto">
+
             <table className="w-full">
               <thead>
                 <tr className="border-b">
@@ -140,67 +161,60 @@ export default function OrdersPage() {
             </tr> */}
               </tbody>
             </table>
-          </div>) : (
-            <Alert className="bg-[#E0B252] border-yellow-200">
-              <AlertCircle className="h-4 w-4 !text-white mt-1" />
-              <AlertDescription className="flex items-center gap-2 text-white">
-                {t("orders.noOrder")}
-                <Button variant="link" className="font-semibold text-white uppercase">
-                  {t("orders.browseProducts")}
-                </Button>
-              </AlertDescription>
-            </Alert>
-          )
-      }
+          </div>
+        ) : null}
+      </div>
 
       {/* Mobile View */}
-      <div className="">
-        {orders?.map((order, index) => (
-          <div key={order.id} className="md:hidden space-y-4 pb-4">
-            <div className="flex justify-between items-center text-[12.5px]">
-              <span className="text-gray-800">{t("orders.date")}</span>
-              <span>{dayjs(order?.date_created)
-                .locale(language === 'ar' ? 'ar' : 'en')
-                .format("MMMM D, YYYY")}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-800 text-[12.5px] ">{t("orders.status")}</span>
-              <span className="text-[12.5px]">{t(`orderStatus.${order.status}`)}</span>
-            </div>
+      {!isLoading && orders && orders?.length > 0 && (
+        <div className="">
+          {orders?.map((order, index) => (
+            <div key={order.id} className="md:hidden space-y-4 pb-4">
+              <div className="flex justify-between items-center text-[12.5px]">
+                <span className="text-gray-800">{t("orders.date")}</span>
+                <span>{dayjs(order?.date_created)
+                  .locale(language === 'ar' ? 'ar' : 'en')
+                  .format("MMMM D, YYYY")}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-800 text-[12.5px] ">{t("orders.status")}</span>
+                <span className="text-[12.5px]">{t(`orderStatus.${order.status}`)}</span>
+              </div>
 
-            <div className="flex justify-between items-center text-[14px]">
-              <span className="text-gray-800 text-[12.5px] ">{t("orders.total")}</span>
-              <span>
-                <span className="text-[#ff9666]">{order.total} {order.currency_symbol}</span> {t("orders.for")} {getTotalQuantity(order?.line_items) || 0} {t("orders.items")}
-              </span>
-            </div>
-            <div className="flex justify-between items-start pb-3">
-              <span className="text-gray-800 text-[12.5px] ">{t("orders.actions")}</span>
-              <div className="text-right">
-                <div className="flex justify-end gap-2">
-                  <Link href={`/checkout/order-pay/${order.id}`}>
-                    <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
-                      {t("orders.pay")}
+              <div className="flex justify-between items-center text-[14px]">
+                <span className="text-gray-800 text-[12.5px] ">{t("orders.total")}</span>
+                <span>
+                  <span className="text-[#ff9666]">{order.total} {order.currency_symbol}</span> {t("orders.for")} {getTotalQuantity(order?.line_items) || 0} {t("orders.items")}
+                </span>
+              </div>
+              <div className="flex justify-between items-start pb-3">
+                <span className="text-gray-800 text-[12.5px] ">{t("orders.actions")}</span>
+                <div className="text-right">
+                  <div className="flex justify-end gap-2">
+                    <Link href={`/checkout/order-pay/${order.id}`}>
+                      <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
+                        {t("orders.pay")}
+                      </Button>
+                    </Link>
+                    <Link href={`/my-account/view-order/${order.id}`}>
+                      <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
+                        {t("orders.view")}
+                      </Button>
+                    </Link>
+                    <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase" onClick={() => onOrderCancel(order.id)}>
+                      {t("orders.cancel")}
                     </Button>
-                  </Link>
-                  <Link href={`/my-account/view-order/${order.id}`}>
-                    <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
-                      {t("orders.view")}
-                    </Button>
-                  </Link>
-                  <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase" onClick={() => onOrderCancel(order.id)}>
-                    {t("orders.cancel")}
-                  </Button>
+                  </div>
                 </div>
               </div>
+              <div className="w-full h-[1px] bg-lightGray opacity-30" />
             </div>
-            <div className="w-full h-[1px] bg-lightGray opacity-30" />
-          </div>
-        ))}
-      </div>
-      <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white uppercase">
+          ))}
+        </div>
+      )}
+      {orders && orders?.length > 9 && <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] mt-7 text-white uppercase">
         {t("orders.next")}
-      </Button>
+      </Button>}
     </div>
   )
 }

@@ -99,6 +99,7 @@ function ShopContent() {
     }));
   };
 
+
   // stop fetching more products
   useEffect(() => {
     hasProducts.current = true;
@@ -130,6 +131,8 @@ function ShopContent() {
   }, []);
 
   useEffect(() => {
+    setProducts([]);
+
     const getProducts = async () => {
 
       if (!isResolved || !categories) {
@@ -250,7 +253,7 @@ function ShopContent() {
                       <p className="font-semibold text-sm text-lightGray">{i18n.language === "en" ? "Close" : "يغلق"}</p>
                     </div>
                   </SheetClose>
-                  <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} />
+                  <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setProducts([])} />
                   <Suspense fallback={<div>Loading...</div>}>
                     <ProductCategories />
                   </Suspense>
@@ -293,7 +296,7 @@ function ShopContent() {
         <div className="max-w-content mx-auto">
           <div className="flex flex-col items-center pb-[100px] pt-[50px]">
             <h1 className="text-[36px] lg:text-[4.25rem] font-bold text-[#242424] leading-[5.125rem] font-serif capitalize">
-              {searchTerm ? t("shop.search", { searchTerm: searchTerm}) : t("shop.title")}
+              {searchTerm ? t("shop.search", { searchTerm: searchTerm }) : t("shop.title")}
             </h1>
             <div className="lg:hidden w-full mx-auto min-h-10 px-6 text-center">
               <p
@@ -321,7 +324,7 @@ function ShopContent() {
           </div>
           <div className="flex items-start gap-3">
             <div className="w-[276px] px-[15px] divide-y-2 hidden lg:block">
-              <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} />
+              <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setProducts([])} />
               <Suspense fallback={<div>Loading...</div>}>
                 <ProductCategories />
               </Suspense>
@@ -409,7 +412,7 @@ function ShopContent() {
                   </div>
                   <div className="max-lg:hidden">
                     <Suspense fallback={<div>Loading...</div>}>
-                      <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} />
+                      <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} onSortingChange={() => setProducts([])} />
                     </Suspense>
                   </div>
                 </div>
@@ -441,7 +444,7 @@ function ShopContent() {
                               <p className="font-semibold text-sm text-lightGray">{i18n.language === "en" ? "Close" : "يغلق"}</p>
                             </div>
                           </SheetClose>
-                          <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} />
+                          <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setProducts([])} />
                           <Suspense fallback={<div>Loading...</div>}>
                             <ProductCategories />
                           </Suspense>
@@ -482,7 +485,7 @@ function ShopContent() {
                   </DirectionProvider>
                 </div>
                 <Suspense fallback={<div>Loading...</div>}>
-                  <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} />
+                  <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} onSortingChange={() => setProducts([])} />
                 </Suspense>
               </div>
               <div className="flex flex-col justify-center px-4 pt-7">

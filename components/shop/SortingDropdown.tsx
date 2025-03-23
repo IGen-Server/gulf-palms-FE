@@ -24,12 +24,12 @@ export const ProductSortValues = [
 interface SortingDropdownProps {
   setSorting: (key: string, value: any) => void;
   setSortingDir: (key: string, value: any) => void;
-
+  onSortingChange?: () => void;
 }
 
 
 
-export function SortingDropdown({ setSorting, setSortingDir }: SortingDropdownProps) {
+export function SortingDropdown({ setSorting, setSortingDir, onSortingChange }: SortingDropdownProps) {
   const router = useRouter();
   const { t, i18n: { language } } = useTranslation();
 
@@ -57,17 +57,17 @@ export function SortingDropdown({ setSorting, setSortingDir }: SortingDropdownPr
     // params.set("orderby", value); // Update the "orderby" parameter
     // params.set("paged", "1"); // Reset the pagination to page 1
     // router.push(`/shop?${params.toString()}`); // Navigate to the updated URL
-    setCurrentOrderby(value)
+    setCurrentOrderby(value);
+    onSortingChange && onSortingChange();
+
 
     if (value === "price-desc") {
       setSorting('orderby', "price");
       setSorting('order', "desc");
-      return;
+    } else {
+      setSorting('orderby', value);
+      setSorting('order', "asc");
     }
-
-
-    setSorting('orderby', value);
-    setSorting('order', "asc");
 
   };
 

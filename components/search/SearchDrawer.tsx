@@ -149,15 +149,19 @@ export default function SearchDrawer() {
           products.map((product, index) => (
             products.map((product, index) => (
               <div key={index} className="group cursor-pointer w-[180px] h-[280px] flex flex-col items-start justify-start overflow-hidden">
-                <Image
-                  src={product.images[0]?.src || "/placeholder.svg"}
-                  alt={product.name}
-                  width={180}
-                  height={180}
-                  className="object-cover w-[180px] h-[180px] group-hover:scale-105 transition-transform duration-300 mb-2"
-                />
-                <h3 className="font-medium text-sm">{product?.name}</h3>
-                <p className="text-primary">{product?.price} Kd</p>
+                <Link href={`/product/${product.slug}`}>
+                  <Image
+                    src={product.images[0]?.src || "/placeholder.svg"}
+                    alt={product.name}
+                    width={180}
+                    height={180}
+                    className="object-cover w-[180px] h-[180px] group-hover:scale-105 transition-transform duration-300 mb-2"
+                  />
+                </Link>
+                <Link href={`/product/${product.slug}`}>
+                  <h3 className="font-medium text-sm">{product?.name}</h3>
+                </Link>
+                <p className="text-primary">{product?.price} KD</p>
               </div>
             ))
           ))
