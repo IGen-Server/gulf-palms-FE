@@ -533,12 +533,12 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
       </div>
 
       <div className="hidden lg:flex flex-col gap-7 mt-7 lg:mt-16">
-        {product?.table_tabs_expanded && product.table_tabs_expanded.length > 0 && (
+        {product?.table_tabs_expanded && product?.table_tabs_expanded?.length > 0 && (
           <DirectionProvider dir={language === "en" ? "ltr" : "rtl"}>
             <Tabs defaultValue={product.table_tabs_expanded[0].title} className="w-full">
               <TabsList className="w-full max-lg:justify-start border-t rounded-none h-auto p-0 bg-transparent">
                 <div className="flex flex-col lg:flex-row max-lg:items-start gap-8">
-                  {product.table_tabs_expanded.map((item: any) => (
+                  {product?.table_tabs_expanded?.map((item: any) => (
                     <TabsTrigger
                       key={item.title}
                       value={item.title}
@@ -550,7 +550,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
                 </div>
               </TabsList>
 
-              {product?.table_tabs_expanded.map((item: any) => (
+              {product?.table_tabs_expanded?.map((item: any) => (
                 <TabsContent
                   key={item.title}
                   value={item.title}
@@ -568,7 +568,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
 
       <div className="lg:hidden">
         <Accordion type="single" collapsible className="w-full">
-          {product?.table_tabs_expanded.map((item: any) => (
+          {product?.table_tabs_expanded?.map((item: any) => (
             <AccordionItem key={item.title} value={item.title}>
               <AccordionTrigger className="text-lg font-semibold text-[#333] hover:no-underline">
                 {item.title}
