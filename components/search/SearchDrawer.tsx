@@ -130,38 +130,39 @@ export default function SearchDrawer() {
       </div>
 
       {/* {searchQuery && products.length === 0 && <div className="text-left mt-5 font-bold text-xl">No items found !</div>} */}
-
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols- gap-6 h-[calc(100vh-300px)] overflow-y-auto w-full overflow-x-hidden  px-4">
-
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols- gap-6 h-[calc(100vh-300px)] overflow-y-auto w-full overflow-x-hidden px-4">
         {isLoading ? (
           // Skeleton loader grid
           Array.from({ length: 10 }).map((_, index) => (
             <div key={index} className="w-[180px] h-[280px] flex flex-col items-start justify-start gap-2">
-              <Skeleton className="w-[180px] h-[180px] bg-gray-300" />
-              <Skeleton className="w-3/4 h-4 bg-gray-300" />
-              <Skeleton className="w-1/2 h-4 bg-gray-300" />
+              <Skeleton className="w-[180px] h-[180px] bg-gray-200" />
+              <Skeleton className="w-3/4 h-4 bg-gray-200" />
+              <Skeleton className="w-1/2 h-4 bg-gray-200" />
             </div>
           ))
-        ) : !products.length ? (
+        ) : debouncedSearchTerm && !isLoading && !products.length ? ( // Only show no results message if there's a search query
           <p className="col-span-5 text-left lg:text-center pl-4 xl:pl-0 text-muted-foreground">
             {t('shop.noProductsFound')}
           </p>
-        ) : (
+        ) : products.length > 0 ? (
           // Actual products grid
           products.map((product, index) => (
-            <div key={index} className="group cursor-pointer w-[180px] h-[280px] flex flex-col items-start justify-start overflow-hidden">
-              <Image
-                src={product.images[0]?.src || "/placeholder.svg"}
-                alt={product.name}
-                width={180}
-                height={180}
-                className="object-cover w-[180px] h-[180px] group-hover:scale-105 transition-transform duration-300 mb-2"
-              />
-              <h3 className="font-medium text-sm">{product?.name}</h3>
-              <p className="text-primary">{product?.price} Kd</p>
-            </div>
+            products.map((product, index) => (
+              <div key={index} className="group cursor-pointer w-[180px] h-[280px] flex flex-col items-start justify-start overflow-hidden">
+                <Image
+                  src={product.images[0]?.src || "/placeholder.svg"}
+                  alt={product.name}
+                  width={180}
+                  height={180}
+                  className="object-cover w-[180px] h-[180px] group-hover:scale-105 transition-transform duration-300 mb-2"
+                />
+                <h3 className="font-medium text-sm">{product?.name}</h3>
+                <p className="text-primary">{product?.price} Kd</p>
+              </div>
+            ))
           ))
-        )}
+        ) : null
+        }
       </div>
       {searchQuery && products.length && <Link onClick={() => { setIsSearchDrawerOpen(false) }} href={`/shop/?s=${searchQuery}&post_type=product`} className="w-screen overflow-hidden py-3 cursor-pointer border-t hover:bg-gray-100 font-semibold text-center">
         VIEW ALL RESULTS

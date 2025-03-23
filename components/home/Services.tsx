@@ -14,7 +14,7 @@ interface Service {
   link: string;
 }
 
-export default function Services() {
+export default function Services({ removedService }: { removedService?: string }) {
   const { t, i18n: { language } } = useTranslation();
 
   const servicesCarouselData = t("servicesCarouselData", { returnObjects: true }) as Service[] || [];
@@ -48,9 +48,12 @@ export default function Services() {
     </div>
   );
 
-  const slidesData = servicesCarouselData?.map((service) => ({
-    component: createSlide(service),
-  }));
+  const slidesData = servicesCarouselData?.map((service) => {
+    if (service.id === removedService) return;
+    return ({
+      component: createSlide(service),
+    })
+  }).filter((slide): slide is { component: JSX.Element } => slide !== undefined);
 
   return (
     <div className="container mx-auto px-4 max-w-[1458px]">

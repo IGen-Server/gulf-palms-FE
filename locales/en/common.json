@@ -33,7 +33,9 @@
     "for": "for",
     "items": "items",
     "march": "March",
-    "february": "February"
+    "february": "February",
+    "noOrder": "No order has been made yet.",
+    "browseProducts": "Browse products"
   },
   "downloads": {
     "title1": "No downloads available yet.",
@@ -71,7 +73,10 @@
     "registerButton": "Register",
     "registerText": "Registering for this site allows you to access your order status and history. Just fill in the fields below, and we'll get a new account set up for you in no time. We will only ask you for information necessary to make the purchase process faster and easier.",
     "privacyText": "Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our",
-    "privacy": "privacy policy"
+    "privacy": "privacy policy",
+    "noAccountYet": "No account yet ?",
+    "createAnAccount": "CREATE AN ACCOUNT",
+    "close": "Close"
   },
   "orderStatus": {
     "pending": "Pending Payment",
@@ -723,7 +728,7 @@
       "link": "services/consultation/"
     },
     {
-      "id": "palm-maintenance",
+      "id": "palms-maintenance",
       "subtitle": "Gulf Palm Services",
       "title": "PALM MAINTENANCE",
       "content": "Gulf Palms provides the best services in supply, planting, transplanting, growing, and production of date palms. We have the best experts in disease control, pest management, fertilization, and watering requirements of date palms.",
@@ -814,12 +819,12 @@
   },
   "Shop": "SHOP",
   "my_account": [
-    { "title": "Dashboard", "href": "/my-account/" },
-    { "title": "Orders", "href": "/my-account/orders/" },
-    { "title": "Address", "href": "/my-account/downloads/" },
-    { "title": "Downloads", "href": "/my-account/edit-address/" },
-    { "title": "Account", "href": "/my-account/edit-account/" },
-    { "title": "Logout", "href": "/my-account" }
+    { "title": "Dashboard", "href": "/en/my-account" },
+    { "title": "Orders", "href": "/en/my-account/orders" },
+    { "title": "Address", "href": "/en/my-account/downloads" },
+    { "title": "Downloads", "href": "/en/my-account/edit-address" },
+    { "title": "Account details", "href": "/en/my-account/edit-account" },
+    { "title": "Logout", "href": "/en/my-account" }
   ],
   "ReadMore": "Read More",
   "SelectOptions":"Select Options",

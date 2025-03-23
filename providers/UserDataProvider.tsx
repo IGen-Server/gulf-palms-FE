@@ -18,13 +18,13 @@ interface UserDataProviderProps {
 const UserDataContext = createContext<UserDataProviderProps | undefined>(undefined);
 
 export function UserDataProvider({ children }: { children: React.ReactNode }) {
-  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true);
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
   const [user, setUser] = useState<UserProfileModel | null | undefined>(undefined);
   const [userSettings, setUserSettings] = useState<UserAsCustomer | null>(null);
 
   useEffect(() => {
     const getProfile = async () => {
-      UserService.GetFullProfile(axiosInstanceWithLoader)
+      UserService.GetFullProfile(axiosInstanceWithoutLoader)
         .then(response => {
           console.log(response);
           setUser(response);

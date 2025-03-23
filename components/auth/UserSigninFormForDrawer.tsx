@@ -11,11 +11,13 @@ import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.
 import { AuthService } from "@/services/api/auth.service"
 import { CookieStorageService } from "@/services/utility/storage.service"
 import { useGlobalDataProvider } from "@/providers/GlobalDataProvider"
+import { useTranslation } from "react-i18next"
 
 export default function UserSigninFormForDrawer() {
+  const { t, i18n: { language } } = useTranslation("common");
 
   const { setIsTokenExpired } = useGlobalDataProvider();
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const [email, setEmail] = useState("");
@@ -44,7 +46,7 @@ export default function UserSigninFormForDrawer() {
     <form className="grid gap-8 px-[20px]" onSubmit={handleAuth}>
       <div className="grid gap-3">
         <Label htmlFor="email">
-          Username or email address{" "}
+          {t("auth.usernameOrEmail")}{" "}
           <span className="text-red-500">*</span>
         </Label>
         <Input
@@ -59,7 +61,7 @@ export default function UserSigninFormForDrawer() {
 
       <div className="grid gap-2">
         <Label htmlFor="password">
-          Password <span className="text-red-500">*</span>
+          {t("auth.password")} <span className="text-red-500">*</span>
         </Label>
         <div className="relative">
           <Input
@@ -74,7 +76,7 @@ export default function UserSigninFormForDrawer() {
             type="button"
             variant="ghost"
             size="icon"
-            className="absolute right-2 top-1/2 -translate-y-1/2"
+            className={`absolute ${language === "en" ? "right-2" : "left-2"} top-1/2 -translate-y-1/2`}
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
@@ -90,18 +92,18 @@ export default function UserSigninFormForDrawer() {
         type="submit"
         className="w-full px-[20px] py-[5px] bg-primary hover:bg-[#E59B62] text-white border-b-2 border-[#e68b46]"
       >
-        LOG IN
+        {t("auth.loginButton")}
       </Button>
 
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2">
           <Checkbox id="remember" />
           <label htmlFor="remember" className="text-sm text-gray-600">
-            Remember me
+            {t("auth.remember")}
           </label>
         </div>
         <Link href="/my-account/lost-password/" className="text-sm text-primary hover:text-[#FFA755]">
-          Lost your password?
+          {t("auth.reset")}
         </Link>
       </div>
     </form>
@@ -110,12 +112,12 @@ export default function UserSigninFormForDrawer() {
       <div className="h-[54px] w-full text-gray-400 grid place-content-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-user-round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
       </div>
-      <p className="text-sm font-bold text-gray-800">No account yet?</p>
+      <p className="text-sm font-bold text-gray-800">{t("auth.noAccountYet")}</p>
       <Link
         href="/my-account"
         className="inline-block text-gray-800 hover:text-gray-500 !text-[13px] border-b-2 border-primary"
       >
-        CREATE AN ACCOUNT
+        {t("auth.createAnAccount")}
       </Link>
     </div>
   </>)

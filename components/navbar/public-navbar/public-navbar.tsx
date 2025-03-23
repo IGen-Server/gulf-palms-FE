@@ -166,7 +166,7 @@ export default function PublicNavbar() {
                 >
                   <Menu className="h-5 w-5 text-white" />
                   <span className="text-[13px] font-bold text-secondary">
-                    {i18n.language === "en" ? "MENU" : "القائمة"}
+                    {currentLanguage === "en" ? "MENU" : "القائمة"}
                   </span>
                 </Button>
               </SheetTrigger>
@@ -215,7 +215,7 @@ export default function PublicNavbar() {
                   href={ClientRoutes.User.MyAccountDashboard}
                   className="hidden lg:flex text-white hover:text-gray-200 transition-colors items-center gap-1 !text-[13px] font-semibold font-sans uppercase w-[140px]"
                 >
-                  My Account
+                  {t("account.title")}
                   <ChevronDown className="w-3 text-secondary opacity-90" />
                 </Link>
               </HoverCardTrigger>
@@ -238,12 +238,13 @@ export default function PublicNavbar() {
           )}
           {isTokenExpired && (
             <SideDrawer
-              title={"Sign in"}
+              side={currentLanguage === "en" ? "right" : "left"}
+              title={t("auth.loginButton")}
               triggerComponent={
                 <Button
                   asChild
                   variant="ghost"
-                  className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
+                  className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn hover:text-white/70"
                 >
                   <p className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
                     {currentLanguage === "en"
@@ -266,7 +267,7 @@ export default function PublicNavbar() {
               triggerComponent={
                 <Button
                   variant="ghost"
-                  className="hover:bg-transparent w-fit p-0 flex items-center text-white"
+                  className="hover:bg-transparent w-fit p-0 flex items-center text-white hover:text-white/70"
                 >
                   <div className="relative cursor-pointer">
                     <ShoppingCart className="w-5 h-5" />
@@ -279,10 +280,10 @@ export default function PublicNavbar() {
               bodyComponent={<CartDrawer />}
             />
 
-            <div className="hidden lg:block">
+            <div className="hidden lg:block hover:text-white/70">
               <HeartIcon className="w-5 h-5" />
             </div>
-            <div className="hidden lg:block">
+            <div className="hidden lg:block hover:text-white/70">
               <SideDrawerForSearch
                 title={""}
                 side="bottom"
@@ -295,7 +296,7 @@ export default function PublicNavbar() {
           </div>
           {/* Right Actions */}
           <div className="ml-auto hidden lg:flex items-center gap-4 min-w-fit ">
-            <p className="!text-[13px] font-semibold text-secondary">
+            <p className="!text-[13px] font-semibold text-secondary hover:opacity-90">
               {subtotal.toFixed(2)} KD
             </p>
             <LocaleToggler />

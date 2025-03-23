@@ -37,7 +37,7 @@ function DashboardContent() {
   const isPasswordResetTokenUsed = (token: string): boolean => {
     const usedTokens = JSON.parse(localStorage.getItem("usedPasswordResetTokens") || "[]");
     return usedTokens.includes(token);
-  };  
+  };
 
   const saveUsedPasswordResetToken = (token: string) => {
     const usedTokens = JSON.parse(localStorage.getItem("usedPasswordResetTokens") || "[]");
@@ -45,7 +45,7 @@ function DashboardContent() {
       usedTokens.push(token);
       localStorage.setItem("usedPasswordResetTokens", JSON.stringify(usedTokens));
     }
-  };  
+  };
 
   return (
     <main className="flex-1 p-6">
@@ -90,38 +90,38 @@ function DashboardContent() {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <Link
           href="/my-account/orders"
-          className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted"
+          className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted group"
         >
-          <FileText className="mb-4 h-12 w-12 text-[#a7a7a7] hover:text-primary" />
+          <FileText className="mb-4 h-12 w-12 text-[#a7a7a7] group-hover:text-primary" />
           <h2 className="text-sm text-[#555555] font-[600]">{t("account.orders")}</h2>
         </Link>
         <Link
           href="/my-account/downloads"
-          className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted"
+          className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted group"
         >
-          <Download className="mb-4 h-12 w-12 text-[#a7a7a7] hover:text-primary" />
+          <Download className="mb-4 h-12 w-12 text-[#a7a7a7] group-hover:text-primary" />
           <h2 className="text-sm text-[#555555] font-[600]">{t("account.downloads")}</h2>
         </Link>
         <Link
           href="/my-account/edit-address"
-          className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted"
+          className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted group"
         >
-          <MapPin className="mb-4 h-12 w-12 text-[#a7a7a7] hover:text-primary" />
+          <MapPin className="mb-4 h-12 w-12 text-[#a7a7a7] group-hover:text-primary" />
           <h2 className="text-sm text-[#555555] font-[600]">{t("account.addresses")}</h2>
         </Link>
         <Link
           href="/my-account/edit-account"
-          className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted"
+          className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted group"
         >
-          <User className="mb-4 h-12 w-12 text-[#a7a7a7] hover:text-primary" />
+          <User className="mb-4 h-12 w-12 text-[#a7a7a7] group-hover:text-primary" />
           <h2 className="text-sm text-[#555555] font-[600]">{t("account.details")}</h2>
         </Link>
         <Link
           href=""
           onClick={onLogout}
-          className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted"
+          className="flex flex-col items-center justify-center rounded-lg border p-8 text-center hover:bg-muted group"
         >
-          <LogOut className="mb-4 h-12 w-12 text-[#a7a7a7] hover:text-primary" />
+          <LogOut className="mb-4 h-12 w-12 text-[#a7a7a7] group-hover:text-primary" />
           <h2 className="text-sm text-[#555555] font-[600]">{t("account.logout")}</h2>
         </Link>
       </div>
