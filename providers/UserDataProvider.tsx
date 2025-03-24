@@ -18,7 +18,7 @@ interface UserDataProviderProps {
 const UserDataContext = createContext<UserDataProviderProps | undefined>(undefined);
 
 export function UserDataProvider({ children }: { children: React.ReactNode }) {
-  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(true);
   const [user, setUser] = useState<UserProfileModel | null | undefined>(undefined);
   const [userSettings, setUserSettings] = useState<UserAsCustomer | null>(null);
 

@@ -19,6 +19,7 @@ import {
   Mail,
   Linkedin,
   PhoneIcon as WhatsApp,
+  X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
@@ -62,19 +63,42 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
   const [checkedOptions, setCheckedOptions] = useState({
     compare: false,
     wishlist: false,
-  })
+  });
+  const [selectedVariant, setSelectedVariant] = useState("");
+
+  const variationData = product?.variationsData?.find((variation: any) => variation.id === selectedVariant);
+
+  const allImages = [
+    ...(product?.images || []),
+    ...(product?.variationsData?.map((variation: any) => variation.image).filter(Boolean) || [])
+  ].filter(Boolean);
+
+  console.log(allImages);
+
+  useEffect(() => {
+    if (selectedVariant) {
+      const imageIndex = allImages?.findIndex((image) => image.id === variationData.image.id);
+      setCurrentImageIndex(imageIndex);
+      setSelectedImage(variationData?.image.src);
+    } else {
+      setCurrentImageIndex(0);
+      setSelectedImage(allImages[0]?.src);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedVariant]);
 
   // Add these functions to handle navigation
   const handlePrevClick = () => {
     setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : prev));
-    setSelectedImage(product?.images[currentImageIndex - 1]?.src);
+    setSelectedImage(allImages[currentImageIndex - 1]?.src);
   };
 
   const handleNextClick = () => {
     setCurrentImageIndex((prev) =>
-      (prev < (product?.images?.length || 0) - 1 ? prev + 1 : prev)
+      (prev < (allImages?.length || 0) - 1 ? prev + 1 : prev)
     );
-    setSelectedImage(product?.images[currentImageIndex + 1]?.src);
+    setSelectedImage(allImages[currentImageIndex + 1]?.src);
   };
 
   useEffect(() => {
@@ -96,6 +120,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
       price: Number(product.price),
       quantity: quantity,
       image: product?.images?.[0]?.src,
+      // variationId: ""
     });
   };
 
@@ -164,7 +189,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
                   className="flex flex-col gap-4 absolute transition-transform duration-300 ease-in-out w-full"
                   style={{ transform: `translateY(-${currentImageIndex * 146}px)` }}
                 >
-                  {product?.images?.map((image: any, index: number) => (
+                  {allImages?.map((image: any, index: number) => (
                     <div
                       key={image.src}
                       className={`border rounded overflow-hidden cursor-pointer transition-all duration-300 shrink-0 w-[122px] h-[122px] ${selectedImage === image.src ? 'border-primary' : 'border-gray-200'
@@ -192,7 +217,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
                 </button>
                 <button
                   onClick={handleNextClick}
-                  disabled={currentImageIndex >= (product?.images?.length || 0) - 3}
+                  disabled={currentImageIndex >= (allImages?.length || 0) - 3}
                   className={`flex-1 flex justify-center bg-lightGray/30 py-1 disabled:opacity-50`}
                 >
                   <ChevronDown size={20} />
@@ -272,17 +297,20 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
                     className="flex transition-transform duration-300 ease-in-out"
                     style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
                   >
-                    {product?.images?.map((image: any) => (
-                      <div key={image.src} className="w-full flex-shrink-0">
-                        <InnerImageZoom
-                          src={image.src}
-                          zoomSrc={image.src}
-                          zoomType="hover"
-                          hideHint
-                          className="max-w-full h-[450px] object-cover"
-                        />
-                      </div>
-                    ))}
+                    {allImages?.map((image: any) => {
+
+                      return (
+                        <div key={image.src} className="w-full flex-shrink-0">
+                          <InnerImageZoom
+                            src={image.src}
+                            zoomSrc={image.src}
+                            zoomType="hover"
+                            hideHint
+                            className="max-w-full h-[450px] object-cover"
+                          />
+                        </div>
+                      )
+                    })}
                   </div>
 
                   {/* Navigation Buttons */}
@@ -296,8 +324,8 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
                   </button>
                   <button
                     onClick={handleNextClick}
-                    disabled={currentImageIndex >= (product?.images?.length || 0) - 1}
-                    className={`hidden group-hover:block absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 rounded-full shadow-md transition-opacity ${currentImageIndex >= (product?.images?.length || 0) - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white'
+                    disabled={currentImageIndex >= (allImages?.length || 0) - 1}
+                    className={`hidden group-hover:block absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 rounded-full shadow-md transition-opacity ${currentImageIndex >= (allImages?.length || 0) - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white'
                       }`}
                   >
                     <ChevronRight size={20} />
@@ -377,24 +405,33 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
             dangerouslySetInnerHTML={{ __html: product?.price_html ?? '' }}
           />
 
+          <div
+            className="text-muted-foreground"
+            dangerouslySetInnerHTML={{ __html: product?.short_description ?? '' }}
+          />
+
           {
-            product && product.attributes[0] && product.attributes[0].visible && product.attributes[0].variation &&
+            product && product.variationsData.length > 0 && product.attributes[0].visible && product.attributes[0].variation &&
             <div className="flex items-center gap-2">
               <label className="text-sm font-semibold text-gray-700">{product?.attributes[0]?.name}:</label>
               <DirectionProvider dir={language === "en" ? "ltr" : "rtl"}>
-                <Select>
+                <Select value={selectedVariant} onValueChange={setSelectedVariant}>
                   <SelectTrigger className="bg-white border-gray-300 w-[290px]">
                     <SelectValue placeholder={t("Choose_an_option")} />
                   </SelectTrigger>
                   <SelectContent>
-                    {product?.attributes[0]?.options?.map((option: string) => (
-                      <SelectItem key={option} value={option}>
-                        {option}&nbsp;
+                    {product?.variationsData.map((variation: any) => (
+                      <SelectItem key={variation.id} value={variation.id}>
+                        {variation.name}&nbsp;
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </DirectionProvider>
+              {selectedVariant && <div className={`flex items-center gap-1 text-lightGray  hover:text-[#242424] cursor-pointer`} onClick={() => setSelectedVariant("")}>
+                <X size={12} strokeWidth={1.5} />
+                <p className="">{language === "en" ? "Clear" : "إزالة"}</p>
+              </div>}
             </div>
           }
 
@@ -405,9 +442,15 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
           </p> */}
 
           <div
-            className="text-muted-foreground"
-            dangerouslySetInnerHTML={{ __html: product?.short_description ?? '' }}
-          />
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${selectedVariant ? "max-h-[100px] opacity-100" : "max-h-0 opacity-0"
+              }`}
+          >
+            <p className={`w-max font-semibold text-[1.0625rem] text-primary py-2 ${language === "ar" ? "flex flex-row-reverse justify-end" : ""
+              }`}>
+              <span>{variationData?.price}</span>
+              <span className="mx-1">KD</span>
+            </p>
+          </div>
 
           {/* Quantity Selector */}
           <div className="flex gap-2">
@@ -467,7 +510,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
           <div className="w-full h-[1px] bg-lightGray/20" />
           {/* Product Info */}
           <div className="space-y-4 pt-4">
-            <span className="text-[#333]"><span className="font-semibold">{t("SKU")}: </span> {product?.sku || t("N/A")}</span>
+            <span className="text-[#333]"><span className="font-semibold">{t("SKU")}: </span> {variationData?.sku || t("N/A")}</span>
             <div className="flex gap-2">
               <span className="text-lightBlack font-semibold">{t("Categories")}:</span>
               {
@@ -533,7 +576,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
       </div>
 
       <div className="hidden lg:flex flex-col gap-7 mt-7 lg:mt-16">
-        {product?.table_tabs_expanded && product?.table_tabs_expanded?.length > 0 && (
+        {Array.isArray(product?.table_tabs_expanded) && product?.table_tabs_expanded?.length > 0 && (
           <DirectionProvider dir={language === "en" ? "ltr" : "rtl"}>
             <Tabs defaultValue={product.table_tabs_expanded[0].title} className="w-full">
               <TabsList className="w-full max-lg:justify-start border-t rounded-none h-auto p-0 bg-transparent">
@@ -587,7 +630,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
           <div className="flex flex-col gap-5 mt-7 lg:mt-12">
             <h2 className="font-semibold text-lg lg:text-2xl text-[#242424] lg:hidden">{t("additionalInfo")}</h2>
             <div className="w-full max-w-[700px] mx-auto flex justify-between items-center">
-              <p className="font-semibold text-base text-[#242424]">{product?.attributes[0]?.name}</p>
+              <p className="min-w-12 font-semibold text-base text-[#242424]">{product?.attributes[0]?.name}</p>
               <p className="text-sm text-lightGray">{product?.attributes[0]?.options?.join(",")}</p>
             </div>
           </div>
