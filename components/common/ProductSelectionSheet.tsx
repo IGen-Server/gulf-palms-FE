@@ -11,7 +11,7 @@ interface ProductSelectionSheetProps {
   onClose: () => void
   productId: string;
   optionName: string;
-  options: string[];
+  options: any[];
   selectedVariant?: string;
   onSelectVariant?: (variant: string) => void
 }
@@ -27,7 +27,10 @@ const ProductSelectionSheet: React.FC<ProductSelectionSheetProps> = ({
 }) => {
   const { t, i18n: { language } } = useTranslation("common");
 
-  if (!isOpen) return null
+  console.log(options);
+
+
+  if (!isOpen) return null;
 
   return (
     <div className="absolute inset-0 w-full h-full sm:h-[280px] bg-white/90 z-20">
@@ -52,8 +55,8 @@ const ProductSelectionSheet: React.FC<ProductSelectionSheetProps> = ({
               </SelectTrigger>
               <SelectContent>
                 {options.map((option) => (
-                  <SelectItem key={option} value={option}>
-                    {option}
+                  <SelectItem key={option.id} value={option.id}>
+                    {option.name}
                   </SelectItem>
                 ))}
               </SelectContent>

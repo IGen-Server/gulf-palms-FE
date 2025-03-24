@@ -8,6 +8,7 @@ import { ProductCategoryModel } from "@/models/product/product";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { useTranslation } from "react-i18next";
+import { unescapeHtml } from "@/services/utility/utility.service";
 
 export enum SlugType {
   Product,
@@ -26,11 +27,11 @@ interface GlobalDataProviderProps {
   setCategories: Dispatch<SetStateAction<ProductCategoryModel[] | null>>;
   isSearchDrawerOpen: boolean;
   setIsSearchDrawerOpen: Dispatch<SetStateAction<boolean>>;
-  
+
   slugToTranslate: Record<string, Record<string, { id: number, slugType: SlugType, otherLangSlug: string }>>;
   addSlugToTranslate: (lang: string, slug: string, id: number, slugType: SlugType, otherLangSlug: string) => void;
   getSlugToTranslateId: (lang: string, slug: string) => { id: number; slugType: SlugType } | null;
-  
+
   translations: Record<string, Record<string, string>>;
   setTranslation: (lang: string, key: string, value: string) => void;
   getTranslation: (lang: string, key: string) => string;
@@ -42,28 +43,28 @@ export function GlobalDataProvider({ children }: { children: React.ReactNode }) 
 
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(false, false);
   const { i18n } = useTranslation();
-  
+
   const [user, setUser] = useState<UserProfileModel | null | undefined>(undefined);
   const [userSettings, setUserSettings] = useState<UserAsCustomer | null>(null);
   const [isTokenExpired, setIsTokenExpired] = useState<boolean>(true);
   const [categories, setCategories] = useState<ProductCategoryModel[] | null>(null);
   const [isSearchDrawerOpen, setIsSearchDrawerOpen] = useState(false);
   const [translations, setTranslations] = useState<Record<string, Record<string, string>>>({
-    en: { },
-    ar: { }
+    en: {},
+    ar: {}
   });
   const [slugToTranslate, setSlugToTranslate] = useState<Record<string, Record<string, { id: number, slugType: SlugType, otherLangSlug: string }>>>({
-    en: { },
-    ar: { }
+    en: {},
+    ar: {}
   });
 
   const hasMounted = useRef(false);
-  
+
   // Category
   useEffect(() => {
     if (hasMounted.current) return;
     hasMounted.current = true;
-    
+
     const getProductCategories = async () => {
       try {
         let response = await ProductCategoryService.GetAllCacheCategories(
@@ -75,12 +76,11 @@ export function GlobalDataProvider({ children }: { children: React.ReactNode }) 
           axiosInstanceWithLoader
         );
 
-        if (i18n.language === 'ar') {
-          response = response?.map(item => ({
-            ...item,
-            slug: decodeURIComponent(item.slug)
-          }));
-        }
+        response = response?.map(item => ({
+          ...item,
+          slug: decodeURIComponent(item.slug),
+          name: unescapeHtml(item.name)
+        }));
 
         setCategories(response || []);
 
@@ -91,7 +91,7 @@ export function GlobalDataProvider({ children }: { children: React.ReactNode }) 
 
     getProductCategories();
   }, []);
-  
+
   const setTranslation = (lang: string, key: string, value: string) => {
     setTranslations(prev => ({
       ...prev,

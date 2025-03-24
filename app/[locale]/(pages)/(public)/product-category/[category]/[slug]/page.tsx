@@ -48,6 +48,7 @@ export default function SubcategoryPage() {
   const currentPath = paths[paths.length - 1];
   const normalizedCurrentPath = currentPath.includes("-") ? currentPath.split("-").join(" ") : currentPath;
   const router = useRouter();
+  const [isFilterLoading, setIsFilterLoading] = useState(false);
 
   // Orders // page: 1, per_page: 10
 
@@ -102,7 +103,7 @@ export default function SubcategoryPage() {
         if (response.length == 0 || response.length < pageConfig.per_page) {
           hasProducts.current = false;
         }
-        
+
         setProducts((prev) =>
           pageConfig.page === 1 ? response : [...prev, ...response]
         );
@@ -110,6 +111,7 @@ export default function SubcategoryPage() {
         console.error(error);
       } finally {
         setLoading(false);
+        setIsFilterLoading(false);
       }
     };
 
@@ -263,7 +265,7 @@ export default function SubcategoryPage() {
                     <p className="font-semibold text-sm text-lightGray">{currentLocale === "en" ? "Close" : "يغلق"}</p>
                   </div>
                 </SheetClose>
-                <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} />
+                <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setIsFilterLoading(true)} />
                 <Suspense fallback={<div>Loading...</div>}>
                   <ProductCategories />
                 </Suspense>
@@ -304,10 +306,7 @@ export default function SubcategoryPage() {
         <div className="flex flex-col items-center pb-[100px] pt-[50px]">
           <div className="flex items-center gap-3 text-[#242424]">
             <MoveLeft className="hover:text-lightGray cursor-pointer" onClick={() => router.back()} />
-            <h1 className="text-[36px] lg:text-[4.25rem] font-bold text-[#333] capitalize">
-              {currentSubCategory?.name
-                ? decodeURIComponent(currentSubCategory?.name)
-                : ""}
+            <h1 className="text-[36px] lg:text-[4.25rem] font-bold text-[#333] capitalize" dangerouslySetInnerHTML={{ __html: currentSubCategory?.name }}>
             </h1>
           </div>
           <div className="lg:hidden w-full mx-auto min-h-10 px-6 text-[#333] text-center">
@@ -336,7 +335,7 @@ export default function SubcategoryPage() {
         </div>
         <div className="flex items-start ">
           <div className="hidden lg:block w-[276px] px-[15px] divide-y-2">
-            <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} />
+            <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setIsFilterLoading(true)} />
             <ProductCategories category={normalizedCategory} currentPath={normalizedCurrentPath} />
             <div className="mt-7">
               <p className="mt-7 mb-5 uppercase font-semibold text-[16px] text-[#333]">{t("shop.stockStatus")}</p>
@@ -436,7 +435,7 @@ export default function SubcategoryPage() {
                 </div>
                 <div className="hidden lg:block">
                   <Suspense fallback={<div>Loading...</div>}>
-                    <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} />
+                    <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} onSortingChange={() => setIsFilterLoading(true)} />
                   </Suspense>
                 </div>
               </div>
@@ -468,7 +467,7 @@ export default function SubcategoryPage() {
                             <p className="font-semibold text-sm text-lightGray">{currentLocale === "en" ? "Close" : "يغلق"}</p>
                           </div>
                         </SheetClose>
-                        <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} />
+                        <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setIsFilterLoading(true)} />
                         <Suspense fallback={<div>Loading...</div>}>
                           <ProductCategories />
                         </Suspense>
@@ -506,7 +505,7 @@ export default function SubcategoryPage() {
                 </DirectionProvider>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
-                <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} />
+                <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} onSortingChange={() => setIsFilterLoading(true)} />
               </Suspense>
             </div>
             <div className="w-full flex items-center gap-7">
@@ -523,7 +522,7 @@ export default function SubcategoryPage() {
                 <p className="font-semibold text-[.8125rem]">{t("shop.max")} <span className="text-primary"> {pageConfig.max_price} KD</span></p>
               </button>}
             </div>
-            {(!products.length && loading) ? (
+            {((!products.length && loading) || isFilterLoading) ? (
               <ProductsGridSkeleton count={8} />
             )
               : (

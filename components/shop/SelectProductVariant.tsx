@@ -47,7 +47,7 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
   return (
     <div className="absolute -top-[50px] inset-0 w-full h-[328px] bg-white/90 z-20">
       {/* Close and Wishlist buttons */}
-      <div className="absolute top-[40px] w-full px-4 flex justify-end z-10">
+      <div className="absolute top-[3.5rem] w-full px-4 flex justify-end z-10">
         <button
           onClick={onClose}
           className="w-8 h-8 rounded-full bg-white shadow-md grid place-content-center"
@@ -57,7 +57,7 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
       </div>
 
       {/* Size Selection */}
-      <div className="absolute !top-[50%] grid place-content-center h-full left-1/2  -translate-x-1/2 -translate-y-1/2 w-[90%]">
+      <div className="absolute !top-[55%] grid place-content-center h-full left-1/2  -translate-x-1/2 -translate-y-1/2 w-[90%]">
         <div className="space-y-2">
           <label className="text-sm !text-center font-medium text-gray-700">Size:</label>
           <Select>
@@ -75,7 +75,7 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
         </div>
       </div>
       <Button className="absolute -bottom-7 w-full hover:bg-primary h-[45px]"
-      onClick={()=>handleAddToCart()}
+        onClick={() => handleAddToCart()}
       >
         Add to cart
       </Button>

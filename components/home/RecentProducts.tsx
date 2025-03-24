@@ -16,6 +16,9 @@ interface RecentProductsProps {
 
 export default function RecentProducts({ products, slugToCategoryRecord, isLoading = false }: RecentProductsProps) {
   const { t } = useTranslation();
+
+  console.log(products);
+
   return (
     <div className="z-[50]">
       <div className="pb-[50px] space-y-[10px]">
@@ -57,6 +60,7 @@ export default function RecentProducts({ products, slugToCategoryRecord, isLoadi
                 currency={extractCurrency(product.price_html)}
                 currentCategories={product.categories}
                 productAttribute={product.attributes[0]}
+                variations={product.variationsData}
                 slugToCategoryRecord={slugToCategoryRecord}
               />
             ),

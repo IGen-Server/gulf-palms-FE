@@ -43,10 +43,10 @@ const breadcrumbLinks = [
 ];
 
 const showPerPage = [
-  { name: "9", arabicName: "9", href: "/shop/?per_page=9", value: 9 },
-  { name: "12", arabicName: "12", href: "/shop/?per_page=12", value: 12 },
-  { name: "18", arabicName: "18", href: "/shop/?per_page=18", value: 18 },
-  { name: "24", arabicName: "24", href: "/shop/?per_page=24", value: 24 },
+  { name: "9", arabicName: "9", href: "", value: 9 },
+  { name: "12", arabicName: "12", href: "", value: 12 },
+  { name: "18", arabicName: "18", href: "", value: 18 },
+  { name: "24", arabicName: "24", href: "", value: 24 },
 ];
 
 function ShopContent() {
@@ -55,6 +55,7 @@ function ShopContent() {
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("s"));
   const [isResolved, setIsResolved] = useState(false);
+  const [isFilterLoading, setIsFilterLoading] = useState(false);
 
   const [columns, setColumns] = useState(4);
   const [showMobileScreenCategory, setShowMobileScreenCategory] = useState(false);
@@ -131,7 +132,6 @@ function ShopContent() {
   }, []);
 
   useEffect(() => {
-    setProducts([]);
 
     const getProducts = async () => {
 
@@ -176,6 +176,7 @@ function ShopContent() {
         console.error(error);
       } finally {
         setLoading(false);
+        setIsFilterLoading(false)
       }
     };
 
@@ -253,7 +254,7 @@ function ShopContent() {
                       <p className="font-semibold text-sm text-lightGray">{i18n.language === "en" ? "Close" : "يغلق"}</p>
                     </div>
                   </SheetClose>
-                  <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setProducts([])} />
+                  <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setIsFilterLoading(true)} />
                   <Suspense fallback={<div>Loading...</div>}>
                     <ProductCategories />
                   </Suspense>
@@ -324,7 +325,7 @@ function ShopContent() {
           </div>
           <div className="flex items-start gap-3">
             <div className="w-[276px] px-[15px] divide-y-2 hidden lg:block">
-              <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setProducts([])} />
+              <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setIsFilterLoading(true)} />
               <Suspense fallback={<div>Loading...</div>}>
                 <ProductCategories />
               </Suspense>
@@ -412,7 +413,7 @@ function ShopContent() {
                   </div>
                   <div className="max-lg:hidden">
                     <Suspense fallback={<div>Loading...</div>}>
-                      <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} onSortingChange={() => setProducts([])} />
+                      <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} onSortingChange={() => setIsFilterLoading(true)} />
                     </Suspense>
                   </div>
                 </div>
@@ -444,7 +445,7 @@ function ShopContent() {
                               <p className="font-semibold text-sm text-lightGray">{i18n.language === "en" ? "Close" : "يغلق"}</p>
                             </div>
                           </SheetClose>
-                          <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setProducts([])} />
+                          <PriceSlider setPriceSlider={updatePageConfig} minPrice={pageConfig.min_price} maxPrice={pageConfig.max_price} onFilter={() => setIsFilterLoading(true)} />
                           <Suspense fallback={<div>Loading...</div>}>
                             <ProductCategories />
                           </Suspense>
@@ -485,7 +486,7 @@ function ShopContent() {
                   </DirectionProvider>
                 </div>
                 <Suspense fallback={<div>Loading...</div>}>
-                  <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} onSortingChange={() => setProducts([])} />
+                  <SortingDropdown setSorting={updatePageConfig} setSortingDir={updatePageConfig} onSortingChange={() => setIsFilterLoading(true)} />
                 </Suspense>
               </div>
               <div className="flex flex-col justify-center px-4 pt-7">
@@ -504,7 +505,7 @@ function ShopContent() {
                   </button>}
                 </div>
 
-                {(!products.length && loading) ? (
+                {((!products.length && loading) || isFilterLoading) ? (
                   <ProductsGridSkeleton count={8} />
                 )
                   : (<div

@@ -54,8 +54,8 @@ export const UserNavLinks = {
 } as const;
 
 export const showPerPage = [
-  { name: "9", arabicName: "9", href: "/shop/?per_page=9", value: 9 },
-  { name: "12", arabicName: "12", href: "/shop/?per_page=12", value: 12 },
-  { name: "18", arabicName: "18", href: "/shop/?per_page=18", value: 18 },
-  { name: "24", arabicName: "24", href: "/shop/?per_page=24", value: 24 },
+  { name: "9", arabicName: "9", href: "", value: 9 },
+  { name: "12", arabicName: "12", href: "", value: 12 },
+  { name: "18", arabicName: "18", href: "", value: 18 },
+  { name: "24", arabicName: "24", href: "", value: 24 },
 ];

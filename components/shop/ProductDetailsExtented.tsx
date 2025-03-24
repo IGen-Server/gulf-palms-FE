@@ -102,6 +102,7 @@ export function ProductDetailsExtended({
                           productId={product.id}
                           currentCategories={product.categories}
                           productAttribute={product.attributes ? product.attributes[0] : {}}
+                          variations={product.variationsData}
                           slugToCategoryRecord={slugToCategoryRecord}
                         />
                         {index > 0 && <Plus className="absolute top-1/2 -left-5 h-6 w-6 text-gray-400 z-[200]" />}
@@ -150,17 +151,15 @@ export function ProductDetailsExtended({
                     </div>
                   </div>
                   {product &&
-                    product.attributes[0] &&
-                    product.attributes[0].visible &&
-                    product.attributes[0].variation && (
+                    product.variationsData && (
                       <Select defaultValue={product?.attributes[0]?.options?.[0]}>
                         <SelectTrigger className="w-full h-8 sm:h-10 text-xs sm:text-sm">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          {product?.attributes[0]?.options?.map((size: any) => (
-                            <SelectItem key={size} value={size} className="text-xs sm:text-sm">
-                              {size}
+                          {product.variationsData?.map((variation: any) => (
+                            <SelectItem key={variation.id} value={variation.id} className="text-xs sm:text-sm">
+                              {variation.name}
                             </SelectItem>
                           ))}
                         </SelectContent>

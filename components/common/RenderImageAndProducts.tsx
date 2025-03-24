@@ -62,6 +62,7 @@ interface RenderImageAndProductsProps {
   quantity?: number;
   stock?: any,
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
+  variations?: any[]
 }
 
 const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
@@ -80,6 +81,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   productAttribute,
   quantity,
   slugToCategoryRecord,
+  variations
 }) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
   const [wishList, setWishList] = useState<any[]>([])
@@ -93,6 +95,9 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   const { t, i18n: { language } } = useTranslation("common");
   const { addToCart } = useCart();
   const [selectedVariant, setSelectedVariant] = useState<string>("");
+
+  console.log(variations);
+
 
   const handleAddToCart = async () => {
     if (!selectedVariant) {
@@ -426,7 +431,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   }}
                   productId={productId}
                   optionName={productAttribute.name}
-                  options={productAttribute.options}
+                  options={variations!}
                   selectedVariant={selectedVariant}
                   onSelectVariant={(variant) => setSelectedVariant(variant)}
                 />

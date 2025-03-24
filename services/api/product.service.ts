@@ -119,19 +119,28 @@ export const ProductService = {
       throw error;
     }
   },
-  async GetVariant(variantId: number, axiosInstance: CustomAxiosInstance): Promise<any> {
+  async GetVariant(productId: number, variantId: number, axiosInstance: CustomAxiosInstance): Promise<any> {
     try {
-      const variantUrl = `${ApiRoutes.Product.GetVariant}/${variantId}`;
+      const variantUrl = `${ApiRoutes.Product.GetVariant}/${productId}/${variantId}`;
       const response = await axiosInstance.get<any>(variantUrl);
       return response.data;
     } catch (error: any) {
       throw error;
     }
   },
-  async GetFrequentlyBoughtTogether(productId: number, axiosInstance: CustomAxiosInstance): Promise<any[]> {
+  async GetVariants(productId: number, variationIds: number[], axiosInstance: CustomAxiosInstance): Promise<any> {
+    try {
+      const variantUrl = `${ApiRoutes.Product.GetVariant}/${productId}`;
+      const response = await axiosInstance.post<any>(variantUrl, { variationIds });
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
+  async GetFrequentlyBoughtTogether(productId: number, axiosInstance: CustomAxiosInstance): Promise<any> {
     try {
       const frequentlyBoughtTogetherProductsUrl = `${ApiRoutes.Product.GetFrequentlyBoughtTogether}/${productId}`;
-      const response = await axiosInstance.get<any[]>(frequentlyBoughtTogetherProductsUrl);
+      const response = await axiosInstance.get<any>(frequentlyBoughtTogetherProductsUrl);
       return response.data;
     } catch (error: any) {
       throw error;
