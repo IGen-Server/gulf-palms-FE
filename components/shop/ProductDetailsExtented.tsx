@@ -48,7 +48,7 @@ export function ProductDetailsExtended({
 
   const handleAddToCart = () => {
     selectedProducts.forEach((product) => {
-      console.log({product})
+      console.log({ product })
       addToCart(product)
     })
   }
@@ -135,7 +135,7 @@ export function ProductDetailsExtended({
                             ...product,
                             price: Number(product?.price || 0),
                             image: product?.images[0]?.src || 'https://gulfpalms.com/wp-content/uploads/2023/08/Hibiscus-300x300.jpg'
-                          
+
                           }])
                         } else {
                           setSelectedProducts(selectedProducts.filter((p) => p.id !== product.id))
