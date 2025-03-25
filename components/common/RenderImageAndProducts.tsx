@@ -64,7 +64,7 @@ interface RenderImageAndProductsProps {
   quantity?: number;
   stock?: any,
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
-  variations: number[]
+  variations?: number[]
 }
 
 const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
@@ -107,7 +107,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
       try {
         const response = await ProductService.GetVariants(
           +productId,
-          variations,
+          variations as number[],
           axiosInstanceWithoutLoader
         );
 

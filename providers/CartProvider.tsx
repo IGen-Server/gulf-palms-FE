@@ -9,7 +9,7 @@ interface CartItem {
   price: number;
   quantity: number;
   image?: string;
-  variationId: number;
+  variationId?: number;
 }
 
 // Define the structure of the cart state
