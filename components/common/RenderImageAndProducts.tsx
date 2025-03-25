@@ -34,6 +34,8 @@ import { useCart } from "@/providers/CartProvider";
 import { ProductDrawer } from "../shop/ProductDrawer";
 import { useTranslation } from "react-i18next";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { ProductService } from "@/services/api/product.service";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 
 interface HoverProduct {
   position: { x: number; y: number };
@@ -62,7 +64,7 @@ interface RenderImageAndProductsProps {
   quantity?: number;
   stock?: any,
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
-  variations?: any[]
+  variations: number[]
 }
 
 const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
@@ -95,9 +97,31 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   const { t, i18n: { language } } = useTranslation("common");
   const { addToCart } = useCart();
   const [selectedVariant, setSelectedVariant] = useState<string>("");
+  const [variationsData, setVariationsData] = useState<any[]>([]);
+  const [variantsLoading, setVariantsLoading] = useState(false);
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
 
-  console.log(variations);
+  useEffect(() => {
+    const getVariations = async () => {
+      setVariantsLoading(true);
+      try {
+        const response = await ProductService.GetVariants(
+          +productId,
+          variations,
+          axiosInstanceWithoutLoader
+        );
 
+        setVariationsData(response);
+
+        setVariantsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getVariations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleAddToCart = async () => {
     if (!selectedVariant) {
@@ -112,7 +136,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
         price: Number(price) as number,
         quantity: 1,
         image: images?.[0] || imageFileOrUrl,
-        // variant: selectedVariant
+        variationId: +selectedVariant
       });
       setIsSheetOpen(false);
     } catch (error) {
@@ -177,8 +201,6 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           }}
         >
           {hoverProducts?.map((product, index) => {
-            console.log(product);
-
             return (
               <HoverCard key={index} openDelay={100}>
                 <div
@@ -431,9 +453,11 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   }}
                   productId={productId}
                   optionName={productAttribute.name}
-                  options={variations!}
+                  options={variationsData.filter((variation) => variation.name) || []}
                   selectedVariant={selectedVariant}
                   onSelectVariant={(variant) => setSelectedVariant(variant)}
+                  clearVariant={() => setSelectedVariant("")}
+                  homepage={true}
                 />
               )}
 
@@ -441,46 +465,87 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
               className={`hidden lg:block absolute bottom-0 left-0 w-full h-[38px] overflow-hidden ${selectProductId === productId && "z-[20]"
                 }`}
             >
-              <div
-                className={`h-full bg-primary w-full text-center font-arabic text-white duration-500 ${hoveredProductId === productId ||
-                  selectProductId === productId
-                  ? " cursor-pointer opacity-90 hover:opacity-100 hover:bg-[#f0864a]"
-                  : " opacity-0 pointer-events-none "
-                  }`}
-              >
-                {(selectProductId === productId && isSheetOpen) ? (
-                  <p className="pt-2 uppercase" onClick={() => handleAddToCart()}>{t("AddToCart")}</p>
-                ) :
-                  <div className="group/cart relative h-full flex flex-col items-center justify-center" onClick={() => {
-                    setSelectProductId(productId);
-                    setIsSheetOpen(true);
-                  }}>
-                    <p
-                      className={`translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200 text-xs sm:text-sm ${selectProductId === productId
-                        ? " -translate-y-[20px] "
-                        : "  "
-                        }`}
-                    >
-                      {t("SelectOptions")}
-                    </p>
-                    <p
-                      className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${selectProductId === productId
-                        ? " -translate-y-3 z-[20] "
-                        : "  "
-                        } `}
+              {
+                productAttribute ? (
+                  <div
+                    className={`h-full bg-primary w-full text-center font-arabic text-white duration-500 ${hoveredProductId === productId ||
+                      selectProductId === productId
+                      ? " cursor-pointer opacity-90 hover:opacity-100 hover:bg-[#f0864a]"
+                      : " opacity-0 pointer-events-none "
+                      }`}
+                  >
+                    {(selectProductId === productId && isSheetOpen) ? (
+                      <p className="pt-2 uppercase" onClick={() => handleAddToCart()}>{t("AddToCart")}</p>
+                    ) :
+                      <div className="group/cart relative h-full flex flex-col items-center justify-center" onClick={() => {
+                        setSelectProductId(productId);
+                        setIsSheetOpen(true);
+                      }}>
+                        <p
+                          className={`translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200 text-xs sm:text-sm ${selectProductId === productId
+                            ? " -translate-y-[20px] "
+                            : "  "
+                            }`}
+                        >
+                          {t("SelectOptions")}
+                        </p>
+                        <p
+                          className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${selectProductId === productId
+                            ? " -translate-y-3 z-[20] "
+                            : "  "
+                            } `}
 
-                    >
-                      {loading && isSheetOpen ? (
-                        <ClipLoader />
-                      ) : (
-                        <ShoppingCart
-                          className="w-4 h-4 sm:w-5 sm:h-5"
-                        />
-                      )}
-                    </p>
+                        >
+                          {loading && isSheetOpen ? (
+                            <ClipLoader />
+                          ) : (
+                            <ShoppingCart
+                              className="w-4 h-4 sm:w-5 sm:h-5"
+                            />
+                          )}
+                        </p>
+                      </div>
+                    }
                   </div>
-                }
-              </div>
+                ) : (
+                  <div
+                    className={`h-full bg-primary w-full text-center font-arabic text-white duration-500 ${hoveredProductId === productId ||
+                      selectProductId === productId
+                      ? " cursor-pointer opacity-90 hover:opacity-100 hover:bg-[#f0864a]"
+                      : " opacity-0 pointer-events-none "
+                      }`}
+                  >
+
+                    <div className="group/cart relative h-full flex flex-col items-center justify-center" onClick={() => handleAddToCart()}>
+                      <p
+                        className={`translate-y-3 group-hover/cart:-translate-y-[20px] transition-all duration-200 text-xs sm:text-sm ${selectProductId === productId
+                          ? " -translate-y-[20px] "
+                          : "  "
+                          }`}
+                      >
+                        {t("AddToCart")}
+                      </p>
+                      <p
+                        className={`translate-y-[50px] group-hover/cart:-translate-y-3 transition-all duration-200 ${selectProductId === productId
+                          ? " -translate-y-3 z-[20] "
+                          : "  "
+                          } `}
+
+                      >
+                        {loading && isSheetOpen ? (
+                          <ClipLoader />
+                        ) : (
+                          <ShoppingCart
+                            className="w-4 h-4 sm:w-5 sm:h-5"
+                          />
+                        )}
+                      </p>
+                    </div>
+
+                  </div>
+                )
+              }
+
             </div>
 
             <div className="hidden lg:grid absolute top-2 right-2 rounded-lg  place-content-center">
@@ -564,32 +629,59 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                 />
               )}
             </div>
-
-            <div
-              onClick={() => {
-                setSelectProductId(productId);
-                setIsSheetOpen(true);
-              }}
-              className={`lg:hidden absolute left-2 p-1 bottom-0 grid place-content-center bg-primary shadow-md h-[35px] ${selectProductId === productId
-                ? "w-full z-[20] h-[45px]"
-                : "w-[35px]"
-                } `}
-            >
-              {loading && isSheetOpen ? (
-                <ClipLoader />
-              ) : (
-                <ShoppingCart
+            {
+              productAttribute ? (
+                <div
                   onClick={() => {
-                    const isSelected = selectProductId === productId;
-                    const isSheetOpenTrue = isSheetOpen;
-                    if (isSelected && isSheetOpenTrue) {
-                      handleAddToCart();
-                    }
+                    setSelectProductId(productId);
+                    setIsSheetOpen(true);
                   }}
-                  className="cursor-pointer w-full text-white"
-                />
-              )}
-            </div>
+                  className={`lg:hidden absolute left-2 p-1 bottom-0 grid place-content-center bg-primary shadow-md h-[35px] ${selectProductId === productId
+                    ? "w-full z-[20] h-[45px]"
+                    : "w-[35px]"
+                    } `}
+                >
+                  {loading && isSheetOpen ? (
+                    <ClipLoader />
+                  ) : (
+                    <ShoppingCart
+                      onClick={() => {
+                        const isSelected = selectProductId === productId;
+                        const isSheetOpenTrue = isSheetOpen;
+                        if (isSelected && isSheetOpenTrue) {
+                          handleAddToCart();
+                        }
+                      }}
+                      className="cursor-pointer w-full text-white"
+                    />
+                  )}
+                </div>
+              ) : (
+                <div
+                  className={`lg:hidden absolute left-2 p-1 bottom-0 grid place-content-center bg-primary shadow-md h-[35px] ${selectProductId === productId
+                    ? "w-full z-[20] h-[45px]"
+                    : "w-[35px]"
+                    } `}
+                >
+                  {loading && isSheetOpen ? (
+                    <ClipLoader />
+                  ) : (
+                    <ShoppingCart
+                      onClick={() => {
+                        const isSelected = selectProductId === productId;
+                        const isSheetOpenTrue = isSheetOpen;
+                        if (isSelected && isSheetOpenTrue) {
+                          handleAddToCart();
+                        }
+                      }}
+                      className="cursor-pointer w-full text-white"
+                    />
+                  )}
+                </div>
+              )
+            }
+
+
           </div>
 
           <div className="text-center bg-white mt-2 ">
@@ -630,9 +722,8 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             ? productAttribute?.name
             : ""}
           options={
-            productAttribute?.visible && productAttribute?.variation
-              ? productAttribute.options
-              : []
+            variationsData.filter((variation) => variation.name)
+            || []
           }
         />
       </>

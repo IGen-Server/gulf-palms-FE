@@ -130,7 +130,7 @@ export const ProductService = {
   },
   async GetVariants(productId: number, variationIds: number[], axiosInstance: CustomAxiosInstance): Promise<any> {
     try {
-      const variantUrl = `${ApiRoutes.Product.GetVariant}/${productId}`;
+      const variantUrl = `${ApiRoutes.Product.GetVariants}/${productId}`;
       const response = await axiosInstance.post<any>(variantUrl, { variationIds });
       return response.data;
     } catch (error: any) {

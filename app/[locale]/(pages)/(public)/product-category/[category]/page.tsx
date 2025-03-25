@@ -487,6 +487,7 @@ export default function CategoryPage() {
                       options={product.attributes[0]?.visible && product.attributes[0]?.variation
                         ? product.attributes[0]?.options
                         : []}
+                      variations={product.variations || []}
                       sku={product.sku}
                       currentCategories={product.categories}
                       description={product.short_description}

@@ -82,8 +82,6 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
     index === self.findIndex((t) => t.id === image.id)
   ).filter(Boolean);
 
-  console.log(allImages);
-
   useEffect(() => {
     if (selectedVariant) {
       const imageIndex = allImages?.findIndex((image) => image.id === variationData.image.id);
@@ -129,7 +127,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
       price: Number(product.price),
       quantity: quantity,
       image: product?.images?.[0]?.src,
-      // variationId: ""
+      variationId: +selectedVariant
     });
   };
 

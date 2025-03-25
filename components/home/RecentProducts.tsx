@@ -7,6 +7,7 @@ import { extractCurrency } from "@/services/utility/utility.service";
 import { useTranslation } from "react-i18next";
 import { ProductCategoryModel } from "@/models/product/product";
 import { Skeleton } from "../ui/skeleton";
+import { ProductService } from "@/services/api/product.service";
 
 interface RecentProductsProps {
   products: any[];
@@ -17,7 +18,6 @@ interface RecentProductsProps {
 export default function RecentProducts({ products, slugToCategoryRecord, isLoading = false }: RecentProductsProps) {
   const { t } = useTranslation();
 
-  console.log(products);
 
   return (
     <div className="z-[50]">
@@ -60,7 +60,7 @@ export default function RecentProducts({ products, slugToCategoryRecord, isLoadi
                 currency={extractCurrency(product.price_html)}
                 currentCategories={product.categories}
                 productAttribute={product.attributes[0]}
-                variations={product.variationsData}
+                variations={product.variations || []}
                 slugToCategoryRecord={slugToCategoryRecord}
               />
             ),

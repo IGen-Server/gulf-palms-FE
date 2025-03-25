@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import * as React from "react";
+import { useState, useEffect } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -66,13 +66,15 @@ export function ProductDrawer({
   optionName,
   options = [],
 }: ProductDrawerProps) {
-  const [quantity, setQuantity] = React.useState(1);
-  const [isMobile, setIsMobile] = React.useState(false);
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const { t, i18n: { language } } = useTranslation();
   const { addToCart } = useCart();
+  const [selectedVariant, setSelectedVariant] = useState<string>("");
+  const selectedVariationDetails = options.find((variation: any) => variation.id === selectedVariant);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -88,9 +90,6 @@ export function ProductDrawer({
   const nextImage = () => {
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
-
-
-
 
   const Content = (
     <div className="relative">
@@ -152,21 +151,37 @@ export function ProductDrawer({
             <div className="flex items-center gap-3 space-y-2 pb-4">
               <label className="text-sm font-semibold text-gray-700">{optionName}:</label>
               <DirectionProvider dir={language === "en" ? "ltr" : "rtl"}>
-                <Select>
+                <Select value={selectedVariant} onValueChange={setSelectedVariant}>
                   <SelectTrigger className="w-full bg-white border-gray-300">
                     <SelectValue placeholder={t("Choose_an_option")} className="placeholder-lightGray" />
                   </SelectTrigger>
                   <SelectContent>
                     {options?.map((option: any) => (
-                      <SelectItem key={option} value={option}>
-                        {option}
+                      <SelectItem key={option.id} value={option.id}>
+                        {option.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </DirectionProvider>
+              {selectedVariant && <div className={`flex items-center gap-1 text-lightGray  hover:text-[#242424] cursor-pointer`} onClick={() => setSelectedVariant("")}>
+                <X size={12} strokeWidth={1.5} />
+                <p className="">{language === "en" ? "Clear" : "إزالة"}</p>
+              </div>}
             </div>
           )}
+
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-in-out flex items-center gap-3 ${selectedVariant ? "max-h-[100px] opacity-100" : "max-h-0 opacity-0"
+              }`}
+          >
+            <p className={`w-max font-semibold text-[1.0625rem] text-primary py-2 ${language === "ar" ? "flex flex-row-reverse justify-end" : ""
+              }`}>
+              <span>{selectedVariationDetails?.price}</span>
+              <span className="mx-1">KD</span>
+            </p>
+            {selectedVariationDetails?.stock_status === "outofstock" && <p className="font-semibold text-sm text-[#B50808]">{t("shop.outOfStock")}</p>}
+          </div>
 
           {/* Action Buttons */}
           <div className="flex gap-4 mb-8">
@@ -197,7 +212,7 @@ export function ProductDrawer({
             <Button
               className="flex-1 bg-primary hover:bg-[#fda757] text-white font-semibold"
               onClick={() => {
-                let cartProduct = { ...product, quantity: quantity || 1 };
+                let cartProduct = { ...product, quantity: quantity || 1, variationId: +selectedVariant };
                 addToCart(cartProduct);
               }}
             >
