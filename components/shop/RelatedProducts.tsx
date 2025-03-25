@@ -137,6 +137,9 @@ interface RelatedProductsProps {
 
 export default function RelatedProducts({ products, slugToCategoryRecord }: RelatedProductsProps) {
   const { t } = useTranslation("common");
+
+  console.log(products);
+
   return (
     <div className="px-5 z-[50]">
       <div className="pb-[50px] space-y-[10px]">
@@ -165,6 +168,7 @@ export default function RelatedProducts({ products, slugToCategoryRecord }: Rela
                 productId={product.id}
                 currentCategories={product.categories}
                 productAttribute={product.attributes ? product.attributes[0] : {}}
+                variations={product.variations}
                 slugToCategoryRecord={slugToCategoryRecord}
               />
             ),

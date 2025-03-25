@@ -64,11 +64,11 @@ const useMobileCategoryItems = (): NavItem[] => {
   ];
 
   const iconMapEnglish = [
-    {title: "Ya Hala Offers", icon: "https://gulfpalms.com/wp-content/uploads/2023/10/price-tag-1.png"},
+    { title: "Ya Hala Offers", icon: "https://gulfpalms.com/wp-content/uploads/2023/10/price-tag-1.png" },
     { title: "Citruses Trees", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/lime.png" },
     { title: "Fertilizers", icon: "https://gulfpalms.com/wp-content/uploads/2023/09/fertilizer.png" },
     { title: "Fruits Trees", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/orange.png" },
-    { title: "Ornamental Palms &amp; Bonsai", icon: "https://clone.gulfpalms.com/wp-content/uploads/2021/11/bonsai.png" },
+    { title: "Ornamental Palms & Bonsai", icon: "https://clone.gulfpalms.com/wp-content/uploads/2021/11/bonsai.png" },
     { title: "Garden Accessories", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png" },
     { title: "Garden Furniture", icon: "https://clone.gulfpalms.com/wp-content/uploads/2021/11/table.png" },
     { title: "Grafted Sider", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/plant-2.png" },
@@ -76,7 +76,7 @@ const useMobileCategoryItems = (): NavItem[] => {
     { title: "Indoor Plants", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/sansevieria.png" },
     { title: "Ornamental Plants", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/nature.png" },
     { title: "Plant Care", icon: "https://clone.gulfpalms.com/wp-content/uploads/2021/11/plant-1.png" },
-    { title: "Pots &amp; Bags", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png" },
+    { title: "Pots & Bags", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/plant-pot.png" },
     { title: "Plant Media", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/plant.png" },
     { title: "Seeds", icon: "https://gulfpalms.com/wp-content/uploads/2021/11/flax-seed.png" },
     { title: "Tissue Culture Palms", icon: "https://gulfpalms.com/wp-content/uploads/2023/10/palms.png" }
@@ -120,17 +120,17 @@ const useMobileCategoryItems = (): NavItem[] => {
   const categoryTree = useMemo(
     () => (categories?.length ? buildCategoryTree(categories) : []),
     [categories]
-  ) as any ;
+  ) as any;
 
   const mobileCategoryItems = useMemo(() => {
     if (categoryTree.length) {
       return transformCategoriesToNavItems(categoryTree).filter((item) => item.icon)
-      .map((item) => ({
-        ...item,
-        title: item.title
-          .replace("Ornamental Palms &amp; Bonsai", "Ornamental Palms & Bonsai")
-          .replace("Pots &amp; Bags", "Pots & Bags"),
-      }));
+        .map((item) => ({
+          ...item,
+          title: item.title
+            .replace("Ornamental Palms &amp; Bonsai", "Ornamental Palms & Bonsai")
+            .replace("Pots &amp; Bags", "Pots & Bags"),
+        }));
     }
     return [];
   }, [categoryTree, iconMap]);

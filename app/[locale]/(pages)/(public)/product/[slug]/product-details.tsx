@@ -43,6 +43,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { notFound } from "next/navigation";
 
 interface ProductDetailsProps {
   loading?: boolean;
@@ -52,6 +53,7 @@ interface ProductDetailsProps {
 }
 
 export default function ProductDetails({ loading, product, slugToCategoryRecord, relatedProducts }: ProductDetailsProps) {
+
   const { t, i18n: { language } } = useTranslation("common");
   const [selectedImage, setSelectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -69,11 +71,16 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
   const variationData = product?.variationsData?.find((variation: any) => variation.id === selectedVariant);
 
   const allImages = [
-    ...(product?.images || []),
-    ...(product?.variationsData?.map((variation: any) => variation.image).filter(Boolean) || [])
-  ].filter(Boolean);
-
-  console.log(allImages);
+    ...(Array.isArray(product?.images) ? product.images : []),
+    ...(Array.isArray(product?.variationsData)
+      ? product.variationsData
+        .filter((variation: any) => variation?.image)
+        .map((variation: any) => variation.image)
+      : [])
+  ].filter((image, index, self) =>
+    // Remove duplicates based on image.id from both arrays
+    index === self.findIndex((t) => t.id === image.id)
+  ).filter(Boolean);
 
   useEffect(() => {
     if (selectedVariant) {
@@ -120,7 +127,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
       price: Number(product.price),
       quantity: quantity,
       image: product?.images?.[0]?.src,
-      // variationId: ""
+      variationId: +selectedVariant
     });
   };
 
@@ -442,7 +449,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
           </p> */}
 
           <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${selectedVariant ? "max-h-[100px] opacity-100" : "max-h-0 opacity-0"
+            className={`overflow-hidden transition-all duration-300 ease-in-out flex items-center gap-3 ${selectedVariant ? "max-h-[100px] opacity-100" : "max-h-0 opacity-0"
               }`}
           >
             <p className={`w-max font-semibold text-[1.0625rem] text-primary py-2 ${language === "ar" ? "flex flex-row-reverse justify-end" : ""
@@ -450,6 +457,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
               <span>{variationData?.price}</span>
               <span className="mx-1">KD</span>
             </p>
+            {variationData?.stock_status === "outofstock" && <p className="font-semibold text-sm text-[#B50808]">{t("shop.outOfStock")}</p>}
           </div>
 
           {/* Quantity Selector */}
@@ -611,7 +619,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
 
       <div className="lg:hidden">
         <Accordion type="single" collapsible className="w-full">
-          {product?.table_tabs_expanded?.map((item: any) => (
+          {Array.isArray(product?.table_tabs_expanded) && product?.table_tabs_expanded?.map((item: any) => (
             <AccordionItem key={item.title} value={item.title}>
               <AccordionTrigger className="text-lg font-semibold text-[#333] hover:no-underline">
                 {item.title}

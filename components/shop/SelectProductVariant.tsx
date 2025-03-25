@@ -9,14 +9,18 @@ import {
 import { X } from "lucide-react";
 import { Button } from "../ui/button";
 import { useCart } from "@/providers/CartProvider";
+import { useTranslation } from "react-i18next";
 
 interface ProductSelectionSheetProps {
   isOpen: boolean;
   onClose: () => void;
   productId: string;
-  options: string[];
+  options: any[];
   product?: any;
   setIsOpen?: any;
+  selectedVariant: string;
+  onSelectVariant?: (variant: string) => void;
+  clearVariant?: () => void;
   setSelectProductId?: any;
 }
 
@@ -27,10 +31,16 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
   options = [],
   product,
   setIsOpen,
-  setSelectProductId
+  setSelectProductId,
+  selectedVariant,
+  onSelectVariant,
+  clearVariant,
 }) => {
+  const { t, i18n: { language } } = useTranslation("common");
   const { addToCart } = useCart();
   if (!isOpen) return null;
+
+  const selectedVariationDetails = options.find((variation: any) => variation.id === selectedVariant);
 
   const handleAddToCart = () => {
     addToCart({
@@ -39,15 +49,16 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
       price: product.price,
       quantity: 1,
       image: product.image,
+      variationId: +selectedVariant
     });
     setIsOpen(false);
     setSelectProductId(null)
   };
 
   return (
-    <div className="absolute -top-[50px] inset-0 w-full h-[328px] bg-white/90 z-20">
+    <div className="absolute -top-[50px] inset-0 w-full h-[328px] flex flex-col justify-center pb-7 bg-white/90 z-20">
       {/* Close and Wishlist buttons */}
-      <div className="absolute top-[40px] w-full px-4 flex justify-end z-10">
+      <div className="absolute top-[3.5rem] w-full px-4 flex justify-end z-10">
         <button
           onClick={onClose}
           className="w-8 h-8 rounded-full bg-white shadow-md grid place-content-center"
@@ -57,25 +68,40 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
       </div>
 
       {/* Size Selection */}
-      <div className="absolute !top-[50%] grid place-content-center h-full left-1/2  -translate-x-1/2 -translate-y-1/2 w-[90%]">
-        <div className="space-y-2">
+      <div className="w-full flex flex-col items-center px-5 translate-y-1/2">
+        <div className="w-full h-full flex flex-col gap-2">
           <label className="text-sm !text-center font-medium text-gray-700">Size:</label>
-          <Select>
-            <SelectTrigger className="w-full bg-white border-gray-300">
-              <SelectValue placeholder="Choose an option" />
+          <Select value={selectedVariant} onValueChange={onSelectVariant}>
+            <SelectTrigger className="min-w-full bg-white border-gray-300">
+              <SelectValue placeholder={t("Choose_an_option")} />
             </SelectTrigger>
             <SelectContent>
               {options.map((option) => (
-                <SelectItem key={option} value={option}>
-                  {option}
+                <SelectItem key={option.id} value={option.id}>
+                  {option.name}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
+        {selectedVariant && <div className={`flex items-center gap-1 text-lightGray  hover:text-[#242424] cursor-pointer`} onClick={() => clearVariant && clearVariant()}>
+          <X size={12} strokeWidth={1.5} />
+          <p className="">{language === "en" ? "Clear" : "إزالة"}</p>
+        </div>}
+        {selectedVariant && <div
+          className={`overflow-hidden transition-all duration-300 ease-in-out flex items-center gap-3 pt-7 ${selectedVariant ? "max-h-[100px] opacity-100" : "max-h-0 opacity-0"
+            }`}
+        >
+          <p className={`w-max font-semibold text-[1.0625rem] text-primary py-2 ${language === "ar" ? "flex flex-row-reverse justify-end" : ""
+            }`}>
+            <span>{selectedVariationDetails?.price}</span>
+            <span className="mx-1">KD</span>
+          </p>
+          {selectedVariationDetails?.stock_status === "outofstock" && <p className="font-semibold text-sm text-[#B50808]">{t("shop.outOfStock")}</p>}
+        </div>}
       </div>
       <Button className="absolute -bottom-7 w-full hover:bg-primary h-[45px]"
-      onClick={()=>handleAddToCart()}
+        onClick={() => handleAddToCart()}
       >
         Add to cart
       </Button>

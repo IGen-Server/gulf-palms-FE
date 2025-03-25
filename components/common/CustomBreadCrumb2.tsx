@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 interface BreadcrumbLink {
   name: string;
@@ -31,7 +32,8 @@ export function CustomBreadCrumb2({
     i18n: { language },
   } = useTranslation();
   const searchParams = useSearchParams();
-  const perPage = searchParams.get("per_page");
+  // const perPage = searchParams.get("per_page");
+  const [perPage, setPerPage] = useState(24)
 
   return (
     <nav className="flex items-center text-[14px]">
@@ -45,22 +47,22 @@ export function CustomBreadCrumb2({
             : language === "ar"
               ? link.arabicName
               : "";
-        const isCurrent = perPage ? perPage === String(link.value) : isLast;
+        const isCurrent = perPage ? perPage === link.value : isLast;
 
         return (
           <div key={index} className="flex items-center">
             {index !== 0 && <span className="mx-2 text-gray-800">/</span>}
 
-            <Link
-              href={link.href}
+            <p
+
               className={cn(
                 "font-semibold text-[.6875rem] leading-4 text-lightGray hover:text-[#242424] cursor-pointer",
                 isCurrent && currentStyle
               )}
-              onClick={() => updatePerPage && updatePerPage("per_page", link.value)}
+              onClick={() => setPerPage(link.value)}
             >
               {linkName}
-            </Link>
+            </p>
 
           </div>
         );

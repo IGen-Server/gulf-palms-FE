@@ -793,7 +793,12 @@
     "showSidebar": "إظهار الشريط الجانبي",
     "showingResults": "عرض {{ range }} من أصل {{ total }} نتيجة",
     "search": "{{searchTerm}}: نتائج البحث عن",
-    "noProductsFound": "لم يتم العثور على منتجات"
+    "noProductsFound": "لم يتم العثور على منتجات",
+    "outOfStock": "غير متوفر في المخزون",
+    "notFound": "غير موجود",
+    "notFoundTitle": "هذا محرج بعض الشيء، أليس كذلك؟",
+    "notFoundSubtitle": "يبدو أنه لم يتم العثور على شيء في هذا الموقع. ربما تجرب البحث؟",
+    "searchForPosts": "ابحث عن منشور"
   },
   "washingtonianPalms": "واشنطونيا",
   "plantMedium": "تربة",
@@ -1078,7 +1083,7 @@
     "message": "ابدأ كتابة أسم المنتج لرؤية المنتجات التي تبحث عنها."
   },
   "contactUs": {
-    "sendMessageSuccess": "Thank you for your message. It has been sent.",
-    "sendMessageFailure": "One or more fields have an error. Please check and try again."
+    "sendMessageSuccess": "شكرًا لك على رسالتك. لقد تم إرسالها.",
+    "sendMessageFailure": "واحد أو أكثر من الحقول يحتوي على خطأ. يرجى التحقق وإعادة المحاولة."
   }
 }

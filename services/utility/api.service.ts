@@ -29,6 +29,7 @@ export const ApiRoutes = {
     GetSuggestedProducts: 'products/suggested',
     GetFrequentlyBoughtTogether: 'products/frequently-bought-together',
     GetVariant: 'products/variation',
+    GetVariants: 'products/variations',
   },
   ProductCategory: {
     GetById: 'categories/getById',

@@ -11,7 +11,7 @@ const TopRatedProducts = () => {
     const topRatedProducts = language === "en" ? enProducts : arProducts;
 
     return (
-        <div className="mt-7">
+        <div className="mt-7 mb-14">
             <p className="mt-7 mb-2 uppercase font-semibold text-[16px] text-[#333]">{t("shop.topRatedProducts")}</p>
             <div className="flex flex-col gap-3 divide-y-2">
                 {topRatedProducts.map((product) => (

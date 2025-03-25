@@ -9,6 +9,7 @@ interface CartItem {
   price: number;
   quantity: number;
   image?: string;
+  variationId?: number;
 }
 
 // Define the structure of the cart state
@@ -40,8 +41,8 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       const existingItem = state.cartItems.find((item) => item.id === action.payload.id);
       const updatedCartItems = existingItem
         ? state.cartItems.map((item) =>
-            item.id === action.payload.id ? { ...item, quantity: item.quantity + action.payload.quantity } : item
-          )
+          item.id === action.payload.id ? { ...item, quantity: item.quantity + action.payload.quantity } : item
+        )
         : [...state.cartItems, action.payload];
       return { ...state, cartItems: updatedCartItems };
     }

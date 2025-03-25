@@ -16,14 +16,14 @@ export function getNameInitials(name: string): string {
 export function getTotalQuantity(lineItems: any[] | null | undefined): number {
   // Return 0 if lineItems is null, undefined, or an empty array
   if (!lineItems || lineItems.length === 0) {
-      return 0;
+    return 0;
   }
 
   // Sum up the quantities if lineItems is valid
   return lineItems.reduce((total, item) => total + (item.quantity || 0), 0);
 }
 
-export function onLogout(e:any) {
+export function onLogout(e: any) {
   e.preventDefault();
   CookieStorageService.clearAllTokens();
   window.location.href = ClientRoutes.User.MyAccountDashboard;
@@ -60,7 +60,7 @@ export function getCategoryNameAndLinksAsArray(currentCategories: ProductCategor
 
 export function extractCurrency(priceHtml: string): string {
   const regex = /<span class="woocommerce-Price-currencySymbol">([^<]+)<\/span>/;
-  const match = priceHtml.match(regex);
+  const match = priceHtml?.match(regex);
   return match ? match[1] : '';
 }
 
@@ -161,10 +161,10 @@ export function buildCategoryTree(categories: ProductCategoryModel[]): ProductCa
 // Method 1: Get category path using ID
 export function getCategoryPathById(categoryId: number, categoryMap: Map<number, ProductCategoryModel>): string {
   console.log(categoryId);
-  
+
   let path: string[] = [];
   let current = categoryMap.get(categoryId);
-  
+
   console.log(current);
 
   while (current) {
@@ -178,7 +178,7 @@ export function getCategoryPathById(categoryId: number, categoryMap: Map<number,
 // Method 2: Get category path using Slug
 export function getCategoryPathBySlug(categorySlug: string, categoryMap: Map<number, ProductCategoryModel>): string {
   let categoryEntry = Array.from(categoryMap.values()).find(cat => cat.slug === categorySlug);
-  
+
   if (!categoryEntry) return "";
 
   let path: string[] = [];
@@ -200,16 +200,16 @@ export const OrderStatuses = [
 
 export function orderStatusesToReadableSentence(slug: string): string {
   const customMappings: Record<string, string> = {
-      "pending": "Pending Payment",
-      "on-hold": "On Hold",
-      "auto-draft": "Auto Draft",
-      "checkout-draft": "Checkout Draft",
-      "spamorder": "Spam Order"
+    "pending": "Pending Payment",
+    "on-hold": "On Hold",
+    "auto-draft": "Auto Draft",
+    "checkout-draft": "Checkout Draft",
+    "spamorder": "Spam Order"
   };
 
   return customMappings[slug] || slug
-      ?.replace(/-/g, " ") // Replace hyphens with spaces
-      ?.replace(/\b\w/g, char => char.toUpperCase()); // Capitalize first letter of each word
+    ?.replace(/-/g, " ") // Replace hyphens with spaces
+    ?.replace(/\b\w/g, char => char.toUpperCase()); // Capitalize first letter of each word
 }
 
 export function isJwtTokenExpired(token: string): boolean {
@@ -228,4 +228,22 @@ export function isJwtTokenExpired(token: string): boolean {
     console.error("Error decoding JWT:", error);
     return true; // Consider expired if error occurs
   }
+}
+
+export function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+export function unescapeHtml(str: string): string {
+  return str
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&");
 }

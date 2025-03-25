@@ -4,6 +4,7 @@ import GetInTouch from "@/components/common/GetInTouch";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import Shop from "../../shop/page";
 
 const NotFound = () => {
   const { t, i18n: { language } } = useTranslation("common");

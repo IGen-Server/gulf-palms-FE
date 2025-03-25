@@ -794,7 +794,12 @@
     "showSidebar": "Show Sidebar",
     "showingResults": "Showing {{ range }} of {{ total }} results",
     "search": "Search Results for: {{searchTerm}}",
-    "noProductsFound": "No products found"
+    "noProductsFound": "No products found",
+    "outOfStock": "Out of stock",
+    "notFound": "Not Found",
+    "notFoundTitle": "This is somewhat embarrassing, isn’t it?",
+    "notFoundSubtitle": "It looks like nothing was found at this location. Maybe try a search?",
+    "searchForPosts": "Search for posts"
   },
   "washingtonianPalms": "Washingtonian Palms",
   "plantMedium": "Plant Medium",

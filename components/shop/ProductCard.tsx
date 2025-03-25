@@ -15,6 +15,9 @@ import { ProductDrawer } from "./ProductDrawer";
 import { ProductCategoryModel } from "@/models/product/product";
 import { getCategoryPathById, getCategoryPathByIdFromRecord } from "@/services/utility/utility.service";
 import { useTranslation } from "react-i18next";
+import { ProductService } from "@/services/api/product.service";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { useCart } from "@/providers/CartProvider";
 
 export default function ProductCard({
   id,
@@ -28,7 +31,8 @@ export default function ProductCard({
   sku,
   currentCategories = [],
   description = "",
-  slugToCategoryRecord
+  slugToCategoryRecord,
+  variations
 }: {
   id: any;
   slug: string;
@@ -42,13 +46,53 @@ export default function ProductCard({
   currentCategories: ProductCategoryModel[];
   description: any;
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
+  variations: number[]
 }) {
   const { t, i18n: { language } } = useTranslation("common");
   const [selectProductId, setSelectProductId] = useState<
     string | null | number
   >(null);
+  const { addToCart } = useCart();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
+  const [selectedVariant, setSelectedVariant] = useState<string>("");
+  const [variationsData, setVariationsData] = useState<any[]>([]);
+  const [variantsLoading, setVariantsLoading] = useState(false);
+  const selectedVariationDetails = options.find((variation: any) => variation.id === selectedVariant);
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+
+  useEffect(() => {
+    const getVariations = async () => {
+      setVariantsLoading(true);
+      try {
+        const response = await ProductService.GetVariants(
+          +id,
+          variations,
+          axiosInstanceWithoutLoader
+        );
+
+        setVariationsData(response);
+
+        setVariantsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getVariations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleAddToCart = () => {
+    addToCart({
+      id,
+      name,
+      price,
+      quantity: 1,
+      image: img,
+      variationId: +selectedVariant
+    });
+  };
 
   const productData = {
     id: id,
@@ -73,7 +117,10 @@ export default function ProductCard({
         }}
         productId={id}
         product={productData}
-        options={options}
+        options={variationsData.filter((variation) => variation.name) || []}
+        selectedVariant={selectedVariant}
+        clearVariant={() => setSelectedVariant("")}
+        onSelectVariant={(variant) => setSelectedVariant(variant)}
       />
 
       <ProductDrawer
@@ -81,7 +128,7 @@ export default function ProductCard({
         onOpenChange={setIsQuickViewOpen}
         product={productData}
         optionName={optionName}
-        options={options}
+        options={variationsData.filter((variation) => variation.name) || []}
       />
 
       {/* Product Image Section */}
@@ -134,7 +181,7 @@ export default function ProductCard({
                 <Shuffle className="cursor-pointer w-[15px] sm:w-[20px]" />
               </TooltipTrigger>
               <TooltipContent sideOffset={15} side="top" className="bg-black">
-                <p className="text-xs sm:text-sm">Compare</p>
+                <p className="text-xs sm:text-sm">{t("compare")}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -150,43 +197,40 @@ export default function ProductCard({
           </div>
 
           {/* Add to Cart Button */}
-          {selectProductId == id || (
-            <div className="group/select_product bg-primary text-white uppercase font-semibold text-sm px-3 py-2 shadow-md shadow-primary/95 min-w-[150px] text-center h-[40px] hidden lg:grid place-content-center  overflow-hidden">
-              <div
-                className="grid place-content-center cursor-pointer"
-                onClick={() => {
-                  setSelectProductId(id);
-                  setIsSheetOpen(true);
-                }}
-              >
-                <span className="translate-y-3 group-hover/select_product:-translate-y-[100px] transition-all duration-500 uppercase">
-                  {t("shop.addToCart")}
-                </span>
-                <div className="translate-y-[100px] w-full place-items-center group-hover/select_product:-translate-y-2 transition-all duration-500">
-                  <ShoppingCart />
+          {
+            variations.length > 0 ? (
+              <div className="group/select_product bg-primary text-white uppercase font-semibold text-sm px-3 py-2 shadow-md shadow-primary/95 min-w-[150px] text-center h-[40px] hidden lg:grid place-content-center  overflow-hidden">
+                <div
+                  className="grid place-content-center cursor-pointer"
+                  onClick={() => {
+                    setSelectProductId(id);
+                    setIsSheetOpen(true);
+                  }}
+                >
+                  <span className="translate-y-3 group-hover/select_product:-translate-y-[100px] transition-all duration-500 uppercase">
+                    {t("SelectOptions")}
+                  </span>
+                  <div className="translate-y-[100px] w-full place-items-center group-hover/select_product:-translate-y-2 transition-all duration-500">
+                    <ShoppingCart />
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-
-          {selectProductId == id || (
-            <div className="lg:hidden text-lightGray uppercase font-semibold text-sm px-3 py-2 shadow-mdtext-center h-[40px] grid place-content-center  overflow-hidden">
-              <div
-                className="grid place-content-center cursor-pointer"
-                onClick={() => {
-                  setSelectProductId(id);
-                  setIsSheetOpen(true);
-                }}
-              >
-
-                <div className="w-full place-items-center">
-                  <ShoppingCart />
+            ) : (
+              <div className="group/select_product bg-primary text-white uppercase font-semibold text-sm px-3 py-2 shadow-md shadow-primary/95 min-w-[150px] text-center h-[40px] hidden lg:grid place-content-center  overflow-hidden">
+                <div
+                  className="grid place-content-center cursor-pointer"
+                  onClick={() => handleAddToCart()}
+                >
+                  <span className="translate-y-3 group-hover/select_product:-translate-y-[100px] transition-all duration-500 uppercase">
+                    {t("shop.addToCart")}
+                  </span>
+                  <div className="translate-y-[100px] w-full place-items-center group-hover/select_product:-translate-y-2 transition-all duration-500">
+                    <ShoppingCart />
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-
-
+            )
+          }
           {/* Quick View Button */}
           <div>
             <Search
