@@ -15,6 +15,8 @@ import localFont from "next/font/local";
 import Link from "next/link";
 import { ChatIcon } from "@/assets/images/icon/ChatIcon";
 import { getCookie, setCookie } from "cookies-next";
+import initializeTranslations from "../i18n";
+import TranslationsProvider from "@/components/TranslationsProvider";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -36,7 +38,9 @@ export function generateStaticParams() {
   return i18nConfig.locales.map((locale) => ({ locale }));
 }
 
-export default function RootLayout({
+const i18nNamespaces = ["common"];
+
+export default async function RootLayout({
   children,
   params: { locale },
 }: {
@@ -49,6 +53,8 @@ export default function RootLayout({
   if (!getCookie("NEXT_LOCALE")) {
     setCookie("NEXT_LOCALE", currentLocale);
   }
+
+  const { t, resources } = await initializeTranslations(locale, i18nNamespaces);
 
   return (
     <html lang={locale} dir={dir(locale)} suppressHydrationWarning>
@@ -70,29 +76,36 @@ export default function RootLayout({
           locale === "en" ? lato.className : neo_arabic_font.className
         } w-[100vw] mx-auto overflow-x-hidden`}
       >
-        <LoadingProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <CartProvider>{children}</CartProvider>
-            <Toaster
-              richColors
-              duration={3000}
-              position="top-right"
-              expand={false}
-              visibleToasts={5}
-            />
-            <div className="fixed bottom-[75px] left-4 cursor-pointer z-[50]">
-              <Link href="https://api.whatsapp.com/send/?phone=96560660378&text&type=phone_number&app_absent=0">
-                {" "}
-                <ChatIcon />{" "}
-              </Link>
-            </div>
-          </ThemeProvider>
-        </LoadingProvider>
+        <TranslationsProvider
+          namespaces={i18nNamespaces}
+          locale={locale}
+          resources={resources}
+        >
+          <LoadingProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              enableSystem
+              disableTransitionOnChange
+            >
+
+              <CartProvider>{children}</CartProvider>
+              <Toaster
+                richColors
+                duration={3000}
+                position="top-right"
+                expand={false}
+                visibleToasts={5}
+              />
+              <div className="fixed bottom-[75px] left-4 cursor-pointer z-[50]">
+                <Link href="https://api.whatsapp.com/send/?phone=96560660378&text&type=phone_number&app_absent=0">
+                  {" "}
+                  <ChatIcon />{" "}
+                </Link>
+              </div>
+            </ThemeProvider>
+          </LoadingProvider>
+        </TranslationsProvider>
       </body>
     </html>
   );
