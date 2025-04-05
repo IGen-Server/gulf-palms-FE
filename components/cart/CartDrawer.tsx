@@ -7,7 +7,7 @@ import { CartItems } from "./CartItems";
 import Link from "next/link";
 
 export function CartDrawer() {
-  const { cartItems, updateQuantity, removeFromCart, subtotal } = useCart();
+  const { cartItems, subtotal } = useCart();
 
   return (
     <div className="max-h-[calc(100vh-250px)]">

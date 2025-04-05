@@ -1,5 +1,9 @@
 "use client";
 
+import { CART_NONCE_KEY, CART_TOKEN_KEY } from "@/constants/global-constants";
+import { CartService } from "@/services/api/cart.service";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { CookieStorageService } from "@/services/utility/storage.service";
 import React, { createContext, useContext, useReducer, ReactNode, useEffect } from "react";
 
 // Define the structure of a cart item
@@ -10,6 +14,7 @@ interface CartItem {
   quantity: number;
   image?: string;
   variationId?: number;
+  cartKey?: string;
 }
 
 // Define the structure of the cart state
@@ -88,19 +93,53 @@ interface CartProviderProps {
 // Provider component
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, [], loadCartFromStorage);
-
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+  
   // Sync cart state with local storage whenever it changes
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("cart", JSON.stringify(state));
-    }
-  }, [state]);
+    const fetchData = async () => {
+      
+      try {
+        const response = await CartService.GetCartItems(axiosInstanceWithoutLoader);
+        CookieStorageService.set(CART_TOKEN_KEY, response.cartToken);
+        CookieStorageService.set(CART_NONCE_KEY, response.nonce);
+        
+        console.log(response.data.items);
+        clearCart();
+
+        response.data.items.map((x: any) => {
+          const item: CartItem = {
+            id: x.id,
+            name: x.name,
+            price: Number(x.prices?.price/1000 || 0),
+            quantity: x.quantity,
+            image: x.images?.[0]?.src || '',
+            variationId: x.id,
+            cartKey: x.key,
+          };
+        
+          addToCart(item);
+        });
+
+
+      } catch (error) {
+        console.error(error);
+      }
+  
+      // if (typeof window !== "undefined") {
+      //   localStorage.setItem("cart", JSON.stringify(state));
+      // }
+    };
+  
+    fetchData();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Action handlers
   const addToCart = (item: CartItem) => dispatch({ type: "ADD_TO_CART", payload: item });
   const removeFromCart = (id: number | string) => dispatch({ type: "REMOVE_FROM_CART", payload: id });
-  const updateQuantity = (id: number | string, quantity: number) =>
-    dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } });
+  const updateQuantity = (id: number | string, quantity: number) => dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } });
   const clearCart = () => dispatch({ type: "CLEAR_CART" });
 
   // Compute total prices

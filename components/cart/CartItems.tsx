@@ -3,6 +3,10 @@
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useCart } from "@/providers/CartProvider";
+import { CartService } from "@/services/api/cart.service";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { useRef, useState } from "react";
+import debounce from 'lodash/debounce';
 
 interface CartItemProps {
   item: any;
@@ -11,6 +15,47 @@ interface CartItemProps {
 
 export function CartItems({ item, showSubtotal = true }: CartItemProps) {
   const { updateQuantity, removeFromCart } = useCart();
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+  const [isCartItemUpdating, setIsCartItemUpdating] = useState<boolean>(false);
+  
+  const useDebouncedUpdateCartItemQuantity = () => {
+    const debouncedFn = useRef(
+      debounce(async (cartKey: string, itemId: number, quantity: number, updateQuantityFn: any, setLoadingFn: any) => {
+        try {
+          setLoadingFn(true);
+          const response = await CartService.UpdateCartItem(cartKey, quantity, axiosInstanceWithoutLoader);
+  
+          const item = response.data.items.find((x: any) => x.id === itemId);
+          updateQuantityFn(itemId, Math.max(1, item?.quantity));
+          setLoadingFn(false);
+        } catch (error) {
+          console.error('Error updating cart item quantity:', error);
+          setLoadingFn(false);
+        }
+      }, 500) // 500ms debounce time
+    ).current;
+  
+    return debouncedFn;
+  };
+  
+  const debouncedUpdate = useDebouncedUpdateCartItemQuantity();
+  const handleQuantityChange = (cartKey: string, itemId: number, newQuantity: number) => {
+    if (newQuantity < 1) {
+      return;
+    }
+
+    updateQuantity(itemId, Math.max(1, newQuantity));
+    debouncedUpdate(cartKey, itemId, newQuantity, updateQuantity, setIsCartItemUpdating);
+  };
+
+  const handleCartItemRemove = async (cartKey: string, itemId: number) => {
+    try {
+      await CartService.DeleteCartItem(cartKey);
+      removeFromCart(itemId);
+    } catch (error) {
+      console.error('Error updating cart item quantity:', error);
+    }
+  };
 
   return (
     <div className="flex gap-4 py-4">
@@ -27,7 +72,7 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
         <div className="flex justify-between">
           <h3 className="font-medium">{item.name}</h3>
           <button
-            onClick={() => removeFromCart(item.id)}
+            onClick={() => handleCartItemRemove(item.cartKey, item.id)}
             className="text-muted-foreground hover:text-foreground"
           >
             <X className="w-4 h-4" />
@@ -36,16 +81,15 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
         <div className="mt-2 flex items-center gap-4">
           <div className="flex items-center border rounded">
             <button
-              onClick={() =>
-                updateQuantity(item.id, Math.max(1, item.quantity - 1))
-              }
+              onClick={() => handleQuantityChange(item.cartKey, item.id, item.quantity - 1)}
               className="px-2 py-1 hover:bg-muted"
             >
               -
             </button>
             <span className="w-8 text-center">{item.quantity}</span>
             <button
-              onClick={() => updateQuantity(item.id, item.quantity + 1)}
+
+              onClick={() => handleQuantityChange(item.cartKey, item.id, item.quantity + 1)}
               className="px-2 py-1 hover:bg-muted"
             >
               +

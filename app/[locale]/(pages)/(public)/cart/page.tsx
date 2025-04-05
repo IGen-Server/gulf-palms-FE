@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { useCart } from "@/providers/CartProvider"
 
 export default function CartPage() {
-  const { cartItems, updateQuantity, removeFromCart, subtotal, total, shippingCost } = useCart()
+  const { cartItems, subtotal, total, shippingCost } = useCart()
 
   return (
     <div className="container max-w-[1370px] py-12 mx-auto">

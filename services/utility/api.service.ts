@@ -17,6 +17,11 @@ export const ApiRoutes = {
     Profile: '/user/profile',
     Settings: '/user/settings',
   },
+  Cart: {
+    GetAllItems: '/cart',
+    UpdateCartItem: '/cart/update',
+    DeleteCartItem: '/cart/delete',
+  },
   Order: {
     GetById: 'orders/getById',
     Get: 'orders',

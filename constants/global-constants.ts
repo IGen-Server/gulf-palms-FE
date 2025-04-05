@@ -59,3 +59,6 @@ export const showPerPage = [
   { name: "18", arabicName: "18", href: "", value: 18 },
   { name: "24", arabicName: "24", href: "", value: 24 },
 ];
+
+export const CART_NONCE_KEY = 'cart_nonce'
+export const CART_TOKEN_KEY = 'cart_token'
