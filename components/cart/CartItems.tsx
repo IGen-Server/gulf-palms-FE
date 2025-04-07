@@ -18,6 +18,9 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
   const [isCartItemUpdating, setIsCartItemUpdating] = useState<boolean>(false);
 
+  console.log(item);
+
+
   const useDebouncedUpdateCartItemQuantity = () => {
     const debouncedFn = useRef(
       debounce(async (cartKey: string, itemId: number, quantity: number, updateQuantityFn: any, setLoadingFn: any) => {
@@ -96,7 +99,7 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
             </button>
           </div>
           <div className="text-primary font-medium">
-            {typeof item.price === "number" ? item.price.toFixed(3) : ""} KD
+            {item.quantity} x {typeof item.price === "number" ? item.price.toFixed(3) : ""} KD
           </div>
           {showSubtotal && (
             <div className="ml-auto text-primary font-medium">

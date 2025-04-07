@@ -132,6 +132,17 @@ export function ProductDetailsExtended({
   };
 
   const handleAddToCart = () => {
+    // Check for products with variants but no selection
+    const productsWithUnselectedVariants = selectedProducts.filter(product =>
+      product.variations?.length > 0 && !selectedVariants[product.id]
+    );
+
+    if (productsWithUnselectedVariants.length > 0) {
+      // Show alert for unselected variants
+      alert("Please select some product options before adding this product to your cart.");
+      return;
+    }
+
     // Add all selected products at once
     const productsToAdd = selectedProducts.map(product => ({
       ...product,

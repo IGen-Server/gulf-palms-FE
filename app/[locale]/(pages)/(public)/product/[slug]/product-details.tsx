@@ -490,6 +490,10 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
               className="bg-primary px-3 hover:bg-[#fda757] text-white font-semibold"
               onClick={() => {
                 let cartProduct = { ...product, quantity: quantity || 1 };
+                if (!selectedVariant) {
+                  alert("Please select some product options before adding this product to your cart.");
+                  return;
+                }
                 addToCart(cartProduct);
               }}
             >
