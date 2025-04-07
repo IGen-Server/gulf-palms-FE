@@ -17,14 +17,14 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
   const { updateQuantity, removeFromCart } = useCart();
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
   const [isCartItemUpdating, setIsCartItemUpdating] = useState<boolean>(false);
-  
+
   const useDebouncedUpdateCartItemQuantity = () => {
     const debouncedFn = useRef(
       debounce(async (cartKey: string, itemId: number, quantity: number, updateQuantityFn: any, setLoadingFn: any) => {
         try {
           setLoadingFn(true);
           const response = await CartService.UpdateCartItem(cartKey, quantity, axiosInstanceWithoutLoader);
-  
+
           const item = response.data.items.find((x: any) => x.id === itemId);
           updateQuantityFn(itemId, Math.max(1, item?.quantity));
           setLoadingFn(false);
@@ -34,23 +34,23 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
         }
       }, 500) // 500ms debounce time
     ).current;
-  
+
     return debouncedFn;
   };
-  
+
   const debouncedUpdate = useDebouncedUpdateCartItemQuantity();
-  const handleQuantityChange = (cartKey: string, itemId: number, newQuantity: number) => {
+  const handleQuantityChange = (cartKey: string, itemId: number, newQuantity: number, bundleId: number) => {
     if (newQuantity < 1) {
       return;
     }
 
-    updateQuantity(itemId, Math.max(1, newQuantity));
+    updateQuantity(itemId, Math.max(1, newQuantity), bundleId);
     debouncedUpdate(cartKey, itemId, newQuantity, updateQuantity, setIsCartItemUpdating);
   };
 
   const handleCartItemRemove = async (cartKey: string, itemId: number) => {
     try {
-      await CartService.DeleteCartItem(cartKey);
+      // await CartService.DeleteCartItem(cartKey);
       removeFromCart(itemId);
     } catch (error) {
       console.error('Error updating cart item quantity:', error);
@@ -61,7 +61,7 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
     <div className="flex gap-4 py-4">
       <div className="relative w-20 h-20">
         <Image
-          src={item.image?.src || item?.image ||  "/placeholder.svg"}
+          src={item.image?.src || item?.image || "/placeholder.svg"}
           alt={item.name}
           height={80}
           width={80}
@@ -81,7 +81,7 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
         <div className="mt-2 flex items-center gap-4">
           <div className="flex items-center border rounded">
             <button
-              onClick={() => handleQuantityChange(item.cartKey, item.id, item.quantity - 1)}
+              onClick={() => handleQuantityChange(item.cartKey, item.id, item.quantity - 1, item.bundleId)}
               className="px-2 py-1 hover:bg-muted"
             >
               -
@@ -89,7 +89,7 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
             <span className="w-8 text-center">{item.quantity}</span>
             <button
 
-              onClick={() => handleQuantityChange(item.cartKey, item.id, item.quantity + 1)}
+              onClick={() => handleQuantityChange(item.cartKey, item.id, item.quantity + 1, item.bundleId)}
               className="px-2 py-1 hover:bg-muted"
             >
               +

@@ -48,7 +48,7 @@ export function ProductDetailsExtended({
   const [currentSlide, setCurrentSlide] = useState(0);
   const { t, i18n: { language } } = useTranslation("common");
 
-  console.log(recommendedProducts);
+  console.log(selectedProducts);
 
 
   const { addToCart } = useCart();
@@ -132,10 +132,20 @@ export function ProductDetailsExtended({
   };
 
   const handleAddToCart = () => {
-    selectedProducts.forEach((product) => {
-      console.log({ product })
-      addToCart(product)
-    })
+    // Add all selected products at once
+    const productsToAdd = selectedProducts.map(product => ({
+      ...product,
+      bundleId: currentProduct.id, // Add a common bundleId to group the items
+      quantity: 1
+    }));
+
+    console.log("Adding products to cart:", productsToAdd);
+
+    productsToAdd.forEach(product => {
+      addToCart(product);
+    });
+
+    // You might want to add a toast/notification here to confirm multiple items were added
   }
 
   const nextSlide = (): void => {
