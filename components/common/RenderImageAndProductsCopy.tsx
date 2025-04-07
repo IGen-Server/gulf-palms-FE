@@ -33,6 +33,8 @@ import {
 import { useCart } from "@/providers/CartProvider";
 import { ProductDrawer } from "../shop/ProductDrawer";
 import { useTranslation } from "react-i18next";
+import { CartService } from "@/services/api/cart.service";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 
 interface HoverProduct {
   position: { x: number; y: number };
@@ -90,22 +92,32 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
-  const { addToCart } = useCart();
+  const { initializeCartItems } = useCart();
 
-  console.log(currentCategories);
+  // console.log(currentCategories);
 
+  const [isAddingCartItem, setIsAddingCartItem] = useState(false);
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false,false);
   const handleAddToCart = async () => {
     setLoading(true); // Set loading to true
     try {
-      await addToCart({
-        id: productId,
-        name: name as string,
-        price: Number(price) as number,
-        quantity: 1,
-        image: images?.[0] || imageFileOrUrl,
-      });
+      // await addToCart({
+      //   id: productId,
+      //   name: name as string,
+      //   price: Number(price) as number,
+      //   quantity: 1,
+      //   image: images?.[0] || imageFileOrUrl,
+      // });
+
+      setIsAddingCartItem(true);
+      const response = await CartService.AddCartItem(+productId, 1, axiosInstanceWithoutLoader);
+      console.log(response);
+      initializeCartItems(response);
+      setIsAddingCartItem(false);
+
       setIsSheetOpen(false);
     } catch (error) {
+      setIsAddingCartItem(false);
       console.error("Error adding to cart:", error);
     } finally {
       setLoading(false); // Set loading to false

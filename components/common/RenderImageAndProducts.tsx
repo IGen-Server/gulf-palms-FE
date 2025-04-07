@@ -36,6 +36,7 @@ import { useTranslation } from "react-i18next";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { ProductService } from "@/services/api/product.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { CartService } from "@/services/api/cart.service";
 
 interface HoverProduct {
   position: { x: number; y: number };
@@ -95,7 +96,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { t, i18n: { language } } = useTranslation("common");
-  const { addToCart } = useCart();
+  const { initializeCartItems } = useCart();
   const [selectedVariant, setSelectedVariant] = useState<string>("");
   const [variationsData, setVariationsData] = useState<any[]>([]);
   const [variantsLoading, setVariantsLoading] = useState(false);
@@ -123,6 +124,8 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
+  const [isAddingCartItem, setIsAddingCartItem] = useState(false);
   const handleAddToCart = async () => {
     if (!selectedVariant) {
       alert("Please select some product options before adding this product to your cart.");
@@ -130,16 +133,24 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
     }
     setLoading(true); // Set loading to true
     try {
-      await addToCart({
-        id: productId,
-        name: name as string,
-        price: Number(price) as number,
-        quantity: 1,
-        image: images?.[0] || imageFileOrUrl,
-        variationId: +selectedVariant
-      });
+      // await addToCart({
+      //   id: productId,
+      //   name: name as string,
+      //   price: Number(price) as number,
+      //   quantity: 1,
+      //   image: images?.[0] || imageFileOrUrl,
+      //   variationId: +selectedVariant
+      // });
+
+      setIsAddingCartItem(true);
+      const response = await CartService.AddCartItem(+selectedVariant === 0 ? +productId : +selectedVariant, 1, axiosInstanceWithoutLoader);
+      console.log(response);
+      initializeCartItems(response);
+      setIsAddingCartItem(false);
+
       setIsSheetOpen(false);
     } catch (error) {
+      setIsAddingCartItem(false);
       console.error("Error adding to cart:", error);
     } finally {
       setLoading(false); // Set loading to false

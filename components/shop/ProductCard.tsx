@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import { ProductService } from "@/services/api/product.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { useCart } from "@/providers/CartProvider";
+import { CartService } from "@/services/api/cart.service";
 
 export default function ProductCard({
   id,
@@ -52,7 +53,7 @@ export default function ProductCard({
   const [selectProductId, setSelectProductId] = useState<
     string | null | number
   >(null);
-  const { addToCart } = useCart();
+  const { initializeCartItems } = useCart();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<string>("");
@@ -83,15 +84,28 @@ export default function ProductCard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleAddToCart = () => {
-    addToCart({
-      id,
-      name,
-      price,
-      quantity: 1,
-      image: img,
-      variationId: +selectedVariant
-    });
+  const [isAddingCartItem, setIsAddingCartItem] = useState(false);
+  const handleAddToCart = async () => {
+    // addToCart({
+    //   id,
+    //   name,
+    //   price,
+    //   quantity: 1,
+    //   image: img,
+    //   variationId: +selectedVariant
+    // });
+
+    try {
+      setIsAddingCartItem(true);
+      const response = await CartService.AddCartItem(+selectedVariant === 0 ? id : +selectedVariant, 1, axiosInstanceWithoutLoader);
+      console.log(response);
+      initializeCartItems(response);
+      
+      setIsAddingCartItem(false);
+    } catch (error) {
+      console.error('Error adding cart item:', error);
+      setIsAddingCartItem(false);
+    }
   };
 
   const productData = {

@@ -29,6 +29,8 @@ import {
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { DirectionProvider } from '@radix-ui/react-direction';
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { CartService } from "@/services/api/cart.service";
 
 export const shareLinks = {
   whatsapp:
@@ -70,7 +72,7 @@ export function ProductDrawer({
   const [isMobile, setIsMobile] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { t, i18n: { language } } = useTranslation();
-  const { addToCart } = useCart();
+  const { initializeCartItems } = useCart();
   const [selectedVariant, setSelectedVariant] = useState<string>("");
   const selectedVariationDetails = options.find((variation: any) => variation.id === selectedVariant);
 
@@ -89,6 +91,24 @@ export function ProductDrawer({
 
   const nextImage = () => {
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false,false);
+  const [isAddingCartItem, setIsAddingCartItem] = useState(false);
+  const handleAddToCart = async (productData: any) => {
+    // await addToCart({
+    
+    try {
+      setIsAddingCartItem(true);
+      const response = await CartService.AddCartItem(+productData.variationId === 0 ? productData.id : +productData.variationId, productData.quantity, axiosInstanceWithoutLoader);
+      console.log(response);
+      initializeCartItems(response);
+      
+      setIsAddingCartItem(false);
+    } catch (error) {
+      console.error('Error adding cart item:', error);
+      setIsAddingCartItem(false);
+    }
   };
 
   const Content = (
@@ -213,7 +233,7 @@ export function ProductDrawer({
               className="flex-1 bg-primary hover:bg-[#fda757] text-white font-semibold"
               onClick={() => {
                 let cartProduct = { ...product, quantity: quantity || 1, variationId: +selectedVariant };
-                addToCart(cartProduct);
+                handleAddToCart(cartProduct);
               }}
             >
               {t("AddToCart")}

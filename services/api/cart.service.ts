@@ -16,13 +16,13 @@ export const CartService  = {
       throw error;
     }
   },
-  async UpdateCartItem(cartKey: string, quantity: number, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
+  async AddCartItem(productId: number, quantity: number, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
     try {
       const XWCStoreAPINonce = CookieStorageService.get(CART_NONCE_KEY);
       const CartToken = CookieStorageService.get(CART_TOKEN_KEY);
 
-      const response = await axiosInstance.post<any>(ApiRoutes.Cart.UpdateCartItem, {
-        key: cartKey,
+      const response = await axiosInstance.post<any>(ApiRoutes.Cart.AddCartItem, {
+        productId: productId,
         quantity: quantity,
         XWCStoreAPINonce: XWCStoreAPINonce,
         CartToken: CartToken
@@ -32,13 +32,29 @@ export const CartService  = {
       throw error;
     }
   },
-  async DeleteCartItem(cartKey: string, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
+  async UpdateCartItem(productId: number, quantity: number, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
+    try {
+      const XWCStoreAPINonce = CookieStorageService.get(CART_NONCE_KEY);
+      const CartToken = CookieStorageService.get(CART_TOKEN_KEY);
+
+      const response = await axiosInstance.post<any>(ApiRoutes.Cart.UpdateCartItem, {
+        productId: productId,
+        quantity: quantity,
+        XWCStoreAPINonce: XWCStoreAPINonce,
+        CartToken: CartToken
+      });
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
+  async DeleteCartItem(productId: number, axiosInstance: AxiosInstance = AxiosInstanceWithInterceptor): Promise<any> {
     try {
       const XWCStoreAPINonce = CookieStorageService.get(CART_NONCE_KEY);
       const CartToken = CookieStorageService.get(CART_TOKEN_KEY);
 
       const response = await axiosInstance.post<any>(ApiRoutes.Cart.DeleteCartItem, {
-        key: cartKey,
+        productId: productId,
         XWCStoreAPINonce: XWCStoreAPINonce,
         CartToken: CartToken
       });

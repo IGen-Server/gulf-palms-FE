@@ -19,6 +19,7 @@ export const ApiRoutes = {
   },
   Cart: {
     GetAllItems: '/cart',
+    AddCartItem: '/cart/add',
     UpdateCartItem: '/cart/update',
     DeleteCartItem: '/cart/delete',
   },

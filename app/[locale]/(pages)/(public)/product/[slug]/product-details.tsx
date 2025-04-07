@@ -44,6 +44,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { notFound } from "next/navigation";
+import { CartService } from "@/services/api/cart.service";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 
 interface ProductDetailsProps {
   loading?: boolean;
@@ -57,7 +59,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
   const { t, i18n: { language } } = useTranslation("common");
   const [selectedImage, setSelectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCart();
+  const { initializeCartItems } = useCart();
   // Add this state for tracking visible images
   const [hoveredProduct, setHoveredProduct] = useState<any | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -119,16 +121,29 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
       setQuantity(prevQuantity => prevQuantity - 1);
     }
   };
+  
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false,false);
+  const [isAddingCartItem, setIsAddingCartItem] = useState(false);
+  const handleAddToCart = async (productData: any) => {
 
-  const handleAddToCart = () => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: Number(product.price),
-      quantity: quantity,
-      image: product?.images?.[0]?.src,
-      variationId: +selectedVariant
-    });
+    // console.log(productData.id);
+    // console.log(+selectedVariant);
+    // console.log(productData.quantity);
+    // console.log(productData.price);
+    
+    // await addToCart({
+
+    try {
+      setIsAddingCartItem(true);
+      const response = await CartService.AddCartItem(+selectedVariant === 0 ? productData.id : +selectedVariant, quantity, axiosInstanceWithoutLoader);
+      console.log(response);
+      initializeCartItems(response);
+      
+      setIsAddingCartItem(false);
+    } catch (error) {
+      console.error('Error adding cart item:', error);
+      setIsAddingCartItem(false);
+    }
   };
 
   const handleShare = (type: string, imageUrl: string) => {
@@ -490,7 +505,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
               className="bg-primary px-3 hover:bg-[#fda757] text-white font-semibold"
               onClick={() => {
                 let cartProduct = { ...product, quantity: quantity || 1 };
-                addToCart(cartProduct);
+                handleAddToCart(cartProduct);
               }}
             >
               {t("AddToCart")}

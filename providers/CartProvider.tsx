@@ -4,7 +4,7 @@ import { CART_NONCE_KEY, CART_TOKEN_KEY } from "@/constants/global-constants";
 import { CartService } from "@/services/api/cart.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { CookieStorageService } from "@/services/utility/storage.service";
-import React, { createContext, useContext, useReducer, ReactNode, useEffect } from "react";
+import React, { createContext, useContext, useReducer, ReactNode, useEffect, useRef } from "react";
 
 // Define the structure of a cart item
 interface CartItem {
@@ -78,6 +78,8 @@ interface CartContextType {
   removeFromCart: (id: number | string) => void;
   updateQuantity: (id: number | string, quantity: number) => void;
   clearCart: () => void;
+  initializeCartItems: (cartResult: any) => void;
+  updateCartCredentials: (cartToken: string, nonce: string) => void;
   subtotal: number;
   total: number;
   shippingCost: number;
@@ -94,34 +96,17 @@ interface CartProviderProps {
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, [], loadCartFromStorage);
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+  const isCartLoaded = useRef(false);
   
   // Sync cart state with local storage whenever it changes
   useEffect(() => {
     const fetchData = async () => {
-      
+      if (isCartLoaded.current) return;
+        isCartLoaded.current = true;
+
       try {
         const response = await CartService.GetCartItems(axiosInstanceWithoutLoader);
-        CookieStorageService.set(CART_TOKEN_KEY, response.cartToken);
-        CookieStorageService.set(CART_NONCE_KEY, response.nonce);
-        
-        console.log(response.data.items);
-        clearCart();
-
-        response.data.items.map((x: any) => {
-          const item: CartItem = {
-            id: x.id,
-            name: x.name,
-            price: Number(x.prices?.price/1000 || 0),
-            quantity: x.quantity,
-            image: x.images?.[0]?.src || '',
-            variationId: x.id,
-            cartKey: x.key,
-          };
-        
-          addToCart(item);
-        });
-
-
+        initializeCartItems(response);
       } catch (error) {
         console.error(error);
       }
@@ -135,6 +120,35 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function initializeCartItems(cartResult: any) {
+
+    updateCartCredentials(cartResult.cartToken, cartResult.nonce);
+    clearCart();
+  
+    cartResult.data.items.map((x: any) => {
+      const item: CartItem = {
+        id: x.id,
+        name: x.name,
+        price: Number(x.prices?.price / 1000 || 0),
+        quantity: x.quantity,
+        image: x.images?.[0]?.src || '',
+        variationId: x.id,
+        cartKey: x.key,
+      };
+  
+      addToCart(item);
+    });
+  }
+
+  function updateCartCredentials(cartToken: string, nonce: string) {
+    console.log('cartToken: ', cartToken);
+    console.log('nonce: ', nonce);
+
+    CookieStorageService.set(CART_TOKEN_KEY, cartToken);
+    CookieStorageService.set(CART_NONCE_KEY, nonce);
+  }
+
 
   // Action handlers
   const addToCart = (item: CartItem) => dispatch({ type: "ADD_TO_CART", payload: item });
@@ -154,6 +168,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         removeFromCart,
         updateQuantity,
         clearCart,
+        initializeCartItems,
+        updateCartCredentials,
         subtotal,
         total,
         shippingCost: state.shippingCost,

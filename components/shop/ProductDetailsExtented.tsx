@@ -14,6 +14,7 @@ import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.
 import { ProductService } from "@/services/api/product.service"
 import { useTranslation } from "react-i18next";
 import { Loader2 } from "lucide-react";
+import { CartService } from "@/services/api/cart.service"
 
 interface ProductDetailsProps {
   currentProduct: any;
@@ -51,7 +52,7 @@ export function ProductDetailsExtended({
   console.log(recommendedProducts);
 
 
-  const { addToCart } = useCart();
+  const { initializeCartItems } = useCart();
 
   // Add this new state for tracking variants per product
   const [selectedVariants, setSelectedVariants] = useState<Record<number, string>>({});
@@ -131,10 +132,30 @@ export function ProductDetailsExtended({
     );
   };
 
+  const [isAddingCartItem, setIsAddingCartItem] = useState(false);
   const handleAddToCart = () => {
-    selectedProducts.forEach((product) => {
-      console.log({ product })
-      addToCart(product)
+    selectedProducts.forEach(async (product) => {
+
+      // console.log(productData.id);
+      // console.log(+selectedVariant);
+      // console.log(productData.quantity);
+      // console.log(productData.price);
+      
+      // await addToCart({
+
+      try {
+        setIsAddingCartItem(true);
+        const response = await CartService.AddCartItem(+product.variationId === 0 ? product.id : +product.variationId, product.quantity, axiosInstanceWithoutLoader);
+        console.log(response);
+        initializeCartItems(response);
+        
+        setIsAddingCartItem(false);
+      } catch (error) {
+        console.error('Error adding cart item:', error);
+        setIsAddingCartItem(false);
+      }
+      // console.log({ product })
+      // addToCart(product)
     })
   }
 

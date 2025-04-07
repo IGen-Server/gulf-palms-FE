@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import debounce from 'lodash/debounce';
 
 export function CartItemsForPage({ item }:{item:any}) {
-  const { updateQuantity, removeFromCart } = useCart()
+  const { updateQuantity, removeFromCart, updateCartCredentials } = useCart()
 
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
   const [isCartItemUpdating, setIsCartItemUpdating] = useState<boolean>(false);
@@ -17,8 +17,9 @@ export function CartItemsForPage({ item }:{item:any}) {
       debounce(async (cartKey: string, itemId: number, quantity: number, updateQuantityFn: any, setLoadingFn: any) => {
         try {
           setLoadingFn(true);
-          const response = await CartService.UpdateCartItem(cartKey, quantity, axiosInstanceWithoutLoader);
-  
+          const response = await CartService.UpdateCartItem(itemId, quantity, axiosInstanceWithoutLoader);
+          updateCartCredentials(response.cartToken, response.nonce);
+
           const item = response.data.items.find((x: any) => x.id === itemId);
           updateQuantityFn(itemId, Math.max(1, item?.quantity));
           setLoadingFn(false);
@@ -44,7 +45,8 @@ export function CartItemsForPage({ item }:{item:any}) {
 
   const handleCartItemRemove = async (cartKey: string, itemId: number) => {
     try {
-      await CartService.DeleteCartItem(cartKey);
+      const response = await CartService.DeleteCartItem(itemId);
+      updateCartCredentials(response.cartToken, response.nonce);
       removeFromCart(itemId);
     } catch (error) {
       console.error('Error updating cart item quantity:', error);

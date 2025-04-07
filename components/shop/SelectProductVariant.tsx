@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,6 +12,8 @@ import { X } from "lucide-react";
 import { Button } from "../ui/button";
 import { useCart } from "@/providers/CartProvider";
 import { useTranslation } from "react-i18next";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { CartService } from "@/services/api/cart.service";
 
 interface ProductSelectionSheetProps {
   isOpen: boolean;
@@ -37,23 +41,59 @@ const SelectProductVariant: React.FC<ProductSelectionSheetProps> = ({
   clearVariant,
 }) => {
   const { t, i18n: { language } } = useTranslation("common");
-  const { addToCart } = useCart();
+  const { addToCart, initializeCartItems } = useCart();
   if (!isOpen) return null;
 
   const selectedVariationDetails = options.find((variation: any) => variation.id === selectedVariant);
 
-  const handleAddToCart = () => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      quantity: 1,
-      image: product.image,
-      variationId: +selectedVariant
-    });
-    setIsOpen(false);
-    setSelectProductId(null)
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false,false);
+  // const [isAddingCartItem, setIsAddingCartItem] = useState(false);
+  const handleAddToCart = async () => {
+
+    // console.log(productData.id);
+    // console.log(+selectedVariant);
+    // console.log(productData.quantity);
+    // console.log(productData.price);
+
+    try {
+      // setIsAddingCartItem(true);
+
+      // addToCart({
+      //   id: product.id,
+      //   name: product.name,
+      //   price: product.price,
+      //   quantity: 1,
+      //   image: product.image,
+      //   variationId: +selectedVariant
+      // });
+
+      const response = await CartService.AddCartItem(+selectedVariant === 0 ? product.id : +selectedVariant, 1, axiosInstanceWithoutLoader);
+      console.log(response);
+
+      initializeCartItems(response);
+      setIsOpen(false);
+      setSelectProductId(null)
+      
+      // setIsAddingCartItem(false);
+    } catch (error) {
+      console.error('Error adding cart item:', error);
+      // setIsAddingCartItem(false);
+    }
   };
+
+
+  // const handleAddToCart = () => {
+  //   addToCart({
+  //     id: product.id,
+  //     name: product.name,
+  //     price: product.price,
+  //     quantity: 1,
+  //     image: product.image,
+  //     variationId: +selectedVariant
+  //   });
+  //   setIsOpen(false);
+  //   setSelectProductId(null)
+  // };
 
   return (
     <div className="absolute -top-[50px] inset-0 w-full h-[328px] flex flex-col justify-center pb-7 bg-white/90 z-20">
