@@ -77,9 +77,9 @@ export default function CartPage() {
               <span className="text-primary text-xl font-bold">{total.toFixed(3)} KD</span>
             </div>
 
-            <Button className="w-full h-12 bg-primary hover:bg-primary/90 text-sm font-bold tracking-wider">
+            <button className="w-full h-12 bg-primary text-white hover: text-sm font-bold tracking-wider">
               <Link href="/checkout"> PROCEED TO CHECKOUT</Link>
-            </Button>
+            </button>
           </div>
         </div>
       </div>
