@@ -4,6 +4,7 @@ import { CartItemsForPage } from "@/components/cart/CartItemsForPage"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useCart } from "@/providers/CartProvider"
+import Link from "next/link"
 
 export default function CartPage() {
   const { cartItems, subtotal, total, shippingCost } = useCart()
@@ -47,9 +48,6 @@ export default function CartPage() {
                 APPLY COUPON
               </Button>
             </div>
-            <Button variant="outline" className="h-11 px-6 text-xs font-bold tracking-wider">
-              UPDATE CART
-            </Button>
           </div>
         </div>
 
@@ -80,7 +78,7 @@ export default function CartPage() {
             </div>
 
             <Button className="w-full h-12 bg-primary hover:bg-primary/90 text-sm font-bold tracking-wider">
-              PROCEED TO CHECKOUT
+              <Link href="/checkout"> PROCEED TO CHECKOUT</Link>
             </Button>
           </div>
         </div>
