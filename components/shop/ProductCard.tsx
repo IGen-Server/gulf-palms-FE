@@ -18,6 +18,8 @@ import { useTranslation } from "react-i18next";
 import { ProductService } from "@/services/api/product.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { useCart } from "@/providers/CartProvider";
+import { CartService } from "@/services/api/cart.service";
+import { useUserDataProvider } from "@/providers/UserDataProvider";
 
 export default function ProductCard({
   id,
@@ -52,7 +54,7 @@ export default function ProductCard({
   const [selectProductId, setSelectProductId] = useState<
     string | null | number
   >(null);
-  const { addToCart } = useCart();
+  const { initializeCartItems, addToCart } = useCart();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<string>("");
@@ -60,6 +62,7 @@ export default function ProductCard({
   const [variantsLoading, setVariantsLoading] = useState(false);
   const selectedVariationDetails = options.find((variation: any) => variation.id === selectedVariant);
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+  const { isAuthenticated } = useUserDataProvider();
 
   useEffect(() => {
     const getVariations = async () => {
@@ -83,15 +86,44 @@ export default function ProductCard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleAddToCart = () => {
-    addToCart({
-      id,
-      name,
-      price,
-      quantity: 1,
-      image: img,
-      variationId: +selectedVariant
-    });
+  const [isAddingCartItem, setIsAddingCartItem] = useState(false);
+  const handleAddToCart = async () => {
+    // addToCart({
+    //   id,
+    //   name,
+    //   price,
+    //   quantity: 1,
+    //   image: img,
+    //   variationId: +selectedVariant
+    // });
+
+    if (variationsData.length > 0 && !selectedVariant) {
+      alert("Please select some product options before adding this product to your cart.");
+      return;
+    }
+
+    if (!isAuthenticated) {
+      addToCart({
+        id: selectedVariant ? +selectedVariant : id,
+        name: name as string,
+        price: Number(price),
+        quantity: 1,
+        image: images?.[0]?.src || Image
+      });
+      return;
+    }
+
+    try {
+      setIsAddingCartItem(true);
+      const response = await CartService.AddCartItem(+selectedVariant ? +selectedVariant : id, 1, axiosInstanceWithoutLoader);
+      console.log(response);
+      initializeCartItems(response);
+
+      setIsAddingCartItem(false);
+    } catch (error) {
+      console.error('Error adding cart item:', error);
+      setIsAddingCartItem(false);
+    }
   };
 
   const productData = {

@@ -14,6 +14,7 @@ import { ProductCategoryModel } from "@/models/product/product";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
 import { SlugType, useGlobalDataProvider } from "@/providers/GlobalDataProvider";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useUserDataProvider } from "@/providers/UserDataProvider";
 
 export default function ProductPage() {
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
@@ -24,6 +25,7 @@ export default function ProductPage() {
   const [product, setProduct] = useState<any | null>(null);
   const hasMounted = useRef(false);
   const [isProductLoading, setIsProductsLoading] = useState<boolean | null>(false);
+  const { isAuthenticated } = useUserDataProvider();
 
   useEffect(() => {
     if (hasMounted.current) return;
@@ -128,6 +130,7 @@ export default function ProductPage() {
               currentProduct={product}
               recommendedProducts={suggestedProducts}
               slugToCategoryRecord={slugToCategoryRecord}
+              isAuthenticated={isAuthenticated}
             />
             }
           </Suspense>

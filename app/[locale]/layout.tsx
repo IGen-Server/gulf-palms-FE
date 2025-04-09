@@ -17,6 +17,7 @@ import { ChatIcon } from "@/assets/images/icon/ChatIcon";
 import { getCookie, setCookie } from "cookies-next";
 import initializeTranslations from "../i18n";
 import TranslationsProvider from "@/components/TranslationsProvider";
+import { UserDataProvider } from "@/providers/UserDataProvider";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -72,9 +73,8 @@ export default async function RootLayout({
         ></link>
       </head>
       <body
-        className={`${
-          locale === "en" ? lato.className : neo_arabic_font.className
-        } w-[100vw] mx-auto overflow-x-hidden`}
+        className={`${locale === "en" ? lato.className : neo_arabic_font.className
+          } w-[100vw] mx-auto overflow-x-hidden`}
       >
         <TranslationsProvider
           namespaces={i18nNamespaces}
@@ -88,8 +88,9 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-
-              <CartProvider>{children}</CartProvider>
+              <UserDataProvider>
+                <CartProvider>{children}</CartProvider>
+              </UserDataProvider>
               <Toaster
                 richColors
                 duration={3000}

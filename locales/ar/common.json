@@ -60,6 +60,14 @@
     "confirmPassword": "تأكيد كلمة المرور الجديدة",
     "saveChanges": "حفظ التغييرات"
   },
+  "cart": {
+    "noProducts": "لا توجد منتجات في سلة المشتريات.",
+    "close": "يغلق",
+    "cart": "سلة التسوق",
+    "returnToShop": "العودة الى المتجر",
+    "viewCart": "عرض السلة",
+    "checkout": "إتمام الطلب"
+  },
   "auth": {
     "login": "تسجيل الدخول",
     "usernameOrEmail": "اسم المستخدم أو البريد الالكتروني",
@@ -79,32 +87,62 @@
     "close": "يغلق"
   },
   "my_account": [
-    { "title": "لوحة التحكم", "href": "/my-account" },
-    { "title": "الطلبات", "href": "/my-account/orders" },
-    { "title": "العناوين", "href": "/my-account/downloads" },
-    { "title": "التنزيلات", "href": "/my-account/edit-address" },
-    { "title": "تفاصيل الحساب", "href": "/my-account/edit-account" },
-    { "title": "تسجيل الخروج", "href": "/my-account" }
+    {
+      "title": "لوحة التحكم",
+      "href": "/my-account"
+    },
+    {
+      "title": "الطلبات",
+      "href": "/my-account/orders"
+    },
+    {
+      "title": "العناوين",
+      "href": "/my-account/downloads"
+    },
+    {
+      "title": "التنزيلات",
+      "href": "/my-account/edit-address"
+    },
+    {
+      "title": "تفاصيل الحساب",
+      "href": "/my-account/edit-account"
+    },
+    {
+      "title": "تسجيل الخروج",
+      "href": "/my-account"
+    }
   ],
   "orderStatus": {
     "pending": "بانتظار الدفع",
-      "on-hold": "On Hold",
-      "auto-draft": "Auto Draft",
-      "checkout-draft": "Checkout Draft",
-      "spamorder": "Spam Order",
-      "failed": "فشل",
-      "processing": "قيد التنفيذ",
-      "cancelled": "ملغي"
+    "on-hold": "On Hold",
+    "auto-draft": "Auto Draft",
+    "checkout-draft": "Checkout Draft",
+    "spamorder": "Spam Order",
+    "failed": "فشل",
+    "processing": "قيد التنفيذ",
+    "cancelled": "ملغي"
   },
   "mobileMenuItems": [
-    { "title": "الرئيسية", "href": "/" },
-    { "title": "من نحن", "href": "/about-us-arabic" },
-    { "title": "التسوق", "href": "/shop" },
+    {
+      "title": "الرئيسية",
+      "href": "/"
+    },
+    {
+      "title": "من نحن",
+      "href": "/about-us-arabic"
+    },
+    {
+      "title": "التسوق",
+      "href": "/shop"
+    },
     {
       "title": "المعارض",
       "href": "/showrooms",
       "submenu": [
-        { "title": "مشتل راي", "href": "/showrooms/rai-nursery" },
+        {
+          "title": "مشتل راي",
+          "href": "/showrooms/rai-nursery"
+        },
         {
           "title": "معرض عبدالي فارم",
           "href": "/showrooms/abdali-farm-showroom"
@@ -117,21 +155,36 @@
           "title": "معرض وافر كوربوري",
           "href": "/showrooms/wafrah-corporate-showroom"
         },
-        { "title": "معرض وافر فارم", "href": "/showrooms/wafrah-farm-showroom" }
+        {
+          "title": "معرض وافر فارم",
+          "href": "/showrooms/wafrah-farm-showroom"
+        }
       ]
     },
     {
       "title": "الخدمات",
       "href": "/services",
       "submenu": [
-        { "title": "صيانة النخيل", "href": "/services/palms-maintenance" },
-        { "title": "صيانة الحدائق", "href": "/services/garden-maintenance" },
-        { "title": "تطوير المزارع", "href": "/services/farm-development" },
+        {
+          "title": "صيانة النخيل",
+          "href": "/services/palms-maintenance"
+        },
+        {
+          "title": "صيانة الحدائق",
+          "href": "/services/garden-maintenance"
+        },
+        {
+          "title": "تطوير المزارع",
+          "href": "/services/farm-development"
+        },
         {
           "title": "التصميم والتنسيق",
           "href": "/services/designing-landscaping"
         },
-        { "title": "تنفيذ المشاريع", "href": "/services/project-execution" },
+        {
+          "title": "تنفيذ المشاريع",
+          "href": "/services/project-execution"
+        },
         {
           "title": "تركيب أنظمة الري",
           "href": "/services/irrigation-system-installation"
@@ -140,20 +193,38 @@
           "title": "صيانة النباتات الداخلية",
           "href": "/services/indoor-plants-maintenance"
         },
-        { "title": "استشارة", "href": "/services/consultation" }
+        {
+          "title": "استشارة",
+          "href": "/services/consultation"
+        }
       ]
     },
-    { "title": "المشاريع", "href": "/projects" },
+    {
+      "title": "المشاريع",
+      "href": "/projects"
+    },
     {
       "title": "مزارعنا",
       "href": "/our-farms",
       "submenu": [
-        { "title": "مزرعة وافر", "href": "/our-farms/wafrah-farm" },
-        { "title": "مزرعة عبدالي", "href": "/our-farms/abdali-farm" }
+        {
+          "title": "مزرعة وافر",
+          "href": "/our-farms/wafrah-farm"
+        },
+        {
+          "title": "مزرعة عبدالي",
+          "href": "/our-farms/abdali-farm"
+        }
       ]
     },
-    { "title": "المعرض", "href": "/gallery" },
-    { "title": "اتصل بنا", "href": "/contact-us" }
+    {
+      "title": "المعرض",
+      "href": "/gallery"
+    },
+    {
+      "title": "اتصل بنا",
+      "href": "/contact-us"
+    }
   ],
   "mobileCategoryItems": [
     {
@@ -198,10 +269,22 @@
       "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/orange.png",
       "href": "/product-category/fruits-trees",
       "submenu": [
-        { "title": "التوت", "href": "/product-category/fruits-trees/berries" },
-        { "title": "التين", "href": "/product-category/fruits-trees/fig" },
-        { "title": "العنب", "href": "/product-category/fruits-trees/grapes" },
-        { "title": "المانجو", "href": "/product-category/fruits-trees/mango" },
+        {
+          "title": "التوت",
+          "href": "/product-category/fruits-trees/berries"
+        },
+        {
+          "title": "التين",
+          "href": "/product-category/fruits-trees/fig"
+        },
+        {
+          "title": "العنب",
+          "href": "/product-category/fruits-trees/grapes"
+        },
+        {
+          "title": "المانجو",
+          "href": "/product-category/fruits-trees/mango"
+        },
         {
           "title": "أخرى",
           "href": "/product-category/fruits-trees/others-fruits-trees"
@@ -349,12 +432,18 @@
           "title": "خليط التربة",
           "href": "/product-category/plant-media/plants-mixtures"
         },
-        { "title": "التربة", "href": "/product-category/plant-media/soil" },
+        {
+          "title": "التربة",
+          "href": "/product-category/plant-media/soil"
+        },
         {
           "title": "محسنات التربة",
           "href": "/product-category/plant-media/soil-improver"
         },
-        { "title": "أخرى", "href": "/product-category/plant-media/others" }
+        {
+          "title": "أخرى",
+          "href": "/product-category/plant-media/others"
+        }
       ]
     },
     {
@@ -385,9 +474,18 @@
       "icon": "https://gulfpalms.com/wp-content/uploads/2021/11/flax-seed.png",
       "href": "/product-category/seeds",
       "submenu": [
-        { "title": "الخضروات", "href": "/product-category/seeds/vegetables" },
-        { "title": "الزهور", "href": "/product-category/seeds/flowers" },
-        { "title": "الأعشاب", "href": "/product-category/seeds/herbs-seeds" }
+        {
+          "title": "الخضروات",
+          "href": "/product-category/seeds/vegetables"
+        },
+        {
+          "title": "الزهور",
+          "href": "/product-category/seeds/flowers"
+        },
+        {
+          "title": "الأعشاب",
+          "href": "/product-category/seeds/herbs-seeds"
+        }
       ]
     },
     {
@@ -461,14 +559,27 @@
     }
   ],
   "desktopMenuItems": [
-    { "title": "الرئيسية", "href": "/" },
-    { "title": "من نحن", "href": "/about-us-arabic" },
-    { "title": "المتجر", "href": "/shop", "submenu": [] },
+    {
+      "title": "الرئيسية",
+      "href": "/"
+    },
+    {
+      "title": "من نحن",
+      "href": "/about-us-arabic"
+    },
+    {
+      "title": "المتجر",
+      "href": "/shop",
+      "submenu": []
+    },
     {
       "title": "المعارض",
       "href": "/showrooms",
       "submenu": [
-        { "title": "مشتل راي", "href": "/showrooms/rai-nursery" },
+        {
+          "title": "مشتل راي",
+          "href": "/showrooms/rai-nursery"
+        },
         {
           "title": "معرض عبدالي فارم",
           "href": "/showrooms/abdali-farm-showroom"
@@ -481,21 +592,36 @@
           "title": "معرض وافر كوربوري",
           "href": "/showrooms/wafrah-corporate-showroom"
         },
-        { "title": "معرض وافر فارم", "href": "/showrooms/wafrah-farm-showroom" }
+        {
+          "title": "معرض وافر فارم",
+          "href": "/showrooms/wafrah-farm-showroom"
+        }
       ]
     },
     {
       "title": "الخدمات",
       "href": "/services",
       "submenu": [
-        { "title": "صيانة النخيل", "href": "/services/palms-maintenance" },
-        { "title": "صيانة الحدائق", "href": "/services/garden-maintenance" },
-        { "title": "تطوير المزارع", "href": "/services/farm-development" },
+        {
+          "title": "صيانة النخيل",
+          "href": "/services/palms-maintenance"
+        },
+        {
+          "title": "صيانة الحدائق",
+          "href": "/services/garden-maintenance"
+        },
+        {
+          "title": "تطوير المزارع",
+          "href": "/services/farm-development"
+        },
         {
           "title": "التصميم والتنسيق",
           "href": "/services/designing-landscaping"
         },
-        { "title": "تنفيذ المشاريع", "href": "/services/project-execution" },
+        {
+          "title": "تنفيذ المشاريع",
+          "href": "/services/project-execution"
+        },
         {
           "title": "تركيب أنظمة الري",
           "href": "/services/irrigation-system-installation"
@@ -504,20 +630,38 @@
           "title": "صيانة النباتات الداخلية",
           "href": "/services/indoor-plants-maintenance"
         },
-        { "title": "استشارة", "href": "/services/consultation" }
+        {
+          "title": "استشارة",
+          "href": "/services/consultation"
+        }
       ]
     },
-    { "title": "المشاريع", "href": "/projects" },
+    {
+      "title": "المشاريع",
+      "href": "/projects"
+    },
     {
       "title": "مزارعنا",
       "href": "/our-farms",
       "submenu": [
-        { "title": "مزرعة وافر", "href": "/our-farms/wafrah-farm" },
-        { "title": "مزرعة عبدالي", "href": "/our-farms/abdali-farm" }
+        {
+          "title": "مزرعة وافر",
+          "href": "/our-farms/wafrah-farm"
+        },
+        {
+          "title": "مزرعة عبدالي",
+          "href": "/our-farms/abdali-farm"
+        }
       ]
     },
-    { "title": "المعرض", "href": "/gallery" },
-    { "title": "اتصل بنا", "href": "/contact-us" }
+    {
+      "title": "المعرض",
+      "href": "/gallery"
+    },
+    {
+      "title": "اتصل بنا",
+      "href": "/contact-us"
+    }
   ],
   "home": {
     "home": "الرئيسية",
@@ -653,7 +797,6 @@
     "footerNote1": "حقوق الطبع والنشر © {{year}}",
     "footerNote2": "جميع الحقوق محفوظة",
     "footerNote3": "تم تصميمه بواسطة",
-   
     "paymentMethods": "طرق الدفع"
   },
   "HomeFirstProductGrid": {
@@ -822,19 +965,19 @@
   },
   "Shop": "المتجر",
   "ReadMore": "اقرأ المزيد",
-  "SelectOptions":"قراءة المزيد",
-  "AddToCart":"تحديد أحد الخيارات",
-  "BuyNow":"اشتري الآن",
-  "SoldOut":"بيعت كلها",
-  "ViewDetails" : "عرض التفاصيل",
-  "Size" : "مقاس",
+  "SelectOptions": "قراءة المزيد",
+  "AddToCart": "تحديد أحد الخيارات",
+  "BuyNow": "اشتري الآن",
+  "SoldOut": "بيعت كلها",
+  "ViewDetails": "عرض التفاصيل",
+  "Size": "مقاس",
   "inStock": "في المخزن",
-"Choose_an_option" :"تحديد أحد الخيارات",
-"relatedProducts": "منتجات ذات صلة",
-"SKU" : "رمز المنتج",
-"N/A" :"غير محدد",
-"Categories" :"الفئات",
-"Share" :"يشارك",
+  "Choose_an_option": "تحديد أحد الخيارات",
+  "relatedProducts": "منتجات ذات صلة",
+  "SKU": "رمز المنتج",
+  "N/A": "غير محدد",
+  "Categories": "الفئات",
+  "Share": "يشارك",
   "terms": {
     "title": "البنود و الظروف"
   },

@@ -60,6 +60,14 @@
     "confirmPassword": "Confirm new password",
     "saveChanges": "Save changes"
   },
+  "cart": {
+    "noProducts": "No products in the cart.",
+    "close": "Close",
+    "cart": "Cart",
+    "returnToShop": "Return to shop",
+    "viewCart": " View Cart",
+    "checkout": "Checkout"
+  },
   "auth": {
     "login": "Login",
     "usernameOrEmail": "Username or email address",
@@ -89,14 +97,26 @@
     "cancelled": "Cancelled"
   },
   "mobileMenuItems": [
-    { "title": "HOME", "href": "/" },
-    { "title": "ABOUT US", "href": "/about-us-arabic" },
-    { "title": "SHOP", "href": "/shop" },
+    {
+      "title": "HOME",
+      "href": "/"
+    },
+    {
+      "title": "ABOUT US",
+      "href": "/about-us-arabic"
+    },
+    {
+      "title": "SHOP",
+      "href": "/shop"
+    },
     {
       "title": "SHOWROOMS",
       "href": "/showrooms",
       "submenu": [
-        { "title": "Rai Nursery", "href": "/showrooms/rai-nursery" },
+        {
+          "title": "Rai Nursery",
+          "href": "/showrooms/rai-nursery"
+        },
         {
           "title": "Abdali Farm Showroom",
           "href": "/showrooms/abdali-farm-showroom"
@@ -119,17 +139,26 @@
       "title": "SERVICES",
       "href": "/services",
       "submenu": [
-        { "title": "Palms Maintenance", "href": "/services/palms-maintenance" },
+        {
+          "title": "Palms Maintenance",
+          "href": "/services/palms-maintenance"
+        },
         {
           "title": "Garden Maintenance",
           "href": "/services/garden-maintenance"
         },
-        { "title": "Farm Development", "href": "/services/farm-development" },
+        {
+          "title": "Farm Development",
+          "href": "/services/farm-development"
+        },
         {
           "title": "Designing & Landscaping",
           "href": "/services/designing-landscaping"
         },
-        { "title": "Project Execution", "href": "/services/project-execution" },
+        {
+          "title": "Project Execution",
+          "href": "/services/project-execution"
+        },
         {
           "title": "Irrigation System Installation",
           "href": "/services/irrigation-system-installation"
@@ -138,20 +167,38 @@
           "title": "Indoor Plants Maintenance",
           "href": "/services/indoor-plants-maintenance"
         },
-        { "title": "Consultation", "href": "/services/consultation" }
+        {
+          "title": "Consultation",
+          "href": "/services/consultation"
+        }
       ]
     },
-    { "title": "PROJECTS", "href": "/projects" },
+    {
+      "title": "PROJECTS",
+      "href": "/projects"
+    },
     {
       "title": "OUR FARMS",
       "href": "/farms",
       "submenu": [
-        { "title": "Wafrah Farm", "href": "/our-farms/wafrah-farm" },
-        { "title": "Abdali Farm", "href": "/our-farms/abdali-farm" }
+        {
+          "title": "Wafrah Farm",
+          "href": "/our-farms/wafrah-farm"
+        },
+        {
+          "title": "Abdali Farm",
+          "href": "/our-farms/abdali-farm"
+        }
       ]
     },
-    { "title": "GALLERY", "href": "/gallery" },
-    { "title": "CONTACT US", "href": "/contact-us" }
+    {
+      "title": "GALLERY",
+      "href": "/gallery"
+    },
+    {
+      "title": "CONTACT US",
+      "href": "/contact-us"
+    }
   ],
   "mobileCategoryItems": [
     {
@@ -200,9 +247,18 @@
           "title": "Berries",
           "href": "/product-category/fruits-trees/berries"
         },
-        { "title": "Fig", "href": "/product-category/fruits-trees/fig" },
-        { "title": "Grapes", "href": "/product-category/fruits-trees/grapes" },
-        { "title": "Mango", "href": "/product-category/fruits-trees/mango" },
+        {
+          "title": "Fig",
+          "href": "/product-category/fruits-trees/fig"
+        },
+        {
+          "title": "Grapes",
+          "href": "/product-category/fruits-trees/grapes"
+        },
+        {
+          "title": "Mango",
+          "href": "/product-category/fruits-trees/mango"
+        },
         {
           "title": "Others",
           "href": "/product-category/fruits-trees/others-fruits-trees"
@@ -218,7 +274,10 @@
           "title": "Clementine",
           "href": "/product-category/citruses-trees/clementine"
         },
-        { "title": "Lemon", "href": "/product-category/citruses-trees/lemon" },
+        {
+          "title": "Lemon",
+          "href": "/product-category/citruses-trees/lemon"
+        },
         {
           "title": "Orange",
           "href": "/product-category/citruses-trees/orange"
@@ -347,13 +406,18 @@
           "title": "Plants Mixtures",
           "href": "/product-category/plant-media/plants-mixtures"
         },
-        { "title": "Soil", "href": "/product-category/plant-media/soil" },
+        {
+          "title": "Soil",
+          "href": "/product-category/plant-media/soil"
+        },
         {
           "title": "Soil Improver",
           "href": "/product-category/plant-media/soil-improver"
         },
-
-        { "title": "Others", "href": "/product-category/plant-media/others" }
+        {
+          "title": "Others",
+          "href": "/product-category/plant-media/others"
+        }
       ]
     },
     {
@@ -384,9 +448,18 @@
       "icon": "https://clone.gulfpalms.com/wp-content/uploads/2021/11/flax-seed.png",
       "href": "/product-category/seeds",
       "submenu": [
-        { "title": "Vegetables", "href": "/product-category/seeds/vegetables" },
-        { "title": "Flowers", "href": "/product-category/seeds/flowers" },
-        { "title": "Herbs", "href": "/product-category/seeds/herbs-seeds" }
+        {
+          "title": "Vegetables",
+          "href": "/product-category/seeds/vegetables"
+        },
+        {
+          "title": "Flowers",
+          "href": "/product-category/seeds/flowers"
+        },
+        {
+          "title": "Herbs",
+          "href": "/product-category/seeds/herbs-seeds"
+        }
       ]
     },
     {
@@ -410,7 +483,10 @@
           "title": "Concrete Pots",
           "href": "/product-category/pots/concrete-pots"
         },
-        { "title": "Fiber Pots", "href": "/product-category/pots/fiber-pots" }
+        {
+          "title": "Fiber Pots",
+          "href": "/product-category/pots/fiber-pots"
+        }
       ]
     },
     {
@@ -457,14 +533,27 @@
     }
   ],
   "desktopMenuItems": [
-    { "title": "HOME", "href": "/" },
-    { "title": "ABOUT US", "href": "/about-us-arabic" },
-    { "title": "SHOP", "href": "/shop", "submenu": [] },
+    {
+      "title": "HOME",
+      "href": "/"
+    },
+    {
+      "title": "ABOUT US",
+      "href": "/about-us-arabic"
+    },
+    {
+      "title": "SHOP",
+      "href": "/shop",
+      "submenu": []
+    },
     {
       "title": "SHOWROOMS",
       "href": "/showrooms",
       "submenu": [
-        { "title": "Rai Nursery", "href": "/showrooms/rai-nursery" },
+        {
+          "title": "Rai Nursery",
+          "href": "/showrooms/rai-nursery"
+        },
         {
           "title": "Abdali Farm Showroom",
           "href": "/showrooms/abdali-farm-showroom"
@@ -487,17 +576,26 @@
       "title": "SERVICES",
       "href": "/services",
       "submenu": [
-        { "title": "Palms Maintenance", "href": "/services/palms-maintenance" },
+        {
+          "title": "Palms Maintenance",
+          "href": "/services/palms-maintenance"
+        },
         {
           "title": "Garden Maintenance",
           "href": "/services/garden-maintenance"
         },
-        { "title": "Farm Development", "href": "/services/farm-development" },
+        {
+          "title": "Farm Development",
+          "href": "/services/farm-development"
+        },
         {
           "title": "Designing & Landscaping",
           "href": "/services/designing-landscaping"
         },
-        { "title": "Project Execution", "href": "/services/project-execution" },
+        {
+          "title": "Project Execution",
+          "href": "/services/project-execution"
+        },
         {
           "title": "Irrigation System Installation",
           "href": "/services/irrigation-system-installation"
@@ -506,20 +604,38 @@
           "title": "Indoor Plants Maintenance",
           "href": "/services/indoor-plants-maintenance"
         },
-        { "title": "Consultation", "href": "/services/consultation" }
+        {
+          "title": "Consultation",
+          "href": "/services/consultation"
+        }
       ]
     },
-    { "title": "PROJECTS", "href": "/projects" },
+    {
+      "title": "PROJECTS",
+      "href": "/projects"
+    },
     {
       "title": "OUR FARMS",
       "href": "/our-farms",
       "submenu": [
-        { "title": "Wafrah Farm", "href": "/our-farms/wafrah-farm" },
-        { "title": "Abdali Farm", "href": "/our-farms/abdali-farm" }
+        {
+          "title": "Wafrah Farm",
+          "href": "/our-farms/wafrah-farm"
+        },
+        {
+          "title": "Abdali Farm",
+          "href": "/our-farms/abdali-farm"
+        }
       ]
     },
-    { "title": "GALLERY", "href": "/gallery" },
-    { "title": "CONTACT US", "href": "/contact-us" }
+    {
+      "title": "GALLERY",
+      "href": "/gallery"
+    },
+    {
+      "title": "CONTACT US",
+      "href": "/contact-us"
+    }
   ],
   "home": {
     "home": "Home",
@@ -824,18 +940,36 @@
   },
   "Shop": "SHOP",
   "my_account": [
-    { "title": "Dashboard", "href": "/en/my-account" },
-    { "title": "Orders", "href": "/en/my-account/orders" },
-    { "title": "Address", "href": "/en/my-account/downloads" },
-    { "title": "Downloads", "href": "/en/my-account/edit-address" },
-    { "title": "Account details", "href": "/en/my-account/edit-account" },
-    { "title": "Logout", "href": "/en/my-account" }
+    {
+      "title": "Dashboard",
+      "href": "/en/my-account"
+    },
+    {
+      "title": "Orders",
+      "href": "/en/my-account/orders"
+    },
+    {
+      "title": "Address",
+      "href": "/en/my-account/downloads"
+    },
+    {
+      "title": "Downloads",
+      "href": "/en/my-account/edit-address"
+    },
+    {
+      "title": "Account details",
+      "href": "/en/my-account/edit-account"
+    },
+    {
+      "title": "Logout",
+      "href": "/en/my-account"
+    }
   ],
   "ReadMore": "Read More",
-  "SelectOptions":"Select Options",
-  "AddToCart":"Add to Cart",
-  "BuyNow":"Buy Now",
-  "SoldOut":"Sold Out",
+  "SelectOptions": "Select Options",
+  "AddToCart": "Add to Cart",
+  "BuyNow": "Buy Now",
+  "SoldOut": "Sold Out",
   "ViewDetails": "View Details",
   "Size": "Size",
   "Choose_an_option": "Choose an Option",

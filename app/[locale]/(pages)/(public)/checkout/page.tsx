@@ -16,6 +16,8 @@ import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.
 import * as z from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useUserDataProvider } from "@/providers/UserDataProvider"
+import { useTranslation } from "react-i18next"
 
 const billingFormSchema = z.object({
   // Existing billing fields
@@ -59,9 +61,11 @@ export default function CheckoutPage() {
   const [differentShipping, setDifferentShipping] = useState(false)
   const [termsAccepted, setTermsAccepted] = useState(false);
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
+  const { user } = useUserDataProvider();
+  const { i18n: { language } } = useTranslation();
 
   const form = useForm<BillingFormValues>({
-    resolver: zodResolver(billingFormSchema),
+    // resolver: zodResolver(billingFormSchema),
     defaultValues: {
       // Existing billing fields
       firstName: "",
@@ -90,23 +94,22 @@ export default function CheckoutPage() {
     }
     // Process checkout
     const paymentData: PaymentRequestModel = {
-      products: [
-        { id: 10169, quantity: 2, variation_id: 0 },
-        { id: 10061, quantity: 3, variation_id: 0 }
-      ],
-      email: "john.doe@example.com",
-      customerName: "John Doe",
-      mobileNumber: "12345678",
-      lang: "en",
+      products: cartItems.map((item) => {
+        return ({ id: +item.id, quantity: item.quantity, variation_id: item.variationId || 0 })
+      }),
+      email: user?.email || "",
+      customerName: `${user?.first_name} ${user?.last_name} || "`,
+      mobileNumber: values.phone,
+      lang: language as "en" | "ar",
       billing: {
         first_name: values.firstName,
         last_name: values.lastName,
-        company: "",
+        company: "company",
         address_1: values.address,
-        address_2: "",
+        address_2: "address_",
         city: values.city,
-        state: "",
-        postcode: "",
+        state: "state",
+        postcode: "9000",
         country: "Kuwait",
         email: values.email,
         phone: values.phone
@@ -114,7 +117,7 @@ export default function CheckoutPage() {
       shipping: values.differentShipping ? {
         first_name: values.shippingFirstName!,
         last_name: values.shippingLastName!,
-        company: "",
+        company: "company",
         address_1: values.shippingAddress!,
         address_2: "",
         city: values.shippingCity!,

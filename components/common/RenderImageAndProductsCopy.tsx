@@ -33,6 +33,10 @@ import {
 import { useCart } from "@/providers/CartProvider";
 import { ProductDrawer } from "../shop/ProductDrawer";
 import { useTranslation } from "react-i18next";
+import { CartService } from "@/services/api/cart.service";
+import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { useUserDataProvider } from "@/providers/UserDataProvider";
+import { ProductService } from "@/services/api/product.service";
 
 interface HoverProduct {
   position: { x: number; y: number };
@@ -61,6 +65,7 @@ interface RenderImageAndProductsCopyProps {
   quantity?: number;
   stock?: any;
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
+  variations?: number[]
 }
 
 const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
@@ -79,6 +84,7 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
   productAttribute,
   quantity,
   slugToCategoryRecord,
+  variations
 }) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
   const [wishList, setWishList] = useState<any[]>([]);
@@ -90,22 +96,75 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
-  const { addToCart } = useCart();
+  const [selectedVariant, setSelectedVariant] = useState<string>("");
+  const [variationsData, setVariationsData] = useState<any[]>([]);
+  const [variantsLoading, setVariantsLoading] = useState(false);
+  const { initializeCartItems, addToCart } = useCart();
+  const { isAuthenticated } = useUserDataProvider();
 
-  console.log(currentCategories);
+  // console.log(currentCategories);
+
+  const [isAddingCartItem, setIsAddingCartItem] = useState(false);
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+
+  useEffect(() => {
+    const getVariations = async () => {
+      setVariantsLoading(true);
+      try {
+        const response = await ProductService.GetVariants(
+          +productId,
+          variations as number[],
+          axiosInstanceWithoutLoader
+        );
+
+        setVariationsData(response.filter((variation: any) => variation !== null) || []);
+
+        setVariantsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getVariations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleAddToCart = async () => {
     setLoading(true); // Set loading to true
-    try {
-      await addToCart({
-        id: productId,
+    if (variationsData.length > 0 && !selectedVariant) {
+      alert("Please select some product options before adding this product to your cart.");
+      return;
+    }
+    setLoading(true); // Set loading to true
+
+    if (!isAuthenticated) {
+      addToCart({
+        id: selectedVariant ? +selectedVariant : productId,
         name: name as string,
-        price: Number(price) as number,
-        quantity: 1,
-        image: images?.[0] || imageFileOrUrl,
+        price: Number(price),
+        quantity: quantity || 1,
+        image: images?.[0]?.src || imageFileOrUrl
       });
+      return;
+    }
+    try {
+      // await addToCart({
+      //   id: productId,
+      //   name: name as string,
+      //   price: Number(price) as number,
+      //   quantity: 1,
+      //   image: images?.[0] || imageFileOrUrl,
+      // });
+
+      setIsAddingCartItem(true);
+      const response = await CartService.AddCartItem(+productId, 1, axiosInstanceWithoutLoader);
+      console.log(response);
+      initializeCartItems(response);
+      setIsAddingCartItem(false);
+
       setIsSheetOpen(false);
     } catch (error) {
+      setIsAddingCartItem(false);
       console.error("Error adding to cart:", error);
     } finally {
       setLoading(false); // Set loading to false
@@ -517,12 +576,11 @@ const RenderImageAndProductsCopy: React.FC<RenderImageAndProductsCopyProps> = ({
           onOpenChange={setIsQuickViewOpen}
           product={productData}
           optionName={productAttribute?.visible && productAttribute?.variation
-            ? productAttribute.name
+            ? productAttribute?.name
             : ""}
           options={
-            productAttribute?.visible && productAttribute?.variation
-              ? productAttribute.options
-              : []
+            variationsData.filter((variation) => variation.name)
+            || []
           }
         />
       </>

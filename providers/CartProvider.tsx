@@ -4,7 +4,7 @@ import { CART_NONCE_KEY, CART_TOKEN_KEY } from "@/constants/global-constants";
 import { CartService } from "@/services/api/cart.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { CookieStorageService } from "@/services/utility/storage.service";
-import React, { createContext, useContext, useReducer, ReactNode, useEffect, useState } from "react";
+import React, { createContext, useContext, useReducer, ReactNode, useEffect, useRef, useState } from "react";
 
 // Define the structure of a cart item
 interface CartItem {
@@ -40,21 +40,26 @@ const loadCartFromStorage = (): CartState => {
     return storedCart ? JSON.parse(storedCart) : { cartItems: [], shippingCost: 2.0 };
   }
   return { cartItems: [], shippingCost: 2.0 };
+}
+const saveCartToStorage = (state: CartState) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("cart", JSON.stringify(state));
+  }
 };
 
 // Reducer function
 const cartReducer = (state: CartState, action: CartAction): CartState => {
+  let newState: CartState;
+
   switch (action.type) {
     case "ADD_TO_CART": {
-      // Check for existing item with same bundleId if payload has bundleId
       if (action.payload.bundleId) {
         const existingBundleItem = state.cartItems.find(
           item => item.bundleId === action.payload.bundleId && item.id === action.payload.id
         );
 
         if (existingBundleItem) {
-          // Update quantity of matching bundle item
-          return {
+          newState = {
             ...state,
             cartItems: state.cartItems.map(item =>
               item.bundleId === action.payload.bundleId && item.id === action.payload.id
@@ -63,60 +68,54 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
             )
           };
         } else {
-          // Add as new bundle item
-          return {
+          newState = {
+            ...state,
+            cartItems: [...state.cartItems, action.payload]
+          };
+        }
+      } else {
+        const existingItem = state.cartItems.find(
+          item => item.id === action.payload.id && !item.bundleId
+        );
+
+        if (existingItem) {
+          newState = {
+            ...state,
+            cartItems: state.cartItems.map(item =>
+              item.id === action.payload.id && !item.bundleId
+                ? { ...item, quantity: item.quantity + action.payload.quantity }
+                : item
+            )
+          };
+        } else {
+          newState = {
             ...state,
             cartItems: [...state.cartItems, action.payload]
           };
         }
       }
-
-      // Handle non-bundled items
-      const existingItem = state.cartItems.find(
-        item => item.id === action.payload.id && !item.bundleId
-      );
-
-      if (existingItem) {
-        // Update quantity of existing non-bundle item
-        return {
-          ...state,
-          cartItems: state.cartItems.map(item =>
-            item.id === action.payload.id && !item.bundleId
-              ? { ...item, quantity: item.quantity + action.payload.quantity }
-              : item
-          )
-        };
-      }
-
-      // Add as new non-bundle item
-      return {
-        ...state,
-        cartItems: [...state.cartItems, action.payload]
-      };
+      break;
     }
 
-    case "REMOVE_FROM_CART":
-      // Find the item that is being removed
+    case "REMOVE_FROM_CART": {
       const itemToRemove = state.cartItems.find(item => item.id === action.payload);
-
       if (itemToRemove?.bundleId) {
-        // If item has bundleId, remove all items with the same bundleId
-        return {
+        newState = {
           ...state,
           cartItems: state.cartItems.filter(item => item.bundleId !== itemToRemove.bundleId)
         };
       } else {
-        // Otherwise remove just the single item
-        return {
+        newState = {
           ...state,
           cartItems: state.cartItems.filter(item => item.id !== action.payload)
         };
       }
+      break;
+    }
 
-    case "UPDATE_QUANTITY":
-      // If bundleId is provided in payload, update all items in that bundle
+    case "UPDATE_QUANTITY": {
       if (action.payload.bundleId) {
-        return {
+        newState = {
           ...state,
           cartItems: state.cartItems.map((item) =>
             item.bundleId === action.payload.bundleId
@@ -125,8 +124,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
           ),
         };
       } else {
-        // Otherwise update just the single item by id
-        return {
+        newState = {
           ...state,
           cartItems: state.cartItems.map((item) =>
             item.id === action.payload.id && !item.bundleId
@@ -135,13 +133,21 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
           ),
         };
       }
+      break;
+    }
 
     case "CLEAR_CART":
-      return { ...state, cartItems: [] };
+      newState = { ...state, cartItems: [] };
+      break;
 
     default:
-      return state;
+      newState = state;
+      break;
   }
+
+  // Save to localStorage after each state change
+  saveCartToStorage(newState);
+  return newState;
 };
 
 // Define context type
@@ -151,6 +157,8 @@ interface CartContextType {
   removeFromCart: (id: number | string) => void;
   updateQuantity: (id: number | string, quantity: number, bundleId?: number | string) => void;
   clearCart: () => void;
+  initializeCartItems: (cartResult: any) => void;
+  updateCartCredentials: (cartToken: string, nonce: string) => void;
   subtotal: number;
   total: number;
   shippingCost: number;
@@ -170,36 +178,35 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, [], loadCartFromStorage);
   const [isItemAdded, setIsItemAdded] = useState(false);
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+  const isCartLoaded = useRef(false);
 
   // Sync cart state with local storage whenever it changes
   useEffect(() => {
     const fetchData = async () => {
+      if (isCartLoaded.current) return;
+      isCartLoaded.current = true;
+
+      const localCart = loadCartFromStorage();
 
       try {
         const response = await CartService.GetCartItems(axiosInstanceWithoutLoader);
-        CookieStorageService.set(CART_TOKEN_KEY, response.cartToken);
-        CookieStorageService.set(CART_NONCE_KEY, response.nonce);
+        initializeCartItems(response);
 
-        console.log(response.data.items);
-        clearCart();
+        // Then sync local items to API if they exist
+        if (localCart.cartItems.length > 0) {
+          await syncLocalItemsWithApi(localCart.cartItems);
 
-        response.data.items.map((x: any) => {
-          const item: CartItem = {
-            id: x.id,
-            name: x.name,
-            price: Number(x.prices?.price / 1000 || 0),
-            quantity: x.quantity,
-            image: x.images?.[0]?.src || '',
-            variationId: x.id,
-            cartKey: x.key,
-          };
-
-          addToCart(item);
-        });
-
-
+          // Refresh cart after syncing
+          const updatedResponse = await CartService.GetCartItems(axiosInstanceWithoutLoader);
+          initializeCartItems(updatedResponse);
+        }
       } catch (error) {
         console.error(error);
+        // If API fails, at least load local items
+        if (localCart.cartItems.length > 0) {
+          clearCart();
+          localCart.cartItems.forEach(item => addToCart(item, true));
+        }
       }
 
       // if (typeof window !== "undefined") {
@@ -212,14 +219,62 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  async function syncLocalItemsWithApi(localItems: CartItem[]) {
+    for (const item of localItems) {
+      try {
+        const response = await CartService.AddCartItem(
+          +item.id,
+          item.quantity,
+          axiosInstanceWithoutLoader
+        );
+
+        // Update cart credentials after each addition
+        if (response.cartToken && response.nonce) {
+          updateCartCredentials(response.cartToken, response.nonce);
+        }
+
+      } catch (error) {
+        console.error('Error syncing item to API:', error);
+      }
+    }
+  }
+
+  function initializeCartItems(cartResult: any) {
+    if (!cartResult?.data?.items) return;
+
+    updateCartCredentials(cartResult.cartToken, cartResult.nonce);
+    const localStorageCart = loadCartFromStorage();
+    clearCart();
+
+    cartResult.data.items.map((x: any) => {
+      const item: CartItem = {
+        id: x.id,
+        name: x.name,
+        price: Number(x.prices?.price / 1000 || 0),
+        quantity: x.quantity,
+        image: x.images?.[0]?.src || '',
+        variationId: x.id,
+        cartKey: x.key,
+      };
+
+      addToCart(item, true);
+    });
+  }
+
+  function updateCartCredentials(cartToken: string, nonce: string) {
+    console.log('cartToken: ', cartToken);
+    console.log('nonce: ', nonce);
+
+    CookieStorageService.set(CART_TOKEN_KEY, cartToken);
+    CookieStorageService.set(CART_NONCE_KEY, nonce);
+  }
+
+
   // Action handlers
-  const addToCart = (item: CartItem) => {
+  const addToCart = (item: CartItem, isInitial: boolean = false) => {
     dispatch({ type: "ADD_TO_CART", payload: item });
-    setIsItemAdded(true);
+    !isInitial && setIsItemAdded(true);
   };
-  const addRelatedProducts = (relatedProducts: CartItem[]) =>
-    dispatch({ type: "ADD_RELATED_PRODUCTS", payload: { relatedProducts } });
-  const removeRelatedProducts = (relatedProducts: CartItem[]) => dispatch({ type: "REMOVE_RELATED_PRODUCTS", payload: { relatedProducts } });
   const removeFromCart = (id: number | string) => dispatch({ type: "REMOVE_FROM_CART", payload: id });
   const updateQuantity = (id: number | string, quantity: number, bundleId?: number | string) => dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity, bundleId: bundleId || "" } });
   const clearCart = () => dispatch({ type: "CLEAR_CART" });
@@ -236,6 +291,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         removeFromCart,
         updateQuantity,
         clearCart,
+        initializeCartItems,
+        updateCartCredentials,
         subtotal,
         total,
         shippingCost: state.shippingCost,

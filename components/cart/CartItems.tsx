@@ -7,6 +7,8 @@ import { CartService } from "@/services/api/cart.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { useRef, useState } from "react";
 import debounce from 'lodash/debounce';
+import { useUserDataProvider } from "@/providers/UserDataProvider";
+import { useTranslation } from "react-i18next";
 
 interface CartItemProps {
   item: any;
@@ -14,19 +16,19 @@ interface CartItemProps {
 }
 
 export function CartItems({ item, showSubtotal = true }: CartItemProps) {
-  const { updateQuantity, removeFromCart } = useCart();
+  const { updateQuantity, removeFromCart, updateCartCredentials } = useCart();
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
   const [isCartItemUpdating, setIsCartItemUpdating] = useState<boolean>(false);
-
-  console.log(item);
-
+  const { isAuthenticated } = useUserDataProvider();
+  const { t } = useTranslation("common");
 
   const useDebouncedUpdateCartItemQuantity = () => {
     const debouncedFn = useRef(
       debounce(async (cartKey: string, itemId: number, quantity: number, updateQuantityFn: any, setLoadingFn: any) => {
         try {
           setLoadingFn(true);
-          const response = await CartService.UpdateCartItem(cartKey, quantity, axiosInstanceWithoutLoader);
+          const response = await CartService.UpdateCartItem(itemId, quantity, axiosInstanceWithoutLoader);
+          updateCartCredentials(response.cartToken, response.nonce);
 
           const item = response.data.items.find((x: any) => x.id === itemId);
           updateQuantityFn(itemId, Math.max(1, item?.quantity));
@@ -47,18 +49,35 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
       return;
     }
 
+    if (!isAuthenticated) {
+      updateQuantity(itemId, Math.max(1, newQuantity), bundleId);
+      return;
+    }
+
     updateQuantity(itemId, Math.max(1, newQuantity), bundleId);
     debouncedUpdate(cartKey, itemId, newQuantity, updateQuantity, setIsCartItemUpdating);
   };
 
   const handleCartItemRemove = async (cartKey: string, itemId: number) => {
+    if (!isAuthenticated) {
+      removeFromCart(itemId);
+      return;
+    }
     try {
-      // await CartService.DeleteCartItem(cartKey);
+      const response = await CartService.DeleteCartItem(itemId);
+      updateCartCredentials(response.cartToken, response.nonce);
       removeFromCart(itemId);
     } catch (error) {
       console.error('Error updating cart item quantity:', error);
     }
   };
+
+  // const showControls = () => {
+  //   // Show controls (remove and quantity) if:
+  //   // 1. Item has no bundleId (regular item) OR
+  //   // 2. Item's id matches its bundleId (main bundle item)
+  //   return !item.bundleId || item.productId === item.bundleId;
+  // };
 
   return (
     <div className="flex gap-4 py-4">
@@ -86,6 +105,7 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
             <button
               onClick={() => handleQuantityChange(item.cartKey, item.id, item.quantity - 1, item.bundleId)}
               className="px-2 py-1 hover:bg-muted"
+
             >
               -
             </button>
@@ -94,6 +114,7 @@ export function CartItems({ item, showSubtotal = true }: CartItemProps) {
 
               onClick={() => handleQuantityChange(item.cartKey, item.id, item.quantity + 1, item.bundleId)}
               className="px-2 py-1 hover:bg-muted"
+
             >
               +
             </button>

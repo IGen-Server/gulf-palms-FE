@@ -179,11 +179,10 @@ const BlogPage = () => {
               return (
                 <div
                   key={index}
-                  className={`flex ${
-                    index % 2 !== 0
-                      ? "flex-col lg:flex-col-reverse"
-                      : "flex-col"
-                  } items-center gap-6`}
+                  className={`flex ${index % 2 !== 0
+                    ? "flex-col lg:flex-col-reverse"
+                    : "flex-col"
+                    } items-center gap-6`}
                 >
                   <Image
                     src={item.image}

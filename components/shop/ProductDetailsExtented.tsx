@@ -14,11 +14,14 @@ import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.
 import { ProductService } from "@/services/api/product.service"
 import { useTranslation } from "react-i18next";
 import { Loader2 } from "lucide-react";
+import { CartService } from "@/services/api/cart.service"
+import { useUserDataProvider } from "@/providers/UserDataProvider"
 
 interface ProductDetailsProps {
   currentProduct: any;
   recommendedProducts: any[],
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
+  isAuthenticated?: boolean
 }
 
 interface DotProps {
@@ -34,7 +37,8 @@ interface VariationData {
 export function ProductDetailsExtended({
   currentProduct,
   recommendedProducts,
-  slugToCategoryRecord
+  slugToCategoryRecord,
+  isAuthenticated
 }: ProductDetailsProps) {
   // Replace the selectedProducts state initialization with this
   const [selectedProducts, setSelectedProducts] = useState<any[]>(() => {
@@ -48,10 +52,8 @@ export function ProductDetailsExtended({
   const [currentSlide, setCurrentSlide] = useState(0);
   const { t, i18n: { language } } = useTranslation("common");
 
-  console.log(selectedProducts);
 
-
-  const { addToCart } = useCart();
+  const { initializeCartItems, addToCart } = useCart();
 
   // Add this new state for tracking variants per product
   const [selectedVariants, setSelectedVariants] = useState<Record<number, string>>({});
@@ -131,6 +133,7 @@ export function ProductDetailsExtended({
     );
   };
 
+  const [isAddingCartItem, setIsAddingCartItem] = useState(false);
   const handleAddToCart = () => {
     // Check for products with variants but no selection
     const productsWithUnselectedVariants = selectedProducts.filter(product =>
@@ -143,29 +146,61 @@ export function ProductDetailsExtended({
       return;
     }
 
+    selectedProducts.forEach(async (product) => {
+
+      // console.log(productData.id);
+      // console.log(+selectedVariant);
+      // console.log(productData.quantity);
+      // console.log(productData.price);
+
+      // await addToCart({
+      const selectedVariant = selectedVariants[product.id];
+      const itemId = selectedVariant ? selectedVariant : product.id;
+
+      if (!isAuthenticated) {
+        addToCart({ ...product, productId: product.id, id: itemId, bundleId: currentProduct.id, quantity: 1 });
+        return;
+      }
+
+      try {
+        setIsAddingCartItem(true);
+        const response = await CartService.AddCartItem(itemId, 1, axiosInstanceWithoutLoader);
+        console.log(response);
+        initializeCartItems(response);
+
+        setIsAddingCartItem(false);
+      } catch (error) {
+        console.error('Error adding cart item:', error);
+        setIsAddingCartItem(false);
+      }
+      // console.log({ product })
+      // addToCart(product)
+    })
+
+
     // Add all selected products at once
-    const productsToAdd = selectedProducts.map(product => ({
-      ...product,
-      bundleId: currentProduct.id, // Add a common bundleId to group the items
-      quantity: 1
-    }));
-
-    console.log("Adding products to cart:", productsToAdd);
-
-    productsToAdd.forEach(product => {
-      addToCart(product);
-    });
-
-    // You might want to add a toast/notification here to confirm multiple items were added
+    // const productsToAdd = selectedProducts.map(product => ({
+    //   ...product,
+    //   bundleId: currentProduct.id, // Add a common bundleId to group the items
+    //   quantity: 1
+    // }))
   }
 
+  const getSlideTransform = () => {
+    if (language === "ar") {
+      return `translateX(-${currentSlide * 100}%)`; // Positive for RTL
+    }
+    return `translateX(-${currentSlide * 100}%)`; // Negative for LTR
+  };
+
+  // Update the slide navigation functions
   const nextSlide = (): void => {
     if (language === "ar") {
       setCurrentSlide((prev: number) => Math.max(prev - 1, 0));
     } else {
       setCurrentSlide((prev: number) => Math.min(prev + 1, productChunks.length - 1));
     }
-  }
+  };
 
   const prevSlide = (): void => {
     if (language === "ar") {
@@ -173,7 +208,7 @@ export function ProductDetailsExtended({
     } else {
       setCurrentSlide((prev: number) => Math.max(prev - 1, 0));
     }
-  }
+  };
 
   const Dot: React.FC<DotProps> = ({ active, onClick }) => (
     <button
@@ -189,24 +224,25 @@ export function ProductDetailsExtended({
 
       {/* Frequently Bought Together Section */}
       <div className="mt-12">
-        <h2 className="text-xl font-semibold mb-6">Frequently bought together</h2>
+        <h2 className="text-xl font-semibold mb-6 text-[#242424]">Frequently bought together</h2>
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Product Slider */}
           <div className="w-full lg:w-2/3 relative flex flex-col items-center">
             <div className="relative flex items-center w-full">
               <button
-                onClick={prevSlide}
-                className="absolute left-0 z-10 p-2 bg-white rounded-full shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={currentSlide === 0}
+                onClick={language === "ar" ? nextSlide : prevSlide}
+                className={`absolute ${language === "ar" ? "right-0" : "left-0"} z-10 p-2 bg-white rounded-full shadow-md disabled:opacity-50 disabled:cursor-not-allowed`}
+                disabled={currentSlide === (language === "ar" ? productChunks.length - 1 : 0)}
               >
-                <ChevronLeft className="h-6 w-6 text-gray-500" />
+                {language === "ar" ? <ChevronRight className="h-6 w-6 text-gray-500" /> : <ChevronLeft className="h-6 w-6 text-gray-500" />}
               </button>
 
               <div className="overflow-hidden mx-8">
                 <div
                   className="flex transition-transform duration-300 ease-in-out"
                   style={{
-                    transform: `translateX(-${currentSlide * 100}%)`,
+                    transform: getSlideTransform(),
+                    flexDirection: language === "ar" ? "row-reverse" : "row"
                   }}
                 >
                   {productChunks.map((chunk, chunkIndex) => (
@@ -236,7 +272,10 @@ export function ProductDetailsExtended({
                             slugToCategoryRecord={slugToCategoryRecord}
                           />
                           {index > 0 && (
-                            <Plus className="absolute top-1/2 -left-5 h-6 w-6 text-gray-400 z-[200]" />
+                            <Plus
+                              className={`absolute top-1/2 ${language === "ar" ? "-right-5" : "-left-5"
+                                } h-6 w-6 text-gray-400 z-[200]`}
+                            />
                           )}
                         </div>
                       ))}
@@ -246,11 +285,11 @@ export function ProductDetailsExtended({
               </div>
 
               <button
-                onClick={nextSlide}
-                className="absolute right-0 z-10 p-2 bg-white rounded-full shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={currentSlide >= productChunks.length - 1}
+                onClick={language === "ar" ? prevSlide : nextSlide}
+                className={`absolute ${language === "ar" ? "left-0" : "right-0"} z-10 p-2 bg-white rounded-full shadow-md disabled:opacity-50 disabled:cursor-not-allowed`}
+                disabled={currentSlide === (language === "ar" ? 0 : productChunks.length - 1)}
               >
-                <ChevronRight className="h-6 w-6 text-gray-500" />
+                {language === "ar" ? <ChevronLeft className="h-6 w-6 text-gray-500" /> : <ChevronRight className="h-6 w-6 text-gray-500" />}
               </button>
             </div>
             <div className="flex justify-center mt-4">
