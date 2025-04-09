@@ -186,27 +186,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       if (isCartLoaded.current) return;
       isCartLoaded.current = true;
 
-      const localCart = loadCartFromStorage();
-
       try {
         const response = await CartService.GetCartItems(axiosInstanceWithoutLoader);
         initializeCartItems(response);
-
-        // Then sync local items to API if they exist
-        if (localCart.cartItems.length > 0) {
-          await syncLocalItemsWithApi(localCart.cartItems);
-
-          // Refresh cart after syncing
-          const updatedResponse = await CartService.GetCartItems(axiosInstanceWithoutLoader);
-          initializeCartItems(updatedResponse);
-        }
       } catch (error) {
         console.error(error);
-        // If API fails, at least load local items
-        if (localCart.cartItems.length > 0) {
-          clearCart();
-          localCart.cartItems.forEach(item => addToCart(item, true));
-        }
       }
 
       // if (typeof window !== "undefined") {
@@ -219,31 +203,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function syncLocalItemsWithApi(localItems: CartItem[]) {
-    for (const item of localItems) {
-      try {
-        const response = await CartService.AddCartItem(
-          +item.id,
-          item.quantity,
-          axiosInstanceWithoutLoader
-        );
-
-        // Update cart credentials after each addition
-        if (response.cartToken && response.nonce) {
-          updateCartCredentials(response.cartToken, response.nonce);
-        }
-
-      } catch (error) {
-        console.error('Error syncing item to API:', error);
-      }
-    }
-  }
-
   function initializeCartItems(cartResult: any) {
-    if (!cartResult?.data?.items) return;
 
     updateCartCredentials(cartResult.cartToken, cartResult.nonce);
-    const localStorageCart = loadCartFromStorage();
     clearCart();
 
     cartResult.data.items.map((x: any) => {

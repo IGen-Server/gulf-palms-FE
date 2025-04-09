@@ -100,6 +100,9 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedVariant]);
 
+  console.log(isAuthenticated);
+
+
   // Add these functions to handle navigation
   const handlePrevClick = () => {
     setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : prev));
