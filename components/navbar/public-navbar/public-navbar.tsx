@@ -53,10 +53,9 @@ export default function PublicNavbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isHomePage, setIsHomePage] = useState(false);
-  const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
 
   const cartRef = useRef<HTMLDivElement>(null);
-  const { cartItems, subtotal } = useCart();
+  const { cartItems, subtotal, isItemAdded, setIsItemAdded } = useCart();
 
   const sheetCloseRef = useRef<HTMLButtonElement>(null);
 
@@ -109,14 +108,6 @@ export default function PublicNavbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
-
-  useEffect(() => {
-    const currentTotalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
-    if (currentTotalQuantity > 0) {
-      setIsCartDrawerOpen(true);
-    }
-  }, [cartItems]);
 
   const myDashboard: MenuItem[] =
     (t("my_account", {
@@ -262,8 +253,8 @@ export default function PublicNavbar() {
           <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary ">
             <SideDrawerForCart
               title="Cart"
-              open={isCartDrawerOpen}
-              onOpenChange={setIsCartDrawerOpen}
+              open={isItemAdded}
+              onOpenChange={setIsItemAdded}
               triggerComponent={
                 <Button
                   variant="ghost"

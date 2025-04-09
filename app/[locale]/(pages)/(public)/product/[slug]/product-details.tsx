@@ -46,20 +46,21 @@ import {
 import { notFound } from "next/navigation";
 import { CartService } from "@/services/api/cart.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
+import { useUserDataProvider } from "@/providers/UserDataProvider";
 
 interface ProductDetailsProps {
   loading?: boolean;
   product: any;
   slugToCategoryRecord: Record<number, ProductCategoryModel>;
   relatedProducts: any[];
+  isAuthenticated?: boolean;
 }
 
-export default function ProductDetails({ loading, product, slugToCategoryRecord, relatedProducts }: ProductDetailsProps) {
-
+export default function ProductDetails({ loading, product, slugToCategoryRecord, relatedProducts, isAuthenticated }: ProductDetailsProps) {
   const { t, i18n: { language } } = useTranslation("common");
   const [selectedImage, setSelectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const { initializeCartItems } = useCart();
+  const { initializeCartItems, addToCart } = useCart();
   // Add this state for tracking visible images
   const [hoveredProduct, setHoveredProduct] = useState<any | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -69,6 +70,8 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
     wishlist: false,
   });
   const [selectedVariant, setSelectedVariant] = useState("");
+
+  const variationsData = product?.variationsData.filter((variation: any) => variation.name);
 
   const variationData = product?.variationsData?.find((variation: any) => variation.id === selectedVariant);
 
@@ -97,6 +100,9 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedVariant]);
 
+  console.log(isAuthenticated);
+
+
   // Add these functions to handle navigation
   const handlePrevClick = () => {
     setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : prev));
@@ -121,8 +127,8 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
       setQuantity(prevQuantity => prevQuantity - 1);
     }
   };
-  
-  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false,false);
+
+  const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
   const [isAddingCartItem, setIsAddingCartItem] = useState(false);
   const handleAddToCart = async (productData: any) => {
 
@@ -130,15 +136,20 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
     // console.log(+selectedVariant);
     // console.log(productData.quantity);
     // console.log(productData.price);
-    
+
     // await addToCart({
+
+    if (!isAuthenticated) {
+      addToCart({ ...product, image: productData.images?.[0]?.src, id: productData.id, quantity, price: Number(productData.price / 1000 || 0) });
+      return;
+    }
 
     try {
       setIsAddingCartItem(true);
-      const response = await CartService.AddCartItem(+selectedVariant === 0 ? productData.id : +selectedVariant, quantity, axiosInstanceWithoutLoader);
+      const response = await CartService.AddCartItem(productData.id, quantity, axiosInstanceWithoutLoader);
       console.log(response);
       initializeCartItems(response);
-      
+
       setIsAddingCartItem(false);
     } catch (error) {
       console.error('Error adding cart item:', error);
@@ -442,7 +453,7 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
                     <SelectValue placeholder={t("Choose_an_option")} />
                   </SelectTrigger>
                   <SelectContent>
-                    {product?.variationsData.map((variation: any) => (
+                    {variationsData.map((variation: any) => (
                       <SelectItem key={variation.id} value={variation.id}>
                         {variation.name}&nbsp;
                       </SelectItem>
@@ -504,7 +515,12 @@ export default function ProductDetails({ loading, product, slugToCategoryRecord,
             <Button
               className="bg-primary px-3 hover:bg-[#fda757] text-white font-semibold"
               onClick={() => {
-                let cartProduct = { ...product, quantity: quantity || 1 };
+                let cartProduct = { ...product, id: selectedVariant ? +selectedVariant : product.id, quantity: quantity || 1 };
+
+                if (variationsData.length > 0 && !selectedVariant) {
+                  alert("Please select some product options before adding this product to your cart.");
+                  return;
+                }
                 handleAddToCart(cartProduct);
               }}
             >

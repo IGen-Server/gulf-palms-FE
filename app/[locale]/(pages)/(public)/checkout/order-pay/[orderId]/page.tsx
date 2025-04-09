@@ -23,7 +23,7 @@ export default function CheckoutPage() {
     const [termsAccepted, setTermsAccepted] = useState(false);
     const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
     const [order, setOrder] = useState<any>();
-    const { i18n: { language } } = useTranslation();
+    const { t, i18n: { language } } = useTranslation();
 
     useEffect(() => {
         const getOrder = async () => {
@@ -80,7 +80,7 @@ export default function CheckoutPage() {
             <div className="flex items-center justify-center mb-8 text-sm">
                 <span className="font-semibold text-[1.375rem] text-[#242424]">SHOPPING CART</span>
                 <span className="mx-2">→</span>
-                <span className="font-semibold text-[1.375rem] border-b-[2px] border-b-primary">CHECKOUT</span>
+                <span className="font-semibold text-[1.375rem] border-b-[2px] border-b-primary uppercase">${t("cart.checkout")}</span>
                 <span className="mx-2">→</span>
                 <span className="font-semibold text-[22px] text-[#242424]">ORDER COMPLETE</span>
             </div>

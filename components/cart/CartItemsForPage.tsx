@@ -5,13 +5,15 @@ import { CartService } from "@/services/api/cart.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { useRef, useState } from "react";
 import debounce from 'lodash/debounce';
+import { useUserDataProvider } from "@/providers/UserDataProvider";
 
-export function CartItemsForPage({ item }:{item:any}) {
+export function CartItemsForPage({ item }: { item: any }) {
   const { updateQuantity, removeFromCart, updateCartCredentials } = useCart()
 
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
   const [isCartItemUpdating, setIsCartItemUpdating] = useState<boolean>(false);
-  
+  const { isAuthenticated } = useUserDataProvider();
+
   const useDebouncedUpdateCartItemQuantity = () => {
     const debouncedFn = useRef(
       debounce(async (cartKey: string, itemId: number, quantity: number, updateQuantityFn: any, setLoadingFn: any) => {
@@ -29,13 +31,18 @@ export function CartItemsForPage({ item }:{item:any}) {
         }
       }, 500) // 500ms debounce time
     ).current;
-  
+
     return debouncedFn;
   };
-  
+
   const debouncedUpdate = useDebouncedUpdateCartItemQuantity();
   const handleQuantityChange = (cartKey: string, itemId: number, newQuantity: number) => {
     if (newQuantity < 1) {
+      return;
+    }
+
+    if (!isAuthenticated) {
+      updateQuantity(itemId, Math.max(1, newQuantity));
       return;
     }
 
@@ -44,6 +51,11 @@ export function CartItemsForPage({ item }:{item:any}) {
   };
 
   const handleCartItemRemove = async (cartKey: string, itemId: number) => {
+    if (!isAuthenticated) {
+      removeFromCart(itemId);
+      return;
+    }
+
     try {
       const response = await CartService.DeleteCartItem(itemId);
       updateCartCredentials(response.cartToken, response.nonce);
@@ -63,7 +75,7 @@ export function CartItemsForPage({ item }:{item:any}) {
       {/* Product */}
       <div className="col-span-5 flex gap-4 items-center pl-8">
         <div className="w-[70px] h-[70px] relative">
-          <Image src={item.image?.src || item?.image ||  "/placeholder.svg"} alt={item.name} fill className="object-cover rounded" />
+          <Image src={item.image?.src || item?.image || "/placeholder.svg"} alt={item.name} fill className="object-cover rounded" />
         </div>
         <span className="font-medium">{item.name}</span>
       </div>

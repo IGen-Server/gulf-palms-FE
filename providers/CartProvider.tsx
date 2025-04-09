@@ -4,7 +4,7 @@ import { CART_NONCE_KEY, CART_TOKEN_KEY } from "@/constants/global-constants";
 import { CartService } from "@/services/api/cart.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { CookieStorageService } from "@/services/utility/storage.service";
-import React, { createContext, useContext, useReducer, ReactNode, useEffect, useRef } from "react";
+import React, { createContext, useContext, useReducer, ReactNode, useEffect, useRef, useState } from "react";
 
 // Define the structure of a cart item
 interface CartItem {
@@ -15,6 +15,7 @@ interface CartItem {
   image?: string;
   variationId?: number;
   cartKey?: string;
+  bundleId?: number;
 }
 
 // Define the structure of the cart state
@@ -26,8 +27,10 @@ interface CartState {
 // Define possible actions
 type CartAction =
   | { type: "ADD_TO_CART"; payload: CartItem }
+  | { type: "ADD_RELATED_PRODUCTS"; payload: { relatedProducts: CartItem[] } }
+  | { type: "REMOVE_RELATED_PRODUCTS"; payload: { relatedProducts: CartItem[] } }
   | { type: "REMOVE_FROM_CART"; payload: number | string }
-  | { type: "UPDATE_QUANTITY"; payload: { id: number | string; quantity: number } }
+  | { type: "UPDATE_QUANTITY"; payload: { id: number | string; quantity: number; bundleId: number | string; } }
   | { type: "CLEAR_CART" };
 
 // Load initial state from local storage
@@ -37,38 +40,114 @@ const loadCartFromStorage = (): CartState => {
     return storedCart ? JSON.parse(storedCart) : { cartItems: [], shippingCost: 2.0 };
   }
   return { cartItems: [], shippingCost: 2.0 };
+}
+const saveCartToStorage = (state: CartState) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("cart", JSON.stringify(state));
+  }
 };
 
 // Reducer function
 const cartReducer = (state: CartState, action: CartAction): CartState => {
+  let newState: CartState;
+
   switch (action.type) {
     case "ADD_TO_CART": {
-      const existingItem = state.cartItems.find((item) => item.id === action.payload.id);
-      const updatedCartItems = existingItem
-        ? state.cartItems.map((item) =>
-          item.id === action.payload.id ? { ...item, quantity: item.quantity + action.payload.quantity } : item
-        )
-        : [...state.cartItems, action.payload];
-      return { ...state, cartItems: updatedCartItems };
+      if (action.payload.bundleId) {
+        const existingBundleItem = state.cartItems.find(
+          item => item.bundleId === action.payload.bundleId && item.id === action.payload.id
+        );
+
+        if (existingBundleItem) {
+          newState = {
+            ...state,
+            cartItems: state.cartItems.map(item =>
+              item.bundleId === action.payload.bundleId && item.id === action.payload.id
+                ? { ...item, quantity: item.quantity + action.payload.quantity }
+                : item
+            )
+          };
+        } else {
+          newState = {
+            ...state,
+            cartItems: [...state.cartItems, action.payload]
+          };
+        }
+      } else {
+        const existingItem = state.cartItems.find(
+          item => item.id === action.payload.id && !item.bundleId
+        );
+
+        if (existingItem) {
+          newState = {
+            ...state,
+            cartItems: state.cartItems.map(item =>
+              item.id === action.payload.id && !item.bundleId
+                ? { ...item, quantity: item.quantity + action.payload.quantity }
+                : item
+            )
+          };
+        } else {
+          newState = {
+            ...state,
+            cartItems: [...state.cartItems, action.payload]
+          };
+        }
+      }
+      break;
     }
 
-    case "REMOVE_FROM_CART":
-      return { ...state, cartItems: state.cartItems.filter((item) => item.id !== action.payload) };
+    case "REMOVE_FROM_CART": {
+      const itemToRemove = state.cartItems.find(item => item.id === action.payload);
+      if (itemToRemove?.bundleId) {
+        newState = {
+          ...state,
+          cartItems: state.cartItems.filter(item => item.bundleId !== itemToRemove.bundleId)
+        };
+      } else {
+        newState = {
+          ...state,
+          cartItems: state.cartItems.filter(item => item.id !== action.payload)
+        };
+      }
+      break;
+    }
 
-    case "UPDATE_QUANTITY":
-      return {
-        ...state,
-        cartItems: state.cartItems.map((item) =>
-          item.id === action.payload.id ? { ...item, quantity: action.payload.quantity } : item
-        ),
-      };
+    case "UPDATE_QUANTITY": {
+      if (action.payload.bundleId) {
+        newState = {
+          ...state,
+          cartItems: state.cartItems.map((item) =>
+            item.bundleId === action.payload.bundleId
+              ? { ...item, quantity: action.payload.quantity }
+              : item
+          ),
+        };
+      } else {
+        newState = {
+          ...state,
+          cartItems: state.cartItems.map((item) =>
+            item.id === action.payload.id && !item.bundleId
+              ? { ...item, quantity: action.payload.quantity }
+              : item
+          ),
+        };
+      }
+      break;
+    }
 
     case "CLEAR_CART":
-      return { ...state, cartItems: [] };
+      newState = { ...state, cartItems: [] };
+      break;
 
     default:
-      return state;
+      newState = state;
+      break;
   }
+
+  // Save to localStorage after each state change
+  saveCartToStorage(newState);
+  return newState;
 };
 
 // Define context type
@@ -76,13 +155,15 @@ interface CartContextType {
   cartItems: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: number | string) => void;
-  updateQuantity: (id: number | string, quantity: number) => void;
+  updateQuantity: (id: number | string, quantity: number, bundleId?: number | string) => void;
   clearCart: () => void;
   initializeCartItems: (cartResult: any) => void;
   updateCartCredentials: (cartToken: string, nonce: string) => void;
   subtotal: number;
   total: number;
   shippingCost: number;
+  isItemAdded: boolean; // Add this
+  setIsItemAdded: (value: boolean) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -95,14 +176,15 @@ interface CartProviderProps {
 // Provider component
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, [], loadCartFromStorage);
+  const [isItemAdded, setIsItemAdded] = useState(false);
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
   const isCartLoaded = useRef(false);
-  
+
   // Sync cart state with local storage whenever it changes
   useEffect(() => {
     const fetchData = async () => {
       if (isCartLoaded.current) return;
-        isCartLoaded.current = true;
+      isCartLoaded.current = true;
 
       try {
         const response = await CartService.GetCartItems(axiosInstanceWithoutLoader);
@@ -110,22 +192,22 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       } catch (error) {
         console.error(error);
       }
-  
+
       // if (typeof window !== "undefined") {
       //   localStorage.setItem("cart", JSON.stringify(state));
       // }
     };
-  
+
     fetchData();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function initializeCartItems(cartResult: any) {
 
     updateCartCredentials(cartResult.cartToken, cartResult.nonce);
     clearCart();
-  
+
     cartResult.data.items.map((x: any) => {
       const item: CartItem = {
         id: x.id,
@@ -136,8 +218,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         variationId: x.id,
         cartKey: x.key,
       };
-  
-      addToCart(item);
+
+      addToCart(item, true);
     });
   }
 
@@ -151,9 +233,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
 
   // Action handlers
-  const addToCart = (item: CartItem) => dispatch({ type: "ADD_TO_CART", payload: item });
+  const addToCart = (item: CartItem, isInitial: boolean = false) => {
+    dispatch({ type: "ADD_TO_CART", payload: item });
+    !isInitial && setIsItemAdded(true);
+  };
   const removeFromCart = (id: number | string) => dispatch({ type: "REMOVE_FROM_CART", payload: id });
-  const updateQuantity = (id: number | string, quantity: number) => dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } });
+  const updateQuantity = (id: number | string, quantity: number, bundleId?: number | string) => dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity, bundleId: bundleId || "" } });
   const clearCart = () => dispatch({ type: "CLEAR_CART" });
 
   // Compute total prices
@@ -173,6 +258,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         subtotal,
         total,
         shippingCost: state.shippingCost,
+        isItemAdded,
+        setIsItemAdded
       }}
     >
       {children}

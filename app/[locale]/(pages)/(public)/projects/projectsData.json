@@ -1,6 +1,8 @@
 [
   {
-    "slug": ["khaldiya-project"],
+    "slug": [
+      "khaldiya-project"
+    ],
     "image": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-8.jpeg",
     "sideImage": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.17.11-PM-1.jpeg",
     "sideVideo": "",
@@ -42,7 +44,9 @@
     }
   },
   {
-    "slug": ["jade-restaurant"],
+    "slug": [
+      "jade-restaurant"
+    ],
     "image": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM.jpeg",
     "sideImage": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-18-at-4.34.09-PM-2.jpeg",
     "sideVideo": "",
@@ -84,7 +88,9 @@
     }
   },
   {
-    "slug": ["finatees"],
+    "slug": [
+      "finatees"
+    ],
     "image": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/5.jpg",
     "link": "/projects/finatees/",
     "sideImage": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/5.jpg",
@@ -125,7 +131,9 @@
     }
   },
   {
-    "slug": ["khiran-garden"],
+    "slug": [
+      "khiran-garden"
+    ],
     "image": "https://clone.gulfpalms.com/wp-content/uploads/2023/12/9F5A9961-scaled.jpg",
     "link": "/projects/khiran-garden/",
     "sideImage": "https://clone.gulfpalms.com/wp-content/uploads/2023/12/9F5A9949-scaled.jpg",
@@ -164,7 +172,9 @@
     }
   },
   {
-    "slug": ["pick-kaifan"],
+    "slug": [
+      "pick-kaifan"
+    ],
     "image": "https://clone.gulfpalms.com/wp-content/uploads/2023/12/DSC08629-1536x1024.jpg",
     "link": "/projects/pick-kaifan/",
     "sideImage": "https://clone.gulfpalms.com/wp-content/uploads/2023/12/DSC08638-scaled.jpg",
@@ -199,7 +209,9 @@
     }
   },
   {
-    "slug": ["zahra-garden-2"],
+    "slug": [
+      "zahra-garden-2"
+    ],
     "image": "https://clone.gulfpalms.com/wp-content/uploads/2023/12/9F5A9891-1536x1071.jpg",
     "link": "/projects/zahra-garden-2/",
     "sideImage": "https://clone.gulfpalms.com/wp-content/uploads/2023/12/9F5A9932-1-scaled.jpg",
@@ -234,7 +246,9 @@
     }
   },
   {
-    "slug": ["zahra"],
+    "slug": [
+      "zahra"
+    ],
     "image": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/Screenshot_408.png",
     "link": "/projects/zahra/",
     "sideImage": "",
@@ -262,7 +276,9 @@
     }
   },
   {
-    "slug": ["pick-murouj"],
+    "slug": [
+      "pick-murouj"
+    ],
     "image": "https://clone.gulfpalms.com/wp-content/uploads/2024/01/9F5A0050-1-1536x1536.png",
     "link": "/projects/pick-murouj/",
     "sideImage": "https://clone.gulfpalms.com/wp-content/uploads/2024/01/9F5A0050-1.png",
@@ -303,7 +319,9 @@
     }
   },
   {
-    "slug": ["kaifan"],
+    "slug": [
+      "kaifan"
+    ],
     "image": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/DSC07732.jpg",
     "link": "/projects/kaifan/",
     "sideImage": "https://clone.gulfpalms.com/wp-content/uploads/2023/10/DSC07732.jpg",

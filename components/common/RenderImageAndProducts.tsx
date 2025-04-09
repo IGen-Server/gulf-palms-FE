@@ -37,6 +37,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { ProductService } from "@/services/api/product.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { CartService } from "@/services/api/cart.service";
+import { useUserDataProvider } from "@/providers/UserDataProvider";
 
 interface HoverProduct {
   position: { x: number; y: number };
@@ -96,11 +97,12 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { t, i18n: { language } } = useTranslation("common");
-  const { initializeCartItems } = useCart();
+  const { initializeCartItems, addToCart } = useCart();
   const [selectedVariant, setSelectedVariant] = useState<string>("");
   const [variationsData, setVariationsData] = useState<any[]>([]);
   const [variantsLoading, setVariantsLoading] = useState(false);
   const axiosInstanceWithoutLoader = CreateAxiosInstanceWithLoader(false, false);
+  const { isAuthenticated } = useUserDataProvider();
 
   useEffect(() => {
     const getVariations = async () => {
@@ -112,7 +114,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           axiosInstanceWithoutLoader
         );
 
-        setVariationsData(response);
+        setVariationsData(response.filter((variation: any) => variation !== null) || []);
 
         setVariantsLoading(false);
       } catch (error) {
@@ -124,14 +126,24 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   const [isAddingCartItem, setIsAddingCartItem] = useState(false);
   const handleAddToCart = async () => {
-    if (!selectedVariant) {
+    if (variationsData.length > 0 && !selectedVariant) {
       alert("Please select some product options before adding this product to your cart.");
       return;
     }
     setLoading(true); // Set loading to true
+
+    if (!isAuthenticated) {
+      addToCart({
+        id: selectedVariant ? +selectedVariant : productId,
+        name: name as string,
+        price: Number(price),
+        quantity: quantity || 1,
+        image: images?.[0]?.src || imageFileOrUrl
+      });
+      return;
+    }
     try {
       // await addToCart({
       //   id: productId,
@@ -143,7 +155,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
       // });
 
       setIsAddingCartItem(true);
-      const response = await CartService.AddCartItem(+selectedVariant === 0 ? +productId : +selectedVariant, 1, axiosInstanceWithoutLoader);
+      const response = await CartService.AddCartItem(selectedVariant ? +selectedVariant : +productId, 1, axiosInstanceWithoutLoader);
       console.log(response);
       initializeCartItems(response);
       setIsAddingCartItem(false);
