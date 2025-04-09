@@ -64,6 +64,7 @@ export default function CheckoutPage() {
   const { user } = useUserDataProvider();
   const { i18n: { language } } = useTranslation();
 
+  console.log(user)
   const form = useForm<BillingFormValues>({
     // resolver: zodResolver(billingFormSchema),
     defaultValues: {

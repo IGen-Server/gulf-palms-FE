@@ -219,7 +219,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         cartKey: x.key,
       };
 
-      addToCart(item, true);
+      addToCart(item);
     });
   }
 
