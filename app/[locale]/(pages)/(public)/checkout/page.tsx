@@ -99,7 +99,7 @@ export default function CheckoutPage() {
         return ({ id: +item.id, quantity: item.quantity, variation_id: item.variationId || 0 })
       }),
       email: user?.email || "",
-      customerName: `${user?.first_name} ${user?.last_name} || "`,
+      customerName: user?.first_name || "",
       mobileNumber: values.phone,
       lang: language as "en" | "ar",
       billing: {
