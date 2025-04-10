@@ -62,7 +62,7 @@ export default function CheckoutPage() {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader();
   const { user } = useUserDataProvider();
-  const { i18n: { language } } = useTranslation();
+  const { t, i18n: { language } } = useTranslation("common");
 
   console.log(user)
   const form = useForm<BillingFormValues>({
