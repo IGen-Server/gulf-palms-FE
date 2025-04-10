@@ -49,7 +49,7 @@ const ServiceCards = () => {
                     bgColor: "bg-primary",
                     bgHoverColor: "hover:bg-[#e59b62]",
                     borderRadius: "rounded-none",
-                    href: "/contact",
+                    href: "tel:+96560660387",
                   },
                   {
                     text: language === "en" ? "READ MORE" : "اقرأ أكثر",

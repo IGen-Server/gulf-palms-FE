@@ -48,6 +48,7 @@ export default function PublicNavbar() {
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
   const pathname = usePathname();
+  const router = useRouter();
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
@@ -177,23 +178,37 @@ export default function PublicNavbar() {
             </div>
 
             <div className="flex lg:hidden items-center gap-4">
-              <SideDrawer
-                title="Cart"
-                triggerComponent={
-                  <Button
-                    variant="ghost"
-                    className="hover:bg-transparent w-fit p-0 flex items-center text-white"
-                  >
-                    <div ref={cartRef} className="relative cursor-pointer">
-                      <ShoppingCart className="w-5 h-5" />
-                      <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 w-4 grid place-content-center">
-                        {cartItems.length || 0}
-                      </p>
-                    </div>
-                  </Button>
-                }
-                bodyComponent={<CartDrawer />}
-              />
+              {pathname.endsWith("/cart") ? (
+                <Button
+                  variant="ghost"
+                  className="hover:bg-transparent w-fit p-0 flex items-center text-white"
+                >
+                  <div ref={cartRef} className="relative cursor-pointer">
+                    <ShoppingCart className="w-5 h-5" />
+                    <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 w-4 grid place-content-center">
+                      {cartItems.length || 0}
+                    </p>
+                  </div>
+                </Button>
+              ) : (
+                <SideDrawer
+                  title="Cart"
+                  triggerComponent={
+                    <Button
+                      variant="ghost"
+                      className="hover:bg-transparent w-fit p-0 flex items-center text-white"
+                    >
+                      <div ref={cartRef} className="relative cursor-pointer">
+                        <ShoppingCart className="w-5 h-5" />
+                        <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 w-4 grid place-content-center">
+                          {cartItems.length || 0}
+                        </p>
+                      </div>
+                    </Button>
+                  }
+                  bodyComponent={<CartDrawer />}
+                />
+              )}
 
               <LocaleToggler />
             </div>
@@ -251,25 +266,39 @@ export default function PublicNavbar() {
           {/* {pathname.includes('my-account') || <AuthSheet />} */}
 
           <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary ">
-            <SideDrawerForCart
-              title="Cart"
-              open={isItemAdded}
-              onOpenChange={setIsItemAdded}
-              triggerComponent={
-                <Button
-                  variant="ghost"
-                  className="hover:bg-transparent w-fit p-0 flex items-center text-white hover:text-white/70"
-                >
-                  <div className="relative cursor-pointer">
-                    <ShoppingCart className="w-5 h-5" />
-                    <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 w-4 grid place-content-center">
-                      {cartItems.length || 0}
-                    </p>
-                  </div>
-                </Button>
-              }
-              bodyComponent={<CartDrawer />}
-            />
+            {pathname.endsWith("/cart") ? (
+              <Button
+                variant="ghost"
+                className="hover:bg-transparent w-fit p-0 flex items-center text-white"
+                onClick={() => router.push("/cart")}
+              >
+                <div ref={cartRef} className="relative cursor-pointer">
+                  <ShoppingCart className="w-5 h-5" />
+                  <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 w-4 grid place-content-center">
+                    {cartItems.length || 0}
+                  </p>
+                </div>
+              </Button>
+            ) : (
+              <SideDrawer
+                title="Cart"
+                triggerComponent={
+                  <Button
+                    variant="ghost"
+                    className="hover:bg-transparent w-fit p-0 flex items-center text-white hover:text-white/70"
+
+                  >
+                    <div ref={cartRef} className="relative cursor-pointer">
+                      <ShoppingCart className="w-5 h-5" />
+                      <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 w-4 grid place-content-center">
+                        {cartItems.length || 0}
+                      </p>
+                    </div>
+                  </Button>
+                }
+                bodyComponent={<CartDrawer />}
+              />
+            )}
 
             <div className="hidden lg:block hover:text-white/70">
               <HeartIcon className="w-5 h-5" />
